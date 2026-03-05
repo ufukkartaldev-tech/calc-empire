@@ -5,6 +5,12 @@ import { routing } from '@/i18n/routing';
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 
+/**
+ * Locales that use right-to-left script.
+ * Extend this set if new RTL languages (e.g. Hebrew 'he', Farsi 'fa') are added.
+ */
+const RTL_LOCALES = new Set(['ar']);
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -37,8 +43,10 @@ export default async function LocaleLayout({
   // side is the easiest way to get started
   const messages = await getMessages();
 
+  const dir = RTL_LOCALES.has(locale) ? 'rtl' : 'ltr';
+
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={dir}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           {children}

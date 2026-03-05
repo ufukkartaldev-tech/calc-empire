@@ -169,7 +169,11 @@ body {
 
 .ce-calculator__actions {
   display: flex;
+  flex-wrap: wrap;
+  /* prevents overflow when locale has long button labels */
   gap: .75rem;
+  row-gap: .6rem;
+  /* tighter vertical gap when wrapped */
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -252,7 +256,8 @@ body {
 .ce-field__unit {
   flex-shrink: 0;
   border: none;
-  border-left: 1px solid var(--ce-border);
+  /* logical property → border flips to the right side in RTL automatically */
+  border-inline-start: 1px solid var(--ce-border);
   background: rgba(255, 255, 255, .04);
   color: var(--ce-accent);
   padding: 0 .75rem;
@@ -301,7 +306,11 @@ body {
   font-size: .9rem;
   font-weight: 600;
   cursor: pointer;
-  padding: .65rem 1.5rem;
+  /* horizontal padding generous enough for long translations (de, fi, tr…) */
+  padding: .65rem 1.25rem;
+  /* never let the text clip — button grows to fit its label */
+  min-width: fit-content;
+  white-space: nowrap;
   transition:
     background var(--ce-transition),
     box-shadow var(--ce-transition),
@@ -316,7 +325,9 @@ body {
 /* Primary */
 
 .ce-btn--primary {
-  flex: 1;
+  /* flex: 1 1 auto → grows to fill row, but min-width:fit-content from .ce-btn
+     ensures it never shrinks below its text width */
+  flex: 1 1 auto;
   background: var(--ce-accent);
   color: #fff;
 }
