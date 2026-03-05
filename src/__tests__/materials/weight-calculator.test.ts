@@ -1,39 +1,7 @@
-/**
- * @file materials.test.ts
- * @description TDD contract tests for src/lib/formulas/materials.ts
- *
- * Covered:
- *   - Weight Calculator (material + shape → mass in kg)
- *   - Hardness Converter (Rockwell C ↔ Brinell ↔ Vickers)
- *   - Stress / Strain / Young's Modulus
- */
-
 import { describe, it, expect } from 'vitest';
-import {
-    calculateWeight,
-    convertHardness,
-    stressStrain,
-} from '../../lib/formulas/materials';
-
-// ─────────────────────────────────────────────────────────────────────────────
-
-// Weight Calculator
-//   mass = density × volume
-
-// ─────────────────────────────────────────────────────────────────────────────
-
+import { calculateWeight } from '../../lib/formulas/materials';
 
 describe('Weight Calculator', () => {
-    /**
-     * Built-in densities (kg/m³):
-     *   steel         7850
-     *   aluminium     2700
-     *   copper        8960
-     *   gold         19300
-     *   titanium      4506
-     *   abs_plastic   1050
-     */
-
     describe('Plate  (length × width × thickness)', () => {
         it('steel plate 1m × 1m × 0.01m → 78.5 kg', () => {
             const result = calculateWeight({
@@ -61,7 +29,6 @@ describe('Weight Calculator', () => {
 
     describe('Round Bar  (diameter × length)', () => {
         it('steel round bar Ø20mm × 1m → ~2.47 kg', () => {
-            // V = π × (0.01)² × 1 ≈ 3.1416×10⁻⁴ m³; m = 7850 × V ≈ 2.466 kg
             const result = calculateWeight({
                 material: 'steel',
                 shape: 'round-bar',
@@ -72,14 +39,13 @@ describe('Weight Calculator', () => {
     });
 
     describe('Hollow Pipe  (outerDia, innerDia, length)', () => {
-        it('steel pipe OD=60mm, ID=50mm, L=1m → ~3.69 kg', () => {
-            // V = π/4 × (0.06² - 0.05²) × 1 ≈ 4.712×10⁻⁴ m³
+        it('steel pipe OD=60mm, ID=50mm, L=1m → ~6.79 kg', () => {
             const result = calculateWeight({
                 material: 'steel',
                 shape: 'pipe',
                 dimensions: { outerDiameter: 0.06, innerDiameter: 0.05, length: 1 },
             });
-            expect(result.massKg).toBeCloseTo(3.699, 1);
+            expect(result.massKg).toBeCloseTo(6.786, 2);
         });
 
         it('throws when inner diameter >= outer diameter', () => {
@@ -108,7 +74,7 @@ describe('Weight Calculator', () => {
             expect(() =>
                 calculateWeight({
                     material: 'steel',
-                    // @ts-expect-error – intentional
+                    // @ts-expect-error
                     shape: 'sphere',
                     dimensions: { radius: 0.1 },
                 })
@@ -116,4 +82,3 @@ describe('Weight Calculator', () => {
         });
     });
 });
-

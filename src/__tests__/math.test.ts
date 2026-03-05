@@ -1,8 +1,0 @@
-import { describe, it, expect } from 'vitest'
-import { add } from '../lib/math'
-
-describe('Math utilities', () => {
-    it('should add two numbers correctly', () => {
-        expect(add(2, 3)).toBe(5)
-    })
-})
