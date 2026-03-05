@@ -1,1 +1,26 @@
-{}
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "Профессиональные инженерные калькуляторы — точно, быстро, многоязычно."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "Поля калькулятора",
+        "leaveBlankHint": "Оставьте пустым для вычисления",
+        "unitLabel": "единица",
+        "solveButton": "Вычислить",
+        "resetButton": "Сбросить",
+        "calculatedBadge": "Вычислено",
+        "errorAllFilled": "Оставьте ровно одно поле пустым для нахождения неизвестного.",
+        "errorTooManyUnknowns": "Заполните все поля, кроме одного."
+    },
+    "OhmCalculator": {
+        "title": "Закон Ома",
+        "description": "V = I × R — оставьте одно поле пустым и нажмите «Вычислить».",
+        "voltage": "Напряжение",
+        "voltagePlaceholder": "напр. 12",
+        "current": "Ток",
+        "currentPlaceholder": "напр. 0.5",
+        "resistance": "Сопротивление",
+        "resistancePlaceholder": "напр. 100"
+    }
+}

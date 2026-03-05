@@ -1,1 +1,26 @@
-{}
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "पेशेवर इंजीनियरिंग कैलकुलेटर — सटीक, तेज़, बहुभाषी।"
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "कैलकुलेटर इनपुट",
+        "leaveBlankHint": "हल करने के लिए खाली छोड़ें",
+        "unitLabel": "इकाई",
+        "solveButton": "हल करें",
+        "resetButton": "रीसेट करें",
+        "calculatedBadge": "परिकलित",
+        "errorAllFilled": "अज्ञात को हल करने के लिए बिल्कुल एक फ़ील्ड रिक्त छोड़ें।",
+        "errorTooManyUnknowns": "कृपया एक को छोड़कर सभी फ़ील्ड भरें।"
+    },
+    "OhmCalculator": {
+        "title": "ओम का नियम",
+        "description": "V = I × R — एक फ़ील्ड खाली छोड़ें और हल करें दबाएं।",
+        "voltage": "वोल्टेज",
+        "voltagePlaceholder": "जैसे 12",
+        "current": "करेंट",
+        "currentPlaceholder": "जैसे 0.5",
+        "resistance": "प्रतिरोध",
+        "resistancePlaceholder": "जैसे 100"
+    }
+}

@@ -1,1 +1,26 @@
-{}
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "プロフェッショナルなエンジニアリング計算機 — 精確、高速、多言語対応。"
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "計算機の入力",
+        "leaveBlankHint": "空白のままにして解く",
+        "unitLabel": "単位",
+        "solveButton": "計算する",
+        "resetButton": "リセット",
+        "calculatedBadge": "計算済み",
+        "errorAllFilled": "未知数を求めるために、ちょうど1つのフィールドを空白にしてください。",
+        "errorTooManyUnknowns": "1つを除いてすべてのフィールドに入力してください。"
+    },
+    "OhmCalculator": {
+        "title": "オームの法則",
+        "description": "V = I × R — 1つのフィールドを空白にして「計算する」を押してください。",
+        "voltage": "電圧",
+        "voltagePlaceholder": "例: 12",
+        "current": "電流",
+        "currentPlaceholder": "例: 0.5",
+        "resistance": "抵抗",
+        "resistancePlaceholder": "例: 100"
+    }
+}

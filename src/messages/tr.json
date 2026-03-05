@@ -1,6 +1,26 @@
 {
     "HomePage": {
-        "title": "CalcEmpire'a Hoş Geldiniz",
-        "description": "Küresel Mühendislik Araç Kutusu"
+        "title": "CalcEmpire",
+        "description": "Profesyonel mühendislik hesaplayıcıları — hassas, hızlı, çok dilli."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "Hesaplayıcı girdileri",
+        "leaveBlankHint": "Çözmek için boş bırakın",
+        "unitLabel": "birim",
+        "solveButton": "Hesapla",
+        "resetButton": "Sıfırla",
+        "calculatedBadge": "Hesaplandı",
+        "errorAllFilled": "Bilinmeyeni çözmek için tam olarak bir alanı boş bırakın.",
+        "errorTooManyUnknowns": "Lütfen bir alan haricinde tüm alanları doldurun."
+    },
+    "OhmCalculator": {
+        "title": "Ohm Kanunu",
+        "description": "V = I × R — bir alanı boş bırakıp Hesapla'ya basın.",
+        "voltage": "Gerilim",
+        "voltagePlaceholder": "örn. 12",
+        "current": "Akım",
+        "currentPlaceholder": "örn. 0.5",
+        "resistance": "Direnç",
+        "resistancePlaceholder": "örn. 100"
     }
 }

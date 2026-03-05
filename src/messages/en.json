@@ -1,6 +1,26 @@
 {
     "HomePage": {
-        "title": "Welcome to CalcEmpire",
-        "description": "Global Engineering Toolbox"
+        "title": "CalcEmpire",
+        "description": "Professional engineering calculators — precise, fast, multilingual."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "Calculator inputs",
+        "leaveBlankHint": "Leave blank to solve",
+        "unitLabel": "unit",
+        "solveButton": "Solve",
+        "resetButton": "Reset",
+        "calculatedBadge": "Calculated",
+        "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
+        "errorTooManyUnknowns": "Please fill in all but one field."
+    },
+    "OhmCalculator": {
+        "title": "Ohm's Law",
+        "description": "V = I × R — leave one field blank and press Solve.",
+        "voltage": "Voltage",
+        "voltagePlaceholder": "e.g. 12",
+        "current": "Current",
+        "currentPlaceholder": "e.g. 0.5",
+        "resistance": "Resistance",
+        "resistancePlaceholder": "e.g. 100"
     }
 }
