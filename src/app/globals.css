@@ -6,17 +6,17 @@
 
 :root {
   /* Palette */
-  --ce-bg:          #0d0f14;
-  --ce-surface:     #161a24;
-  --ce-surface-2:   #1e2333;
-  --ce-border:      #2a3047;
-  --ce-accent:      #4f8ef7;
+  --ce-bg: #0d0f14;
+  --ce-surface: #161a24;
+  --ce-surface-2: #1e2333;
+  --ce-border: #2a3047;
+  --ce-accent: #4f8ef7;
   --ce-accent-glow: rgba(79, 142, 247, 0.25);
-  --ce-success:     #34d399;
-  --ce-error:       #f87171;
-  --ce-text:        #e2e8f0;
-  --ce-text-muted:  #64748b;
-  --ce-badge:       #4f8ef7;
+  --ce-success: #34d399;
+  --ce-error: #f87171;
+  --ce-text: #e2e8f0;
+  --ce-text-muted: #64748b;
+  --ce-badge: #4f8ef7;
 
   /* Typography */
   --ce-font-sans: 'Inter', system-ui, sans-serif;
@@ -24,7 +24,7 @@
 
   /* Spacing */
   --ce-radius-sm: 6px;
-  --ce-radius:    10px;
+  --ce-radius: 10px;
   --ce-radius-lg: 16px;
 
   /* Transitions */
@@ -35,9 +35,15 @@
    Reset & Base
    ═══════════════════════════════════════════════════════════════ */
 
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -112,8 +118,8 @@ body {
 
   /* Subtle glow */
   box-shadow:
-    0 0 0 1px rgba(255,255,255,.04) inset,
-    0 24px 48px rgba(0,0,0,.45);
+    0 0 0 1px rgba(255, 255, 255, .04) inset,
+    0 24px 48px rgba(0, 0, 0, .45);
 }
 
 /* ── Header ── */
@@ -235,14 +241,19 @@ body {
 
 /* Remove number input arrows */
 .ce-field__input::-webkit-inner-spin-button,
-.ce-field__input::-webkit-outer-spin-button { -webkit-appearance: none; }
-.ce-field__input[type=number] { -moz-appearance: textfield; }
+.ce-field__input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.ce-field__input[type=number] {
+  -moz-appearance: textfield;
+}
 
 .ce-field__unit {
   flex-shrink: 0;
   border: none;
   border-left: 1px solid var(--ce-border);
-  background: rgba(255,255,255,.04);
+  background: rgba(255, 255, 255, .04);
   color: var(--ce-accent);
   padding: 0 .75rem;
   font-size: .85rem;
@@ -251,12 +262,15 @@ body {
   outline: none;
   appearance: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
   min-width: 58px;
   text-align: center;
   transition: background var(--ce-transition);
 }
 
-.ce-field__unit:hover { background: rgba(255,255,255,.08); }
+.ce-field__unit:hover {
+  background: rgba(255, 255, 255, .08);
+}
 
 /* Calculated badge */
 
@@ -295,7 +309,9 @@ body {
   user-select: none;
 }
 
-.ce-btn:active { transform: translateY(1px); }
+.ce-btn:active {
+  transform: translateY(1px);
+}
 
 /* Primary */
 
@@ -319,6 +335,6 @@ body {
 }
 
 .ce-btn--ghost:hover {
-  background: rgba(255,255,255,.06);
+  background: rgba(255, 255, 255, .06);
   color: var(--ce-text);
 }
