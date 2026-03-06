@@ -1,0 +1,76 @@
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "Kalkulator teknik profesional — presisi, cepat, dan multibahasa."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "Input kalkulator",
+        "leaveBlankHint": "Biarkan kosong untuk menghitung",
+        "unitLabel": "unit",
+        "solveButton": "Hitung",
+        "resetButton": "Reset",
+        "calculatedBadge": "Dihitung",
+        "errorAllFilled": "Biarkan satu kotak kosong untuk mulai menghitung.",
+        "errorTooManyUnknowns": "Harap isi semua kotak kecuali satu."
+    },
+    "OhmCalculator": {
+        "title": "Hukum Ohm",
+        "description": "V = I × R",
+        "voltage": "Tegangan",
+        "voltagePlaceholder": "mis. 12",
+        "current": "Arus",
+        "currentPlaceholder": "mis. 0.5",
+        "resistance": "Hambatan",
+        "resistancePlaceholder": "mis. 100"
+    },
+    "Categories": {
+        "electrical": "Teknik Elektro",
+        "mechanical": "Teknik Mesin",
+        "statistics": "Statistika & Matematika",
+        "toolReference": "Alat Referensi"
+    },
+    "Dashboard": {
+        "title": "Alat Perhitungan",
+        "subtitle": "Pilih kalkulator yang Anda butuhkan dan mulai menghitung.",
+        "backButton": "Kembali",
+        "ohmTitle": "Kalkulator Hukum Ohm",
+        "ohmDesc": "V = I × R perhitungan standar.",
+        "resistorTitle": "Kode Warna Resistor",
+        "resistorDesc": "Pembaca kode warna gelang 4, 5, dan 6.",
+        "beamTitle": "Analisis Defleksi Balok",
+        "beamDesc": "Perhitungan jarak defleksi untuk berbagai tipe balok.",
+        "normalTitle": "Diagram Distribusi Normal",
+        "normalDesc": "Visualisasi deviasi standar & rata-rata."
+    },
+    "ResistorVisualizer": {
+        "title": "Kode Warna Resistor",
+        "bandCount": "Jumlah Gelang",
+        "bandLabel": "Gelang",
+        "result": "Hasil",
+        "invalid": "Kombinasi warna tidak valid."
+    },
+    "BeamVisualizer": {
+        "title": "Analisis Defleksi Balok",
+        "cantilever": "Balok Kantilever",
+        "simplySupported": "Balok Sederhana",
+        "length": "Panjang (L)",
+        "load": "Beban (W)",
+        "elasticModulus": "Modulus Elastisitas (E)",
+        "momentOfInertia": "Momen Inersia (I)",
+        "maxDeflection": "Defleksi Maksimal",
+        "formula": "Rumus",
+        "status": "Status Keamanan",
+        "safe": "Aman",
+        "check": "Cek Ulang Desain"
+    },
+    "NormalDistribution": {
+        "title": "Kurva Distribusi Normal",
+        "mean": "Rata-rata (μ)",
+        "stdDev": "Standar Deviasi (σ)",
+        "values": "Nilai (x)",
+        "stats": "Statistik Distribusi",
+        "peak": "Puncak (Max)",
+        "range": "Rentang",
+        "empirical": "Aturan Empiris (68-95-99.7)"
+    }
+}

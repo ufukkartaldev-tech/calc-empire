@@ -1,26 +1,76 @@
 {
     "HomePage": {
         "title": "CalcEmpire",
-        "description": "Профессиональные инженерные калькуляторы — точно, быстро, многоязычно."
+        "description": "Профессиональные инженерные калькуляторы — точные, быстрые, многоязычные."
     },
     "CalculatorTemplate": {
-        "fieldsLabel": "Поля калькулятора",
-        "leaveBlankHint": "Оставьте пустым для вычисления",
-        "unitLabel": "единица",
-        "solveButton": "Вычислить",
-        "resetButton": "Сбросить",
-        "calculatedBadge": "Вычислено",
-        "errorAllFilled": "Оставьте ровно одно поле пустым для нахождения неизвестного.",
-        "errorTooManyUnknowns": "Заполните все поля, кроме одного."
+        "fieldsLabel": "Ввод данных",
+        "leaveBlankHint": "Оставьте пустым для расчета",
+        "unitLabel": "ед. изм.",
+        "solveButton": "Рассчитать",
+        "resetButton": "Сброс",
+        "calculatedBadge": "Рассчитано",
+        "errorAllFilled": "Оставьте ровно одно поле пустым для расчета.",
+        "errorTooManyUnknowns": "Пожалуйста, заполните все поля, кроме одного."
     },
     "OhmCalculator": {
         "title": "Закон Ома",
-        "description": "V = I × R — оставьте одно поле пустым и нажмите «Вычислить».",
+        "description": "V = I × R",
         "voltage": "Напряжение",
         "voltagePlaceholder": "напр. 12",
-        "current": "Ток",
+        "current": "Сила тока",
         "currentPlaceholder": "напр. 0.5",
         "resistance": "Сопротивление",
         "resistancePlaceholder": "напр. 100"
+    },
+    "Categories": {
+        "electrical": "Электротехника",
+        "mechanical": "Машиностроение",
+        "statistics": "Статистика и математика",
+        "toolReference": "Справочник"
+    },
+    "Dashboard": {
+        "title": "Инструменты",
+        "subtitle": "Выберите нужный калькулятор и начните вычисления.",
+        "backButton": "Назад",
+        "ohmTitle": "Калькулятор закона Ома",
+        "ohmDesc": "Стандартные расчеты V = I × R.",
+        "resistorTitle": "Цветовая маркировка резисторов",
+        "resistorDesc": "Расшифровка 4, 5 и 6 полос.",
+        "beamTitle": "Анализ прогиба балки",
+        "beamDesc": "Расчет прогиба для различных балок.",
+        "normalTitle": "График нормального распределения",
+        "normalDesc": "Визуализатор стандартного отклонения."
+    },
+    "ResistorVisualizer": {
+        "title": "Цветовая маркировка резисторов",
+        "bandCount": "Количество полос",
+        "bandLabel": "Полоса",
+        "result": "Результат",
+        "invalid": "Неверная комбинация. Проверьте выбор."
+    },
+    "BeamVisualizer": {
+        "title": "Анализ прогиба балки",
+        "cantilever": "Консольная балка",
+        "simplySupported": "Шарнирно-опертая балка",
+        "length": "Длина (L)",
+        "load": "Нагрузка (W)",
+        "elasticModulus": "Модуль упругости (E)",
+        "momentOfInertia": "Момент инерции (I)",
+        "maxDeflection": "Макс. прогиб",
+        "formula": "Формула",
+        "status": "Статус безопасности",
+        "safe": "Безопасно",
+        "check": "Проверить"
+    },
+    "NormalDistribution": {
+        "title": "График нормального распределения",
+        "mean": "Среднее (μ)",
+        "stdDev": "Ст. отклонение (σ)",
+        "values": "Значения (x)",
+        "stats": "Статистика",
+        "peak": "Высота пика",
+        "range": "Диапазон",
+        "empirical": "Эмпирическое правило (68-95-99.7)"
     }
 }

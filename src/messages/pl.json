@@ -1,0 +1,76 @@
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "Profesjonalne kalkulatory inżynierskie — precyzyjne, szybkie, wielojęzyczne."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "Dane wejściowe",
+        "leaveBlankHint": "Zostaw puste, aby obliczyć",
+        "unitLabel": "jednostka",
+        "solveButton": "Oblicz",
+        "resetButton": "Resetuj",
+        "calculatedBadge": "Obliczono",
+        "errorAllFilled": "Zostaw dokładnie jedno pole puste.",
+        "errorTooManyUnknowns": "Proszę wypełnić wszystkie pola oprócz jednego."
+    },
+    "OhmCalculator": {
+        "title": "Prawo Ohma",
+        "description": "V = I × R",
+        "voltage": "Napięcie",
+        "voltagePlaceholder": "np. 12",
+        "current": "Natężenie",
+        "currentPlaceholder": "np. 0.5",
+        "resistance": "Rezystancja",
+        "resistancePlaceholder": "np. 100"
+    },
+    "Categories": {
+        "electrical": "Elektrotechnika",
+        "mechanical": "Główny Inżynier",
+        "statistics": "Statystyka i Matematyka",
+        "toolReference": "Narzędzia"
+    },
+    "Dashboard": {
+        "title": "Narzędzia Kalkulacyjne",
+        "subtitle": "Wybierz potrzebny kalkulator.",
+        "backButton": "Wróć",
+        "ohmTitle": "Kalkulator Prawa Ohma",
+        "ohmDesc": "Standardowe obliczenia V = I × R.",
+        "resistorTitle": "Kody Kolorowe Rezystorów",
+        "resistorDesc": "Odczyt 4, 5 i 6 pasków.",
+        "beamTitle": "Analiza Ugięcia Belki",
+        "beamDesc": "Ugięcie dla różnych rodzajów belek.",
+        "normalTitle": "Wykres Rozkładu Normalnego",
+        "normalDesc": "Wizualizator odchylenia standardowego."
+    },
+    "ResistorVisualizer": {
+        "title": "Kody Kolorowe Rezystorów",
+        "bandCount": "Liczba Pasków",
+        "bandLabel": "Pasek",
+        "result": "Wynik",
+        "invalid": "Nieprawidłowa kombinacja. Proszę sprawdzić."
+    },
+    "BeamVisualizer": {
+        "title": "Analiza Ugięcia Belki",
+        "cantilever": "Belka wspornikowa",
+        "simplySupported": "Belka podparta swobodnie",
+        "length": "Długość (L)",
+        "load": "Obciążenie (W)",
+        "elasticModulus": "Moduł sprężystości (E)",
+        "momentOfInertia": "Moment Bezwładności (I)",
+        "maxDeflection": "Maks. ugięcie",
+        "formula": "Wzór",
+        "status": "Status bezpieczeństwa",
+        "safe": "Bezpiecznie",
+        "check": "Do weryfikacji"
+    },
+    "NormalDistribution": {
+        "title": "Wykres Rozkładu Normalnego",
+        "mean": "Średnia (μ)",
+        "stdDev": "Odchylenie Stand. (σ)",
+        "values": "Wartości (x)",
+        "stats": "Statystyki",
+        "peak": "Wysokość Szczytu",
+        "range": "Zakres",
+        "empirical": "Reguła 3 Sigm (68-95-99.7)"
+    }
+}

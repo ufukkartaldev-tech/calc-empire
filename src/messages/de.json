@@ -1,0 +1,76 @@
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "Professionelle Ingenieurrechner — präzise, schnell, mehrsprachig."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "Eingabefelder",
+        "leaveBlankHint": "Leer lassen für das Ergebnis",
+        "unitLabel": "Einheit",
+        "solveButton": "Berechnen",
+        "resetButton": "Zurücksetzen",
+        "calculatedBadge": "Berechnet",
+        "errorAllFilled": "Lassen Sie genau ein Feld leer.",
+        "errorTooManyUnknowns": "Bitte alle Felder bis auf eines ausfüllen."
+    },
+    "OhmCalculator": {
+        "title": "Ohmsches Gesetz",
+        "description": "V = I × R",
+        "voltage": "Spannung",
+        "voltagePlaceholder": "z.B. 12",
+        "current": "Stromstärke",
+        "currentPlaceholder": "z.B. 0.5",
+        "resistance": "Widerstand",
+        "resistancePlaceholder": "z.B. 100"
+    },
+    "Categories": {
+        "electrical": "Elektrotechnik",
+        "mechanical": "Maschinenbau",
+        "statistics": "Statistik & Mathematik",
+        "toolReference": "Werkzeuge"
+    },
+    "Dashboard": {
+        "title": "Berechnungswerkzeuge",
+        "subtitle": "Wählen Sie Ihren gewünschten Rechner.",
+        "backButton": "Zurück",
+        "ohmTitle": "Ohmsches Gesetz Rechner",
+        "ohmDesc": "V = I × R Standardberechnungen.",
+        "resistorTitle": "Widerstandsfarbcodes",
+        "resistorDesc": "4, 5 und 6 Band-Farbcode-Leser.",
+        "beamTitle": "Balkendurchbiegungsanalyse",
+        "beamDesc": "Maximale Durchbiegung verschiedener Balken.",
+        "normalTitle": "Normalverteilungsdiagramm",
+        "normalDesc": "Standardabweichung und Mittelwert."
+    },
+    "ResistorVisualizer": {
+        "title": "Widerstandsfarbcodes",
+        "bandCount": "Anzahl der Bänder",
+        "bandLabel": "Band",
+        "result": "Ergebnis",
+        "invalid": "Ungültige Kombination. Bitte prüfen."
+    },
+    "BeamVisualizer": {
+        "title": "Balkendurchbiegungsanalyse",
+        "cantilever": "Kragbalken",
+        "simplySupported": "Einfacher Balken",
+        "length": "Länge (L)",
+        "load": "Last (W)",
+        "elasticModulus": "E-Modul (E)",
+        "momentOfInertia": "Trägheitsmoment (I)",
+        "maxDeflection": "Max. Durchbiegung",
+        "formula": "Formel",
+        "status": "Sicherheitsstatus",
+        "safe": "Sicher",
+        "check": "Prüfen"
+    },
+    "NormalDistribution": {
+        "title": "Normalverteilungsdiagramm",
+        "mean": "Mittelwert (μ)",
+        "stdDev": "Standardabweichung (σ)",
+        "values": "Werte (x)",
+        "stats": "Statistiken",
+        "peak": "Max. Höhe",
+        "range": "Bereich",
+        "empirical": "Empirische Regel (68-95-99.7)"
+    }
+}

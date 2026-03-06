@@ -1,0 +1,76 @@
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "专业的工程师计算器 — 精准、快速、多语言支持。"
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "计算器输入",
+        "leaveBlankHint": "留空以计算",
+        "unitLabel": "单位",
+        "solveButton": "计算",
+        "resetButton": "重置",
+        "calculatedBadge": "已计算",
+        "errorAllFilled": "请留空一个字段进行求解。",
+        "errorTooManyUnknowns": "请填入所有字段，仅留一个空值。"
+    },
+    "OhmCalculator": {
+        "title": "欧姆定律",
+        "description": "V = I × R",
+        "voltage": "电压",
+        "voltagePlaceholder": "如 12",
+        "current": "电流",
+        "currentPlaceholder": "如 0.5",
+        "resistance": "电阻",
+        "resistancePlaceholder": "如 100"
+    },
+    "Categories": {
+        "electrical": "电气工程",
+        "mechanical": "机械工程",
+        "statistics": "数学与统计",
+        "toolReference": "可用工具"
+    },
+    "Dashboard": {
+        "title": "计算工具栏",
+        "subtitle": "选择您需要的计算器，开始您的计算之旅。简洁快速。",
+        "backButton": "返回",
+        "ohmTitle": "欧姆定律计算器",
+        "ohmDesc": "V = I × R 标准计算。",
+        "resistorTitle": "电阻色环读取器",
+        "resistorDesc": "支起 4、5、6 环模式。",
+        "beamTitle": "梁变形挠度分析",
+        "beamDesc": "不同类型梁结构的偏转计算",
+        "normalTitle": "正态分布图图表",
+        "normalDesc": "可视化标准差与均值分布"
+    },
+    "ResistorVisualizer": {
+        "title": "电阻色环代码",
+        "bandCount": "色环数量",
+        "bandLabel": "颜色环",
+        "result": "计算结果",
+        "invalid": "无效颜色组合，请检查。"
+    },
+    "BeamVisualizer": {
+        "title": "梁的挠度分析",
+        "cantilever": "悬臂梁",
+        "simplySupported": "简支梁",
+        "length": "长度 (L)",
+        "load": "载荷 (W)",
+        "elasticModulus": "弹性模量 (E)",
+        "momentOfInertia": "截面惯性矩 (I)",
+        "maxDeflection": "最大形变挠度",
+        "formula": "应用公式",
+        "status": "安全评估",
+        "safe": "安全",
+        "check": "请核对结构验证"
+    },
+    "NormalDistribution": {
+        "title": "正态分布图",
+        "mean": "平均值 (μ)",
+        "stdDev": "标准方差 (σ)",
+        "values": "变数 (x)",
+        "stats": "分布信息统计",
+        "peak": "最大波峰高",
+        "range": "取值范围",
+        "empirical": "经验法则 (68-95-99.7)"
+    }
+}

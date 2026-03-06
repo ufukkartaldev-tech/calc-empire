@@ -1,39 +1,41 @@
 @import "tailwindcss";
 
-/* ═══════════════════════════════════════════════════════════════
-   CalcEmpire — Design Tokens
-   ═══════════════════════════════════════════════════════════════ */
-
 :root {
-  /* Palette */
-  --ce-bg: #0d0f14;
-  --ce-surface: #161a24;
-  --ce-surface-2: #1e2333;
-  --ce-border: #2a3047;
-  --ce-accent: #4f8ef7;
-  --ce-accent-glow: rgba(79, 142, 247, 0.25);
-  --ce-success: #34d399;
-  --ce-error: #f87171;
-  --ce-text: #e2e8f0;
+  /* Minimalist Clean Palette */
+  --ce-bg: #f8fafc;
+  --ce-surface: #ffffff;
+  --ce-surface-2: #f1f5f9;
+  --ce-border: #e2e8f0;
+  --ce-border-hover: #cbd5e1;
+  --ce-accent: #2563eb;
+  --ce-accent-glow: rgba(37, 99, 235, 0.2);
+  --ce-success: #059669;
+  --ce-error: #dc2626;
+  --ce-text: #0f172a;
   --ce-text-muted: #64748b;
-  --ce-badge: #4f8ef7;
+  --ce-badge: rgba(37, 99, 235, 0.1);
 
-  /* Typography */
-  --ce-font-sans: 'Inter', system-ui, sans-serif;
-  --ce-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-
-  /* Spacing */
-  --ce-radius-sm: 6px;
-  --ce-radius: 10px;
-  --ce-radius-lg: 16px;
-
-  /* Transitions */
-  --ce-transition: 160ms cubic-bezier(0.4, 0, 0.2, 1);
+  --ce-radius: 8px;
+  --ce-radius-lg: 12px;
+  --ce-transition: 150ms ease;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   Reset & Base
-   ═══════════════════════════════════════════════════════════════ */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ce-bg: #0f172a;
+    --ce-surface: #1e293b;
+    --ce-surface-2: #334155;
+    --ce-border: #334155;
+    --ce-border-hover: #475569;
+    --ce-accent: #3b82f6;
+    --ce-accent-glow: rgba(59, 130, 246, 0.3);
+    --ce-success: #10b981;
+    --ce-error: #ef4444;
+    --ce-text: #f8fafc;
+    --ce-text-muted: #94a3b8;
+    --ce-badge: rgba(59, 130, 246, 0.2);
+  }
+}
 
 *,
 *::before,
@@ -47,16 +49,12 @@ html {
 
 body {
   margin: 0;
-  background: var(--ce-bg);
+  background-color: var(--ce-bg);
   color: var(--ce-text);
-  font-family: var(--ce-font-sans);
+  font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   min-height: 100dvh;
 }
-
-/* ═══════════════════════════════════════════════════════════════
-   App Shell
-   ═══════════════════════════════════════════════════════════════ */
 
 .ce-app {
   display: flex;
@@ -69,84 +67,45 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 3rem 1.25rem;
-  gap: 2.5rem;
+  justify-content: flex-start;
+  padding: 3rem 1.5rem;
+  gap: 2rem;
 }
 
-/* ────────────────────────────────────────────────────────────── */
-/* Hero                                                           */
-/* ────────────────────────────────────────────────────────────── */
-
-.ce-hero {
-  text-align: center;
-  max-width: 640px;
-}
-
-.ce-hero__title {
-  margin: 0 0 .75rem;
-  font-size: clamp(2rem, 5vw, 3.25rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #e2e8f0 0%, var(--ce-accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.ce-hero__subtitle {
-  margin: 0;
-  font-size: 1.1rem;
-  color: var(--ce-text-muted);
-  line-height: 1.6;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   Calculator Template
-   ═══════════════════════════════════════════════════════════════ */
-
+/* Calculator Form Token Classes - Used by CalculatorTemplate.tsx */
 .ce-calculator {
   width: 100%;
-  max-width: 520px;
+  max-width: 500px;
   background: var(--ce-surface);
   border: 1px solid var(--ce-border);
   border-radius: var(--ce-radius-lg);
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
-
-  /* Subtle glow */
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, .04) inset,
-    0 24px 48px rgba(0, 0, 0, .45);
+  gap: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
-
-/* ── Header ── */
 
 .ce-calculator__header {
   display: flex;
   flex-direction: column;
-  gap: .4rem;
+  gap: 0.25rem;
   border-bottom: 1px solid var(--ce-border);
   padding-bottom: 1.25rem;
 }
 
 .ce-calculator__title {
   margin: 0;
-  font-size: 1.35rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 600;
   color: var(--ce-text);
 }
 
 .ce-calculator__description {
   margin: 0;
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: var(--ce-text-muted);
-  line-height: 1.5;
 }
-
-/* ── Fields Group ── */
 
 .ce-calculator__fields {
   display: flex;
@@ -154,67 +113,41 @@ body {
   gap: 1rem;
 }
 
-/* ── Error Banner ── */
-
 .ce-calculator__error {
-  background: rgba(248, 113, 113, .1);
-  border: 1px solid var(--ce-error);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
   border-radius: var(--ce-radius);
-  padding: .75rem 1rem;
-  font-size: .875rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
   color: var(--ce-error);
 }
 
-/* ── Actions Row ── */
-
 .ce-calculator__actions {
   display: flex;
-  flex-wrap: wrap;
-  /* prevents overflow when locale has long button labels */
-  gap: .75rem;
-  row-gap: .6rem;
-  /* tighter vertical gap when wrapped */
+  gap: 0.75rem;
+  margin-top: 0.5rem;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   Field
-   ═══════════════════════════════════════════════════════════════ */
-
+/* Field */
 .ce-field {
   display: flex;
   flex-direction: column;
-  gap: .4rem;
-  position: relative;
-  transition: opacity var(--ce-transition);
+  gap: 0.35rem;
 }
-
-.ce-field--result .ce-field__input {
-  color: var(--ce-success);
-  font-family: var(--ce-font-mono);
-  font-size: .95rem;
-  background: rgba(52, 211, 153, .06);
-  border-color: var(--ce-success);
-  cursor: default;
-}
-
-/* Label */
 
 .ce-field__label {
-  font-size: .8rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: .04em;
   text-transform: uppercase;
   color: var(--ce-text-muted);
+  letter-spacing: 0.02em;
 }
-
-/* Control: input + select in a pill */
 
 .ce-field__control {
   display: flex;
-  align-items: stretch;
-  background: var(--ce-surface-2);
   border: 1px solid var(--ce-border);
   border-radius: var(--ce-radius);
+  background: var(--ce-surface);
   overflow: hidden;
   transition: border-color var(--ce-transition), box-shadow var(--ce-transition);
 }
@@ -228,25 +161,18 @@ body {
   flex: 1;
   min-width: 0;
   border: none;
-  outline: none;
   background: transparent;
+  padding: 0.75rem;
   color: var(--ce-text);
+  font-family: monospace;
   font-size: 1rem;
-  padding: .65rem .875rem;
-  font-family: var(--ce-font-mono);
-  transition: color var(--ce-transition);
+  outline: none;
 }
 
 .ce-field__input::placeholder {
   color: var(--ce-text-muted);
-  font-family: var(--ce-font-sans);
-  font-size: .875rem;
-}
-
-/* Remove number input arrows */
-.ce-field__input::-webkit-inner-spin-button,
-.ce-field__input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
+  font-family: sans-serif;
+  font-size: 0.9rem;
 }
 
 .ce-field__input[type=number] {
@@ -254,99 +180,69 @@ body {
   appearance: textfield;
 }
 
-.ce-field__unit {
-  flex-shrink: 0;
-  border: none;
-  /* logical property → border flips to the right side in RTL automatically */
-  border-inline-start: 1px solid var(--ce-border);
-  background: rgba(255, 255, 255, .04);
-  color: var(--ce-accent);
-  padding: 0 .75rem;
-  font-size: .85rem;
-  font-weight: 600;
-  cursor: pointer;
-  outline: none;
-  appearance: none;
+.ce-field__input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  -moz-appearance: none;
-  min-width: 58px;
-  text-align: center;
-  transition: background var(--ce-transition);
 }
 
-.ce-field__unit:hover {
-  background: rgba(255, 255, 255, .08);
+.ce-field__unit {
+  border: none;
+  border-left: 1px solid var(--ce-border);
+  background: var(--ce-surface-2);
+  color: var(--ce-text-muted);
+  padding: 0 0.75rem;
+  font-weight: 500;
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
 }
 
-/* Calculated badge */
+/* Modifier Result */
+.ce-field--result .ce-field__input {
+  color: var(--ce-success);
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.05);
+}
 
 .ce-field__badge {
-  align-self: flex-start;
-  font-size: .7rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
+  background: rgba(16, 185, 129, 0.1);
   color: var(--ce-success);
-  background: rgba(52, 211, 153, .12);
-  border: 1px solid rgba(52, 211, 153, .25);
   border-radius: 4px;
   padding: 2px 6px;
+  align-self: flex-start;
+  text-transform: uppercase;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   Buttons
-   ═══════════════════════════════════════════════════════════════ */
-
+/* Buttons */
 .ce-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: .4rem;
-  border: none;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   border-radius: var(--ce-radius);
-  font-size: .9rem;
-  font-weight: 600;
   cursor: pointer;
-  /* horizontal padding generous enough for long translations (de, fi, tr…) */
-  padding: .65rem 1.25rem;
-  /* never let the text clip — button grows to fit its label */
-  min-width: fit-content;
-  white-space: nowrap;
-  transition:
-    background var(--ce-transition),
-    box-shadow var(--ce-transition),
-    transform var(--ce-transition);
-  user-select: none;
+  transition: all var(--ce-transition);
+  border: none;
 }
-
-.ce-btn:active {
-  transform: translateY(1px);
-}
-
-/* Primary */
 
 .ce-btn--primary {
-  /* flex: 1 1 auto → grows to fill row, but min-width:fit-content from .ce-btn
-     ensures it never shrinks below its text width */
-  flex: 1 1 auto;
   background: var(--ce-accent);
   color: #fff;
+  flex: 1;
 }
 
 .ce-btn--primary:hover {
-  background: #5f9bff;
-  box-shadow: 0 4px 18px var(--ce-accent-glow);
+  opacity: 0.9;
 }
-
-/* Ghost */
 
 .ce-btn--ghost {
   background: var(--ce-surface-2);
-  border: 1px solid var(--ce-border);
-  color: var(--ce-text-muted);
+  color: var(--ce-text);
 }
 
 .ce-btn--ghost:hover {
-  background: rgba(255, 255, 255, .06);
-  color: var(--ce-text);
+  background: var(--ce-border);
 }

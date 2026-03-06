@@ -23,6 +23,7 @@
 import React, { useCallback, useId, useReducer } from 'react';
 import { useTranslations } from 'next-intl';
 import type { CalculatorConfig, FieldValue, FieldValues } from '@/types/calculator';
+import { SOLVER_REGISTRY } from '@/lib/calculators/registry';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Internal State
@@ -133,7 +134,11 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
         }
 
         try {
-            const result = config.solve(values);
+            const solve = SOLVER_REGISTRY[config.solverKey];
+            if (!solve) {
+                throw new Error(`Solver not found for key: ${config.solverKey}`);
+            }
+            const result = solve(values);
             dispatch({ type: 'SET_RESULT', result, error: null });
         } catch (err) {
             const message = err instanceof Error ? err.message : String(err);

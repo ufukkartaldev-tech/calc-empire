@@ -99,8 +99,9 @@ export interface CalculatorConfig {
     /** Ordered list of input fields rendered by the template. */
     fields: CalculatorField[];
     /**
-     * Pure solve function.
-     * Must throw an `Error` with a human-readable message on invalid input.
+     * The key for the solver function in the solver registry.
+     * This is used instead of passing functions directly to support
+     * serialization between Server and Client components.
      */
-    solve: SolveFn;
+    solverKey: string;
 }

@@ -1,0 +1,76 @@
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "전문가용 엔지니어링 계산기 — 정확하고, 빠르며, 다국어 지원."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "계산기 입력",
+        "leaveBlankHint": "계산하려면 하나를 비워두세요",
+        "unitLabel": "단위",
+        "solveButton": "계산",
+        "resetButton": "초기화",
+        "calculatedBadge": "계산됨",
+        "errorAllFilled": "정확히 하나의 필드를 비워두세요.",
+        "errorTooManyUnknowns": "하나의 필드를 제외한 모든 필드를 입력하세요."
+    },
+    "OhmCalculator": {
+        "title": "옴의 법칙",
+        "description": "V = I × R",
+        "voltage": "전압",
+        "voltagePlaceholder": "예: 12",
+        "current": "전류",
+        "currentPlaceholder": "예: 0.5",
+        "resistance": "저항",
+        "resistancePlaceholder": "예: 100"
+    },
+    "Categories": {
+        "electrical": "전기 공학",
+        "mechanical": "기계 공학",
+        "statistics": "수학 및 통계",
+        "toolReference": "도구 참조"
+    },
+    "Dashboard": {
+        "title": "계산 도구",
+        "subtitle": "필요한 계산기를 선택하여 작업을 시작하세요. 깔끔하고 빠릅니다.",
+        "backButton": "뒤로",
+        "ohmTitle": "옴의 법칙 계산기",
+        "ohmDesc": "V = I × R 표준 계산.",
+        "resistorTitle": "저항기 색상 코드",
+        "resistorDesc": "4, 5, 6 밴드 색상 코드 판독기.",
+        "beamTitle": "빔 처짐 해석",
+        "beamDesc": "다양한 빔 유형의 처짐을 계산합니다.",
+        "normalTitle": "정규 분포 차트",
+        "normalDesc": "표준 편차 및 평균 시각화."
+    },
+    "ResistorVisualizer": {
+        "title": "저항기 색상 코드",
+        "bandCount": "밴드 수",
+        "bandLabel": "밴드",
+        "result": "결과",
+        "invalid": "잘못된 색상 조합입니다. 선택을 확인하세요."
+    },
+    "BeamVisualizer": {
+        "title": "빔 처짐 해석",
+        "cantilever": "외팔보 (Cantilever)",
+        "simplySupported": "단순지지보",
+        "length": "길이 (L)",
+        "load": "하중 (W)",
+        "elasticModulus": "탄성계수 (E)",
+        "momentOfInertia": "단면 2차 모멘트 (I)",
+        "maxDeflection": "최대 처짐",
+        "formula": "공식",
+        "status": "안전 상태",
+        "safe": "안전",
+        "check": "설계 확인 비요"
+    },
+    "NormalDistribution": {
+        "title": "정규 분포 곡선",
+        "mean": "평균 (μ)",
+        "stdDev": "표준편차 (σ)",
+        "values": "값 (x)",
+        "stats": "분포 통계",
+        "peak": "피크(최대) 분포",
+        "range": "범위",
+        "empirical": "경험 법칙 (68-95-99.7)"
+    }
+}

@@ -45,7 +45,7 @@ const RESISTANCE_UNITS = [
  * Adapts the generic `FieldValues` structure to the typed `ohmFormula` API.
  * If a field's `value` is null it is omitted, marking it as the unknown.
  */
-function solve(values: FieldValues): SolveResult {
+export function solve(values: FieldValues): SolveResult {
     const toUnitValue = (key: string) => {
         const fv = values[key];
         if (fv.value === null) return undefined;
@@ -93,5 +93,5 @@ export const ohmConfig: CalculatorConfig = {
             units: RESISTANCE_UNITS,
         },
     ],
-    solve,
+    solverKey: 'ohm',
 };

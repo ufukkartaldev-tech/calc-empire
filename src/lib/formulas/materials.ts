@@ -51,10 +51,12 @@ export function calculateWeight({ material, shape, dimensions }: WeightParams) {
 // Hardness Converter
 // ─────────────────────────────────────────────────────────────────────────────
 
+type HardnessScale = 'HRC' | 'HB' | 'HV';
+
 interface HardnessParams {
     value: number;
-    from: string;
-    to: string;
+    from: HardnessScale;
+    to: HardnessScale;
 }
 
 export function convertHardness({ value, from, to }: HardnessParams): number {

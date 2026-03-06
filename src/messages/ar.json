@@ -1,0 +1,76 @@
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "آلات حاسبة هندسية احترافية — دقيقة، سريعة، متعددة اللغات."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "مدخلات الحاسبة",
+        "leaveBlankHint": "اترك الحقل فارغاً ليتم حسابه",
+        "unitLabel": "وحدة",
+        "solveButton": "احسب",
+        "resetButton": "إعادة تعيين",
+        "calculatedBadge": "تم الحساب",
+        "errorAllFilled": "الرجاء ترك حقل واحد فارغ للحصول على النتيجة.",
+        "errorTooManyUnknowns": "الرجاء تعبئة جميع الحقول باستثناء واحد."
+    },
+    "OhmCalculator": {
+        "title": "قانون أوم",
+        "description": "V = I × R",
+        "voltage": "الجهد (V)",
+        "voltagePlaceholder": "مثال 12",
+        "current": "التيار (I)",
+        "currentPlaceholder": "مثال 0.5",
+        "resistance": "المقاومة (R)",
+        "resistancePlaceholder": "مثال 100"
+    },
+    "Categories": {
+        "electrical": "الهندسة الكهربائية",
+        "mechanical": "الهندسة الميكانيكية",
+        "statistics": "الإحصاء والرياضيات",
+        "toolReference": "الأدوات المتاحة"
+    },
+    "Dashboard": {
+        "title": "أدوات الحساب",
+        "subtitle": "اختر الحاسبة التي تحتاجها وابدأ في العمل مباشرة.",
+        "backButton": "رجوع",
+        "ohmTitle": "حاسبة قانون أوم",
+        "ohmDesc": "حسابات العوامل الأساسية V = I × R.",
+        "resistorTitle": "رموز ألوان المقاومة",
+        "resistorDesc": "قراءة 4، 5، و 6 نطاقات ألوان.",
+        "beamTitle": "تحليل انحراف العتبة (Beam)",
+        "beamDesc": "حساب الانحراف والقص لأنواع العتبات.",
+        "normalTitle": "رسم التوزيع الطبيعي",
+        "normalDesc": "مخطط الانحراف المعياري والمتوسط."
+    },
+    "ResistorVisualizer": {
+        "title": "رموز ألوان المقاومة",
+        "bandCount": "عدد النطاقات",
+        "bandLabel": "النطاق",
+        "result": "النتيجة",
+        "invalid": "تركيبة ألوان غير صحيحة. تحقق من الاختيار."
+    },
+    "BeamVisualizer": {
+        "title": "تحليل انحراف العتبة",
+        "cantilever": "عتبة كابولية (Cantilever)",
+        "simplySupported": "عتبة بسيطة الاستناد",
+        "length": "الطول (L)",
+        "load": "الحمل (W)",
+        "elasticModulus": "معامل المرونة (E)",
+        "momentOfInertia": "عزم القصور الذاتي (I)",
+        "maxDeflection": "أقصى انحراف",
+        "formula": "الصيغة",
+        "status": "حالة الأمان",
+        "safe": "آمن",
+        "check": "يتطلب التحقق"
+    },
+    "NormalDistribution": {
+        "title": "منحنى التوزيع الطبيعي",
+        "mean": "المتوسط (μ)",
+        "stdDev": "الانحراف المعياري (σ)",
+        "values": "القيم (x)",
+        "stats": "إحصائيات التوزيع",
+        "peak": "أقصى ذروة",
+        "range": "النطاق",
+        "empirical": "القاعدة التجريبية (68-95-99.7)"
+    }
+}

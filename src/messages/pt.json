@@ -1,0 +1,76 @@
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "Calculadoras de engenharia profissionais — precisas, rápidas, multilínguas."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "Entradas",
+        "leaveBlankHint": "Deixe em branco para calcular",
+        "unitLabel": "unidade",
+        "solveButton": "Solucionar",
+        "resetButton": "Redefinir",
+        "calculatedBadge": "Calculado",
+        "errorAllFilled": "Deixe exatamente um campo em branco.",
+        "errorTooManyUnknowns": "Preencha todos os campos exceto um."
+    },
+    "OhmCalculator": {
+        "title": "Lei de Ohm",
+        "description": "V = I × R",
+        "voltage": "Tensão",
+        "voltagePlaceholder": "ex. 12",
+        "current": "Corrente",
+        "currentPlaceholder": "ex. 0.5",
+        "resistance": "Resistência",
+        "resistancePlaceholder": "ex. 100"
+    },
+    "Categories": {
+        "electrical": "Engenharia Elétrica",
+        "mechanical": "Engenharia Mecânica",
+        "statistics": "Estatística e Matemática",
+        "toolReference": "Ferramentas"
+    },
+    "Dashboard": {
+        "title": "Ferramentas de Cálculo",
+        "subtitle": "Selecione a calculadora necessária.",
+        "backButton": "Voltar",
+        "ohmTitle": "Calculadora Lei de Ohm",
+        "ohmDesc": "Cálculos padrão de V = I × R.",
+        "resistorTitle": "Códigos de Cores Resistor",
+        "resistorDesc": "Leitor de 4, 5 e 6 faixas.",
+        "beamTitle": "Análise de Deflexão de Vigas",
+        "beamDesc": "Cálculo de deflexão para vigas.",
+        "normalTitle": "Gráfico de Distribuição Normal",
+        "normalDesc": "Visualizador de desvio padrão."
+    },
+    "ResistorVisualizer": {
+        "title": "Códigos de Cores Resistor",
+        "bandCount": "Número de Faixas",
+        "bandLabel": "Faixa",
+        "result": "Resultado",
+        "invalid": "Combinação inválida. Verifique a seleção."
+    },
+    "BeamVisualizer": {
+        "title": "Análise de Deflexão de Vigas",
+        "cantilever": "Viga Engastada",
+        "simplySupported": "Viga Biapoiada",
+        "length": "Comprimento (L)",
+        "load": "Carga (W)",
+        "elasticModulus": "Módulo de Elasticidade (E)",
+        "momentOfInertia": "Momento de Inércia (I)",
+        "maxDeflection": "Deflexão Máx",
+        "formula": "Fórmula",
+        "status": "Status Segurança",
+        "safe": "Seguro",
+        "check": "Verificar"
+    },
+    "NormalDistribution": {
+        "title": "Gráfico de Distribuição Normal",
+        "mean": "Média (μ)",
+        "stdDev": "Desvio Padrão (σ)",
+        "values": "Valores (x)",
+        "stats": "Estatísticas",
+        "peak": "Altura de Pico",
+        "range": "Faixa",
+        "empirical": "Regra Empírica (68-95-99.7)"
+    }
+}

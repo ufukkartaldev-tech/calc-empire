@@ -1,0 +1,76 @@
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "Calculatrices d'ingénierie professionnelles — précises, rapides, multilingues."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "Entrées",
+        "leaveBlankHint": "Laissez vide pour calculer",
+        "unitLabel": "unité",
+        "solveButton": "Résoudre",
+        "resetButton": "Réinitialiser",
+        "calculatedBadge": "Calculé",
+        "errorAllFilled": "Laissez exactement un champ vide pour calculer.",
+        "errorTooManyUnknowns": "Veuillez remplir tous les champs sauf un."
+    },
+    "OhmCalculator": {
+        "title": "Loi d'Ohm",
+        "description": "V = I × R",
+        "voltage": "Tension",
+        "voltagePlaceholder": "ex. 12",
+        "current": "Courant",
+        "currentPlaceholder": "ex. 0.5",
+        "resistance": "Résistance",
+        "resistancePlaceholder": "ex. 100"
+    },
+    "Categories": {
+        "electrical": "Génie Électrique",
+        "mechanical": "Génie Mécanique",
+        "statistics": "Statistiques et Mathématiques",
+        "toolReference": "Outils de Référence"
+    },
+    "Dashboard": {
+        "title": "Outils de Calcul",
+        "subtitle": "Sélectionnez l'outil dont vous avez besoin.",
+        "backButton": "Retour",
+        "ohmTitle": "Calculatrice de la Loi d'Ohm",
+        "ohmDesc": "Calculs standards de V = I × R.",
+        "resistorTitle": "Couleurs de Résistance",
+        "resistorDesc": "Lecteur de 4, 5 et 6 bandes.",
+        "beamTitle": "Analyse de Flèche de Poutre",
+        "beamDesc": "Calcul de la flèche pour divers types de poutres.",
+        "normalTitle": "Graphique de Distribution Normale",
+        "normalDesc": "Visualiseur d'écart type et moyenne."
+    },
+    "ResistorVisualizer": {
+        "title": "Couleurs de Résistance",
+        "bandCount": "Nombre de Bandes",
+        "bandLabel": "Bande",
+        "result": "Résultat",
+        "invalid": "Combinaison invalide. Veuillez vérifier."
+    },
+    "BeamVisualizer": {
+        "title": "Analyse de Flèche de Poutre",
+        "cantilever": "Poutre en Porte-à-faux",
+        "simplySupported": "Poutre sur Appuis Simples",
+        "length": "Longueur (L)",
+        "load": "Charge (W)",
+        "elasticModulus": "Module d'Élasticité (E)",
+        "momentOfInertia": "Moment d'Inertie (I)",
+        "maxDeflection": "Flèche Max",
+        "formula": "Formule",
+        "status": "Statut",
+        "safe": "Sûr",
+        "check": "Vérifier"
+    },
+    "NormalDistribution": {
+        "title": "Graphique de Distribution Normale",
+        "mean": "Moyenne (μ)",
+        "stdDev": "Écart Type (σ)",
+        "values": "Valeurs (x)",
+        "stats": "Statistiques",
+        "peak": "Pic Maximum",
+        "range": "Plage",
+        "empirical": "Règle Empirique (68-95-99.7)"
+    }
+}

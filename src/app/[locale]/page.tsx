@@ -1,6 +1,4 @@
 import { useTranslations } from 'next-intl';
-import CalculatorTemplate from '@/components/CalculatorTemplate';
-import { ohmConfig } from '@/lib/calculators/ohm';
 import { EngineeringDashboard } from '@/components/dashboard';
 
 export default function Home() {
@@ -17,9 +15,6 @@ export default function Home() {
 
         {/* ── Engineering Dashboard ── */}
         <EngineeringDashboard />
-
-        {/* ── Ohm's Law Calculator ── */}
-        <CalculatorTemplate config={ohmConfig} />
       </main>
     </div>
   );

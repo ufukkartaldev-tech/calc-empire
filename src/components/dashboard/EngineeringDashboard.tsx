@@ -1,171 +1,221 @@
 'use client';
 
-import React from 'react';
-import { ResistorVisualizer, BeamDeflectionVisualizer, NormalDistributionChart } from '../visualizers';
+import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import {
+  // Electrical
+  ResistorVisualizer, OhmCalculator, KirchhoffCalculator, PowerCalculator, BodePlotVisualizer,
+  // Mechanical
+  BeamDeflectionVisualizer, StressStrainCalculator, ShearMomentVisualizer,
+  // Civil
+  ConcreteSectionCalculator, SoilMechanicsCalculator,
+  // Software
+  BaseConverter, CronParser, JsonFormatter,
+  // Chemistry
+  PeriodicTableVisualizer, IdealGasCalculator,
+  // Fluid
+  BernoulliCalculator, PressureLossCalculator,
+  // Statistics
+  NormalDistributionChart, BasicStatisticsCalculator, DiscreteDistributionVisualizer, DataVisualizer,
+  // Mathematics
+  CalculusCalculator, MatrixCalculator, GeometryCalculator, FunctionPlotVisualizer,
+  // Finance
+  CompoundInterestCalculator, CryptoPnlCalculator,
+  // Converters
+  UnitConverter
+} from '../calculators';
 
-interface EngineeringDashboardProps {
-  className?: string;
-}
+type ToolId =
+  | 'ohm' | 'resistor' | 'kirchhoff' | 'power' | 'bode'
+  | 'beam' | 'stressStrain' | 'shearMoment'
+  | 'concreteSection' | 'soilMechanics'
+  | 'baseConverter' | 'cronParser' | 'jsonFormatter'
+  | 'periodicTable' | 'idealGas'
+  | 'bernoulli' | 'pressureLoss'
+  | 'normal' | 'basicStats' | 'discreteDist' | 'dataViz'
+  | 'calculus' | 'matrix' | 'geometry' | 'functionPlot'
+  | 'compoundInterest' | 'cryptoPnl'
+  | 'unitConverter' | null;
 
-export function EngineeringDashboard({ className = '' }: EngineeringDashboardProps) {
+export function EngineeringDashboard() {
+  const tCat = useTranslations('Categories');
+  const tDash = useTranslations('Dashboard');
+  const [activeTool, setActiveTool] = useState<ToolId>(null);
+
+  const renderTool = () => {
+    switch (activeTool) {
+      // Electrical
+      case 'ohm': return <OhmCalculator />;
+      case 'resistor': return <ResistorVisualizer />;
+      case 'kirchhoff': return <KirchhoffCalculator />;
+      case 'power': return <PowerCalculator />;
+      case 'bode': return <BodePlotVisualizer />;
+
+      // Mechanical
+      case 'beam': return <BeamDeflectionVisualizer />;
+      case 'stressStrain': return <StressStrainCalculator />;
+      case 'shearMoment': return <ShearMomentVisualizer />;
+
+      // Civil
+      case 'concreteSection': return <ConcreteSectionCalculator />;
+      case 'soilMechanics': return <SoilMechanicsCalculator />;
+
+      // Software
+      case 'baseConverter': return <BaseConverter />;
+      case 'cronParser': return <CronParser />;
+      case 'jsonFormatter': return <JsonFormatter />;
+
+      // Chemistry
+      case 'periodicTable': return <PeriodicTableVisualizer />;
+      case 'idealGas': return <IdealGasCalculator />;
+
+      // Finance
+      case 'compoundInterest': return <CompoundInterestCalculator />;
+      case 'cryptoPnl': return <CryptoPnlCalculator />;
+
+      // Fluid
+      case 'bernoulli': return <BernoulliCalculator />;
+      case 'pressureLoss': return <PressureLossCalculator />;
+
+      // Statistics
+      case 'normal': return <NormalDistributionChart />;
+      case 'basicStats': return <BasicStatisticsCalculator />;
+      case 'discreteDist': return <DiscreteDistributionVisualizer />;
+      case 'dataViz': return <DataVisualizer />;
+
+      // Mathematics
+      case 'calculus': return <CalculusCalculator />;
+      case 'matrix': return <MatrixCalculator />;
+      case 'geometry': return <GeometryCalculator />;
+      case 'functionPlot': return <FunctionPlotVisualizer />;
+
+      // Converters
+      case 'unitConverter': return <UnitConverter />;
+
+      default: return null;
+    }
+  };
+
+  if (activeTool) {
+    return (
+      <div className="w-full max-w-4xl mx-auto flex flex-col items-center pb-20">
+        <div className="w-full flex justify-start mb-6">
+          <button
+            onClick={() => setActiveTool(null)}
+            className="px-4 py-2 flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors"
+          >
+            <span>←</span> {tDash('backButton')}
+          </button>
+        </div>
+        <div className="w-full flex justify-center">
+          {renderTool()}
+        </div>
+      </div>
+    );
+  }
+
+  const renderCard = (id: ToolId, titleKey: string, descKey: string) => (
+    <button
+      key={id}
+      onClick={() => setActiveTool(id)}
+      className="group w-full flex flex-col items-start p-5 rounded-2xl bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-600 cursor-pointer text-left"
+    >
+      <span className="font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+        {tDash(titleKey as any)}
+      </span>
+      <span className="text-sm text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">
+        {tDash(descKey as any)}
+      </span>
+    </button>
+  );
+
+  const Section = ({ icon, title, children }: { icon: string, title: string, children: React.ReactNode }) => (
+    <div className="mb-14">
+      <div className="flex items-center space-x-4 mb-6 pb-3 border-b-2 border-slate-100 dark:border-slate-800/80">
+        <span className="text-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-2.5 rounded-xl shadow-sm">
+          {icon}
+        </span>
+        <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+          {title}
+        </h2>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {children}
+      </div>
+    </div>
+  );
+
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 ${className}`}>
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Engineering Dashboard</h1>
-              <p className="mt-2 text-gray-600">Interactive Visualizers & Calculators</p>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                Live Calculations
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="w-full max-w-7xl mx-auto pb-20 px-4 sm:px-6 lg:px-8">
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Dashboard Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6 border-l-4 border-blue-500">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-gray-900">3 Visualizers</h3>
-                <p className="text-sm text-gray-600">Interactive engineering tools</p>
-              </div>
-            </div>
-          </div>
+      <div className="mb-16 mt-6 md:mt-10 text-center flex flex-col items-center gap-4">
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-2">{tDash('title')}</h1>
+        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          {tDash('subtitle')}
+        </p>
+      </div>
 
-          <div className="bg-white rounded-lg shadow p-6 border-l-4 border-green-500">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-gray-900">Real-time</h3>
-                <p className="text-sm text-gray-600">Live calculations & updates</p>
-              </div>
-            </div>
-          </div>
+      <div className="flex flex-col w-full">
 
-          <div className="bg-white rounded-lg shadow p-6 border-l-4 border-purple-500">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                  </svg>
-                </div>
-              </div>
-              <div className="ml-4">
-                <h3 className="text-lg font-medium text-gray-900">Precise</h3>
-                <p className="text-sm text-gray-600">Engineering-grade accuracy</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Section icon="⚡" title={tCat('electrical')}>
+          {renderCard('ohm', 'ohmTitle', 'ohmDesc')}
+          {renderCard('kirchhoff', 'kirchhoffTitle', 'kirchhoffDesc')}
+          {renderCard('power', 'powerTitle', 'powerDesc')}
+          {renderCard('resistor', 'resistorTitle', 'resistorDesc')}
+          {renderCard('bode', 'bodeTitle', 'bodeDesc')}
+        </Section>
 
-        {/* Visualizers Grid */}
-        <div className="space-y-8">
-          {/* Section Header */}
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Engineering Visualizers</h2>
-            <p className="text-gray-600">Explore interactive calculations with real-time visual feedback</p>
-          </div>
+        <Section icon="💻" title={tCat('software')}>
+          {renderCard('baseConverter', 'baseConverterTitle', 'baseConverterDesc')}
+          {renderCard('cronParser', 'cronParserTitle', 'cronParserDesc')}
+          {renderCard('jsonFormatter', 'jsonFormatterTitle', 'jsonFormatterDesc')}
+        </Section>
 
-          {/* Visualizers */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {/* Resistor Visualizer */}
-            <div className="transform transition-all duration-300 hover:scale-105">
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-                <div className="bg-gradient-to-r from-orange-500 to-red-500 px-6 py-4">
-                  <h3 className="text-white font-semibold text-lg">Electrical</h3>
-                  <p className="text-orange-100 text-sm">Resistor Color Code Calculator</p>
-                </div>
-                <div className="p-0">
-                  <ResistorVisualizer className="border-0 shadow-none" />
-                </div>
-              </div>
-            </div>
+        <Section icon="💰" title={tCat('finance')}>
+          {renderCard('compoundInterest', 'compoundInterestTitle', 'compoundInterestDesc')}
+          {renderCard('cryptoPnl', 'cryptoPnlTitle', 'cryptoPnlDesc')}
+        </Section>
 
-            {/* Beam Deflection Visualizer */}
-            <div className="transform transition-all duration-300 hover:scale-105">
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-                <div className="bg-gradient-to-r from-blue-500 to-indigo-500 px-6 py-4">
-                  <h3 className="text-white font-semibold text-lg">Mechanical</h3>
-                  <p className="text-blue-100 text-sm">Beam Deflection Analysis</p>
-                </div>
-                <div className="p-0">
-                  <BeamDeflectionVisualizer className="border-0 shadow-none" />
-                </div>
-              </div>
-            </div>
+        <Section icon="🏗️" title={tCat('civil')}>
+          {renderCard('concreteSection', 'concreteSectionTitle', 'concreteSectionDesc')}
+          {renderCard('soilMechanics', 'soilMechanicsTitle', 'soilMechanicsDesc')}
+        </Section>
 
-            {/* Normal Distribution Chart */}
-            <div className="transform transition-all duration-300 hover:scale-105">
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-                <div className="bg-gradient-to-r from-green-500 to-teal-500 px-6 py-4">
-                  <h3 className="text-white font-semibold text-lg">Statistics</h3>
-                  <p className="text-green-100 text-sm">Normal Distribution Analysis</p>
-                </div>
-                <div className="p-0">
-                  <NormalDistributionChart className="border-0 shadow-none" />
-                </div>
-              </div>
-            </div>
-          </div>
+        <Section icon="⚙️" title={tCat('mechanical')}>
+          {renderCard('beam', 'beamTitle', 'beamDesc')}
+          {renderCard('stressStrain', 'stressStrainTitle', 'stressStrainDesc')}
+          {renderCard('shearMoment', 'shearMomentTitle', 'shearMomentDesc')}
+        </Section>
 
-          {/* Additional Information */}
-          <div className="mt-12 bg-white rounded-lg shadow-lg p-8 border border-gray-200">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">About These Visualizers</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div>
-                <h4 className="font-semibold text-gray-800 mb-2">🔌 Resistor Calculator</h4>
-                <p className="text-gray-600 text-sm">
-                  Calculate resistance values from color bands. Supports 4, 5, and 6 band resistors with real-time visual feedback.
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-800 mb-2">🏗️ Beam Analysis</h4>
-                <p className="text-gray-600 text-sm">
-                  Analyze beam deflection for cantilever and simply supported beams. Interactive controls for load, length, and material properties.
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-800 mb-2">📊 Distribution Analysis</h4>
-                <p className="text-gray-600 text-sm">
-                  Visualize normal distribution curves with adjustable mean and standard deviation. See the bell curve change in real-time.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
+        <Section icon="☢️" title={tCat('chemistry')}>
+          {renderCard('periodicTable', 'periodicTableTitle', 'periodicTableDesc')}
+          {renderCard('idealGas', 'idealGasTitle', 'idealGasDesc')}
+        </Section>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center text-gray-500 text-sm">
-            <p>Engineering Dashboard - Interactive Visualizers</p>
-            <p className="mt-2">Built with React, TypeScript, and Tailwind CSS</p>
-          </div>
-        </div>
-      </footer>
+        <Section icon="🌊" title={tCat('fluid')}>
+          {renderCard('bernoulli', 'bernoulliTitle', 'bernoulliDesc')}
+          {renderCard('pressureLoss', 'pressureLossTitle', 'pressureLossDesc')}
+        </Section>
+
+        <Section icon="📊" title={tCat('statistics')}>
+          {renderCard('normal', 'normalTitle', 'normalDesc')}
+          {renderCard('basicStats', 'basicStatsTitle', 'basicStatsDesc')}
+          {renderCard('discreteDist', 'discreteDistTitle', 'discreteDistDesc')}
+          {renderCard('dataViz', 'dataVizTitle', 'dataVizDesc')}
+        </Section>
+
+        <Section icon="🧮" title={tCat('mathematics')}>
+          {renderCard('calculus', 'calculusTitle', 'calculusDesc')}
+          {renderCard('matrix', 'matrixTitle', 'matrixDesc')}
+          {renderCard('geometry', 'geometryTitle', 'geometryDesc')}
+          {renderCard('functionPlot', 'functionPlotTitle', 'functionPlotDesc')}
+        </Section>
+
+        <Section icon="🔄" title={tCat('converters')}>
+          {renderCard('unitConverter', 'unitConverterTitle', 'unitConverterDesc')}
+        </Section>
+
+      </div>
     </div>
   );
 }

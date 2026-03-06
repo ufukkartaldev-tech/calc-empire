@@ -1,0 +1,76 @@
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "Professionele technische rekenmachines — nauwkeurig, snel, meertalig."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "Reaminvoer",
+        "leaveBlankHint": "Leeg laten om te berekenen",
+        "unitLabel": "eenheid",
+        "solveButton": "Oplossen",
+        "resetButton": "Reset",
+        "calculatedBadge": "Berekend",
+        "errorAllFilled": "Laat exact één veld leeg.",
+        "errorTooManyUnknowns": "Vul alle velden in op één na."
+    },
+    "OhmCalculator": {
+        "title": "Wet van Ohm",
+        "description": "V = I × R",
+        "voltage": "Spanning",
+        "voltagePlaceholder": "bijv. 12",
+        "current": "Stroom",
+        "currentPlaceholder": "bijv. 0.5",
+        "resistance": "Weerstand",
+        "resistancePlaceholder": "bijv. 100"
+    },
+    "Categories": {
+        "electrical": "Elektrotechniek",
+        "mechanical": "Werktuigbouwkunde",
+        "statistics": "Statistiek & Wiskunde",
+        "toolReference": "Gereedschappen"
+    },
+    "Dashboard": {
+        "title": "Rekeninstrumenten",
+        "subtitle": "Selecteer de benodigde rekenmachine.",
+        "backButton": "Terug",
+        "ohmTitle": "Wet van Ohm Rekenmachine",
+        "ohmDesc": "V = I × R standaardberekeningen.",
+        "resistorTitle": "Weerstand Kleurcodes",
+        "resistorDesc": "4, 5 en 6-bands lezer.",
+        "beamTitle": "Balkdoorbuiging Analyse",
+        "beamDesc": "Doorbuiging voor verschillende balken.",
+        "normalTitle": "Normale Verdeling Grafiek",
+        "normalDesc": "Standaardafwijking en gemiddelde."
+    },
+    "ResistorVisualizer": {
+        "title": "Weerstand Kleurcodes",
+        "bandCount": "Aantal Banden",
+        "bandLabel": "Band",
+        "result": "Resultaat",
+        "invalid": "Ongeldige combinatie. Controleer uw keuze."
+    },
+    "BeamVisualizer": {
+        "title": "Balkdoorbuiging Analyse",
+        "cantilever": "Vrijdragende balk",
+        "simplySupported": "Eenvoudig Neergelegde balk",
+        "length": "Lengte (L)",
+        "load": "Last (W)",
+        "elasticModulus": "E-Modulus (E)",
+        "momentOfInertia": "Traagheidsmoment (I)",
+        "maxDeflection": "Max. doorbuiging",
+        "formula": "Formule",
+        "status": "Veiligheidsstatus",
+        "safe": "Veilig",
+        "check": "Controleren"
+    },
+    "NormalDistribution": {
+        "title": "Normale Verdeling Grafiek",
+        "mean": "Gemiddelde (μ)",
+        "stdDev": "Standaardafwijking (σ)",
+        "values": "Waarden (x)",
+        "stats": "Statistieken",
+        "peak": "Piek Hoogte",
+        "range": "Bereik",
+        "empirical": "Empirische Regel (68-95-99.7)"
+    }
+}

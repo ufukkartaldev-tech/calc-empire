@@ -1,26 +1,76 @@
 {
     "HomePage": {
         "title": "CalcEmpire",
-        "description": "पेशेवर इंजीनियरिंग कैलकुलेटर — सटीक, तेज़, बहुभाषी।"
+        "description": "पेशेवर इंजीनियरिंग कैलकुलेटर - सटीक, तेज़ और बहुभाषी।"
     },
     "CalculatorTemplate": {
         "fieldsLabel": "कैलकुलेटर इनपुट",
-        "leaveBlankHint": "हल करने के लिए खाली छोड़ें",
+        "leaveBlankHint": "गणना करने के लिए खाली छोड़ दें",
         "unitLabel": "इकाई",
         "solveButton": "हल करें",
         "resetButton": "रीसेट करें",
-        "calculatedBadge": "परिकलित",
-        "errorAllFilled": "अज्ञात को हल करने के लिए बिल्कुल एक फ़ील्ड रिक्त छोड़ें।",
+        "calculatedBadge": "गणना की गई",
+        "errorAllFilled": "अज्ञात का पता लगाने के लिए ठीक एक फ़ील्ड खाली छोड़ दें।",
         "errorTooManyUnknowns": "कृपया एक को छोड़कर सभी फ़ील्ड भरें।"
     },
     "OhmCalculator": {
         "title": "ओम का नियम",
-        "description": "V = I × R — एक फ़ील्ड खाली छोड़ें और हल करें दबाएं।",
+        "description": "V = I × R",
         "voltage": "वोल्टेज",
-        "voltagePlaceholder": "जैसे 12",
-        "current": "करेंट",
-        "currentPlaceholder": "जैसे 0.5",
+        "voltagePlaceholder": "उदा. 12",
+        "current": "विद्युत धारा",
+        "currentPlaceholder": "उदा. 0.5",
         "resistance": "प्रतिरोध",
-        "resistancePlaceholder": "जैसे 100"
+        "resistancePlaceholder": "उदा. 100"
+    },
+    "Categories": {
+        "electrical": "विद्युत इंजीनियरिंग",
+        "mechanical": "यांत्रिक इंजीनियरिंग",
+        "statistics": "सांख्यिकी और गणित",
+        "toolReference": "उपकरण संदर्भ"
+    },
+    "Dashboard": {
+        "title": "कैलकुलेटर उपकरण",
+        "subtitle": "अपनी आवश्यकता का कैलकुलेटर चुनें और गणना शुरू करें।",
+        "backButton": "वापस जाएँ",
+        "ohmTitle": "ओम का नियम कैलकुलेटर",
+        "ohmDesc": "V = I × R मानक गणना।",
+        "resistorTitle": "प्रतिरोधक रंग कोड",
+        "resistorDesc": "4, 5, और 6 बैंड रंग कोड पाठक।",
+        "beamTitle": "बीम डिफ्लेक्शन विश्लेषण",
+        "beamDesc": "विभिन्न प्रकार के बीम के लिए डिफ्लेक्शन गणना।",
+        "normalTitle": "सामान्य वितरण चार्ट",
+        "normalDesc": "मानक विचलन और माध्य विज़ुअलाइज़र।"
+    },
+    "ResistorVisualizer": {
+        "title": "प्रतिरोधक रंग कोड",
+        "bandCount": "बैंड की संख्या",
+        "bandLabel": "बैंड",
+        "result": "परिणाम",
+        "invalid": "अमान्य रंग संयोजन। कृपया जांच लें।"
+    },
+    "BeamVisualizer": {
+        "title": "बीम डिफ्लेक्शन विश्लेषण",
+        "cantilever": "ब्रैकेट बीम (Cantilever)",
+        "simplySupported": "सरलीकृत समर्थित बीम",
+        "length": "लंबाई (L)",
+        "load": "भार (W)",
+        "elasticModulus": "लचीलापन मॉड्यूल (E)",
+        "momentOfInertia": "जड़ता आघूर्ण (I)",
+        "maxDeflection": "अधिकतम डिफ्लेक्शन",
+        "formula": "सूत्र",
+        "status": "सुरक्षा स्थिति",
+        "safe": "सुरक्षित",
+        "check": "जांच करें"
+    },
+    "NormalDistribution": {
+        "title": "सामान्य वितरण चार्ट",
+        "mean": "माध्य (μ)",
+        "stdDev": "मानक विचलन (σ)",
+        "values": "मूल्य (x)",
+        "stats": "वितरण सांख्यिकी",
+        "peak": "शीर्ष ऊंचाई",
+        "range": "विस्तार",
+        "empirical": "अनुभवजन्य नियम (68-95-99.7)"
     }
 }

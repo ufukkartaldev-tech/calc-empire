@@ -1,0 +1,76 @@
+{
+    "HomePage": {
+        "title": "CalcEmpire",
+        "description": "Calculadoras de ingeniería profesionales — precisas, rápidas, multilingües."
+    },
+    "CalculatorTemplate": {
+        "fieldsLabel": "Entradas de la calculadora",
+        "leaveBlankHint": "Deje en blanco para calcular",
+        "unitLabel": "unidad",
+        "solveButton": "Resolver",
+        "resetButton": "Restablecer",
+        "calculatedBadge": "Calculado",
+        "errorAllFilled": "Deje exactamente un campo en blanco para calcular.",
+        "errorTooManyUnknowns": "Por favor, complete todos los campos excepto uno."
+    },
+    "OhmCalculator": {
+        "title": "Ley de Ohm",
+        "description": "V = I × R",
+        "voltage": "Voltaje",
+        "voltagePlaceholder": "ej. 12",
+        "current": "Corriente",
+        "currentPlaceholder": "ej. 0.5",
+        "resistance": "Resistencia",
+        "resistancePlaceholder": "ej. 100"
+    },
+    "Categories": {
+        "electrical": "Ingeniería Eléctrica",
+        "mechanical": "Ingeniería Mecánica",
+        "statistics": "Estadística y Matemáticas",
+        "toolReference": "Referencia de Herramientas"
+    },
+    "Dashboard": {
+        "title": "Herramientas de Cálculo",
+        "subtitle": "Seleccione la calculadora que necesita y comience a calcular.",
+        "backButton": "Volver",
+        "ohmTitle": "Calculadora de la Ley de Ohm",
+        "ohmDesc": "Cálculos estándar de V = I × R.",
+        "resistorTitle": "Códigos de Color de Resistencias",
+        "resistorDesc": "Lector de código de colores de 4, 5 y 6 bandas.",
+        "beamTitle": "Análisis de Deflexión de Vigas",
+        "beamDesc": "Cálculo de deflexión para varios tipos de vigas.",
+        "normalTitle": "Gráfico de Distribución Normal",
+        "normalDesc": "Visualizador de desviación estándar y media."
+    },
+    "ResistorVisualizer": {
+        "title": "Códigos de Color de Resistencias",
+        "bandCount": "Número de Bandas",
+        "bandLabel": "Banda",
+        "result": "Resultado",
+        "invalid": "Combinación de colores inválida. Verifique sus selecciones."
+    },
+    "BeamVisualizer": {
+        "title": "Análisis de Deflexión de Vigas",
+        "cantilever": "Viga Voladiza",
+        "simplySupported": "Viga Simplemente Apoyada",
+        "length": "Longitud (L)",
+        "load": "Carga (W)",
+        "elasticModulus": "Módulo Elástico (E)",
+        "momentOfInertia": "Momento de Inercia (I)",
+        "maxDeflection": "Deflexión Máx",
+        "formula": "Fórmula",
+        "status": "Estado de Seguridad",
+        "safe": "Seguro",
+        "check": "Verificar Diseño"
+    },
+    "NormalDistribution": {
+        "title": "Gráfico de Distribución Normal",
+        "mean": "Media (μ)",
+        "stdDev": "Desviación Estándar (σ)",
+        "values": "Valores (x)",
+        "stats": "Estadísticas",
+        "peak": "Altura Máx",
+        "range": "Rango",
+        "empirical": "Regla Empírica (68-95-99.7)"
+    }
+}
