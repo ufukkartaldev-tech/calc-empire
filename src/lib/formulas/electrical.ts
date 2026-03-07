@@ -257,3 +257,45 @@ export function calculateBodePlot({ type, R, C, L, points = 100 }: BodePlotParam
         phases
     };
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Kirchhoff's Laws (2-Loop Mesh Analysis)
+// ─────────────────────────────────────────────────────────────────────────────
+
+interface Kirchhoff2LoopParams {
+    V1: number;
+    V2: number;
+    R1: number;
+    R2: number;
+    R3: number;
+}
+
+export function solveKirchhoff2Loop({ V1, V2, R1, R2, R3 }: Kirchhoff2LoopParams) {
+    if (R1 < 0 || R2 < 0 || R3 < 0) {
+        throw new Error("Resistances cannot be negative");
+    }
+
+    // Standard 2-mesh equations:
+    // Mesh 1: I1(R1 + R3) + I2(R3) = V1
+    // Mesh 2: I1(R3) + I2(R2 + R3) = V2
+    // Matrix [a, b; c, d] [I1; I2] = [V1; V2]
+
+    const a = R1 + R3;
+    const b = R3;
+    const c = R3;
+    const d = R2 + R3;
+
+    const det = (a * d) - (b * c);
+    if (det === 0) {
+        throw new Error("Circuit has no unique valid solution (determinant is zero)");
+    }
+
+    // Cramer's rule
+    // I1 = det([V1, b ; V2, d]) / det
+    // I2 = det([a, V1 ; c, V2]) / det
+    const I1 = (V1 * d - b * V2) / det;
+    const I2 = (a * V2 - V1 * c) / det;
+    const I3 = I1 + I2; // Current down through the middle branch
+
+    return { I1, I2, I3 };
+}
