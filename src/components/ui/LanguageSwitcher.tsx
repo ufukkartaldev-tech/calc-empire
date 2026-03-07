@@ -113,6 +113,7 @@ export function LanguageSwitcher() {
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-700 dark:text-slate-200 placeholder-slate-400"
                             onClick={(e) => e.stopPropagation()}
+                            autoFocus
                         />
                     </div>
                     <div className="py-1 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700">
