@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { concreteSectionCapacity } from '@/lib/formulas/civil';
 
 export function ConcreteSectionCalculator() {
   const t = useTranslations('ConcreteSection');
@@ -13,47 +14,15 @@ export function ConcreteSectionCalculator() {
   const [fyk, setFyk] = useState<number>(420); // B420C
   const [As, setAs] = useState<number>(1500); // 1500 mm^2
 
-  // Safety factors (Eurocode / General TS500)
-  const gammaC = 1.5;
-  const gammaS = 1.15;
-
-  const fcd = fck / gammaC;
-  const fyd = fyk / gammaS;
-
   // Calculations
   const calcCapacity = () => {
-    if (!bw || !d || !fck || !fyk || !As) return null;
-
-    // Depth of equivalent rectangular stress block
-    const a = (As * fyd) / (0.85 * fcd * bw);
-
-    // Depth of neutral axis (assuming <= C50, beta1 = 0.85)
-    let k1 = 0.85;
-    if (fck > 50) {
-      k1 = Math.max(0.65, 0.85 - 0.008 * (fck - 50));
+    try {
+      if (!bw || !d || !fck || !fyk || !As) return null;
+      return concreteSectionCapacity({ bw, d, fck, fyk, As });
+    } catch (e) {
+      console.error(e);
+      return null;
     }
-    const c = a / k1;
-
-    // Design moment capacity
-    const Md = As * fyd * (d - a / 2); // N.mm
-    const Md_kNm = Md / 1000000;
-
-    // Strain in steel at ultimate concrete strain of 0.003
-    let epsS = 0;
-    if (c < d) {
-      epsS = 0.003 * ((d - c) / c);
-    }
-
-    const isDuctile = epsS >= 0.005;
-
-    return {
-      a,
-      c,
-      Md: Md_kNm,
-      epsS,
-      isDuctile,
-      isOverReinforced: c >= d
-    };
   };
 
   const results = calcCapacity();

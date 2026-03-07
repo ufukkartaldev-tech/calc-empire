@@ -88,6 +88,9 @@ export function convertPressure(value: number, from: string, to: string): number
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function convertTemperature(value: number, from: string, to: string): number {
+    if (typeof value !== 'number' || isNaN(value)) {
+        throw new Error("Input must be a valid numeric value");
+    }
     if (from !== 'C' && from !== 'F' && from !== 'K') throw new Error("Unknown unit");
     if (to !== 'C' && to !== 'F' && to !== 'K') throw new Error("Unknown unit");
 

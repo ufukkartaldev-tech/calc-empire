@@ -109,6 +109,11 @@ describe('Temperature Converter', () => {
         THROWS(() => convertTemperature(-1, 'K', 'C'));
     });
 
+    it('throws for invalid types or NaN', () => {
+        THROWS(() => convertTemperature("100" as any, 'C', 'F'));
+        THROWS(() => convertTemperature(NaN, 'C', 'F'));
+    });
+
     it('throws for unknown scale', () => {
         THROWS(() => convertTemperature(100, 'C', 'R')); // Rankine not supported
     });
