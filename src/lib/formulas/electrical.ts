@@ -193,3 +193,67 @@ export function ledResistor({ Vsupply, Vled, IledA }: { Vsupply: number, Vled: n
     if (IledA <= 0) throw new Error("LED current must be > 0");
     return (Vsupply - Vled) / IledA;
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Bode Plot Calculation
+// ─────────────────────────────────────────────────────────────────────────────
+
+interface BodePlotParams {
+    type: 'low-pass' | 'high-pass';
+    R: number;
+    C?: number;
+    L?: number;
+    points?: number;
+}
+
+export function calculateBodePlot({ type, R, C, L, points = 100 }: BodePlotParams) {
+    if (R <= 0) throw new Error("Resistance must be positive");
+
+    let fc = 0;
+    if (C !== undefined && C > 0) {
+        fc = 1 / (2 * Math.PI * R * C);
+    } else if (L !== undefined && L > 0) {
+        fc = R / (2 * Math.PI * L);
+    } else {
+        if (C !== undefined && C <= 0) throw new Error("Capacitance or Inductance must be positive");
+        if (L !== undefined && L <= 0) throw new Error("Capacitance or Inductance must be positive");
+        throw new Error("Either valid C or L must be provided");
+    }
+
+    const fMin = fc / 100;
+    const fMax = fc * 100;
+
+    const frequencies: number[] = [];
+    const logMin = Math.log10(fMin);
+    const logMax = Math.log10(fMax);
+    const step = (logMax - logMin) / (points - 1 || 1);
+
+    for (let i = 0; i < points; i++) {
+        frequencies.push(Math.pow(10, logMin + i * step));
+    }
+
+    const magnitudes = frequencies.map(f => {
+        const ratio = f / fc;
+        if (type === 'low-pass') {
+            return -10 * Math.log10(1 + ratio * ratio);
+        } else {
+            return 20 * Math.log10(ratio) - 10 * Math.log10(1 + ratio * ratio);
+        }
+    });
+
+    const phases = frequencies.map(f => {
+        const ratio = f / fc;
+        if (type === 'low-pass') {
+            return -(180 / Math.PI) * Math.atan(ratio);
+        } else {
+            return 90 - (180 / Math.PI) * Math.atan(ratio);
+        }
+    });
+
+    return {
+        fc,
+        frequencies,
+        magnitudes,
+        phases
+    };
+}
