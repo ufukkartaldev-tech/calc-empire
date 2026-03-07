@@ -3,109 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import Fuse from 'fuse.js';
-import {
-  // Electrical
-  ResistorVisualizer, OhmCalculator, KirchhoffCalculator, PowerCalculator, BodePlotVisualizer,
-  // Mechanical
-  BeamDeflectionVisualizer, StressStrainCalculator, ShearMomentVisualizer,
-  // Civil
-  ConcreteSectionCalculator, SoilMechanicsCalculator,
-  // Software
-  BaseConverter, CronParser, JsonFormatter,
-  // Chemistry
-  PeriodicTableVisualizer, IdealGasCalculator,
-  // Fluid
-  BernoulliCalculator, PressureLossCalculator,
-  // Statistics
-  NormalDistributionChart, BasicStatisticsCalculator, DiscreteDistributionVisualizer, DataVisualizer,
-  // Mathematics
-  CalculusCalculator, MatrixCalculator, GeometryCalculator, FunctionPlotVisualizer,
-  // Finance
-  CompoundInterestCalculator, CryptoPnlCalculator,
-  // Converters
-  UnitConverter
-} from '../calculators';
-
-type ToolId =
-  | 'ohm' | 'resistor' | 'kirchhoff' | 'power' | 'bode'
-  | 'beam' | 'stressStrain' | 'shearMoment'
-  | 'concreteSection' | 'soilMechanics'
-  | 'baseConverter' | 'cronParser' | 'jsonFormatter'
-  | 'periodicTable' | 'idealGas'
-  | 'bernoulli' | 'pressureLoss'
-  | 'normal' | 'basicStats' | 'discreteDist' | 'dataViz'
-  | 'calculus' | 'matrix' | 'geometry' | 'functionPlot'
-  | 'compoundInterest' | 'cryptoPnl'
-  | 'unitConverter' | null;
-
-const CATEGORY_ORDER = [
-  'electrical', 'software', 'finance', 'civil', 'mechanical',
-  'chemistry', 'fluid', 'statistics', 'mathematics', 'converters'
-] as const;
-
-type ToolConfig = {
-  id: ToolId;
-  titleKey: string;
-  descKey: string;
-  catKey: typeof CATEGORY_ORDER[number];
-  icon: string;
-};
-
-const TOOLS_CONFIG: ToolConfig[] = [
-  // Electrical
-  { id: 'ohm', titleKey: 'ohmTitle', descKey: 'ohmDesc', catKey: 'electrical', icon: 'Ω' },
-  { id: 'kirchhoff', titleKey: 'kirchhoffTitle', descKey: 'kirchhoffDesc', catKey: 'electrical', icon: '🔌' },
-  { id: 'power', titleKey: 'powerTitle', descKey: 'powerDesc', catKey: 'electrical', icon: '💡' },
-  { id: 'resistor', titleKey: 'resistorTitle', descKey: 'resistorDesc', catKey: 'electrical', icon: '🎨' },
-  { id: 'bode', titleKey: 'bodeTitle', descKey: 'bodeDesc', catKey: 'electrical', icon: '📈' },
-
-  // Software
-  { id: 'baseConverter', titleKey: 'baseConverterTitle', descKey: 'baseConverterDesc', catKey: 'software', icon: '�' },
-  { id: 'cronParser', titleKey: 'cronParserTitle', descKey: 'cronParserDesc', catKey: 'software', icon: '⏱️' },
-  { id: 'jsonFormatter', titleKey: 'jsonFormatterTitle', descKey: 'jsonFormatterDesc', catKey: 'software', icon: '｛' },
-
-  // Finance
-  { id: 'compoundInterest', titleKey: 'compoundInterestTitle', descKey: 'compoundInterestDesc', catKey: 'finance', icon: '�' },
-  { id: 'cryptoPnl', titleKey: 'cryptoPnlTitle', descKey: 'cryptoPnlDesc', catKey: 'finance', icon: '🪙' },
-
-  // Civil
-  { id: 'concreteSection', titleKey: 'concreteSectionTitle', descKey: 'concreteSectionDesc', catKey: 'civil', icon: '🪨' },
-  { id: 'soilMechanics', titleKey: 'soilMechanicsTitle', descKey: 'soilMechanicsDesc', catKey: 'civil', icon: '�' },
-
-  // Mechanical
-  { id: 'beam', titleKey: 'beamTitle', descKey: 'beamDesc', catKey: 'mechanical', icon: '📏' },
-  { id: 'stressStrain', titleKey: 'stressStrainTitle', descKey: 'stressStrainDesc', catKey: 'mechanical', icon: '💥' },
-  { id: 'shearMoment', titleKey: 'shearMomentTitle', descKey: 'shearMomentDesc', catKey: 'mechanical', icon: '✂️' },
-
-  // Chemistry
-  { id: 'periodicTable', titleKey: 'periodicTableTitle', descKey: 'periodicTableDesc', catKey: 'chemistry', icon: '🧪' },
-  { id: 'idealGas', titleKey: 'idealGasTitle', descKey: 'idealGasDesc', catKey: 'chemistry', icon: '💨' },
-
-  // Fluid
-  { id: 'bernoulli', titleKey: 'bernoulliTitle', descKey: 'bernoulliDesc', catKey: 'fluid', icon: '⛲' },
-  { id: 'pressureLoss', titleKey: 'pressureLossTitle', descKey: 'pressureLossDesc', catKey: 'fluid', icon: '🚰' },
-
-  // Statistics
-  { id: 'normal', titleKey: 'normalTitle', descKey: 'normalDesc', catKey: 'statistics', icon: '�' },
-  { id: 'basicStats', titleKey: 'basicStatsTitle', descKey: 'basicStatsDesc', catKey: 'statistics', icon: '�' },
-  { id: 'discreteDist', titleKey: 'discreteDistTitle', descKey: 'discreteDistDesc', catKey: 'statistics', icon: '🎲' },
-  { id: 'dataViz', titleKey: 'dataVizTitle', descKey: 'dataVizDesc', catKey: 'statistics', icon: '📊' },
-
-  // Mathematics
-  { id: 'calculus', titleKey: 'calculusTitle', descKey: 'calculusDesc', catKey: 'mathematics', icon: '∫' },
-  { id: 'matrix', titleKey: 'matrixTitle', descKey: 'matrixDesc', catKey: 'mathematics', icon: '▦' },
-  { id: 'geometry', titleKey: 'geometryTitle', descKey: 'geometryDesc', catKey: 'mathematics', icon: '📐' },
-  { id: 'functionPlot', titleKey: 'functionPlotTitle', descKey: 'functionPlotDesc', catKey: 'mathematics', icon: '📈' },
-
-  // Converters
-  { id: 'unitConverter', titleKey: 'unitConverterTitle', descKey: 'unitConverterDesc', catKey: 'converters', icon: '⚖️' }
-];
-
-const CATEGORY_ICONS: Record<typeof CATEGORY_ORDER[number], string> = {
-  electrical: '⚡', software: '💻', finance: '💰', civil: '🏗️',
-  mechanical: '⚙️', chemistry: '☢️', fluid: '🌊', statistics: '📊',
-  mathematics: '🧮', converters: '🔄'
-};
+import { ToolId, CATEGORY_ORDER, TOOLS_CONFIG, CATEGORY_ICONS, CRITICAL_TOOLS } from './tools.config';
+import { ToolRenderer } from './ToolRenderer';
 
 export function EngineeringDashboard() {
   const tCat = useTranslations('Categories');
@@ -114,62 +13,6 @@ export function EngineeringDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showHelp, setShowHelp] = useState(false);
   const [acknowledgedTools, setAcknowledgedTools] = useState<Set<ToolId>>(new Set());
-
-  const CRITICAL_TOOLS: ToolId[] = ['concreteSection', 'soilMechanics', 'beam', 'stressStrain', 'shearMoment', 'pressureLoss', 'kirchhoff'];
-
-  const renderTool = () => {
-    switch (activeTool) {
-      // Electrical
-      case 'ohm': return <OhmCalculator />;
-      case 'resistor': return <ResistorVisualizer />;
-      case 'kirchhoff': return <KirchhoffCalculator />;
-      case 'power': return <PowerCalculator />;
-      case 'bode': return <BodePlotVisualizer />;
-
-      // Mechanical
-      case 'beam': return <BeamDeflectionVisualizer />;
-      case 'stressStrain': return <StressStrainCalculator />;
-      case 'shearMoment': return <ShearMomentVisualizer />;
-
-      // Civil
-      case 'concreteSection': return <ConcreteSectionCalculator />;
-      case 'soilMechanics': return <SoilMechanicsCalculator />;
-
-      // Software
-      case 'baseConverter': return <BaseConverter />;
-      case 'cronParser': return <CronParser />;
-      case 'jsonFormatter': return <JsonFormatter />;
-
-      // Chemistry
-      case 'periodicTable': return <PeriodicTableVisualizer />;
-      case 'idealGas': return <IdealGasCalculator />;
-
-      // Finance
-      case 'compoundInterest': return <CompoundInterestCalculator />;
-      case 'cryptoPnl': return <CryptoPnlCalculator />;
-
-      // Fluid
-      case 'bernoulli': return <BernoulliCalculator />;
-      case 'pressureLoss': return <PressureLossCalculator />;
-
-      // Statistics
-      case 'normal': return <NormalDistributionChart />;
-      case 'basicStats': return <BasicStatisticsCalculator />;
-      case 'discreteDist': return <DiscreteDistributionVisualizer />;
-      case 'dataViz': return <DataVisualizer />;
-
-      // Mathematics
-      case 'calculus': return <CalculusCalculator />;
-      case 'matrix': return <MatrixCalculator />;
-      case 'geometry': return <GeometryCalculator />;
-      case 'functionPlot': return <FunctionPlotVisualizer />;
-
-      // Converters
-      case 'unitConverter': return <UnitConverter />;
-
-      default: return null;
-    }
-  };
 
   // Pre-translate everything for searchable fields
   const searchableTools = useMemo(() => {
@@ -250,7 +93,7 @@ export function EngineeringDashboard() {
         ) : (
           <div className="w-full flex flex-col items-center">
             <div className="w-full flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-300">
-              {renderTool()}
+              <ToolRenderer activeTool={activeTool} />
             </div>
 
             {isCritical && (
