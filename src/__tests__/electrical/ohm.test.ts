@@ -60,7 +60,21 @@ describe("Ohm's Law – Power", () => {
     });
 
     it('throws when fewer than 2 parameters are given', () => {
-        expect(() => ohmPower({ voltage: 10 })).toThrow();
+        expect(() => ohmPower({ voltage: 10 })).toThrow("At least two parameters are required.");
+    });
+
+    it('throws when string or invalid types are provided', () => {
+        // Simulating JS runtime bypass of TS types
+        expect(() => ohmPower({ voltage: "12V" as any, current: 2 })).toThrow("Inputs must be valid numeric values.");
+        expect(() => ohmPower({ resistance: NaN, power: 5 })).toThrow("Inputs must be valid numeric values.");
+    });
+
+    it('throws when negative resistance is given', () => {
+        expect(() => ohmPower({ voltage: 10, resistance: -5 })).toThrow("Resistance (R) cannot be negative.");
+    });
+
+    it('throws when negative power is given', () => {
+        expect(() => ohmPower({ voltage: 10, power: -50 })).toThrow("Power (P) cannot be negative in passive systems.");
     });
 });
 

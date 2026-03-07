@@ -17,8 +17,18 @@ interface OhmPowerParams {
 export function ohmPower(params: OhmPowerParams): OhmPowerParams {
     let { voltage: V, current: I, resistance: R, power: P } = params;
 
-    const count = [V, I, R, P].filter(v => v !== undefined).length;
+    const definedValues = [V, I, R, P].filter(v => v !== undefined);
+    const count = definedValues.length;
     if (count < 2) throw new Error("At least two parameters are required.");
+
+    for (const v of definedValues) {
+        if (typeof v !== 'number' || isNaN(v)) {
+            throw new Error("Inputs must be valid numeric values.");
+        }
+    }
+
+    if (R !== undefined && R < 0) throw new Error("Resistance (R) cannot be negative.");
+    if (P !== undefined && P < 0) throw new Error("Power (P) cannot be negative in passive systems.");
 
     if (V !== undefined && I !== undefined) {
         R = V / I;
