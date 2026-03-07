@@ -227,5 +227,20 @@
         "middle": "I₃ (Middle)",
         "errorInvalid": "Invalid inputs or no unique solution",
         "errorZero": "Check for zero resistances in critical paths."
+    },
+    "PowerCalculator": {
+        "title": "AC Power Analysis",
+        "description": "Calculate active, reactive, and apparent power in AC systems.",
+        "voltage": "Voltage (Vrms)",
+        "current": "Current (Irms)",
+        "phaseAngle": "Phase Angle (φ°)",
+        "results": "Power Analysis Results",
+        "apparentPower": "Apparent Power (S)",
+        "activePower": "Active Power (P)",
+        "reactivePower": "Reactive Power (Q)",
+        "powerFactor": "Power Factor (cos φ)",
+        "leading": "Leading",
+        "lagging": "Lagging",
+        "visualizer": "Power Triangle Visualizer"
     }
 }

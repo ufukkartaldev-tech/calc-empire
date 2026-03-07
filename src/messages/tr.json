@@ -227,5 +227,20 @@
         "middle": "I₃ (Orta Kol)",
         "errorInvalid": "Geçersiz giriş veya benzersiz çözüm bulunamadı",
         "errorZero": "Kritik hatlarda sıfır değerli direnç kullanımını kontrol ediniz."
+    },
+    "PowerCalculator": {
+        "title": "AC Güç Analizi",
+        "description": "AC sistemlerde aktif, reaktif ve görünür güç hesaplamaları.",
+        "voltage": "Gerilim (Vrms)",
+        "current": "Akım (Irms)",
+        "phaseAngle": "Faz Açısı (φ°)",
+        "results": "Güç Analiz Sonuçları",
+        "apparentPower": "Görünür Güç (S)",
+        "activePower": "Aktif Güç (P)",
+        "reactivePower": "Reaktif Güç (Q)",
+        "powerFactor": "Güç Faktörü (cos φ)",
+        "leading": "Kapasitif (İleri)",
+        "lagging": "Endüktif (Geri)",
+        "visualizer": "Güç Üçgeni Görselleştirici"
     }
 }
