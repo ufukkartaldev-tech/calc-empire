@@ -113,6 +113,9 @@ export function EngineeringDashboard() {
   const [activeTool, setActiveTool] = useState<ToolId>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showHelp, setShowHelp] = useState(false);
+  const [acknowledgedTools, setAcknowledgedTools] = useState<Set<ToolId>>(new Set());
+
+  const CRITICAL_TOOLS: ToolId[] = ['concreteSection', 'soilMechanics', 'beam', 'stressStrain', 'shearMoment', 'pressureLoss', 'kirchhoff'];
 
   const renderTool = () => {
     switch (activeTool) {
@@ -205,8 +208,11 @@ export function EngineeringDashboard() {
   // --- RENDERING VIEWS ---
 
   if (activeTool) {
+    const isCritical = CRITICAL_TOOLS.includes(activeTool);
+    const hasAcknowledged = acknowledgedTools.has(activeTool);
+
     return (
-      <div className="w-full max-w-4xl mx-auto flex flex-col items-center pb-20">
+      <div className="w-full max-w-4xl mx-auto flex flex-col items-center pb-20 mt-4 md:mt-8">
         <div className="w-full flex justify-start mb-6">
           <button
             onClick={() => setActiveTool(null)}
@@ -215,9 +221,47 @@ export function EngineeringDashboard() {
             <span>←</span> {tDash('backButton')}
           </button>
         </div>
-        <div className="w-full flex justify-center">
-          {renderTool()}
-        </div>
+
+        {isCritical && !hasAcknowledged ? (
+          <div className="w-full flex justify-center mt-6">
+            <div className="max-w-xl w-full p-8 bg-amber-50 dark:bg-amber-900/10 border-l-4 border-amber-500 rounded-r-xl shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <h3 className="text-amber-900 dark:text-amber-400 font-bold text-xl mb-4 flex items-center gap-2">
+                <span>⚠️</span> {tDash('consentTitle' as any) || "Kullanım Öncesi Onay"}
+              </h3>
+              <p className="text-amber-800 dark:text-amber-300 text-sm mb-6 leading-relaxed">
+                {tDash('disclaimer' as any)}
+              </p>
+              <label className="flex items-start gap-3 cursor-pointer p-4 bg-white dark:bg-slate-900/50 rounded-lg border border-amber-200 dark:border-amber-800 group hover:border-blue-400 transition-colors">
+                <input
+                  type="checkbox"
+                  className="mt-1 w-5 h-5 text-blue-600 bg-slate-100 border-slate-300 rounded focus:ring-blue-500 transition-colors cursor-pointer"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setAcknowledgedTools(prev => new Set([...prev, activeTool]));
+                    }
+                  }}
+                />
+                <span className="text-sm text-slate-700 dark:text-slate-300 font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
+                  {tDash('acknowledgeDisclaimer' as any)}
+                </span>
+              </label>
+            </div>
+          </div>
+        ) : (
+          <div className="w-full flex flex-col items-center">
+            <div className="w-full flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-300">
+              {renderTool()}
+            </div>
+
+            {isCritical && (
+              <div className="mt-12 w-full px-6 py-4 bg-amber-50 dark:bg-amber-900/10 border-l-4 border-amber-500 rounded-r-xl shadow-sm">
+                <p className="text-xs font-medium text-amber-800 dark:text-amber-300/80 leading-relaxed text-center sm:text-left">
+                  {tDash('disclaimer' as any)}
+                </p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   }
@@ -364,15 +408,6 @@ export function EngineeringDashboard() {
             );
           })
         )}
-      </div>
-
-      {/* DISCLAIMER BOARD */}
-      <div className="mt-16 w-full flex justify-center">
-        <div className="max-w-4xl p-6 bg-red-50 dark:bg-red-900/10 border-l-4 border-red-500 rounded-r-xl">
-          <p className="text-sm font-medium text-red-800 dark:text-red-300/80 leading-relaxed text-center sm:text-left">
-            {tDash('disclaimer' as any)}
-          </p>
-        </div>
       </div>
     </div>
   );
