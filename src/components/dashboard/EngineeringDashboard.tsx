@@ -112,6 +112,7 @@ export function EngineeringDashboard() {
   const tDash = useTranslations('Dashboard');
   const [activeTool, setActiveTool] = useState<ToolId>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showHelp, setShowHelp] = useState(false);
 
   const renderTool = () => {
     switch (activeTool) {
@@ -244,6 +245,33 @@ export function EngineeringDashboard() {
         <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
           {tDash('subtitle')}
         </p>
+
+        <div className="flex flex-col items-center w-full max-w-2xl mt-2">
+          <button
+            onClick={() => setShowHelp(!showHelp)}
+            className="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors flex items-center gap-1 bg-blue-50 dark:bg-blue-900/30 px-4 py-2 rounded-full shadow-sm"
+          >
+            <span>{showHelp ? '✕' : 'ℹ️'}</span> {tDash('helpButton' as any)}
+          </button>
+
+          {showHelp && (
+            <div className="mt-4 p-6 bg-white dark:bg-slate-900 rounded-2xl border-2 border-blue-500/20 shadow-lg text-left animate-in fade-in slide-in-from-top-4 duration-300 w-full relative">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 border-b border-slate-100 dark:border-slate-800 pb-3">{tDash('helpTitle' as any)}</h3>
+              <div className="space-y-4 text-sm text-slate-600 dark:text-slate-300">
+                <p><strong>⚡ {tCat('electrical' as any)}:</strong> {tDash('helpElectrical' as any)}</p>
+                <p><strong>🏗️ {tCat('civil' as any)} & ⚙️ {tCat('mechanical' as any)}:</strong> {tDash('helpCivil' as any)}</p>
+                <p><strong>📊 {tCat('statistics' as any)} & 🧮 {tCat('mathematics' as any)}:</strong> {tDash('helpStats' as any)}</p>
+                <p><strong>💡 İpucu:</strong> {tDash('helpSearch' as any)}</p>
+              </div>
+              <button
+                onClick={() => setShowHelp(false)}
+                className="mt-6 w-full py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-medium transition-colors"
+              >
+                {tDash('helpClose' as any)}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* SEARCH BAR */}
@@ -336,6 +364,15 @@ export function EngineeringDashboard() {
             );
           })
         )}
+      </div>
+
+      {/* DISCLAIMER BOARD */}
+      <div className="mt-16 w-full flex justify-center">
+        <div className="max-w-4xl p-6 bg-red-50 dark:bg-red-900/10 border-l-4 border-red-500 rounded-r-xl">
+          <p className="text-sm font-medium text-red-800 dark:text-red-300/80 leading-relaxed text-center sm:text-left">
+            {tDash('disclaimer' as any)}
+          </p>
+        </div>
       </div>
     </div>
   );
