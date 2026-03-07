@@ -196,5 +196,36 @@
         "safe": "Güvenli (Sünek Kopma)",
         "unsafe": "Gevrek (Aşırı Donatılı)",
         "visualizer": "Kesit Gerilme Dağılımı"
+    },
+    "BodePlot": {
+        "title": "Bode Diyagramı Çizici",
+        "filterType": "Filtre Tipi",
+        "systemType": "Sistem Tipi",
+        "lowPass": "Alçak Geçiren (Low-Pass)",
+        "highPass": "Yüksek Geçiren (High-Pass)",
+        "rcCircuit": "RC Devresi",
+        "rlCircuit": "RL Devresi",
+        "resistance": "R (Direnç Ω)",
+        "capacitance": "C (Kapasitans F)",
+        "inductance": "L (İndüktans H)",
+        "fcLabel": "Kesim Frekansı",
+        "magTitle": "Genlik |H(jω)| (dB) - Frekans Eğrisi",
+        "phaseTitle": "Faz ∠H(jω) (°) - Frekans Eğrisi"
+    },
+    "Kirchhoff": {
+        "title": "Kirchhoff Kanunları (2 Gözlü)",
+        "description": "Standart 2 gözlü (mesh) bir devre için kol akımlarını hesaplayın. I₁, I₂ ve I₃ akımlarını bulmak için gerilim ve direnç değerlerini giriniz.",
+        "visualizerTitle": "Devre Şeması",
+        "v1Label": "V₁ (Sol Kaynak)",
+        "v2Label": "V₂ (Sağ Kaynak)",
+        "r1Label": "R₁ (Sol Direnç)",
+        "r2Label": "R₂ (Sağ Direnç)",
+        "r3Label": "R₃ (Orta Kol Direnci)",
+        "calculatedTitle": "Hesaplanan Akımlar",
+        "mesh1": "I₁ (Sol Göz)",
+        "mesh2": "I₂ (Sağ Göz)",
+        "middle": "I₃ (Orta Kol)",
+        "errorInvalid": "Geçersiz giriş veya benzersiz çözüm bulunamadı",
+        "errorZero": "Kritik hatlarda sıfır değerli direnç kullanımını kontrol ediniz."
     }
 }

@@ -196,5 +196,36 @@
         "safe": "Safe (Ductile Failure)",
         "unsafe": "Brittle (Over-reinforced)",
         "visualizer": "Section Stress Distribution"
+    },
+    "BodePlot": {
+        "title": "Bode Plot Visualizer",
+        "filterType": "Filter Type",
+        "systemType": "System Type",
+        "lowPass": "Low-Pass Filter",
+        "highPass": "High-Pass Filter",
+        "rcCircuit": "RC Circuit",
+        "rlCircuit": "RL Circuit",
+        "resistance": "R (Resistance Ω)",
+        "capacitance": "C (Capacitance F)",
+        "inductance": "L (Inductance H)",
+        "fcLabel": "Cutoff Freq",
+        "magTitle": "Magnitude |H(jω)| (dB) vs Frequency",
+        "phaseTitle": "Phase ∠H(jω) (°) vs Frequency"
+    },
+    "Kirchhoff": {
+        "title": "Kirchhoff's Laws (2-Loop)",
+        "description": "Calculate the branch currents for a standard 2-mesh circuit. Enter voltages and resistances to solve for I₁, I₂, and I₃.",
+        "visualizerTitle": "Circuit Diagram",
+        "v1Label": "V₁ (Left Source)",
+        "v2Label": "V₂ (Right Source)",
+        "r1Label": "R₁ (Left Resistor)",
+        "r2Label": "R₂ (Right Resistor)",
+        "r3Label": "R₃ (Middle Branch)",
+        "calculatedTitle": "Calculated Currents",
+        "mesh1": "I₁ (Mesh 1)",
+        "mesh2": "I₂ (Mesh 2)",
+        "middle": "I₃ (Middle)",
+        "errorInvalid": "Invalid inputs or no unique solution",
+        "errorZero": "Check for zero resistances in critical paths."
     }
 }
