@@ -39,7 +39,11 @@
     "Dashboard": {
         "title": "Calculator Tools",
         "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
+        "searchPlaceholder": "Search... (e.g., software, concrete)",
         "backButton": "Go Back",
+        "noResults": "No calculators found matching your search",
+        "requestTool": "Couldn't find the tool you need? Let us know, and we'll add it!",
+        "contactUs": "Contact Us",
         "ohmTitle": "Ohm's Law",
         "ohmDesc": "V = I × R standard calculations.",
         "resistorTitle": "Resistor Color Codes",

@@ -39,7 +39,11 @@
     "Dashboard": {
         "title": "Hesaplama Araçları",
         "subtitle": "İhtiyacınız olan hesaplayıcıyı seçerek anında işlemlere başlayın. Temiz, sade ve hızlı.",
+        "searchPlaceholder": "Ara... (Örn. yazılım, beton)",
         "backButton": "Geri Dön",
+        "noResults": "Arama sonucuna uygun hesaplayıcı bulunamadı",
+        "requestTool": "İstediğiniz aracı bulamadınız mı? Bize bildirin, listeye ekleyelim!",
+        "contactUs": "İletişime Geç",
         "ohmTitle": "Ohm Kanunu",
         "ohmDesc": "V = I × R standart hesaplamaları.",
         "resistorTitle": "Direnç Renk Kodları",

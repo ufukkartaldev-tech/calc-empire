@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import Fuse from 'fuse.js';
 import {
   // Electrical
   ResistorVisualizer, OhmCalculator, KirchhoffCalculator, PowerCalculator, BodePlotVisualizer,
@@ -37,10 +38,80 @@ type ToolId =
   | 'compoundInterest' | 'cryptoPnl'
   | 'unitConverter' | null;
 
+const CATEGORY_ORDER = [
+  'electrical', 'software', 'finance', 'civil', 'mechanical',
+  'chemistry', 'fluid', 'statistics', 'mathematics', 'converters'
+] as const;
+
+type ToolConfig = {
+  id: ToolId;
+  titleKey: string;
+  descKey: string;
+  catKey: typeof CATEGORY_ORDER[number];
+  icon: string;
+};
+
+const TOOLS_CONFIG: ToolConfig[] = [
+  // Electrical
+  { id: 'ohm', titleKey: 'ohmTitle', descKey: 'ohmDesc', catKey: 'electrical', icon: 'Ω' },
+  { id: 'kirchhoff', titleKey: 'kirchhoffTitle', descKey: 'kirchhoffDesc', catKey: 'electrical', icon: '🔌' },
+  { id: 'power', titleKey: 'powerTitle', descKey: 'powerDesc', catKey: 'electrical', icon: '💡' },
+  { id: 'resistor', titleKey: 'resistorTitle', descKey: 'resistorDesc', catKey: 'electrical', icon: '🎨' },
+  { id: 'bode', titleKey: 'bodeTitle', descKey: 'bodeDesc', catKey: 'electrical', icon: '📈' },
+
+  // Software
+  { id: 'baseConverter', titleKey: 'baseConverterTitle', descKey: 'baseConverterDesc', catKey: 'software', icon: '�' },
+  { id: 'cronParser', titleKey: 'cronParserTitle', descKey: 'cronParserDesc', catKey: 'software', icon: '⏱️' },
+  { id: 'jsonFormatter', titleKey: 'jsonFormatterTitle', descKey: 'jsonFormatterDesc', catKey: 'software', icon: '｛' },
+
+  // Finance
+  { id: 'compoundInterest', titleKey: 'compoundInterestTitle', descKey: 'compoundInterestDesc', catKey: 'finance', icon: '�' },
+  { id: 'cryptoPnl', titleKey: 'cryptoPnlTitle', descKey: 'cryptoPnlDesc', catKey: 'finance', icon: '🪙' },
+
+  // Civil
+  { id: 'concreteSection', titleKey: 'concreteSectionTitle', descKey: 'concreteSectionDesc', catKey: 'civil', icon: '🪨' },
+  { id: 'soilMechanics', titleKey: 'soilMechanicsTitle', descKey: 'soilMechanicsDesc', catKey: 'civil', icon: '�' },
+
+  // Mechanical
+  { id: 'beam', titleKey: 'beamTitle', descKey: 'beamDesc', catKey: 'mechanical', icon: '📏' },
+  { id: 'stressStrain', titleKey: 'stressStrainTitle', descKey: 'stressStrainDesc', catKey: 'mechanical', icon: '💥' },
+  { id: 'shearMoment', titleKey: 'shearMomentTitle', descKey: 'shearMomentDesc', catKey: 'mechanical', icon: '✂️' },
+
+  // Chemistry
+  { id: 'periodicTable', titleKey: 'periodicTableTitle', descKey: 'periodicTableDesc', catKey: 'chemistry', icon: '🧪' },
+  { id: 'idealGas', titleKey: 'idealGasTitle', descKey: 'idealGasDesc', catKey: 'chemistry', icon: '💨' },
+
+  // Fluid
+  { id: 'bernoulli', titleKey: 'bernoulliTitle', descKey: 'bernoulliDesc', catKey: 'fluid', icon: '⛲' },
+  { id: 'pressureLoss', titleKey: 'pressureLossTitle', descKey: 'pressureLossDesc', catKey: 'fluid', icon: '🚰' },
+
+  // Statistics
+  { id: 'normal', titleKey: 'normalTitle', descKey: 'normalDesc', catKey: 'statistics', icon: '�' },
+  { id: 'basicStats', titleKey: 'basicStatsTitle', descKey: 'basicStatsDesc', catKey: 'statistics', icon: '�' },
+  { id: 'discreteDist', titleKey: 'discreteDistTitle', descKey: 'discreteDistDesc', catKey: 'statistics', icon: '🎲' },
+  { id: 'dataViz', titleKey: 'dataVizTitle', descKey: 'dataVizDesc', catKey: 'statistics', icon: '📊' },
+
+  // Mathematics
+  { id: 'calculus', titleKey: 'calculusTitle', descKey: 'calculusDesc', catKey: 'mathematics', icon: '∫' },
+  { id: 'matrix', titleKey: 'matrixTitle', descKey: 'matrixDesc', catKey: 'mathematics', icon: '▦' },
+  { id: 'geometry', titleKey: 'geometryTitle', descKey: 'geometryDesc', catKey: 'mathematics', icon: '📐' },
+  { id: 'functionPlot', titleKey: 'functionPlotTitle', descKey: 'functionPlotDesc', catKey: 'mathematics', icon: '📈' },
+
+  // Converters
+  { id: 'unitConverter', titleKey: 'unitConverterTitle', descKey: 'unitConverterDesc', catKey: 'converters', icon: '⚖️' }
+];
+
+const CATEGORY_ICONS: Record<typeof CATEGORY_ORDER[number], string> = {
+  electrical: '⚡', software: '💻', finance: '💰', civil: '🏗️',
+  mechanical: '⚙️', chemistry: '☢️', fluid: '🌊', statistics: '📊',
+  mathematics: '🧮', converters: '🔄'
+};
+
 export function EngineeringDashboard() {
   const tCat = useTranslations('Categories');
   const tDash = useTranslations('Dashboard');
   const [activeTool, setActiveTool] = useState<ToolId>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const renderTool = () => {
     switch (activeTool) {
@@ -96,6 +167,42 @@ export function EngineeringDashboard() {
     }
   };
 
+  // Pre-translate everything for searchable fields
+  const searchableTools = useMemo(() => {
+    return TOOLS_CONFIG.map(tool => ({
+      ...tool,
+      translatedTitle: tDash(tool.titleKey as any),
+      translatedDesc: tDash(tool.descKey as any),
+      translatedCat: tCat(tool.catKey as any)
+    }));
+  }, [tDash, tCat]);
+
+  // Use Fuse for fuzzy matching with typo tolerance
+  const fuse = useMemo(() => {
+    return new Fuse(searchableTools, {
+      keys: ['translatedTitle', 'translatedDesc', 'translatedCat'],
+      threshold: 0.35, // Typos tolerance limit (lower means stricter, 0.35 allows "yaxilim" for "yazilim")
+      distance: 100
+    });
+  }, [searchableTools]);
+
+  const filteredTools = useMemo(() => {
+    if (!searchQuery.trim()) return searchableTools;
+    return fuse.search(searchQuery).map(result => result.item);
+  }, [searchQuery, fuse, searchableTools]);
+
+  // Group the filtered tools by category to render them exactly as they were
+  const toolsByCategory = useMemo(() => {
+    const grouped: Partial<Record<typeof CATEGORY_ORDER[number], typeof searchableTools>> = {};
+    for (const tool of filteredTools) {
+      if (!grouped[tool.catKey]) grouped[tool.catKey] = [];
+      grouped[tool.catKey]!.push(tool);
+    }
+    return grouped;
+  }, [filteredTools]);
+
+  // --- RENDERING VIEWS ---
+
   if (activeTool) {
     return (
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center pb-20">
@@ -113,21 +220,6 @@ export function EngineeringDashboard() {
       </div>
     );
   }
-
-  const renderCard = (id: ToolId, titleKey: string, descKey: string) => (
-    <button
-      key={id}
-      onClick={() => setActiveTool(id)}
-      className="group w-full flex flex-col items-start p-5 rounded-2xl bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-600 cursor-pointer text-left"
-    >
-      <span className="font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-        {tDash(titleKey as any)}
-      </span>
-      <span className="text-sm text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">
-        {tDash(descKey as any)}
-      </span>
-    </button>
-  );
 
   const Section = ({ icon, title, children }: { icon: string, title: string, children: React.ReactNode }) => (
     <div className="mb-14">
@@ -147,74 +239,103 @@ export function EngineeringDashboard() {
 
   return (
     <div className="w-full max-w-7xl mx-auto pb-20 px-4 sm:px-6 lg:px-8">
-
-      <div className="mb-16 mt-6 md:mt-10 text-center flex flex-col items-center gap-4">
+      <div className="mb-10 mt-6 md:mt-10 text-center flex flex-col items-center gap-4">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-2">{tDash('title')}</h1>
         <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
           {tDash('subtitle')}
         </p>
       </div>
 
+      {/* SEARCH BAR */}
+      <div className="w-full max-w-2xl mx-auto mb-14">
+        <div className="relative group">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <svg
+              className="h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder={tDash('searchPlaceholder' as any) || "Ara... (Örn: yazılım, beton)"}
+            className="block w-full pl-12 pr-4 py-4 border border-slate-200 dark:border-slate-800 rounded-2xl leading-5 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-lg transition-all shadow-sm hover:shadow-md focus:shadow-md"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+            >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* CATEGORY TOOLS LIST */}
       <div className="flex flex-col w-full">
+        {filteredTools.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 px-4 text-center bg-white/50 dark:bg-slate-900/50 rounded-3xl border border-slate-200 dark:border-slate-800">
+            <div className="text-6xl mb-6">🔍</div>
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+              {tDash('noResults' as any)}
+            </h3>
+            <p className="text-slate-500 dark:text-slate-400 max-w-md mb-8">
+              {tDash('requestTool' as any)}
+            </p>
+            <a
+              href="mailto:contact@calcempire.com?subject=Tool%20Request"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors shadow-sm hover:shadow-md"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              {tDash('contactUs' as any)}
+            </a>
+          </div>
+        ) : (
+          CATEGORY_ORDER.map(catKey => {
+            const catTools = toolsByCategory[catKey];
+            if (!catTools || catTools.length === 0) return null;
 
-        <Section icon="⚡" title={tCat('electrical')}>
-          {renderCard('ohm', 'ohmTitle', 'ohmDesc')}
-          {renderCard('kirchhoff', 'kirchhoffTitle', 'kirchhoffDesc')}
-          {renderCard('power', 'powerTitle', 'powerDesc')}
-          {renderCard('resistor', 'resistorTitle', 'resistorDesc')}
-          {renderCard('bode', 'bodeTitle', 'bodeDesc')}
-        </Section>
-
-        <Section icon="💻" title={tCat('software')}>
-          {renderCard('baseConverter', 'baseConverterTitle', 'baseConverterDesc')}
-          {renderCard('cronParser', 'cronParserTitle', 'cronParserDesc')}
-          {renderCard('jsonFormatter', 'jsonFormatterTitle', 'jsonFormatterDesc')}
-        </Section>
-
-        <Section icon="💰" title={tCat('finance')}>
-          {renderCard('compoundInterest', 'compoundInterestTitle', 'compoundInterestDesc')}
-          {renderCard('cryptoPnl', 'cryptoPnlTitle', 'cryptoPnlDesc')}
-        </Section>
-
-        <Section icon="🏗️" title={tCat('civil')}>
-          {renderCard('concreteSection', 'concreteSectionTitle', 'concreteSectionDesc')}
-          {renderCard('soilMechanics', 'soilMechanicsTitle', 'soilMechanicsDesc')}
-        </Section>
-
-        <Section icon="⚙️" title={tCat('mechanical')}>
-          {renderCard('beam', 'beamTitle', 'beamDesc')}
-          {renderCard('stressStrain', 'stressStrainTitle', 'stressStrainDesc')}
-          {renderCard('shearMoment', 'shearMomentTitle', 'shearMomentDesc')}
-        </Section>
-
-        <Section icon="☢️" title={tCat('chemistry')}>
-          {renderCard('periodicTable', 'periodicTableTitle', 'periodicTableDesc')}
-          {renderCard('idealGas', 'idealGasTitle', 'idealGasDesc')}
-        </Section>
-
-        <Section icon="🌊" title={tCat('fluid')}>
-          {renderCard('bernoulli', 'bernoulliTitle', 'bernoulliDesc')}
-          {renderCard('pressureLoss', 'pressureLossTitle', 'pressureLossDesc')}
-        </Section>
-
-        <Section icon="📊" title={tCat('statistics')}>
-          {renderCard('normal', 'normalTitle', 'normalDesc')}
-          {renderCard('basicStats', 'basicStatsTitle', 'basicStatsDesc')}
-          {renderCard('discreteDist', 'discreteDistTitle', 'discreteDistDesc')}
-          {renderCard('dataViz', 'dataVizTitle', 'dataVizDesc')}
-        </Section>
-
-        <Section icon="🧮" title={tCat('mathematics')}>
-          {renderCard('calculus', 'calculusTitle', 'calculusDesc')}
-          {renderCard('matrix', 'matrixTitle', 'matrixDesc')}
-          {renderCard('geometry', 'geometryTitle', 'geometryDesc')}
-          {renderCard('functionPlot', 'functionPlotTitle', 'functionPlotDesc')}
-        </Section>
-
-        <Section icon="🔄" title={tCat('converters')}>
-          {renderCard('unitConverter', 'unitConverterTitle', 'unitConverterDesc')}
-        </Section>
-
+            return (
+              <Section
+                key={catKey}
+                icon={CATEGORY_ICONS[catKey]}
+                title={tCat(catKey as any)}
+              >
+                {catTools.map(tool => (
+                  <button
+                    key={tool.id}
+                    onClick={() => setActiveTool(tool.id)}
+                    className="group w-full flex flex-col items-start p-5 rounded-2xl bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-600 cursor-pointer text-left"
+                  >
+                    <div className="flex items-center gap-4 w-full">
+                      <span className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800/50 text-2xl group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 group-hover:scale-110 transition-all shadow-sm">
+                        {tool.icon}
+                      </span>
+                      <div className="flex flex-col flex-1 pl-1">
+                        <span className="font-semibold text-base text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          {tool.translatedTitle}
+                        </span>
+                        <span className="text-sm text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
+                          {tool.translatedDesc}
+                        </span>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </Section>
+            );
+          })
+        )}
       </div>
     </div>
   );
