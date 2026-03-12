@@ -1,76 +1,76 @@
 {
-    "HomePage": {
-        "title": "CalcEmpire",
-        "description": "Professionele technische rekenmachines — nauwkeurig, snel, meertalig."
-    },
-    "CalculatorTemplate": {
-        "fieldsLabel": "Reaminvoer",
-        "leaveBlankHint": "Leeg laten om te berekenen",
-        "unitLabel": "eenheid",
-        "solveButton": "Oplossen",
-        "resetButton": "Reset",
-        "calculatedBadge": "Berekend",
-        "errorAllFilled": "Laat exact één veld leeg.",
-        "errorTooManyUnknowns": "Vul alle velden in op één na."
-    },
-    "OhmCalculator": {
-        "title": "Wet van Ohm",
-        "description": "V = I × R",
-        "voltage": "Spanning",
-        "voltagePlaceholder": "bijv. 12",
-        "current": "Stroom",
-        "currentPlaceholder": "bijv. 0.5",
-        "resistance": "Weerstand",
-        "resistancePlaceholder": "bijv. 100"
-    },
-    "Categories": {
-        "electrical": "Elektrotechniek",
-        "mechanical": "Werktuigbouwkunde",
-        "statistics": "Statistiek & Wiskunde",
-        "toolReference": "Gereedschappen"
-    },
-    "Dashboard": {
-        "title": "Rekeninstrumenten",
-        "subtitle": "Selecteer de benodigde rekenmachine.",
-        "backButton": "Terug",
-        "ohmTitle": "Wet van Ohm Rekenmachine",
-        "ohmDesc": "V = I × R standaardberekeningen.",
-        "resistorTitle": "Weerstand Kleurcodes",
-        "resistorDesc": "4, 5 en 6-bands lezer.",
-        "beamTitle": "Balkdoorbuiging Analyse",
-        "beamDesc": "Doorbuiging voor verschillende balken.",
-        "normalTitle": "Normale Verdeling Grafiek",
-        "normalDesc": "Standaardafwijking en gemiddelde."
-    },
-    "ResistorVisualizer": {
-        "title": "Weerstand Kleurcodes",
-        "bandCount": "Aantal Banden",
-        "bandLabel": "Band",
-        "result": "Resultaat",
-        "invalid": "Ongeldige combinatie. Controleer uw keuze."
-    },
-    "BeamVisualizer": {
-        "title": "Balkdoorbuiging Analyse",
-        "cantilever": "Vrijdragende balk",
-        "simplySupported": "Eenvoudig Neergelegde balk",
-        "length": "Lengte (L)",
-        "load": "Last (W)",
-        "elasticModulus": "E-Modulus (E)",
-        "momentOfInertia": "Traagheidsmoment (I)",
-        "maxDeflection": "Max. doorbuiging",
-        "formula": "Formule",
-        "status": "Veiligheidsstatus",
-        "safe": "Veilig",
-        "check": "Controleren"
-    },
-    "NormalDistribution": {
-        "title": "Normale Verdeling Grafiek",
-        "mean": "Gemiddelde (μ)",
-        "stdDev": "Standaardafwijking (σ)",
-        "values": "Waarden (x)",
-        "stats": "Statistieken",
-        "peak": "Piek Hoogte",
-        "range": "Bereik",
-        "empirical": "Empirische Regel (68-95-99.7)"
-    }
+  "HomePage": {
+    "title": "CalcEmpire",
+    "description": "Professional engineering calculators — precise, fast, multilingual."
+  },
+  "CalculatorTemplate": {
+    "fieldsLabel": "Calculator inputs",
+    "leaveBlankHint": "Leave blank to solve",
+    "unitLabel": "unit",
+    "solveButton": "Solve",
+    "resetButton": "Reset",
+    "calculatedBadge": "Calculated",
+    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
+    "errorTooManyUnknowns": "Please fill in all but one field."
+  },
+  "OhmCalculator": {
+    "title": "Ohm's Law",
+    "description": "V = I × R",
+    "voltage": "Voltage",
+    "voltagePlaceholder": "e.g. 12",
+    "current": "Current",
+    "currentPlaceholder": "e.g. 0.5",
+    "resistance": "Resistance",
+    "resistancePlaceholder": "e.g. 100"
+  },
+  "Categories": {
+    "electrical": "Electrical Engineering",
+    "mechanical": "Mechanical Engineering",
+    "statistics": "Statistics & Math",
+    "toolReference": "Tool Reference"
+  },
+  "Dashboard": {
+    "title": "Calculator Tools",
+    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
+    "backButton": "Go Back",
+    "ohmTitle": "Ohm's Law Calculator",
+    "ohmDesc": "Standard calculations for V = I × R.",
+    "resistorTitle": "Resistor Color Codes",
+    "resistorDesc": "4, 5, and 6 band color code reader.",
+    "beamTitle": "Beam Deflection Analysis",
+    "beamDesc": "Deflection calculation for various beam types.",
+    "normalTitle": "Normal Distribution Chart",
+    "normalDesc": "Standard deviation and mean visualizer."
+  },
+  "ResistorVisualizer": {
+    "title": "Resistor Color Codes",
+    "bandCount": "Number of Bands",
+    "bandLabel": "Band",
+    "result": "Result",
+    "invalid": "Invalid color combination. Please check your selections."
+  },
+  "BeamVisualizer": {
+    "title": "Beam Deflection Analysis",
+    "cantilever": "Cantilever Beam",
+    "simplySupported": "Simply Supported Beam",
+    "length": "Length (L)",
+    "load": "Load (W)",
+    "elasticModulus": "Elastic Mod. (E)",
+    "momentOfInertia": "Moment of Inertia (I)",
+    "maxDeflection": "Max Deflection",
+    "formula": "Formula",
+    "status": "Safety Status",
+    "safe": "Safe",
+    "check": "Check Design"
+  },
+  "NormalDistribution": {
+    "title": "Normal Distribution Curve",
+    "mean": "Mean (μ)",
+    "stdDev": "Std Deviation (σ)",
+    "values": "Values (x)",
+    "stats": "Distribution Statistics",
+    "peak": "Peak (Max)",
+    "range": "Range",
+    "empirical": "Empirical Rule (68-95-99.7)"
+  }
 }

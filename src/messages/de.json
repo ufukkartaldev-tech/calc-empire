@@ -1,76 +1,76 @@
 {
-    "HomePage": {
-        "title": "CalcEmpire",
-        "description": "Professionelle Ingenieurrechner — präzise, schnell, mehrsprachig."
-    },
-    "CalculatorTemplate": {
-        "fieldsLabel": "Eingabefelder",
-        "leaveBlankHint": "Leer lassen für das Ergebnis",
-        "unitLabel": "Einheit",
-        "solveButton": "Berechnen",
-        "resetButton": "Zurücksetzen",
-        "calculatedBadge": "Berechnet",
-        "errorAllFilled": "Lassen Sie genau ein Feld leer.",
-        "errorTooManyUnknowns": "Bitte alle Felder bis auf eines ausfüllen."
-    },
-    "OhmCalculator": {
-        "title": "Ohmsches Gesetz",
-        "description": "V = I × R",
-        "voltage": "Spannung",
-        "voltagePlaceholder": "z.B. 12",
-        "current": "Stromstärke",
-        "currentPlaceholder": "z.B. 0.5",
-        "resistance": "Widerstand",
-        "resistancePlaceholder": "z.B. 100"
-    },
-    "Categories": {
-        "electrical": "Elektrotechnik",
-        "mechanical": "Maschinenbau",
-        "statistics": "Statistik & Mathematik",
-        "toolReference": "Werkzeuge"
-    },
-    "Dashboard": {
-        "title": "Berechnungswerkzeuge",
-        "subtitle": "Wählen Sie Ihren gewünschten Rechner.",
-        "backButton": "Zurück",
-        "ohmTitle": "Ohmsches Gesetz Rechner",
-        "ohmDesc": "V = I × R Standardberechnungen.",
-        "resistorTitle": "Widerstandsfarbcodes",
-        "resistorDesc": "4, 5 und 6 Band-Farbcode-Leser.",
-        "beamTitle": "Balkendurchbiegungsanalyse",
-        "beamDesc": "Maximale Durchbiegung verschiedener Balken.",
-        "normalTitle": "Normalverteilungsdiagramm",
-        "normalDesc": "Standardabweichung und Mittelwert."
-    },
-    "ResistorVisualizer": {
-        "title": "Widerstandsfarbcodes",
-        "bandCount": "Anzahl der Bänder",
-        "bandLabel": "Band",
-        "result": "Ergebnis",
-        "invalid": "Ungültige Kombination. Bitte prüfen."
-    },
-    "BeamVisualizer": {
-        "title": "Balkendurchbiegungsanalyse",
-        "cantilever": "Kragbalken",
-        "simplySupported": "Einfacher Balken",
-        "length": "Länge (L)",
-        "load": "Last (W)",
-        "elasticModulus": "E-Modul (E)",
-        "momentOfInertia": "Trägheitsmoment (I)",
-        "maxDeflection": "Max. Durchbiegung",
-        "formula": "Formel",
-        "status": "Sicherheitsstatus",
-        "safe": "Sicher",
-        "check": "Prüfen"
-    },
-    "NormalDistribution": {
-        "title": "Normalverteilungsdiagramm",
-        "mean": "Mittelwert (μ)",
-        "stdDev": "Standardabweichung (σ)",
-        "values": "Werte (x)",
-        "stats": "Statistiken",
-        "peak": "Max. Höhe",
-        "range": "Bereich",
-        "empirical": "Empirische Regel (68-95-99.7)"
-    }
+  "HomePage": {
+    "title": "CalcEmpire",
+    "description": "Professional engineering calculators — precise, fast, multilingual."
+  },
+  "CalculatorTemplate": {
+    "fieldsLabel": "Calculator inputs",
+    "leaveBlankHint": "Leave blank to solve",
+    "unitLabel": "unit",
+    "solveButton": "Solve",
+    "resetButton": "Reset",
+    "calculatedBadge": "Calculated",
+    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
+    "errorTooManyUnknowns": "Please fill in all but one field."
+  },
+  "OhmCalculator": {
+    "title": "Ohm's Law",
+    "description": "V = I × R",
+    "voltage": "Voltage",
+    "voltagePlaceholder": "e.g. 12",
+    "current": "Current",
+    "currentPlaceholder": "e.g. 0.5",
+    "resistance": "Resistance",
+    "resistancePlaceholder": "e.g. 100"
+  },
+  "Categories": {
+    "electrical": "Electrical Engineering",
+    "mechanical": "Mechanical Engineering",
+    "statistics": "Statistics & Math",
+    "toolReference": "Tool Reference"
+  },
+  "Dashboard": {
+    "title": "Calculator Tools",
+    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
+    "backButton": "Go Back",
+    "ohmTitle": "Ohm's Law Calculator",
+    "ohmDesc": "Standard calculations for V = I × R.",
+    "resistorTitle": "Resistor Color Codes",
+    "resistorDesc": "4, 5, and 6 band color code reader.",
+    "beamTitle": "Beam Deflection Analysis",
+    "beamDesc": "Deflection calculation for various beam types.",
+    "normalTitle": "Normal Distribution Chart",
+    "normalDesc": "Standard deviation and mean visualizer."
+  },
+  "ResistorVisualizer": {
+    "title": "Resistor Color Codes",
+    "bandCount": "Number of Bands",
+    "bandLabel": "Band",
+    "result": "Result",
+    "invalid": "Invalid color combination. Please check your selections."
+  },
+  "BeamVisualizer": {
+    "title": "Beam Deflection Analysis",
+    "cantilever": "Cantilever Beam",
+    "simplySupported": "Simply Supported Beam",
+    "length": "Length (L)",
+    "load": "Load (W)",
+    "elasticModulus": "Elastic Mod. (E)",
+    "momentOfInertia": "Moment of Inertia (I)",
+    "maxDeflection": "Max Deflection",
+    "formula": "Formula",
+    "status": "Safety Status",
+    "safe": "Safe",
+    "check": "Check Design"
+  },
+  "NormalDistribution": {
+    "title": "Normal Distribution Curve",
+    "mean": "Mean (μ)",
+    "stdDev": "Std Deviation (σ)",
+    "values": "Values (x)",
+    "stats": "Distribution Statistics",
+    "peak": "Peak (Max)",
+    "range": "Range",
+    "empirical": "Empirical Rule (68-95-99.7)"
+  }
 }

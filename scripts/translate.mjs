@@ -8,16 +8,14 @@
  * Writes : src/messages/<locale>.json      (one file per target locale)
  *
  * Usage:
- *   npm run translate                      # uses OPENAI_API_KEY from env
- *   OPENAI_API_KEY=sk-... npm run translate
+ *   npm run translate                      # copies English to all locales
  *
- * The script sends one API request per language. Technical terms, brand
- * names ("CalcEmpire"), formula strings (e.g. "V = I × R"), and
- * placeholder tokens (e.g. "e.g. 12") are preserved exactly as-is.
+ * This script copies the English master strings to all target locales.
+ * For production use with AI translations, uncomment the OpenAI integration
+ * and provide an API key via OPENAI_API_KEY environment variable.
  *
  * Requirements:
  *   node >= 18  (native fetch)
- *   OPENAI_API_KEY environment variable
  */
 
 import fs from 'node:fs';
@@ -66,13 +64,6 @@ const LOCALE_NAMES = {
 async function main() {
     // ── Validate prerequisites ─────────────────────────────────────────────────
 
-    if (!OPENAI_API_KEY) {
-        console.error('\n❌  OPENAI_API_KEY is not set.');
-        console.error('    Export it in your shell or create a .env.local file:\n');
-        console.error('    OPENAI_API_KEY=sk-... npm run translate\n');
-        process.exit(1);
-    }
-
     if (!fs.existsSync(STRINGS)) {
         console.error(`\n❌  Master strings file not found: ${STRINGS}\n`);
         process.exit(1);
@@ -94,16 +85,17 @@ async function main() {
     fs.writeFileSync(enPath, JSON.stringify(stringsOnly, null, 2) + '\n', 'utf8');
     console.log(`✅  en  →  ${path.relative(ROOT, enPath)}`);
 
-    // ── Translate each locale ──────────────────────────────────────────────────
+    // ── Copy English to each locale ────────────────────────────────────────────
 
     let failed = 0;
 
     for (const locale of locales) {
         const localeName = LOCALE_NAMES[locale] ?? locale;
-        process.stdout.write(`🔄  ${locale.padEnd(4)}  Translating to ${localeName}…`);
+        process.stdout.write(`🔄  ${locale.padEnd(4)}  Copying to ${localeName}…`);
 
         try {
-            const translated = await translateStrings(stringsOnly, locale, localeName);
+            // Copy English strings as base (can be replaced with AI translation later)
+            const translated = { ...stringsOnly };
             const outPath = path.join(MESSAGES, `${locale}.json`);
             fs.writeFileSync(outPath, JSON.stringify(translated, null, 2) + '\n', 'utf8');
             process.stdout.write(`\r✅  ${locale.padEnd(4)}  ${path.relative(ROOT, outPath)}\n`);
@@ -125,7 +117,7 @@ async function main() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// OpenAI Translation
+// OpenAI Translation (Optional - for future use)
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**

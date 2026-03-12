@@ -1,76 +1,76 @@
 {
-    "HomePage": {
-        "title": "CalcEmpire",
-        "description": "آلات حاسبة هندسية احترافية — دقيقة، سريعة، متعددة اللغات."
-    },
-    "CalculatorTemplate": {
-        "fieldsLabel": "مدخلات الحاسبة",
-        "leaveBlankHint": "اترك الحقل فارغاً ليتم حسابه",
-        "unitLabel": "وحدة",
-        "solveButton": "احسب",
-        "resetButton": "إعادة تعيين",
-        "calculatedBadge": "تم الحساب",
-        "errorAllFilled": "الرجاء ترك حقل واحد فارغ للحصول على النتيجة.",
-        "errorTooManyUnknowns": "الرجاء تعبئة جميع الحقول باستثناء واحد."
-    },
-    "OhmCalculator": {
-        "title": "قانون أوم",
-        "description": "V = I × R",
-        "voltage": "الجهد (V)",
-        "voltagePlaceholder": "مثال 12",
-        "current": "التيار (I)",
-        "currentPlaceholder": "مثال 0.5",
-        "resistance": "المقاومة (R)",
-        "resistancePlaceholder": "مثال 100"
-    },
-    "Categories": {
-        "electrical": "الهندسة الكهربائية",
-        "mechanical": "الهندسة الميكانيكية",
-        "statistics": "الإحصاء والرياضيات",
-        "toolReference": "الأدوات المتاحة"
-    },
-    "Dashboard": {
-        "title": "أدوات الحساب",
-        "subtitle": "اختر الحاسبة التي تحتاجها وابدأ في العمل مباشرة.",
-        "backButton": "رجوع",
-        "ohmTitle": "حاسبة قانون أوم",
-        "ohmDesc": "حسابات العوامل الأساسية V = I × R.",
-        "resistorTitle": "رموز ألوان المقاومة",
-        "resistorDesc": "قراءة 4، 5، و 6 نطاقات ألوان.",
-        "beamTitle": "تحليل انحراف العتبة (Beam)",
-        "beamDesc": "حساب الانحراف والقص لأنواع العتبات.",
-        "normalTitle": "رسم التوزيع الطبيعي",
-        "normalDesc": "مخطط الانحراف المعياري والمتوسط."
-    },
-    "ResistorVisualizer": {
-        "title": "رموز ألوان المقاومة",
-        "bandCount": "عدد النطاقات",
-        "bandLabel": "النطاق",
-        "result": "النتيجة",
-        "invalid": "تركيبة ألوان غير صحيحة. تحقق من الاختيار."
-    },
-    "BeamVisualizer": {
-        "title": "تحليل انحراف العتبة",
-        "cantilever": "عتبة كابولية (Cantilever)",
-        "simplySupported": "عتبة بسيطة الاستناد",
-        "length": "الطول (L)",
-        "load": "الحمل (W)",
-        "elasticModulus": "معامل المرونة (E)",
-        "momentOfInertia": "عزم القصور الذاتي (I)",
-        "maxDeflection": "أقصى انحراف",
-        "formula": "الصيغة",
-        "status": "حالة الأمان",
-        "safe": "آمن",
-        "check": "يتطلب التحقق"
-    },
-    "NormalDistribution": {
-        "title": "منحنى التوزيع الطبيعي",
-        "mean": "المتوسط (μ)",
-        "stdDev": "الانحراف المعياري (σ)",
-        "values": "القيم (x)",
-        "stats": "إحصائيات التوزيع",
-        "peak": "أقصى ذروة",
-        "range": "النطاق",
-        "empirical": "القاعدة التجريبية (68-95-99.7)"
-    }
+  "HomePage": {
+    "title": "CalcEmpire",
+    "description": "Professional engineering calculators — precise, fast, multilingual."
+  },
+  "CalculatorTemplate": {
+    "fieldsLabel": "Calculator inputs",
+    "leaveBlankHint": "Leave blank to solve",
+    "unitLabel": "unit",
+    "solveButton": "Solve",
+    "resetButton": "Reset",
+    "calculatedBadge": "Calculated",
+    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
+    "errorTooManyUnknowns": "Please fill in all but one field."
+  },
+  "OhmCalculator": {
+    "title": "Ohm's Law",
+    "description": "V = I × R",
+    "voltage": "Voltage",
+    "voltagePlaceholder": "e.g. 12",
+    "current": "Current",
+    "currentPlaceholder": "e.g. 0.5",
+    "resistance": "Resistance",
+    "resistancePlaceholder": "e.g. 100"
+  },
+  "Categories": {
+    "electrical": "Electrical Engineering",
+    "mechanical": "Mechanical Engineering",
+    "statistics": "Statistics & Math",
+    "toolReference": "Tool Reference"
+  },
+  "Dashboard": {
+    "title": "Calculator Tools",
+    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
+    "backButton": "Go Back",
+    "ohmTitle": "Ohm's Law Calculator",
+    "ohmDesc": "Standard calculations for V = I × R.",
+    "resistorTitle": "Resistor Color Codes",
+    "resistorDesc": "4, 5, and 6 band color code reader.",
+    "beamTitle": "Beam Deflection Analysis",
+    "beamDesc": "Deflection calculation for various beam types.",
+    "normalTitle": "Normal Distribution Chart",
+    "normalDesc": "Standard deviation and mean visualizer."
+  },
+  "ResistorVisualizer": {
+    "title": "Resistor Color Codes",
+    "bandCount": "Number of Bands",
+    "bandLabel": "Band",
+    "result": "Result",
+    "invalid": "Invalid color combination. Please check your selections."
+  },
+  "BeamVisualizer": {
+    "title": "Beam Deflection Analysis",
+    "cantilever": "Cantilever Beam",
+    "simplySupported": "Simply Supported Beam",
+    "length": "Length (L)",
+    "load": "Load (W)",
+    "elasticModulus": "Elastic Mod. (E)",
+    "momentOfInertia": "Moment of Inertia (I)",
+    "maxDeflection": "Max Deflection",
+    "formula": "Formula",
+    "status": "Safety Status",
+    "safe": "Safe",
+    "check": "Check Design"
+  },
+  "NormalDistribution": {
+    "title": "Normal Distribution Curve",
+    "mean": "Mean (μ)",
+    "stdDev": "Std Deviation (σ)",
+    "values": "Values (x)",
+    "stats": "Distribution Statistics",
+    "peak": "Peak (Max)",
+    "range": "Range",
+    "empirical": "Empirical Rule (68-95-99.7)"
+  }
 }

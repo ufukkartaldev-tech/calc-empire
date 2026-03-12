@@ -1,76 +1,76 @@
 {
-    "HomePage": {
-        "title": "CalcEmpire",
-        "description": "Kalkulator teknik profesional — presisi, cepat, dan multibahasa."
-    },
-    "CalculatorTemplate": {
-        "fieldsLabel": "Input kalkulator",
-        "leaveBlankHint": "Biarkan kosong untuk menghitung",
-        "unitLabel": "unit",
-        "solveButton": "Hitung",
-        "resetButton": "Reset",
-        "calculatedBadge": "Dihitung",
-        "errorAllFilled": "Biarkan satu kotak kosong untuk mulai menghitung.",
-        "errorTooManyUnknowns": "Harap isi semua kotak kecuali satu."
-    },
-    "OhmCalculator": {
-        "title": "Hukum Ohm",
-        "description": "V = I × R",
-        "voltage": "Tegangan",
-        "voltagePlaceholder": "mis. 12",
-        "current": "Arus",
-        "currentPlaceholder": "mis. 0.5",
-        "resistance": "Hambatan",
-        "resistancePlaceholder": "mis. 100"
-    },
-    "Categories": {
-        "electrical": "Teknik Elektro",
-        "mechanical": "Teknik Mesin",
-        "statistics": "Statistika & Matematika",
-        "toolReference": "Alat Referensi"
-    },
-    "Dashboard": {
-        "title": "Alat Perhitungan",
-        "subtitle": "Pilih kalkulator yang Anda butuhkan dan mulai menghitung.",
-        "backButton": "Kembali",
-        "ohmTitle": "Kalkulator Hukum Ohm",
-        "ohmDesc": "V = I × R perhitungan standar.",
-        "resistorTitle": "Kode Warna Resistor",
-        "resistorDesc": "Pembaca kode warna gelang 4, 5, dan 6.",
-        "beamTitle": "Analisis Defleksi Balok",
-        "beamDesc": "Perhitungan jarak defleksi untuk berbagai tipe balok.",
-        "normalTitle": "Diagram Distribusi Normal",
-        "normalDesc": "Visualisasi deviasi standar & rata-rata."
-    },
-    "ResistorVisualizer": {
-        "title": "Kode Warna Resistor",
-        "bandCount": "Jumlah Gelang",
-        "bandLabel": "Gelang",
-        "result": "Hasil",
-        "invalid": "Kombinasi warna tidak valid."
-    },
-    "BeamVisualizer": {
-        "title": "Analisis Defleksi Balok",
-        "cantilever": "Balok Kantilever",
-        "simplySupported": "Balok Sederhana",
-        "length": "Panjang (L)",
-        "load": "Beban (W)",
-        "elasticModulus": "Modulus Elastisitas (E)",
-        "momentOfInertia": "Momen Inersia (I)",
-        "maxDeflection": "Defleksi Maksimal",
-        "formula": "Rumus",
-        "status": "Status Keamanan",
-        "safe": "Aman",
-        "check": "Cek Ulang Desain"
-    },
-    "NormalDistribution": {
-        "title": "Kurva Distribusi Normal",
-        "mean": "Rata-rata (μ)",
-        "stdDev": "Standar Deviasi (σ)",
-        "values": "Nilai (x)",
-        "stats": "Statistik Distribusi",
-        "peak": "Puncak (Max)",
-        "range": "Rentang",
-        "empirical": "Aturan Empiris (68-95-99.7)"
-    }
+  "HomePage": {
+    "title": "CalcEmpire",
+    "description": "Professional engineering calculators — precise, fast, multilingual."
+  },
+  "CalculatorTemplate": {
+    "fieldsLabel": "Calculator inputs",
+    "leaveBlankHint": "Leave blank to solve",
+    "unitLabel": "unit",
+    "solveButton": "Solve",
+    "resetButton": "Reset",
+    "calculatedBadge": "Calculated",
+    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
+    "errorTooManyUnknowns": "Please fill in all but one field."
+  },
+  "OhmCalculator": {
+    "title": "Ohm's Law",
+    "description": "V = I × R",
+    "voltage": "Voltage",
+    "voltagePlaceholder": "e.g. 12",
+    "current": "Current",
+    "currentPlaceholder": "e.g. 0.5",
+    "resistance": "Resistance",
+    "resistancePlaceholder": "e.g. 100"
+  },
+  "Categories": {
+    "electrical": "Electrical Engineering",
+    "mechanical": "Mechanical Engineering",
+    "statistics": "Statistics & Math",
+    "toolReference": "Tool Reference"
+  },
+  "Dashboard": {
+    "title": "Calculator Tools",
+    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
+    "backButton": "Go Back",
+    "ohmTitle": "Ohm's Law Calculator",
+    "ohmDesc": "Standard calculations for V = I × R.",
+    "resistorTitle": "Resistor Color Codes",
+    "resistorDesc": "4, 5, and 6 band color code reader.",
+    "beamTitle": "Beam Deflection Analysis",
+    "beamDesc": "Deflection calculation for various beam types.",
+    "normalTitle": "Normal Distribution Chart",
+    "normalDesc": "Standard deviation and mean visualizer."
+  },
+  "ResistorVisualizer": {
+    "title": "Resistor Color Codes",
+    "bandCount": "Number of Bands",
+    "bandLabel": "Band",
+    "result": "Result",
+    "invalid": "Invalid color combination. Please check your selections."
+  },
+  "BeamVisualizer": {
+    "title": "Beam Deflection Analysis",
+    "cantilever": "Cantilever Beam",
+    "simplySupported": "Simply Supported Beam",
+    "length": "Length (L)",
+    "load": "Load (W)",
+    "elasticModulus": "Elastic Mod. (E)",
+    "momentOfInertia": "Moment of Inertia (I)",
+    "maxDeflection": "Max Deflection",
+    "formula": "Formula",
+    "status": "Safety Status",
+    "safe": "Safe",
+    "check": "Check Design"
+  },
+  "NormalDistribution": {
+    "title": "Normal Distribution Curve",
+    "mean": "Mean (μ)",
+    "stdDev": "Std Deviation (σ)",
+    "values": "Values (x)",
+    "stats": "Distribution Statistics",
+    "peak": "Peak (Max)",
+    "range": "Range",
+    "empirical": "Empirical Rule (68-95-99.7)"
+  }
 }

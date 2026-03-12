@@ -1,76 +1,76 @@
 {
-    "HomePage": {
-        "title": "CalcEmpire",
-        "description": "プロのエンジニア向けの計算機 — 正確、高速、多言語対応。"
-    },
-    "CalculatorTemplate": {
-        "fieldsLabel": "計算機の入力",
-        "leaveBlankHint": "計算するには空白のままにしてください",
-        "unitLabel": "単位",
-        "solveButton": "計算",
-        "resetButton": "リセット",
-        "calculatedBadge": "計算済",
-        "errorAllFilled": "未知数を計算するには、フィールドを1つだけ空白のままにしてください。",
-        "errorTooManyUnknowns": "1つを除くすべてのフィールドに入力してください。"
-    },
-    "OhmCalculator": {
-        "title": "オームの法則",
-        "description": "V = I × R",
-        "voltage": "電圧",
-        "voltagePlaceholder": "例: 12",
-        "current": "電流",
-        "currentPlaceholder": "例: 0.5",
-        "resistance": "抵抗",
-        "resistancePlaceholder": "例: 100"
-    },
-    "Categories": {
-        "electrical": "電気工学",
-        "mechanical": "機械工学",
-        "statistics": "統計と数学",
-        "toolReference": "ツールの参考"
-    },
-    "Dashboard": {
-        "title": "計算ツール",
-        "subtitle": "必要な計算機を選んですぐに計算を始めましょう。",
-        "backButton": "戻る",
-        "ohmTitle": "オームの法則 計算機",
-        "ohmDesc": "V = I × Rの標準的な計算。",
-        "resistorTitle": "抵抗器のカラーコード",
-        "resistorDesc": "4、5、6バンド対応のカラーコード読み取り。",
-        "beamTitle": "梁のたわみ解析",
-        "beamDesc": "様々な梁のたわみを計算。",
-        "normalTitle": "正規分布チャート",
-        "normalDesc": "標準偏差と平均値の視覚化。"
-    },
-    "ResistorVisualizer": {
-        "title": "抵抗器のカラーコード",
-        "bandCount": "バンド数",
-        "bandLabel": "バンド",
-        "result": "結果",
-        "invalid": "無効な色の組み合わせです。選択を確認してください。"
-    },
-    "BeamVisualizer": {
-        "title": "梁のたわみ解析",
-        "cantilever": "片持ち梁",
-        "simplySupported": "単純支持梁",
-        "length": "長さ (L)",
-        "load": "荷重 (W)",
-        "elasticModulus": "弾性係数 (E)",
-        "momentOfInertia": "断面二次モーメント (I)",
-        "maxDeflection": "最大のたわみ",
-        "formula": "公式",
-        "status": "安全状態",
-        "safe": "安全",
-        "check": "設計を確認"
-    },
-    "NormalDistribution": {
-        "title": "正規分布曲線",
-        "mean": "平均 (μ)",
-        "stdDev": "標準偏差 (σ)",
-        "values": "値 (x)",
-        "stats": "分布統計",
-        "peak": "ピークの高さ",
-        "range": "範囲",
-        "empirical": "経験則 (68-95-99.7)"
-    }
+  "HomePage": {
+    "title": "CalcEmpire",
+    "description": "Professional engineering calculators — precise, fast, multilingual."
+  },
+  "CalculatorTemplate": {
+    "fieldsLabel": "Calculator inputs",
+    "leaveBlankHint": "Leave blank to solve",
+    "unitLabel": "unit",
+    "solveButton": "Solve",
+    "resetButton": "Reset",
+    "calculatedBadge": "Calculated",
+    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
+    "errorTooManyUnknowns": "Please fill in all but one field."
+  },
+  "OhmCalculator": {
+    "title": "Ohm's Law",
+    "description": "V = I × R",
+    "voltage": "Voltage",
+    "voltagePlaceholder": "e.g. 12",
+    "current": "Current",
+    "currentPlaceholder": "e.g. 0.5",
+    "resistance": "Resistance",
+    "resistancePlaceholder": "e.g. 100"
+  },
+  "Categories": {
+    "electrical": "Electrical Engineering",
+    "mechanical": "Mechanical Engineering",
+    "statistics": "Statistics & Math",
+    "toolReference": "Tool Reference"
+  },
+  "Dashboard": {
+    "title": "Calculator Tools",
+    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
+    "backButton": "Go Back",
+    "ohmTitle": "Ohm's Law Calculator",
+    "ohmDesc": "Standard calculations for V = I × R.",
+    "resistorTitle": "Resistor Color Codes",
+    "resistorDesc": "4, 5, and 6 band color code reader.",
+    "beamTitle": "Beam Deflection Analysis",
+    "beamDesc": "Deflection calculation for various beam types.",
+    "normalTitle": "Normal Distribution Chart",
+    "normalDesc": "Standard deviation and mean visualizer."
+  },
+  "ResistorVisualizer": {
+    "title": "Resistor Color Codes",
+    "bandCount": "Number of Bands",
+    "bandLabel": "Band",
+    "result": "Result",
+    "invalid": "Invalid color combination. Please check your selections."
+  },
+  "BeamVisualizer": {
+    "title": "Beam Deflection Analysis",
+    "cantilever": "Cantilever Beam",
+    "simplySupported": "Simply Supported Beam",
+    "length": "Length (L)",
+    "load": "Load (W)",
+    "elasticModulus": "Elastic Mod. (E)",
+    "momentOfInertia": "Moment of Inertia (I)",
+    "maxDeflection": "Max Deflection",
+    "formula": "Formula",
+    "status": "Safety Status",
+    "safe": "Safe",
+    "check": "Check Design"
+  },
+  "NormalDistribution": {
+    "title": "Normal Distribution Curve",
+    "mean": "Mean (μ)",
+    "stdDev": "Std Deviation (σ)",
+    "values": "Values (x)",
+    "stats": "Distribution Statistics",
+    "peak": "Peak (Max)",
+    "range": "Range",
+    "empirical": "Empirical Rule (68-95-99.7)"
+  }
 }
