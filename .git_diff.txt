@@ -1,0 +1,30 @@
+﻿diff --git a/src/messages/en.json b/src/messages/en.json
+index f80eea7..2cd1c5e 100644
+--- a/src/messages/en.json
++++ b/src/messages/en.json
+@@ -44,7 +44,9 @@
+         "noResults": "No calculators found matching your search",
+         "requestTool": "Couldn't find the tool you need? Let us know, and we'll add it!",
+         "contactUs": "Contact Us",
+-        "disclaimer": "ÔÜá´©Å DISCLAIMER: The analysis tools on this platform are intended for engineering education and quick preliminary field estimation. For final safety decisions in professional projects, please prefer certified simulation software.",
++        "disclaimer": "ÔÜá´©Å DISCLAIMER: The analysis tools on this platform are intended for engineering education and quick preliminary field estimation. For final safety decisions in professional projects, please prefer certified commercial simulation software (e.g., SAP2000, ANSYS, MATLAB, ETABS).",
++        "acknowledgeDisclaimer": "I acknowledge that this tool is for educational/analytical purposes and holds no legal construction liability.",
++        "consentTitle": "Pre-Use Consent",
+         "helpButton": "Help / How to Use?",
+         "helpTitle": "Quick Usage Guide & Operational Requirements",
+         "helpElectrical": "Ohm's law, Kirchhoff's current/voltage laws, and Bode plot analysis for LTI systems. Enter circuit parameters; the system performs precise numerical iterations complying with IEEE 754 format.",
+diff --git a/src/messages/tr.json b/src/messages/tr.json
+index 18e962d..30d398c 100644
+--- a/src/messages/tr.json
++++ b/src/messages/tr.json
+@@ -44,7 +44,9 @@
+         "noResults": "Arama sonucuna uygun hesaplay─▒c─▒ bulunamad─▒",
+         "requestTool": "─░stedi─şiniz arac─▒ bulamad─▒n─▒z m─▒? Bize bildirin, listeye ekleyelim!",
+         "contactUs": "─░leti┼şime Ge├ğ",
+-        "disclaimer": "ÔÜá´©Å UYARI (DISCLAIMER): Bu platformdaki analiz ara├ğlar─▒, m├╝hendislik e─şitimi ve h─▒zl─▒ ├Ân saha tahmini ama├ğl─▒d─▒r. Profesyonel projelerde nihai g├╝venlikli kararlar i├ğin sertifikal─▒ sim├╝lasyon yaz─▒l─▒mlar─▒n─▒ tercih ediniz.",
++        "disclaimer": "ÔÜá´©Å UYARI (DISCLAIMER): Bu platformdaki analiz ara├ğlar─▒, m├╝hendislik e─şitimi ve h─▒zl─▒ ├Ân saha tahmini ama├ğl─▒d─▒r. Profesyonel projelerde nihai g├╝venlikli kararlar i├ğin sertifikal─▒ ticari sim├╝lasyon yaz─▒l─▒mlar─▒n─▒ (├Ârn. SAP2000, ANSYS, MATLAB, ETABS) tercih ediniz.",
++        "acknowledgeDisclaimer": "Bu arac─▒n e─şitim/analiz ama├ğl─▒ oldu─şunu ve yasal yap─▒m sorumlulu─şu bar─▒nd─▒rmad─▒─ş─▒n─▒ onayl─▒yorum.",
++        "consentTitle": "Kullan─▒m ├ûncesi Onay",
+         "helpButton": "Yard─▒m / Nas─▒l Kullan─▒l─▒r?",
+         "helpTitle": "H─▒zl─▒ Kullan─▒m K─▒lavuzu & Operasyonel Limitler",
+         "helpElectrical": "Ohm kanunu, Kirchhoff ak─▒m/gerilim yasalar─▒ ve LTI sistemler i├ğin Bode diyagram─▒ analizleri. Devre parametrelerini girin; sistem IEEE 754 standartlar─▒nda hassas say─▒sal ├ğ├Âz├╝mleme yapar.",

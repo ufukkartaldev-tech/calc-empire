@@ -1,11 +1,4 @@
-/**
- * @file electrical.ts
- * @description Implementations for electrical engineering formulas.
- */
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Ohm's Law — Power Extension (P = V · I)
-// ─────────────────────────────────────────────────────────────────────────────
+import Big from 'big.js';
 
 interface OhmPowerParams {
     voltage?: number;
@@ -15,42 +8,54 @@ interface OhmPowerParams {
 }
 
 export function ohmPower(params: OhmPowerParams): OhmPowerParams {
-    let { voltage: V, current: I, resistance: R, power: P } = params;
+    let { voltage: vIn, current: iIn, resistance: rIn, power: pIn } = params;
 
-    const definedValues = [V, I, R, P].filter(v => v !== undefined);
-    const count = definedValues.length;
-    if (count < 2) throw new Error("At least two parameters are required.");
+    const v = vIn !== undefined ? new Big(vIn) : undefined;
+    const i = iIn !== undefined ? new Big(iIn) : undefined;
+    const r = rIn !== undefined ? new Big(rIn) : undefined;
+    const p = pIn !== undefined ? new Big(pIn) : undefined;
 
-    for (const v of definedValues) {
-        if (typeof v !== 'number' || isNaN(v)) {
-            throw new Error("Inputs must be valid numeric values.");
-        }
+    const count = [v, i, r, p].filter(val => val !== undefined).length;
+    if (count < 2) throw new Error("En az iki parametre gereklidir.");
+
+    let Vout: Big | undefined = v;
+    let Iout: Big | undefined = i;
+    let Rout: Big | undefined = r;
+    let Pout: Big | undefined = p;
+
+    if (r !== undefined && r.lt(0)) throw new Error("Direnç (R) negatif olamaz.");
+    if (p !== undefined && p.lt(0)) throw new Error("Güç (P) negatif olamaz.");
+
+    if (v !== undefined && i !== undefined) {
+        Rout = v.div(i);
+        Pout = v.times(i);
+    } else if (v !== undefined && r !== undefined) {
+        if (r.eq(0)) throw new Error("Direnç sıfır olamaz.");
+        Iout = v.div(r);
+        Pout = v.times(v).div(r);
+    } else if (v !== undefined && p !== undefined) {
+        if (v.eq(0)) throw new Error("Gerilim sıfır olamaz.");
+        Iout = p.div(v);
+        Rout = v.times(v).div(p);
+    } else if (i !== undefined && r !== undefined) {
+        Vout = i.times(r);
+        Pout = i.times(i).times(r);
+    } else if (i !== undefined && p !== undefined) {
+        if (i.eq(0)) throw new Error("Akım sıfır olamaz.");
+        Vout = p.div(i);
+        Rout = p.div(i.times(i));
+    } else if (r !== undefined && p !== undefined) {
+        if (r.eq(0)) throw new Error("Direnç sıfır olamaz.");
+        Vout = p.times(r).sqrt();
+        Iout = p.div(r).sqrt();
     }
 
-    if (R !== undefined && R < 0) throw new Error("Resistance (R) cannot be negative.");
-    if (P !== undefined && P < 0) throw new Error("Power (P) cannot be negative in passive systems.");
-
-    if (V !== undefined && I !== undefined) {
-        R = V / I;
-        P = V * I;
-    } else if (V !== undefined && R !== undefined) {
-        I = V / R;
-        P = (V * V) / R;
-    } else if (V !== undefined && P !== undefined) {
-        I = P / V;
-        R = (V * V) / P;
-    } else if (I !== undefined && R !== undefined) {
-        V = I * R;
-        P = I * I * R;
-    } else if (I !== undefined && P !== undefined) {
-        V = P / I;
-        R = P / (I * I);
-    } else if (R !== undefined && P !== undefined) {
-        V = Math.sqrt(P * R);
-        I = Math.sqrt(P / R);
-    }
-
-    return { voltage: V, current: I, resistance: R, power: P };
+    return {
+        voltage: Vout?.toNumber(),
+        current: Iout?.toNumber(),
+        resistance: Rout?.toNumber(),
+        power: Pout?.toNumber()
+    };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

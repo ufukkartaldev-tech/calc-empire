@@ -104,4 +104,8 @@ export interface CalculatorConfig {
      * serialization between Server and Client components.
      */
     solverKey: string;
+    /**
+     * Optional React component or SVG to render as a visual aid.
+     */
+    visual?: React.ReactNode;
 }

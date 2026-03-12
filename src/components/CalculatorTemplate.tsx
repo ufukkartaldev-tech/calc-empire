@@ -22,6 +22,7 @@
 
 import React, { useCallback, useId, useReducer } from 'react';
 import { useTranslations } from 'next-intl';
+import Big from 'big.js';
 import type { CalculatorConfig, FieldValue, FieldValues } from '@/types/calculator';
 import { SOLVER_REGISTRY } from '@/lib/calculators/registry';
 
@@ -30,8 +31,8 @@ import { SOLVER_REGISTRY } from '@/lib/calculators/registry';
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface FieldState {
-    raw: string;       // raw string in the <input>
-    unit: string;      // currently selected unit symbol
+    raw: string;
+    unit: string;
 }
 
 type FormState = Record<string, FieldState>;
@@ -80,10 +81,6 @@ function reducer(state: State, action: Action): State {
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Helpers
-// ─────────────────────────────────────────────────────────────────────────────
-
 function buildInitialState(config: CalculatorConfig): State {
     const fields: FormState = {};
     for (const field of config.fields) {
@@ -102,188 +99,160 @@ interface CalculatorTemplateProps {
 
 export default function CalculatorTemplate({ config }: CalculatorTemplateProps) {
     const t = useTranslations();
-    const uid = useId();                        // collision-safe HTML id namespace
+    const uid = useId();
 
     const [state, dispatch] = useReducer(reducer, config, buildInitialState);
 
-    // ── Solve ─────────────────────────────────────────────────────────────────
-
     const handleSolve = useCallback(() => {
-        // Build the values map; blank fields become null (= unknown)
         const values: FieldValues = {};
         for (const field of config.fields) {
             const fs = state.fields[field.key];
-            const parsed = parseFloat(fs.raw);
-            values[field.key] = {
-                value: fs.raw.trim() === '' ? null : isNaN(parsed) ? null : parsed,
-                unit: fs.unit,
-            };
+            const val = fs.raw.trim();
+
+            if (val === '') {
+                values[field.key] = { value: null, unit: fs.unit };
+            } else {
+                try {
+                    const parsed = new Big(val).toNumber();
+                    values[field.key] = { value: parsed, unit: fs.unit };
+                } catch {
+                    values[field.key] = { value: null, unit: fs.unit };
+                }
+            }
         }
 
-        // Count knowns — need exactly (n-1) filled for 1 unknown
         const filledCount = Object.values(values).filter(v => v.value !== null).length;
         const totalFields = config.fields.length;
         const unknownCount = totalFields - filledCount;
 
         if (unknownCount !== 1) {
-            const msgKey =
-                unknownCount === 0 ? 'CalculatorTemplate.errorAllFilled'
-                    : 'CalculatorTemplate.errorTooManyUnknowns';
-            dispatch({ type: 'SET_RESULT', result: null, error: t(msgKey) });
+            const msg = unknownCount === 0
+                ? t('CalculatorTemplate.errorAllFilled')
+                : t('CalculatorTemplate.errorTooManyUnknowns');
+            dispatch({ type: 'SET_RESULT', result: null, error: msg });
             return;
         }
 
         try {
             const solve = SOLVER_REGISTRY[config.solverKey];
-            if (!solve) {
-                throw new Error(`Solver not found for key: ${config.solverKey}`);
-            }
+            if (!solve) throw new Error(`Solver not found: ${config.solverKey}`);
+
             const result = solve(values);
             dispatch({ type: 'SET_RESULT', result, error: null });
         } catch (err) {
-            const message = err instanceof Error ? err.message : String(err);
-            dispatch({ type: 'SET_RESULT', result: null, error: message });
+            dispatch({ type: 'SET_RESULT', result: null, error: err instanceof Error ? err.message : t('CalculatorTemplate.errorGeneric') });
         }
     }, [config, state.fields, t]);
 
-    // ── Reset ─────────────────────────────────────────────────────────────────
-
     const handleReset = useCallback(() => {
-        const fields: FormState = {};
-        for (const field of config.fields) {
-            fields[field.key] = { raw: '', unit: field.units[0].symbol };
-        }
-        dispatch({ type: 'RESET', fields });
+        dispatch({ type: 'RESET', fields: buildInitialState(config).fields });
     }, [config]);
 
-    // ── Keyboard shortcut: Enter → Solve ─────────────────────────────────────
-
-    const handleKeyDown = useCallback(
-        (e: React.KeyboardEvent<HTMLInputElement>) => {
-            if (e.key === 'Enter') handleSolve();
-        },
-        [handleSolve],
-    );
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Render
-    // ─────────────────────────────────────────────────────────────────────────
-
-    const sectionId = `calc-${uid}-section`;
-
     return (
-        <section
-            id={sectionId}
-            className="ce-calculator"
-            aria-label={t(config.titleKey)}
-        >
-            {/* ── Header ── */}
-            <header className="ce-calculator__header">
-                <h2 className="ce-calculator__title">{t(config.titleKey)}</h2>
-                <p className="ce-calculator__description">{t(config.descriptionKey)}</p>
-            </header>
+        <div className="w-full bg-white dark:bg-slate-900 rounded-[40px] border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-500">
+            <div className="flex flex-col lg:flex-row">
+                {/* Visual Section & Info */}
+                <div className="lg:w-1/3 bg-slate-50 dark:bg-slate-950 p-8 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-8">
+                    <div className="text-center">
+                        <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-2">{t(config.titleKey as any)}</h2>
+                        <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed italic">{t(config.descriptionKey as any)}</p>
+                    </div>
 
-            {/* ── Fields ── */}
-            <div className="ce-calculator__fields" role="group" aria-label={t('CalculatorTemplate.fieldsLabel')}>
-                {config.fields.map(field => {
-                    const inputId = `${uid}-${field.key}-input`;
-                    const selectId = `${uid}-${field.key}-unit`;
-                    const fs = state.fields[field.key];
-                    const isResult = state.result !== null && state.result[field.key] !== undefined;
-
-                    return (
-                        <div key={field.key} className={`ce-field${isResult ? ' ce-field--result' : ''}`}>
-                            <label htmlFor={inputId} className="ce-field__label">
-                                {t(field.labelKey)}
-                            </label>
-
-                            <div className="ce-field__control">
-                                <input
-                                    id={inputId}
-                                    type="number"
-                                    className="ce-field__input"
-                                    value={
-                                        isResult
-                                            ? formatResult(state.result![field.key])
-                                            : fs.raw
-                                    }
-                                    onChange={e =>
-                                        dispatch({ type: 'SET_VALUE', key: field.key, raw: e.target.value })
-                                    }
-                                    onKeyDown={handleKeyDown}
-                                    placeholder={
-                                        field.placeholderKey
-                                            ? t(field.placeholderKey)
-                                            : t('CalculatorTemplate.leaveBlankHint')
-                                    }
-                                    aria-label={t(field.labelKey)}
-                                    readOnly={isResult}
-                                />
-
-                                <select
-                                    id={selectId}
-                                    className="ce-field__unit"
-                                    value={fs.unit}
-                                    onChange={e =>
-                                        dispatch({ type: 'SET_UNIT', key: field.key, unit: e.target.value })
-                                    }
-                                    aria-label={`${t(field.labelKey)} ${t('CalculatorTemplate.unitLabel')}`}
-                                >
-                                    {field.units.map(u => (
-                                        <option key={u.symbol} value={u.symbol}>
-                                            {u.label}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            {isResult && (
-                                <span className="ce-field__badge" aria-live="polite">
-                                    {t('CalculatorTemplate.calculatedBadge')}
-                                </span>
-                            )}
+                    {config.visual ? (
+                        <div className="w-full max-w-[200px] aspect-square flex items-center justify-center p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-inner border border-slate-200 dark:border-slate-800">
+                            {config.visual}
                         </div>
-                    );
-                })}
-            </div>
-
-            {/* ── Error ── */}
-            {state.error && (
-                <div className="ce-calculator__error" role="alert">
-                    {state.error}
+                    ) : (
+                        <div className="w-full max-w-[200px] aspect-square flex items-center justify-center p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-inner border border-slate-200 dark:border-slate-800 text-6xl">
+                            📐
+                        </div>
+                    )}
                 </div>
-            )}
 
-            {/* ── Actions ── */}
-            <div className="ce-calculator__actions">
-                <button
-                    id={`${uid}-solve-btn`}
-                    className="ce-btn ce-btn--primary"
-                    onClick={handleSolve}
-                    aria-describedby={sectionId}
-                >
-                    {t('CalculatorTemplate.solveButton')}
-                </button>
-                <button
-                    id={`${uid}-reset-btn`}
-                    className="ce-btn ce-btn--ghost"
-                    onClick={handleReset}
-                >
-                    {t('CalculatorTemplate.resetButton')}
-                </button>
+                {/* Form Section */}
+                <div className="lg:w-2/3 p-8 md:p-12">
+                    <div className="grid grid-cols-1 gap-8 mb-10">
+                        {config.fields.map(field => {
+                            const fs = state.fields[field.key];
+                            const isResult = state.result?.[field.key] !== undefined;
+
+                            return (
+                                <div key={field.key} className="space-y-2 group">
+                                    <div className="flex justify-between items-center px-1">
+                                        <label className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{t(field.labelKey as any)}</label>
+                                        {isResult && (
+                                            <span className="text-[10px] bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-full font-bold">
+                                                {t('CalculatorTemplate.calculatedBadge')}
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    <div className={`relative flex items-center transition-all ${isResult ? 'ring-4 ring-blue-500/10' : ''}`}>
+                                        <input
+                                            type="number"
+                                            step="any"
+                                            value={isResult ? formatResult(state.result![field.key]) : fs.raw}
+                                            onChange={e => dispatch({ type: 'SET_VALUE', key: field.key, raw: e.target.value })}
+                                            onKeyDown={e => e.key === 'Enter' && handleSolve()}
+                                            placeholder={isResult ? '' : (field.placeholderKey ? t(field.placeholderKey as any) : t('CalculatorTemplate.leaveBlankHint'))}
+                                            className={`eng-input pr-24 ${isResult ? 'border-blue-500/50 bg-blue-50/30 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-black' : ''}`}
+                                            readOnly={isResult}
+                                        />
+                                        <div className="absolute right-0 flex items-center h-full">
+                                            <select
+                                                value={fs.unit}
+                                                onChange={e => dispatch({ type: 'SET_UNIT', key: field.key, unit: e.target.value })}
+                                                className="eng-select h-full rounded-r-2xl pr-4 pl-3"
+                                            >
+                                                {field.units.map(u => (
+                                                    <option key={u.symbol} value={u.symbol}>{u.label}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {state.error && (
+                        <div className="mb-8 p-4 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-2xl text-red-600 dark:text-red-400 text-sm font-medium flex items-center gap-3 animate-in shake">
+                            <span>❌</span> {state.error}
+                        </div>
+                    )}
+
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <button
+                            onClick={handleSolve}
+                            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-2xl transition-all shadow-lg shadow-blue-500/25 active:scale-[0.98] flex items-center justify-center gap-2"
+                        >
+                            <span>⚡</span> {t('CalculatorTemplate.solveButton')}
+                        </button>
+                        <button
+                            onClick={handleReset}
+                            className="px-8 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-2xl transition-all"
+                        >
+                            {t('CalculatorTemplate.resetButton')}
+                        </button>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
     );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Utilities
-// ─────────────────────────────────────────────────────────────────────────────
-
-/**
- * Formats a raw SI number for display, using up to 6 significant digits.
- * e.g. 0.002 → "0.002", 1000000 → "1000000"
- */
+/** Precision formatting using Big.js */
 function formatResult(value: number): string {
-    return parseFloat(value.toPrecision(6)).toString();
+    if (value === 0) return "0";
+    try {
+        const b = new Big(value);
+        // If it's very small or very large, use scientific notation
+        if (Math.abs(value) < 0.0001 || Math.abs(value) > 1000000) {
+            return b.toExponential(4);
+        }
+        // Otherwise, round to 6 decimal places and remove trailing zeros
+        return parseFloat(b.toFixed(6)).toString();
+    } catch {
+        return value.toString();
+    }
 }

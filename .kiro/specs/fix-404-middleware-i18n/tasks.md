@@ -13,7 +13,7 @@
   - Task tamamlandı olarak işaretle: test yazıldı, çalıştırıldı, başarısızlık dokümante edildi
   - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-- [~] 2. Write preservation property tests (fix uygulanmadan ÖNCE)
+- [ ] 2. Write preservation property tests (fix uygulanmadan ÖNCE)
   - **Property 2: Preservation** - Mevcut Çeviriler Korunmalı
   - **ÖNEMLİ**: Observation-first metodolojisini takip et
   - Gözlem: UNFIXED code'da mevcut 5 dosyanın (en, hi, ja, ru, tr) içeriğini kaydet
@@ -24,9 +24,9 @@
   - Task tamamlandı olarak işaretle: testler yazıldı, çalıştırıldı, unfixed code'da başarılı
   - _Requirements: 3.1, 3.2, 3.3, 3.4_
 
-- [~] 3. Fix for 404 middleware i18n bug
+- [ ] 3. Fix for 404 middleware i18n bug
 
-  - [~] 3.1 Eksik message dosyalarını oluştur
+  - [ ] 3.1 Eksik message dosyalarını oluştur
     - OPENAI_API_KEY environment variable'ını ayarla
     - `npm run translate` komutunu çalıştır
     - Script otomatik olarak eksik 11 dosyayı oluşturacak (de, fr, es, pt, zh, ar, ko, it, nl, pl, id)
@@ -37,7 +37,7 @@
     - _Preservation: Mevcut 5 dosya (en, hi, ja, ru, tr) içeriği değişmemeli_
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 3.3, 3.4_
 
-  - [~] 3.2 Verify bug condition exploration test now passes
+  - [ ] 3.2 Verify bug condition exploration test now passes
     - **Property 1: Expected Behavior** - Tüm Message Dosyaları Mevcut
     - **ÖNEMLİ**: Task 1'deki AYNI testi çalıştır - yeni test yazma
     - Task 1'deki test expected behavior'ı encode eder
@@ -46,13 +46,13 @@
     - **BEKLENEN SONUÇ**: Test BAŞARILI (bug düzeltildi)
     - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-  - [~] 3.3 Verify preservation tests still pass
+  - [ ] 3.3 Verify preservation tests still pass
     - **Property 2: Preservation** - Mevcut Çeviriler Korundu
     - **ÖNEMLİ**: Task 2'deki AYNI testleri çalıştır - yeni test yazma
     - Preservation property testlerini çalıştır
     - **BEKLENEN SONUÇ**: Testler BAŞARILI (regression yok)
     - Tüm testlerin fix sonrası hala başarılı olduğunu doğrula
 
-- [~] 4. Checkpoint - Ensure all tests pass
+- [ ] 4. Checkpoint - Ensure all tests pass
   - Tüm testlerin başarılı olduğundan emin ol
   - Sorular çıkarsa kullanıcıya danış
