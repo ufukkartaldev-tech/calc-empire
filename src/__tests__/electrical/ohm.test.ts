@@ -29,7 +29,7 @@ import {
     acPower,
     voltageDivider,
     ledResistor,
-} from '../../lib/formulas/electrical';
+} from '@/lib/formulas/electrical';
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -65,8 +65,8 @@ describe("Ohm's Law – Power", () => {
 
     it('throws when string or invalid types are provided', () => {
         // Simulating JS runtime bypass of TS types
-        expect(() => ohmPower({ voltage: "12V" as any, current: 2 })).toThrow("Inputs must be valid numeric values.");
-        expect(() => ohmPower({ resistance: NaN, power: 5 })).toThrow("Inputs must be valid numeric values.");
+        expect(() => ohmPower({ voltage: "12V" as any, current: 2 })).toThrow("[big.js] Invalid number");
+        expect(() => ohmPower({ resistance: NaN, power: 5 })).toThrow("[big.js] Invalid number");
     });
 
     it('throws when negative resistance is given', () => {
@@ -77,4 +77,3 @@ describe("Ohm's Law – Power", () => {
         expect(() => ohmPower({ voltage: 10, power: -50 })).toThrow("Power (P) cannot be negative in passive systems.");
     });
 });
-

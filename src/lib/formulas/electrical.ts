@@ -16,36 +16,36 @@ export function ohmPower(params: OhmPowerParams): OhmPowerParams {
     const p = pIn !== undefined ? new Big(pIn) : undefined;
 
     const count = [v, i, r, p].filter(val => val !== undefined).length;
-    if (count < 2) throw new Error("En az iki parametre gereklidir.");
+    if (count < 2) throw new Error("At least two parameters are required.");
 
     let Vout: Big | undefined = v;
     let Iout: Big | undefined = i;
     let Rout: Big | undefined = r;
     let Pout: Big | undefined = p;
 
-    if (r !== undefined && r.lt(0)) throw new Error("Direnç (R) negatif olamaz.");
-    if (p !== undefined && p.lt(0)) throw new Error("Güç (P) negatif olamaz.");
+    if (r !== undefined && r.lt(0)) throw new Error("Resistance (R) cannot be negative.");
+    if (p !== undefined && p.lt(0)) throw new Error("Power (P) cannot be negative in passive systems.");
 
     if (v !== undefined && i !== undefined) {
         Rout = v.div(i);
         Pout = v.times(i);
     } else if (v !== undefined && r !== undefined) {
-        if (r.eq(0)) throw new Error("Direnç sıfır olamaz.");
+        if (r.eq(0)) throw new Error("Resistance cannot be zero.");
         Iout = v.div(r);
         Pout = v.times(v).div(r);
     } else if (v !== undefined && p !== undefined) {
-        if (v.eq(0)) throw new Error("Gerilim sıfır olamaz.");
+        if (v.eq(0)) throw new Error("Voltage cannot be zero.");
         Iout = p.div(v);
         Rout = v.times(v).div(p);
     } else if (i !== undefined && r !== undefined) {
         Vout = i.times(r);
         Pout = i.times(i).times(r);
     } else if (i !== undefined && p !== undefined) {
-        if (i.eq(0)) throw new Error("Akım sıfır olamaz.");
+        if (i.eq(0)) throw new Error("Current cannot be zero.");
         Vout = p.div(i);
         Rout = p.div(i.times(i));
     } else if (r !== undefined && p !== undefined) {
-        if (r.eq(0)) throw new Error("Direnç sıfır olamaz.");
+        if (r.eq(0)) throw new Error("Resistance cannot be zero.");
         Vout = p.times(r).sqrt();
         Iout = p.div(r).sqrt();
     }
