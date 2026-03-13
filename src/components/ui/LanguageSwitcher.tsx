@@ -1,66 +1,24 @@
 'use client';
 
-import { useState, useRef, useEffect, useMemo } from 'react';
-import { useLocale } from 'next-intl';
-import { useRouter, usePathname } from '@/i18n/routing';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import Image from 'next/image';
-import Fuse from 'fuse.js';
-
-const LOCALES = [
-    { code: 'en', label: 'English', country: 'gb' },
-    { code: 'tr', label: 'Türkçe', country: 'tr' },
-    { code: 'es', label: 'Español', country: 'es' },
-    { code: 'fr', label: 'Français', country: 'fr' },
-    { code: 'de', label: 'Deutsch', country: 'de' },
-    { code: 'it', label: 'Italiano', country: 'it' },
-    { code: 'pt', label: 'Português', country: 'pt' },
-    { code: 'nl', label: 'Nederlands', country: 'nl' },
-    { code: 'pl', label: 'Polski', country: 'pl' },
-    { code: 'ru', label: 'Русский', country: 'ru' },
-    { code: 'zh', label: '中文', country: 'cn' },
-    { code: 'ja', label: '日本語', country: 'jp' },
-    { code: 'ko', label: '한국어', country: 'kr' },
-    { code: 'hi', label: 'हिन्दी', country: 'in' },
-    { code: 'ar', label: 'العربية', country: 'sa' },
-    { code: 'id', label: 'Indonesia', country: 'id' },
-];
+import { useLocaleManager } from '@/hooks';
+import { RTL_LOCALES } from '@/constants';
 
 export function LanguageSwitcher() {
-    const locale = useLocale();
-    const router = useRouter();
-    const pathname = usePathname();
-    const [isOpen, setIsOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
-    const dropdownRef = useRef<HTMLDivElement>(null);
+  const {
+    locale,
+    currentLocale,
+    isOpen,
+    setIsOpen,
+    searchQuery,
+    setSearchQuery,
+    filteredLocales,
+    handleLocaleChange,
+    dropdownRef,
+  } = useLocaleManager();
 
-    const currentLocale = LOCALES.find((l) => l.code === locale) || LOCALES[0];
-    const isRtl = locale === 'ar';
-
-    const fuse = useMemo(() => new Fuse(LOCALES, {
-        keys: ['label', 'code'],
-        threshold: 0.3,
-    }), []);
-
-    const filteredLocales = useMemo(() => {
-        if (!searchQuery.trim()) return LOCALES;
-        return fuse.search(searchQuery).map(res => res.item);
-    }, [searchQuery, fuse]);
-
-    const handleLocaleChange = (nextLocale: string) => {
-        setIsOpen(false);
-        setSearchQuery('');
-        router.replace(pathname, { locale: nextLocale });
-    };
-
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
-            }
-        }
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+  const isRtl = RTL_LOCALES.has(locale as any);
 
     return (
         <div

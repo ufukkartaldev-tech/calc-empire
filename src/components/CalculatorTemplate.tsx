@@ -22,9 +22,9 @@
 
 import React, { useCallback, useId, useReducer } from 'react';
 import { useTranslations } from 'next-intl';
-import Big from 'big.js';
-import type { CalculatorConfig, FieldValue, FieldValues } from '@/types/calculator';
+import type { CalculatorConfig, FieldValue, FieldValues } from '@/types';
 import { SOLVER_REGISTRY } from '@/lib/calculators/registry';
+import { formatResult } from '@/utils/format';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Internal State

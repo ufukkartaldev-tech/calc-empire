@@ -1,15 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslations } from 'next-intl';
-import { CATEGORY_ORDER, CATEGORY_ICONS } from '../dashboard/tools.config';
-
-interface SidebarProps {
-    activeCategory: string | null;
-    onCategorySelect: (category: string | null) => void;
-    searchQuery: string;
-    onSearchChange: (query: string) => void;
-}
+import type { SidebarProps } from '@/types';
+import { CATEGORY_ORDER, CATEGORY_ICONS } from '@/constants';
 
 export function Sidebar({ activeCategory, onCategorySelect, searchQuery, onSearchChange }: SidebarProps) {
     const tCat = useTranslations('Categories');
