@@ -2,17 +2,13 @@
 /**
  * @file scripts/translate.mjs
  * @description
- * CalcEmpire — Automated i18n Translation Pipeline
+ * CalcEmpire — Automated i18n Translation Pipeline using Gemini API
  *
  * Reads  : src/i18n/strings.json          (master English source)
  * Writes : src/messages/<locale>.json      (one file per target locale)
  *
  * Usage:
- *   npm run translate                      # copies English to all locales
- *
- * This script copies the English master strings to all target locales.
- * For production use with AI translations, uncomment the OpenAI integration
- * and provide an API key via OPENAI_API_KEY environment variable.
+ *   npm run translate                      # uses GEMINI_API_KEY from .env.local
  *
  * Requirements:
  *   node >= 18  (native fetch)
@@ -35,10 +31,9 @@ const MESSAGES = path.join(ROOT, 'src', 'messages');
 // Config
 // ─────────────────────────────────────────────────────────────────────────────
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const OPENAI_MODEL = process.env.OPENAI_MODEL ?? 'gpt-4o-mini';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-/** Human-readable locale names sent in the prompt for better translation quality. */
+/** Human-readable locale names for translation prompts. */
 const LOCALE_NAMES = {
     tr: 'Turkish',
     ru: 'Russian',
@@ -64,6 +59,13 @@ const LOCALE_NAMES = {
 async function main() {
     // ── Validate prerequisites ─────────────────────────────────────────────────
 
+    if (!GEMINI_API_KEY) {
+        console.error('\n❌  GEMINI_API_KEY is not set.');
+        console.error('    Create a .env.local file with your Gemini API key:\n');
+        console.error('    GEMINI_API_KEY=your-api-key-here\n');
+        process.exit(1);
+    }
+
     if (!fs.existsSync(STRINGS)) {
         console.error(`\n❌  Master strings file not found: ${STRINGS}\n`);
         process.exit(1);
@@ -85,17 +87,16 @@ async function main() {
     fs.writeFileSync(enPath, JSON.stringify(stringsOnly, null, 2) + '\n', 'utf8');
     console.log(`✅  en  →  ${path.relative(ROOT, enPath)}`);
 
-    // ── Copy English to each locale ────────────────────────────────────────────
+    // ── Translate each locale using Gemini API ────────────────────────────────
 
     let failed = 0;
 
     for (const locale of locales) {
         const localeName = LOCALE_NAMES[locale] ?? locale;
-        process.stdout.write(`🔄  ${locale.padEnd(4)}  Copying to ${localeName}…`);
+        process.stdout.write(`🔄  ${locale.padEnd(4)}  Translating to ${localeName}…`);
 
         try {
-            // Copy English strings as base (can be replaced with AI translation later)
-            const translated = { ...stringsOnly };
+            const translated = await translateStrings(stringsOnly, locale, localeName);
             const outPath = path.join(MESSAGES, `${locale}.json`);
             fs.writeFileSync(outPath, JSON.stringify(translated, null, 2) + '\n', 'utf8');
             process.stdout.write(`\r✅  ${locale.padEnd(4)}  ${path.relative(ROOT, outPath)}\n`);
@@ -117,16 +118,12 @@ async function main() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// OpenAI Translation (Optional - for future use)
+// Gemini Translation
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * Sends the flat string object to the OpenAI Chat API and returns the
+ * Sends the flat string object to the Gemini API and returns the
  * translated JSON object.
- *
- * Strategy: we send the entire strings object as JSON and instruct the model
- * to return ONLY a valid JSON object with translated values. This avoids
- * multiple round-trips and keeps key names intact.
  *
  * @param {object} strings  - The English string object (nested, no _meta)
  * @param {string} locale   - BCP-47 locale code
@@ -135,7 +132,7 @@ async function main() {
  */
 async function translateStrings(strings, locale, name) {
     const systemPrompt = `\
-You are a professional software localisation engineer.
+You are a professional software localization engineer.
 Your task is to translate JSON string values from English into ${name} (${locale}).
 
 Rules you MUST follow without exception:
@@ -153,35 +150,35 @@ Rules you MUST follow without exception:
 
     const userPrompt = JSON.stringify(strings, null, 2);
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
-            model: OPENAI_MODEL,
-            temperature: 0.1,   // low temperature → deterministic, accurate translation
-            messages: [
-                { role: 'system', content: systemPrompt },
-                { role: 'user', content: userPrompt },
-            ],
-            response_format: { type: 'json_object' },
+            contents: [{
+                parts: [{
+                    text: `${systemPrompt}\n\nTranslate this JSON:\n${userPrompt}`
+                }]
+            }]
         }),
     });
 
     if (!response.ok) {
         const body = await response.text();
-        throw new Error(`OpenAI API ${response.status}: ${body.slice(0, 200)}`);
+        throw new Error(`Gemini API ${response.status}: ${body.slice(0, 200)}`);
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content;
+    const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-    if (!content) throw new Error('Empty response from OpenAI API');
+    if (!content) throw new Error('Empty response from Gemini API');
 
     try {
-        return JSON.parse(content);
+        // Extract JSON from response (remove markdown code fences if present)
+        const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```|([\s\S]*)/);
+        const jsonStr = jsonMatch?.[1] || jsonMatch?.[2] || content;
+        return JSON.parse(jsonStr.trim());
     } catch {
         throw new Error(`Model returned invalid JSON: ${content.slice(0, 200)}`);
     }

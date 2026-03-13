@@ -1,0 +1,20 @@
+# CalcEmpire Robots.txt
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Disallow admin or private paths (if any in future)
+# Disallow: /admin/
+# Disallow: /api/private/
+
+# Sitemap location
+Sitemap: https://calcempire.com/sitemap.xml
+
+# Crawl-delay for specific bots (optional)
+# User-agent: Googlebot
+# Crawl-delay: 0
+
+# Block specific bots (optional)
+# User-agent: BadBot
+# Disallow: /
