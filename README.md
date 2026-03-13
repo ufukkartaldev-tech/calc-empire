@@ -20,19 +20,51 @@ This documentation (Developer Guide) is prepared for developers who want to crea
 The project has a highly modular structure. It is very easy to code a machine and plug it into the system:
 
 1. **Create a Component:** Navigate to an appropriate directory like `src/components/calculators/mechanical/` and create your own `MyGeniusTool.tsx` file. Build your calculation there.
-2. **Register it in the Dashboard:** Open the `src/components/dashboard/EngineeringDashboard.tsx` file. Add your tool's unique ID (`'myGeniusTool'`) to the `ToolId` union type at the top.
-3. **Place it in the Render Block:** Go to the `renderTool()` function in `EngineeringDashboard.tsx` and integrate your `<MyGeniusTool />` component into the switch-case structure.
-4. **Add to Menu Array (Most Important):** Add your new tool to the array named `TOOLS_CONFIG`:
+
+2. **Create a Config File:** Create `src/lib/calculators/myGeniusTool.tsx` with your calculator configuration:
    ```ts
-   { 
-     id: 'myGeniusTool', 
-     titleKey: 'myToolTitle', 
-     descKey: 'myToolDesc', 
-     catKey: 'mechanical', 
-     icon: 'M' 
-   }
+   import type { CalculatorConfig } from '@/types';
+   
+   export const myGeniusToolConfig: CalculatorConfig = {
+     id: 'my-genius-tool',
+     titleKey: 'MyGeniusTool.title',
+     descriptionKey: 'MyGeniusTool.description',
+     visual: <svg>...</svg>,
+     fields: [
+       { key: 'input1', labelKey: 'MyGeniusTool.input1', units: [...] },
+       // ... more fields
+     ],
+     solverKey: 'myGeniusTool',
+   };
    ```
-5. **Enter Multilingual (i18n) Codes:** For the system to search, add your `myToolTitle` and `myToolDesc` texts into the `Dashboard` object in `src/messages/en.json` and other language files. That's it! The smart search algorithm (Fuse.js) will be able to search for that calculator in every corner of the system.
+
+3. **Create a Solver:** Create `src/lib/calculators/myGeniusTool.ts` with your calculation logic:
+   ```ts
+   import type { SolveFn, FieldValues, SolveResult } from '@/types';
+   
+   export const solve: SolveFn = (values: FieldValues): SolveResult => {
+     // Your calculation logic here
+     return { output1: result };
+   };
+   ```
+
+4. **Register in Config:** Add your tool to `src/config/tools.config.ts`:
+   ```ts
+   { id: 'myGeniusTool', titleKey: 'myGeniusToolTitle', descKey: 'myGeniusToolDesc', catKey: 'mechanical', icon: 'M' }
+   ```
+
+5. **Register Solver:** Add your solver to `src/lib/calculators/registry.ts`:
+   ```ts
+   import { solve as myGeniusToolSolve } from './myGeniusTool';
+   
+   export const SOLVER_REGISTRY: Record<string, SolveFn> = {
+     'myGeniusTool': myGeniusToolSolve,
+   };
+   ```
+
+6. **Enter Multilingual (i18n) Codes:** Add your `myGeniusToolTitle` and `myGeniusToolDesc` texts into the `Dashboard` object in `src/messages/en.json` and other language files.
+
+That's it! The smart search algorithm (Fuse.js) will automatically find your calculator in every corner of the system.
 
 ## Tests
 Since this application is for engineers, there are extensive validation documents. You can run the Vitest infrastructure to confirm the accuracy of the calculators in the project locally:
