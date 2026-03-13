@@ -15,9 +15,13 @@
     "@types/big.js": "^6.2.2",
     "big.js": "^7.0.1",
     "fuse.js": "^7.1.0",
+    "katex": "^0.16.38",
     "next": "16.1.6",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-markdown": "^10.1.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
