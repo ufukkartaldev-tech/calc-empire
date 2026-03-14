@@ -5,7 +5,6 @@
 
 'use client';
 
-import React from 'react';
 import { useTranslations } from 'next-intl';
 import { useDashboard } from '@/hooks';
 import { CRITICAL_TOOLS } from '@/config/tools.config';
@@ -19,7 +18,7 @@ import { EmptyState } from './EmptyState';
 export function EngineeringDashboard() {
   const tCat = useTranslations('Categories');
   const tDash = useTranslations('Dashboard');
-  
+
   const {
     activeTool,
     activeCategory,
@@ -80,7 +79,9 @@ export function EngineeringDashboard() {
             <div className="p-6 md:p-10 max-w-7xl mx-auto">
               <div className="mb-12">
                 <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
-                  {activeCategory ? tCat(activeCategory as any) : tDash('title')}
+                  {activeCategory
+                    ? tCat(activeCategory as keyof IntlMessages['Categories'])
+                    : tDash('title')}
                 </h1>
                 <p className="text-lg text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
                   {tDash('subtitle')}
@@ -90,10 +91,7 @@ export function EngineeringDashboard() {
               {filteredTools.length === 0 ? (
                 <EmptyState />
               ) : (
-                <ToolGrid 
-                  toolsByCategory={toolsByCategory} 
-                  onToolSelect={handleToolSelect} 
-                />
+                <ToolGrid toolsByCategory={toolsByCategory} onToolSelect={handleToolSelect} />
               )}
             </div>
           )}
