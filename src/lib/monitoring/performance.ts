@@ -3,7 +3,7 @@
  * @description Performance monitoring utilities using Web Vitals
  */
 
-import { onCLS, onFCP, onFID, onINP, onLCP, onTTFB, type Metric } from 'web-vitals';
+import { onCLS, onFCP, onINP, onLCP, onTTFB, type Metric } from 'web-vitals';
 import * as Sentry from '@sentry/nextjs';
 
 /**
@@ -15,13 +15,13 @@ function reportWebVitals(metric: Metric): void {
     console.log('[Web Vitals]', metric);
   }
 
-  // Send to Sentry
+  // Send to Sentry with tags as separate parameter
   Sentry.metrics.distribution(metric.name, metric.value, {
     unit: 'millisecond',
-    tags: {
-      rating: metric.rating,
-    },
   });
+
+  // Add tags separately
+  Sentry.setTag('web_vital_rating', metric.rating);
 
   // Send to analytics
   if (typeof window !== 'undefined') {
@@ -44,14 +44,13 @@ export function initPerformanceMonitoring(): void {
   if (typeof window === 'undefined') return;
 
   try {
-    // Core Web Vitals
+    // Core Web Vitals (FID is deprecated, replaced by INP)
     onCLS(reportWebVitals); // Cumulative Layout Shift
-    onFID(reportWebVitals); // First Input Delay
+    onINP(reportWebVitals); // Interaction to Next Paint (replaces FID)
     onLCP(reportWebVitals); // Largest Contentful Paint
 
     // Additional metrics
     onFCP(reportWebVitals); // First Contentful Paint
-    onINP(reportWebVitals); // Interaction to Next Paint
     onTTFB(reportWebVitals); // Time to First Byte
   } catch (error) {
     console.error('Failed to initialize performance monitoring:', error);
