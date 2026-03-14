@@ -2,21 +2,28 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from 'next/font/google';
 import { Navbar } from '@/components/ui/Navbar';
-import { generateWebsiteSchema, generateOrganizationSchema, generateWebApplicationSchema } from '@/lib/structured-data';
-import "../globals.css";
+import {
+  generateWebsiteSchema,
+  generateOrganizationSchema,
+  generateWebApplicationSchema,
+} from '@/lib/structured-data';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+import { ErrorBoundary } from '@/lib/monitoring';
+import '../globals.css';
 
 const RTL_LOCALES = new Set(['ar']);
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export function generateStaticParams() {
@@ -26,7 +33,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     return {};
   }
 
@@ -63,9 +70,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     },
     alternates: {
       canonical: `/${locale}`,
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}`])
-      ),
+      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])),
     },
     openGraph: {
       type: 'website',
@@ -110,14 +115,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function LocaleLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
 
@@ -145,13 +150,17 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased ce-bg flex flex-col min-h-screen`}>
-        <NextIntlClientProvider messages={messages}>
-          <Navbar />
-          <div className="flex-1">
-            {children}
-          </div>
-        </NextIntlClientProvider>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased ce-bg flex flex-col min-h-screen`}
+      >
+        <ErrorBoundary>
+          <NextIntlClientProvider messages={messages}>
+            <Navbar />
+            <div className="flex-1">{children}</div>
+          </NextIntlClientProvider>
+        </ErrorBoundary>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -76,6 +76,24 @@ Vitest will output successful/unsuccessful (Pass/Fail) test reports for you via 
 ## Translation System (next-intl)
 Translations throughout the application return via JSONs with static type support (`next-intl`). If you want to add new languages or change the texts of the application, all you have to do is update the text from `src/messages/en.json` or other language folders.
 
+## Monitoring and Analytics Documentation
+
+For detailed information about error tracking, performance monitoring, and analytics, see [MONITORING.md](./MONITORING.md).
+
+### Quick Setup
+
+1. Copy environment variables:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. Add your Sentry DSN to `.env.local`:
+   ```env
+   NEXT_PUBLIC_SENTRY_DSN=your_sentry_dsn_here
+   ```
+
+3. Analytics and Speed Insights are automatically enabled on Vercel deployments.
+
 ***
 
 ## DISCLAIMER
