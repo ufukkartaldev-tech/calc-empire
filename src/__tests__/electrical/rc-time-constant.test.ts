@@ -17,18 +17,18 @@
 
 import { describe, it, expect } from 'vitest';
 import {
-    ohmPower,
-    resistorColorCode,
-    seriesResistance,
-    parallelResistance,
-    seriesCapacitance,
-    parallelCapacitance,
-    seriesInductance,
-    parallelInductance,
-    timeConstantRC,
-    acPower,
-    voltageDivider,
-    ledResistor,
+  ohmPower,
+  resistorColorCode,
+  seriesResistance,
+  parallelResistance,
+  seriesCapacitance,
+  parallelCapacitance,
+  seriesInductance,
+  parallelInductance,
+  timeConstantRC,
+  acPower,
+  voltageDivider,
+  ledResistor,
 } from '../../lib/formulas/electrical';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -37,25 +37,23 @@ import {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-
 describe('RC Time Constant', () => {
-    it('τ = R·C: 10kΩ × 100μF = 1 s', () => {
-        expect(timeConstantRC(10_000, 100e-6)).toBeCloseTo(1);
-    });
+  it('τ = R·C: 10kΩ × 100μF = 1 s', () => {
+    expect(timeConstantRC(10_000, 100e-6)).toBeCloseTo(1);
+  });
 
-    it('returns voltage-charge curve at t = τ (≈ 63.2% of V_supply)', () => {
-        const tau = timeConstantRC(10_000, 100e-6);
-        const Vsupply = 5;
-        const Vt = Vsupply * (1 - Math.exp(-1)); // at t = τ
-        expect(Vt / Vsupply).toBeCloseTo(0.632, 2);
-    });
+  it('returns voltage-charge curve at t = τ (≈ 63.2% of V_supply)', () => {
+    const tau = timeConstantRC(10_000, 100e-6);
+    const Vsupply = 5;
+    const Vt = Vsupply * (1 - Math.exp(-1)); // at t = τ
+    expect(Vt / Vsupply).toBeCloseTo(0.632, 2);
+  });
 
-    it('throws for zero resistance', () => {
-        expect(() => timeConstantRC(0, 100e-6)).toThrow();
-    });
+  it('throws for zero resistance', () => {
+    expect(() => timeConstantRC(0, 100e-6)).toThrow();
+  });
 
-    it('throws for zero capacitance', () => {
-        expect(() => timeConstantRC(10_000, 0)).toThrow();
-    });
+  it('throws for zero capacitance', () => {
+    expect(() => timeConstantRC(10_000, 0)).toThrow();
+  });
 });
-

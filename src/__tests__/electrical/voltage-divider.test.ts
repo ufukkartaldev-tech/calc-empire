@@ -17,18 +17,18 @@
 
 import { describe, it, expect } from 'vitest';
 import {
-    ohmPower,
-    resistorColorCode,
-    seriesResistance,
-    parallelResistance,
-    seriesCapacitance,
-    parallelCapacitance,
-    seriesInductance,
-    parallelInductance,
-    timeConstantRC,
-    acPower,
-    voltageDivider,
-    ledResistor,
+  ohmPower,
+  resistorColorCode,
+  seriesResistance,
+  parallelResistance,
+  seriesCapacitance,
+  parallelCapacitance,
+  seriesInductance,
+  parallelInductance,
+  timeConstantRC,
+  acPower,
+  voltageDivider,
+  ledResistor,
 } from '../../lib/formulas/electrical';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -37,19 +37,17 @@ import {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-
 describe('Voltage Divider', () => {
-    it('divides 12V in half with equal resistors', () => {
-        expect(voltageDivider({ Vin: 12, R1: 1000, R2: 1000 })).toBeCloseTo(6);
-    });
+  it('divides 12V in half with equal resistors', () => {
+    expect(voltageDivider({ Vin: 12, R1: 1000, R2: 1000 })).toBeCloseTo(6);
+  });
 
-    it('Vout = Vin · R2 / (R1 + R2)', () => {
-        // 5V, R1=1kΩ, R2=3kΩ → 5 × 3/4 = 3.75V
-        expect(voltageDivider({ Vin: 5, R1: 1000, R2: 3000 })).toBeCloseTo(3.75);
-    });
+  it('Vout = Vin · R2 / (R1 + R2)', () => {
+    // 5V, R1=1kΩ, R2=3kΩ → 5 × 3/4 = 3.75V
+    expect(voltageDivider({ Vin: 5, R1: 1000, R2: 3000 })).toBeCloseTo(3.75);
+  });
 
-    it('throws when any resistance is zero or negative', () => {
-        expect(() => voltageDivider({ Vin: 12, R1: 0, R2: 1000 })).toThrow();
-    });
+  it('throws when any resistance is zero or negative', () => {
+    expect(() => voltageDivider({ Vin: 12, R1: 0, R2: 1000 })).toThrow();
+  });
 });
-

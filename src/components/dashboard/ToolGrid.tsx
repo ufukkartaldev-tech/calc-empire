@@ -21,7 +21,7 @@ export function ToolGrid({ toolsByCategory, onToolSelect }: ToolGridProps) {
 
   return (
     <div className="space-y-16">
-      {CATEGORY_ORDER.map(catKey => {
+      {CATEGORY_ORDER.map((catKey) => {
         const catTools = toolsByCategory[catKey];
         if (!catTools || catTools.length === 0) return null;
 
@@ -38,7 +38,7 @@ export function ToolGrid({ toolsByCategory, onToolSelect }: ToolGridProps) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {catTools.map(tool => (
+              {catTools.map((tool) => (
                 <button
                   key={tool.id}
                   onClick={() => onToolSelect(tool.id)}
@@ -59,7 +59,7 @@ export function ToolGrid({ toolsByCategory, onToolSelect }: ToolGridProps) {
                   </p>
 
                   <div className="mt-6 flex items-center text-xs font-bold text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity translate-x-1 group-hover:translate-x-0">
-                    {tDash('openTool' as any) || "ARACI AÇ"} <span className="ml-1">→</span>
+                    {tDash('openTool' as any) || 'ARACI AÇ'} <span className="ml-1">→</span>
                   </div>
                 </button>
               ))}

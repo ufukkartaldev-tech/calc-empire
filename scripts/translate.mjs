@@ -17,6 +17,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { config } from 'dotenv';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Paths
@@ -26,6 +27,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const STRINGS = path.join(ROOT, 'src', 'i18n', 'strings.json');
 const MESSAGES = path.join(ROOT, 'src', 'messages');
+
+// Load .env.local
+config({ path: path.join(ROOT, '.env.local') });
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Config
@@ -100,6 +104,9 @@ async function main() {
             const outPath = path.join(MESSAGES, `${locale}.json`);
             fs.writeFileSync(outPath, JSON.stringify(translated, null, 2) + '\n', 'utf8');
             process.stdout.write(`\r✅  ${locale.padEnd(4)}  ${path.relative(ROOT, outPath)}\n`);
+            
+            // Add delay between requests to avoid rate limiting
+            await new Promise(resolve => setTimeout(resolve, 1000));
         } catch (err) {
             process.stdout.write(`\r❌  ${locale.padEnd(4)}  FAILED: ${err.message}\n`);
             failed++;
@@ -150,38 +157,66 @@ Rules you MUST follow without exception:
 
     const userPrompt = JSON.stringify(strings, null, 2);
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            contents: [{
-                parts: [{
-                    text: `${systemPrompt}\n\nTranslate this JSON:\n${userPrompt}`
-                }]
-            }]
-        }),
-    });
+    // Retry logic for rate limiting
+    const maxRetries = 3;
+    let lastError;
 
-    if (!response.ok) {
-        const body = await response.text();
-        throw new Error(`Gemini API ${response.status}: ${body.slice(0, 200)}`);
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+        if (attempt > 0) {
+            // Exponential backoff: 2s, 4s, 8s
+            const delay = Math.pow(2, attempt) * 1000;
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: `${systemPrompt}\n\nTranslate this JSON:\n${userPrompt}`
+                        }]
+                    }]
+                }),
+            });
+
+            if (!response.ok) {
+                const body = await response.text();
+                lastError = new Error(`Gemini API ${response.status}: ${body.slice(0, 200)}`);
+                
+                // If rate limited, retry
+                if (response.status === 429) {
+                    continue;
+                }
+                throw lastError;
+            }
+
+            const data = await response.json();
+            const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+            if (!content) throw new Error('Empty response from Gemini API');
+
+            try {
+                // Extract JSON from response (remove markdown code fences if present)
+                const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```|([\s\S]*)/);
+                const jsonStr = jsonMatch?.[1] || jsonMatch?.[2] || content;
+                return JSON.parse(jsonStr.trim());
+            } catch {
+                throw new Error(`Model returned invalid JSON: ${content.slice(0, 200)}`);
+            }
+        } catch (err) {
+            lastError = err;
+            if (err.message.includes('429')) {
+                continue; // Retry on rate limit
+            }
+            throw err; // Don't retry on other errors
+        }
     }
 
-    const data = await response.json();
-    const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!content) throw new Error('Empty response from Gemini API');
-
-    try {
-        // Extract JSON from response (remove markdown code fences if present)
-        const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```|([\s\S]*)/);
-        const jsonStr = jsonMatch?.[1] || jsonMatch?.[2] || content;
-        return JSON.parse(jsonStr.trim());
-    } catch {
-        throw new Error(`Model returned invalid JSON: ${content.slice(0, 200)}`);
-    }
+    throw lastError;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

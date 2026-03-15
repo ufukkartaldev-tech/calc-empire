@@ -60,7 +60,7 @@ export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) 
       gray: '#808080',
       white: '#FFFFFF',
       gold: '#FFD700',
-      silver: '#C0C0C0'
+      silver: '#C0C0C0',
     };
     return colorMap[colorName] || '#CCCCCC';
   };
@@ -74,7 +74,7 @@ export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) 
   return (
     <div className={`bg-white rounded-lg shadow-lg p-6 ${className}`}>
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Resistor Color Code Calculator</h2>
-      
+
       {/* Band Count Selection */}
       <div className="mb-6">
         <label className="text-sm font-medium text-gray-700 mb-2 block">Number of Bands</label>
@@ -109,12 +109,7 @@ export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) 
 
       {/* SVG Resistor Visualization */}
       <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-        <svg
-          width="100%"
-          height="120"
-          viewBox="0 0 100 120"
-          className="w-full max-w-md mx-auto"
-        >
+        <svg width="100%" height="120" viewBox="0 0 100 120" className="w-full max-w-md mx-auto">
           {/* Resistor Body */}
           <rect
             x="10"
@@ -126,27 +121,13 @@ export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) 
             strokeWidth="2"
             rx="4"
           />
-          
+
           {/* Left Lead */}
-          <line
-            x1="0"
-            y1="60"
-            x2="10"
-            y2="60"
-            stroke="#666666"
-            strokeWidth="3"
-          />
-          
+          <line x1="0" y1="60" x2="10" y2="60" stroke="#666666" strokeWidth="3" />
+
           {/* Right Lead */}
-          <line
-            x1="90"
-            y1="60"
-            x2="100"
-            y2="60"
-            stroke="#666666"
-            strokeWidth="3"
-          />
-          
+          <line x1="90" y1="60" x2="100" y2="60" stroke="#666666" strokeWidth="3" />
+
           {/* Color Bands */}
           {getBandPositions().map((position, index) => (
             <rect
@@ -171,9 +152,7 @@ export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) 
             <p className="text-2xl font-bold text-blue-800">
               {formatResistance(result.resistance)}
             </p>
-            <p className="text-sm text-blue-700">
-              Tolerance: ±{result.tolerance}%
-            </p>
+            <p className="text-sm text-blue-700">Tolerance: ±{result.tolerance}%</p>
             {result.tempCoeff && (
               <p className="text-sm text-blue-700">
                 Temperature Coefficient: {result.tempCoeff} ppm/K

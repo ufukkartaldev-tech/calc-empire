@@ -34,10 +34,18 @@ export function BaseConverter() {
       // Validate input based on selected base
       let isValid = false;
       switch (inputBase) {
-        case 2: isValid = /^[01]+$/.test(inputValue); break;
-        case 8: isValid = /^[0-7]+$/.test(inputValue); break;
-        case 10: isValid = /^-?\d+$/.test(inputValue); break;
-        case 16: isValid = /^[0-9A-Fa-f]+$/.test(inputValue); break;
+        case 2:
+          isValid = /^[01]+$/.test(inputValue);
+          break;
+        case 8:
+          isValid = /^[0-7]+$/.test(inputValue);
+          break;
+        case 10:
+          isValid = /^-?\d+$/.test(inputValue);
+          break;
+        case 16:
+          isValid = /^[0-9A-Fa-f]+$/.test(inputValue);
+          break;
       }
 
       if (!isValid) {
@@ -77,12 +85,24 @@ export function BaseConverter() {
 
     let res = 0;
     switch (operator) {
-      case 'AND': if (!isNaN(b)) res = a & b; break;
-      case 'OR': if (!isNaN(b)) res = a | b; break;
-      case 'XOR': if (!isNaN(b)) res = a ^ b; break;
-      case 'NOT': res = ~a; break;
-      case 'LSHIFT': if (!isNaN(b)) res = a << b; break;
-      case 'RSHIFT': if (!isNaN(b)) res = a >> b; break;
+      case 'AND':
+        if (!isNaN(b)) res = a & b;
+        break;
+      case 'OR':
+        if (!isNaN(b)) res = a | b;
+        break;
+      case 'XOR':
+        if (!isNaN(b)) res = a ^ b;
+        break;
+      case 'NOT':
+        res = ~a;
+        break;
+      case 'LSHIFT':
+        if (!isNaN(b)) res = a << b;
+        break;
+      case 'RSHIFT':
+        if (!isNaN(b)) res = a >> b;
+        break;
     }
 
     // Prepare visuals for binary alignment
@@ -96,8 +116,11 @@ export function BaseConverter() {
     return {
       resultDec: res,
       binA: bStrA.padStart(maxLen, '0'),
-      binB: bStrB && operator !== 'NOT' && operator !== 'LSHIFT' && operator !== 'RSHIFT' ? bStrB.padStart(maxLen, '0') : bStrB,
-      binRes: bStrRes.padStart(maxLen, '0')
+      binB:
+        bStrB && operator !== 'NOT' && operator !== 'LSHIFT' && operator !== 'RSHIFT'
+          ? bStrB.padStart(maxLen, '0')
+          : bStrB,
+      binRes: bStrRes.padStart(maxLen, '0'),
     };
   };
 
@@ -114,7 +137,6 @@ export function BaseConverter() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-
         {/* Converter Section */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm">
           <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -123,13 +145,15 @@ export function BaseConverter() {
 
           <div className="flex flex-col gap-4 mb-6">
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('fromBase')}</label>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                {t('fromBase')}
+              </label>
               <div className="grid grid-cols-4 gap-2">
                 {[
                   { value: 2, label: 'BIN', tooltip: t('binary') },
                   { value: 8, label: 'OCT', tooltip: t('octal') },
                   { value: 10, label: 'DEC', tooltip: t('decimal') },
-                  { value: 16, label: 'HEX', tooltip: t('hex') }
+                  { value: 16, label: 'HEX', tooltip: t('hex') },
                 ].map((baseItem) => (
                   <button
                     key={baseItem.value}
@@ -138,10 +162,11 @@ export function BaseConverter() {
                       setInputValue('');
                     }}
                     title={baseItem.tooltip}
-                    className={`py-2 px-1 text-sm font-semibold rounded-lg transition-colors border ${inputBase === baseItem.value
+                    className={`py-2 px-1 text-sm font-semibold rounded-lg transition-colors border ${
+                      inputBase === baseItem.value
                         ? 'bg-blue-600 border-blue-600 text-white shadow-sm'
                         : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700'
-                      }`}
+                    }`}
                   >
                     {baseItem.label}
                   </button>
@@ -150,14 +175,19 @@ export function BaseConverter() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('inputLabel')}</label>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                {t('inputLabel')}
+              </label>
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value.toUpperCase())}
                 placeholder={t('inputPlaceholder')}
-                className={`w-full px-4 py-3 bg-white dark:bg-slate-950 border rounded-lg focus:ring-2 focus:outline-none transition-colors font-mono text-lg ${errorStr ? 'border-red-300 focus:ring-red-100 dark:border-red-900/50' : 'border-slate-300 dark:border-slate-700 focus:ring-blue-100 focus:border-blue-400 dark:focus:ring-blue-900'
-                  } text-slate-900 dark:text-slate-100`}
+                className={`w-full px-4 py-3 bg-white dark:bg-slate-950 border rounded-lg focus:ring-2 focus:outline-none transition-colors font-mono text-lg ${
+                  errorStr
+                    ? 'border-red-300 focus:ring-red-100 dark:border-red-900/50'
+                    : 'border-slate-300 dark:border-slate-700 focus:ring-blue-100 focus:border-blue-400 dark:focus:ring-blue-900'
+                } text-slate-900 dark:text-slate-100`}
                 spellCheck={false}
               />
               {errorStr && <p className="text-red-500 text-xs mt-2">{errorStr}</p>}
@@ -169,11 +199,14 @@ export function BaseConverter() {
               { base: 10, label: 'DEC', prefix: '', color: 'blue' },
               { base: 16, label: 'HEX', prefix: '0x', color: 'purple' },
               { base: 2, label: 'BIN', prefix: '0b', color: 'emerald' },
-              { base: 8, label: 'OCT', prefix: '0o', color: 'amber' }
+              { base: 8, label: 'OCT', prefix: '0o', color: 'amber' },
             ].map((out, idx) => {
-              const valStr = decValue !== null
-                ? out.base === 16 ? decValue.toString(16).toUpperCase() : decValue.toString(out.base)
-                : '---';
+              const valStr =
+                decValue !== null
+                  ? out.base === 16
+                    ? decValue.toString(16).toUpperCase()
+                    : decValue.toString(out.base)
+                  : '---';
 
               const formattedVal = out.base === 2 && decValue !== null ? padBinary(valStr) : valStr;
 
@@ -189,12 +222,19 @@ export function BaseConverter() {
                       {copiedIndex === idx ? t('copied') : t('copy')}
                     </button>
                   </div>
-                  <div className={`w-full px-4 py-3 rounded-lg border font-mono break-all ${decValue !== null
-                      ? 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 shadow-inner'
-                      : 'bg-slate-100 dark:bg-slate-800/50 border-transparent text-slate-400 dark:text-slate-600'
-                    }`}>
-                    {decValue !== null && <span className="opacity-50 select-none mr-2">{out.prefix}</span>}
-                    <span className={decValue !== null && out.base === 2 ? 'tracking-wider' : ''}>{formattedVal}</span>
+                  <div
+                    className={`w-full px-4 py-3 rounded-lg border font-mono break-all ${
+                      decValue !== null
+                        ? 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 shadow-inner'
+                        : 'bg-slate-100 dark:bg-slate-800/50 border-transparent text-slate-400 dark:text-slate-600'
+                    }`}
+                  >
+                    {decValue !== null && (
+                      <span className="opacity-50 select-none mr-2">{out.prefix}</span>
+                    )}
+                    <span className={decValue !== null && out.base === 2 ? 'tracking-wider' : ''}>
+                      {formattedVal}
+                    </span>
                   </div>
                 </div>
               );
@@ -210,7 +250,9 @@ export function BaseConverter() {
 
           <div className="flex gap-4 mb-4">
             <div className="flex-1">
-              <label className="block text-xs font-medium text-slate-500 mb-1">{t('operandA')}</label>
+              <label className="block text-xs font-medium text-slate-500 mb-1">
+                {t('operandA')}
+              </label>
               <input
                 type="number"
                 value={operandA}
@@ -220,7 +262,9 @@ export function BaseConverter() {
               />
             </div>
             <div className="flex-1">
-              <label className="block text-xs font-medium text-slate-500 px-1 mb-1">{t('operator')}</label>
+              <label className="block text-xs font-medium text-slate-500 px-1 mb-1">
+                {t('operator')}
+              </label>
               <select
                 value={operator}
                 onChange={(e) => setOperator(e.target.value as Operator)}
@@ -251,7 +295,6 @@ export function BaseConverter() {
           </div>
 
           <div className="mt-auto bg-slate-950 rounded-xl p-5 shadow-inner border border-slate-800 overflow-hidden relative">
-
             <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
 
             <h4 className="text-xs font-medium text-slate-400 mb-4">{t('bitwiseExplanation')}</h4>
@@ -260,7 +303,9 @@ export function BaseConverter() {
               <div className="font-mono text-lg md:text-xl flex flex-col items-end gap-1 font-bold tracking-[0.2em]">
                 {/* Operand A */}
                 <div className="flex items-center text-blue-400">
-                  <span className="text-xs text-slate-500 tracking-normal mr-4 font-normal">A:</span>
+                  <span className="text-xs text-slate-500 tracking-normal mr-4 font-normal">
+                    A:
+                  </span>
                   {bitwiseData.binA}
                 </div>
 
@@ -270,7 +315,9 @@ export function BaseConverter() {
                     <span className="text-sm text-amber-500 mr-2 opacity-80">{operator}</span>
                     {operator !== 'LSHIFT' && operator !== 'RSHIFT' ? (
                       <>
-                        <span className="text-xs text-slate-500 tracking-normal mr-4 font-normal">B:</span>
+                        <span className="text-xs text-slate-500 tracking-normal mr-4 font-normal">
+                          B:
+                        </span>
                         {bitwiseData.binB}
                       </>
                     ) : (
@@ -280,17 +327,23 @@ export function BaseConverter() {
                     )}
                   </div>
                 )}
-                {operator === 'NOT' && <div className="w-full border-b-2 border-slate-700 my-1"></div>}
+                {operator === 'NOT' && (
+                  <div className="w-full border-b-2 border-slate-700 my-1"></div>
+                )}
 
                 {/* Result */}
                 <div className="flex items-center text-amber-400 pt-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                  <span className="text-xs text-slate-500 tracking-normal mr-4 font-normal">Res:</span>
+                  <span className="text-xs text-slate-500 tracking-normal mr-4 font-normal">
+                    Res:
+                  </span>
                   {bitwiseData.binRes}
                 </div>
 
                 {/* Decimal Result Badge */}
                 <div className="mt-4 pt-4 border-t border-slate-800/50 w-full flex justify-between items-center group">
-                  <span className="text-xs text-slate-500 uppercase tracking-widest font-sans font-semibold">Decimal</span>
+                  <span className="text-xs text-slate-500 uppercase tracking-widest font-sans font-semibold">
+                    Decimal
+                  </span>
                   <span className="text-2xl text-white font-sans bg-slate-800 px-4 py-1.5 rounded-lg border border-slate-700 shadow-sm group-hover:border-blue-500/50 transition-colors">
                     {bitwiseData.resultDec}
                   </span>

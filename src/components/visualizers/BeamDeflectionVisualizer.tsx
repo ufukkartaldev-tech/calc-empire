@@ -23,7 +23,7 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
         L: length,
         E: elasticModulus,
         I: momentOfInertia,
-        type: beamType
+        type: beamType,
       });
     } catch (error) {
       return 0;
@@ -59,7 +59,7 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
           {/* Pin support */}
           <polygon points="0,50 12,45 12,55" fill="#666" />
           <circle cx="6" cy="50" r="3" fill="#333" />
-          
+
           {/* Roller support */}
           <rect x="98" y="47" width="12" height="6" fill="#666" />
           <circle cx="104" cy="50" r="4" fill="#333" />
@@ -86,8 +86,18 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
               <polygon points="0 0, 10 3.5, 0 7" fill="#FF0000" />
             </marker>
           </defs>
-          <line x1="100" y1="10" x2="100" y2="40" stroke="#FF0000" strokeWidth="3" markerEnd="url(#arrowhead)" />
-          <text x="105" y="15" fill="#FF0000" fontSize="14" fontWeight="bold">W</text>
+          <line
+            x1="100"
+            y1="10"
+            x2="100"
+            y2="40"
+            stroke="#FF0000"
+            strokeWidth="3"
+            markerEnd="url(#arrowhead)"
+          />
+          <text x="105" y="15" fill="#FF0000" fontSize="14" fontWeight="bold">
+            W
+          </text>
         </g>
       );
     } else {
@@ -119,7 +129,9 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
               markerEnd="url(#arrowhead)"
             />
           ))}
-          <text x="50" y="8" textAnchor="middle" fill="#FF0000" fontSize="14" fontWeight="bold">W</text>
+          <text x="50" y="8" textAnchor="middle" fill="#FF0000" fontSize="14" fontWeight="bold">
+            W
+          </text>
         </g>
       );
     }
@@ -128,7 +140,7 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
   return (
     <div className={`bg-white rounded-lg shadow-lg p-6 ${className}`}>
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Beam Deflection Calculator</h2>
-      
+
       {/* Tabs */}
       <div className="mb-6">
         <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
@@ -166,7 +178,7 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
           min={0.1}
           max={10}
         />
-        
+
         <Input
           value={load}
           onChange={setLoad}
@@ -176,7 +188,7 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
           min={100}
           max={50000}
         />
-        
+
         <Input
           value={elasticModulus}
           onChange={setElasticModulus}
@@ -186,7 +198,7 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
           min={1000}
           max={500000}
         />
-        
+
         <Input
           value={momentOfInertia}
           onChange={setMomentOfInertia}
@@ -210,19 +222,25 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
           {/* Background grid */}
           <defs>
             <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#E5E7EB" strokeWidth="0.5"/>
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#E5E7EB" strokeWidth="0.5" />
             </pattern>
           </defs>
           <rect width="120" height="120" fill="url(#grid)" />
-          
+
           {/* Reference line */}
-          <line x1="10" y1="60" x2="110" y2="60" stroke="#9CA3AF" strokeWidth="1" strokeDasharray="2,2" />
-          
+          <line
+            x1="10"
+            y1="60"
+            x2="110"
+            y2="60"
+            stroke="#9CA3AF"
+            strokeWidth="1"
+            strokeDasharray="2,2"
+          />
+
           {/* Supports */}
-          <g transform="translate(10, 0)">
-            {getSupportElements()}
-          </g>
-          
+          <g transform="translate(10, 0)">{getSupportElements()}</g>
+
           {/* Beam */}
           <path
             d={beamPath}
@@ -232,12 +250,10 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
             strokeLinecap="round"
             transform="translate(10, 0)"
           />
-          
+
           {/* Load arrows */}
-          <g transform="translate(10, 0)">
-            {getLoadArrows()}
-          </g>
-          
+          <g transform="translate(10, 0)">{getLoadArrows()}</g>
+
           {/* Deflection indicator */}
           {deflection > 0.0001 && (
             <g transform="translate(10, 0)">
@@ -261,7 +277,7 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
               </text>
             </g>
           )}
-          
+
           {/* Dimension lines */}
           <g transform="translate(10, 0)">
             <line x1="0" y1="85" x2="100" y2="85" stroke="#6B7280" strokeWidth="1" />
@@ -280,29 +296,25 @@ export function BeamDeflectionVisualizer({ className = '' }: BeamDeflectionVisua
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
             <p className="text-sm text-blue-700 mb-1">Maximum Deflection</p>
-            <p className="text-4xl font-bold text-blue-800">
-              {(deflection * 1000).toFixed(3)}
-            </p>
+            <p className="text-4xl font-bold text-blue-800">{(deflection * 1000).toFixed(3)}</p>
             <p className="text-sm text-blue-600">mm</p>
           </div>
           <div className="text-center">
             <p className="text-sm text-blue-700 mb-1">Deflection Formula</p>
             <p className="text-lg font-mono text-blue-800">
-              {beamType === 'cantilever' 
-                ? 'δ = WL³/(3EI)' 
-                : 'δ = WL³/(48EI)'}
+              {beamType === 'cantilever' ? 'δ = WL³/(3EI)' : 'δ = WL³/(48EI)'}
             </p>
           </div>
           <div className="text-center">
             <p className="text-sm text-blue-700 mb-1">Safety Check</p>
-            <p className={`text-2xl font-bold ${
-              deflection < length * 0.001 ? 'text-green-600' : 'text-orange-600'
-            }`}>
+            <p
+              className={`text-2xl font-bold ${
+                deflection < length * 0.001 ? 'text-green-600' : 'text-orange-600'
+              }`}
+            >
               {deflection < length * 0.001 ? '✓ Safe' : '⚠ Check'}
             </p>
-            <p className="text-xs text-blue-600">
-              L/{(length / (deflection * 1000)).toFixed(0)}
-            </p>
+            <p className="text-xs text-blue-600">L/{(length / (deflection * 1000)).toFixed(0)}</p>
           </div>
         </div>
       </div>

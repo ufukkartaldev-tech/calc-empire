@@ -100,7 +100,8 @@ export function generateWebApplicationSchema(): WebApplicationSchema {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'CalcEmpire',
-    description: 'Professional engineering calculators for electrical, mechanical, civil, and statistical calculations.',
+    description:
+      'Professional engineering calculators for electrical, mechanical, civil, and statistical calculations.',
     url: baseUrl,
     applicationCategory: 'UtilitiesApplication',
     operatingSystem: 'Web Browser',
@@ -117,7 +118,10 @@ export function generateWebApplicationSchema(): WebApplicationSchema {
   };
 }
 
-export function generateBreadcrumbSchema(locale: string, items: Array<{ name: string; url: string }>) {
+export function generateBreadcrumbSchema(
+  locale: string,
+  items: Array<{ name: string; url: string }>
+) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://calcempire.com';
 
   return {
@@ -132,7 +136,11 @@ export function generateBreadcrumbSchema(locale: string, items: Array<{ name: st
   };
 }
 
-export function generateSoftwareApplicationSchema(toolName: string, description: string, category: string) {
+export function generateSoftwareApplicationSchema(
+  toolName: string,
+  description: string,
+  category: string
+) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://calcempire.com';
 
   return {

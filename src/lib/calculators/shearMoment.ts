@@ -8,11 +8,13 @@ import type { SolveFn, FieldValues, SolveResult } from '@/types';
 export const solve: SolveFn = (values: FieldValues): SolveResult => {
   const load = values.load?.value;
   const length = values.length?.value;
-  const position = (values.position?.value ?? length) ? length / 2 : 0;
 
-  if (load === null || length === null) {
+  if (load === null || length === null || length === undefined) {
     throw new Error('Load and length are required');
   }
+
+  const defaultPosition = length / 2;
+  const position = values.position?.value ?? defaultPosition;
 
   // Simple simply-supported beam with point load
   const R1 = (load * (length - position)) / length;

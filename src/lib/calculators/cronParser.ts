@@ -6,7 +6,7 @@
 import type { SolveFn, FieldValues, SolveResult } from '@/types';
 
 export const solve: SolveFn = (values: FieldValues): SolveResult => {
-  const cronExpression = values.cronExpression?.value;
+  const cronExpression = values.cronExpression?.value as unknown as string;
 
   if (!cronExpression || typeof cronExpression !== 'string') {
     throw new Error('Cron expression is required');

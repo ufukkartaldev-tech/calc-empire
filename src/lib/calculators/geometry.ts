@@ -6,7 +6,7 @@
 import type { SolveFn, FieldValues, SolveResult } from '@/types';
 
 export const solve: SolveFn = (values: FieldValues): SolveResult => {
-  const shape = values.shape?.value;
+  const shape = values.shape?.value as any;
 
   if (!shape) {
     throw new Error('Shape type is required');

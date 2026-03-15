@@ -12,15 +12,15 @@
 
 import { describe, it, expect } from 'vitest';
 import {
-    mean,
-    median,
-    mode,
-    variance,
-    standardDeviation,
-    normalPdf,
-    normalCdf,
-    zScore,
-    confidenceInterval,
+  mean,
+  median,
+  mode,
+  variance,
+  standardDeviation,
+  normalPdf,
+  normalCdf,
+  zScore,
+  confidenceInterval,
 } from '../../lib/formulas/statistics';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -29,22 +29,20 @@ import {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-
 describe('Mean', () => {
-    it('arithmetic mean of [1, 2, 3, 4, 5] = 3', () => {
-        expect(mean([1, 2, 3, 4, 5])).toBeCloseTo(3);
-    });
+  it('arithmetic mean of [1, 2, 3, 4, 5] = 3', () => {
+    expect(mean([1, 2, 3, 4, 5])).toBeCloseTo(3);
+  });
 
-    it('handles a single-element array', () => {
-        expect(mean([42])).toBe(42);
-    });
+  it('handles a single-element array', () => {
+    expect(mean([42])).toBe(42);
+  });
 
-    it('handles negative numbers', () => {
-        expect(mean([-5, 0, 5])).toBeCloseTo(0);
-    });
+  it('handles negative numbers', () => {
+    expect(mean([-5, 0, 5])).toBeCloseTo(0);
+  });
 
-    it('throws for an empty array', () => {
-        expect(() => mean([])).toThrow();
-    });
+  it('throws for an empty array', () => {
+    expect(() => mean([])).toThrow();
+  });
 });
-

@@ -21,7 +21,7 @@ const RESISTOR_COLORS = [
   { name: 'gray', hex: '#808080' },
   { name: 'white', hex: '#FFFFFF' },
   { name: 'gold', hex: '#FFD700' },
-  { name: 'silver', hex: '#C0C0C0' }
+  { name: 'silver', hex: '#C0C0C0' },
 ];
 
 export function ColorPicker({ value, onChange, label, className = '' }: ColorPickerProps) {

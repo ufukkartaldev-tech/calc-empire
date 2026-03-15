@@ -29,7 +29,8 @@ export function DisclaimerView({ activeTool, onBack, onAcknowledge }: Disclaimer
 
       <div className="p-8 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800 rounded-3xl shadow-sm">
         <h3 className="text-amber-900 dark:text-amber-400 font-bold text-xl mb-4 flex items-center gap-3">
-          <span className="text-2xl">⚠️</span> {tDash('consentTitle' as any) || "Kullanım Öncesi Onay"}
+          <span className="text-2xl">⚠️</span>{' '}
+          {tDash('consentTitle' as any) || 'Kullanım Öncesi Onay'}
         </h3>
         <p className="text-amber-800 dark:text-amber-300 text-sm mb-8 leading-relaxed italic">
           {tDash('disclaimer' as any)}

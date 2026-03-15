@@ -13,7 +13,7 @@ import { FUSE_OPTIONS, SCROLL_DELAY } from '@/constants';
 export function useDashboard() {
   const tCat = useTranslations('Categories');
   const tDash = useTranslations('Dashboard');
-  
+
   const [activeTool, setActiveTool] = useState<ToolId>(null);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,11 +21,11 @@ export function useDashboard() {
 
   // Pre-translate tools for search
   const searchableTools = useMemo<SearchableTool[]>(() => {
-    return TOOLS_CONFIG.map(tool => ({
+    return TOOLS_CONFIG.map((tool) => ({
       ...tool,
       translatedTitle: tDash(tool.titleKey as any),
       translatedDesc: tDash(tool.descKey as any),
-      translatedCat: tCat(tool.catKey as any)
+      translatedCat: tCat(tool.catKey as any),
     }));
   }, [tDash, tCat]);
 
@@ -33,7 +33,7 @@ export function useDashboard() {
   const fuse = useMemo(() => {
     return new Fuse(searchableTools, {
       ...FUSE_OPTIONS,
-      keys: [...FUSE_OPTIONS.keys]
+      keys: [...FUSE_OPTIONS.keys],
     });
   }, [searchableTools]);
 
@@ -41,10 +41,10 @@ export function useDashboard() {
   const filteredTools = useMemo(() => {
     let tools = searchableTools;
     if (searchQuery.trim()) {
-      tools = fuse.search(searchQuery).map(result => result.item);
+      tools = fuse.search(searchQuery).map((result) => result.item);
     }
     if (activeCategory) {
-      tools = tools.filter(tool => tool.catKey === activeCategory);
+      tools = tools.filter((tool) => tool.catKey === activeCategory);
     }
     return tools;
   }, [searchQuery, fuse, searchableTools, activeCategory]);
@@ -63,7 +63,7 @@ export function useDashboard() {
   const scrollToCategory = (catKey: string | null) => {
     setActiveCategory(catKey);
     setActiveTool(null);
-    
+
     if (catKey) {
       setTimeout(() => {
         const element = document.getElementById(`category-${catKey}`);
@@ -84,7 +84,7 @@ export function useDashboard() {
 
   // Acknowledge critical tool disclaimer
   const acknowledgeTool = (id: ToolId) => {
-    setAcknowledgedTools(prev => new Set([...prev, id]));
+    setAcknowledgedTools((prev) => new Set([...prev, id]));
   };
 
   return {
@@ -93,12 +93,12 @@ export function useDashboard() {
     activeCategory,
     searchQuery,
     acknowledgedTools,
-    
+
     // Computed
     searchableTools,
     filteredTools,
     toolsByCategory,
-    
+
     // Actions
     setActiveTool,
     setSearchQuery,

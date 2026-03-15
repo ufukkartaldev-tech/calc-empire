@@ -9,7 +9,9 @@ export function CronParser() {
         <span className="text-3xl">🚧</span>
       </div>
       <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100 mb-2">CronParser</h2>
-      <p className="text-slate-500 dark:text-slate-400">Bu araç araştırma & geliştirme (Ar-Ge) aşamasındadır. Çok yakında eklenecek!</p>
+      <p className="text-slate-500 dark:text-slate-400">
+        Bu araç araştırma & geliştirme (Ar-Ge) aşamasındadır. Çok yakında eklenecek!
+      </p>
     </div>
   );
 }

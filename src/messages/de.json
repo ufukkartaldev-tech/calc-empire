@@ -1,76 +1,76 @@
 {
   "HomePage": {
     "title": "CalcEmpire",
-    "description": "Professional engineering calculators — precise, fast, multilingual."
+    "description": "Professionelle Ingenieurrechner — präzise, schnell, mehrsprachig."
   },
   "CalculatorTemplate": {
-    "fieldsLabel": "Calculator inputs",
-    "leaveBlankHint": "Leave blank to solve",
-    "unitLabel": "unit",
-    "solveButton": "Solve",
-    "resetButton": "Reset",
-    "calculatedBadge": "Calculated",
-    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
-    "errorTooManyUnknowns": "Please fill in all but one field."
+    "fieldsLabel": "Rechnereingaben",
+    "leaveBlankHint": "Leer lassen zum Lösen",
+    "unitLabel": "Einheit",
+    "solveButton": "Lösen",
+    "resetButton": "Zurücksetzen",
+    "calculatedBadge": "Berechnet",
+    "errorAllFilled": "Lassen Sie genau ein Feld leer, um die Unbekannte zu berechnen.",
+    "errorTooManyUnknowns": "Bitte füllen Sie alle Felder bis auf eines aus."
   },
   "OhmCalculator": {
-    "title": "Ohm's Law",
+    "title": "Ohmsches Gesetz",
     "description": "V = I × R",
-    "voltage": "Voltage",
-    "voltagePlaceholder": "e.g. 12",
-    "current": "Current",
-    "currentPlaceholder": "e.g. 0.5",
-    "resistance": "Resistance",
-    "resistancePlaceholder": "e.g. 100"
+    "voltage": "Spannung",
+    "voltagePlaceholder": "z.B. 12",
+    "current": "Strom",
+    "currentPlaceholder": "z.B. 0.5",
+    "resistance": "Widerstand",
+    "resistancePlaceholder": "z.B. 100"
   },
   "Categories": {
-    "electrical": "Electrical Engineering",
-    "mechanical": "Mechanical Engineering",
-    "statistics": "Statistics & Math",
-    "toolReference": "Tool Reference"
+    "electrical": "Elektrotechnik",
+    "mechanical": "Maschinenbau",
+    "statistics": "Statistik & Mathematik",
+    "toolReference": "Werkzeugreferenz"
   },
   "Dashboard": {
-    "title": "Calculator Tools",
-    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
-    "backButton": "Go Back",
-    "ohmTitle": "Ohm's Law Calculator",
-    "ohmDesc": "Standard calculations for V = I × R.",
-    "resistorTitle": "Resistor Color Codes",
-    "resistorDesc": "4, 5, and 6 band color code reader.",
-    "beamTitle": "Beam Deflection Analysis",
-    "beamDesc": "Deflection calculation for various beam types.",
-    "normalTitle": "Normal Distribution Chart",
-    "normalDesc": "Standard deviation and mean visualizer."
+    "title": "Rechnerwerkzeuge",
+    "subtitle": "Wählen Sie den benötigten Rechner aus und beginnen Sie sofort mit der Berechnung. Sauber, einfach und schnell.",
+    "backButton": "Zurück",
+    "ohmTitle": "Rechner Ohmsches Gesetz",
+    "ohmDesc": "Standardberechnungen für V = I × R.",
+    "resistorTitle": "Widerstandsfarbcodes",
+    "resistorDesc": "Leser für 4-, 5- und 6-Band-Farbcodes.",
+    "beamTitle": "Balkendurchbiegungsanalyse",
+    "beamDesc": "Durchbiegungsberechnung für verschiedene Balkentypen.",
+    "normalTitle": "Diagramm der Normalverteilung",
+    "normalDesc": "Visualisierer für Standardabweichung und Mittelwert."
   },
   "ResistorVisualizer": {
-    "title": "Resistor Color Codes",
-    "bandCount": "Number of Bands",
+    "title": "Widerstandsfarbcodes",
+    "bandCount": "Anzahl der Bänder",
     "bandLabel": "Band",
-    "result": "Result",
-    "invalid": "Invalid color combination. Please check your selections."
+    "result": "Ergebnis",
+    "invalid": "Ungültige Farbkombination. Bitte überprüfen Sie Ihre Auswahl."
   },
   "BeamVisualizer": {
-    "title": "Beam Deflection Analysis",
-    "cantilever": "Cantilever Beam",
-    "simplySupported": "Simply Supported Beam",
-    "length": "Length (L)",
-    "load": "Load (W)",
-    "elasticModulus": "Elastic Mod. (E)",
-    "momentOfInertia": "Moment of Inertia (I)",
-    "maxDeflection": "Max Deflection",
-    "formula": "Formula",
-    "status": "Safety Status",
-    "safe": "Safe",
-    "check": "Check Design"
+    "title": "Balkendurchbiegungsanalyse",
+    "cantilever": "Kragträger",
+    "simplySupported": "Einfach gelagerter Balken",
+    "length": "Länge (L)",
+    "load": "Last (W)",
+    "elasticModulus": "Elastizitätsmodul (E)",
+    "momentOfInertia": "Trägheitsmoment (I)",
+    "maxDeflection": "Maximale Durchbiegung",
+    "formula": "Formel",
+    "status": "Sicherheitsstatus",
+    "safe": "Sicher",
+    "check": "Design prüfen"
   },
   "NormalDistribution": {
-    "title": "Normal Distribution Curve",
-    "mean": "Mean (μ)",
-    "stdDev": "Std Deviation (σ)",
-    "values": "Values (x)",
-    "stats": "Distribution Statistics",
-    "peak": "Peak (Max)",
-    "range": "Range",
-    "empirical": "Empirical Rule (68-95-99.7)"
+    "title": "Normalverteilungskurve",
+    "mean": "Mittelwert (μ)",
+    "stdDev": "Standardabweichung (σ)",
+    "values": "Werte (x)",
+    "stats": "Verteilungsstatistiken",
+    "peak": "Spitze (Max)",
+    "range": "Bereich",
+    "empirical": "Empirische Regel (68-95-99.7)"
   }
 }

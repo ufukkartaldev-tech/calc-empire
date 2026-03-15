@@ -16,21 +16,21 @@ export function formatResistance(value: number): string {
 // Generate smooth curve points for SVG path
 export function generateSmoothPath(points: { x: number; y: number }[]): string {
   if (points.length < 2) return '';
-  
+
   const pathData: string[] = [];
   pathData.push(`M ${points[0].x} ${points[0].y}`);
-  
+
   for (let i = 1; i < points.length; i++) {
     const prev = points[i - 1];
     const curr = points[i];
-    
+
     // Use quadratic bezier curves for smoother lines
     const cpx = (prev.x + curr.x) / 2;
     const cpy = (prev.y + curr.y) / 2;
-    
+
     pathData.push(`Q ${cpx} ${cpy} ${curr.x} ${curr.y}`);
   }
-  
+
   return pathData.join(' ');
 }
 
@@ -59,7 +59,7 @@ export function getResistorColorHex(colorName: string): string {
     gray: '#808080',
     white: '#FFFFFF',
     gold: '#FFD700',
-    silver: '#C0C0C0'
+    silver: '#C0C0C0',
   };
   return colorMap[colorName] || '#CCCCCC';
 }
@@ -72,26 +72,26 @@ export function calculateBeamDeflectionPoints(
   numPoints: number = 50
 ): { x: number; y: number }[] {
   const points: { x: number; y: number }[] = [];
-  
+
   for (let i = 0; i <= numPoints; i++) {
     const normalizedX = i / numPoints;
     const x = normalizedX * 100; // Normalize to 0-100 for SVG
     let y = 50; // Center line
-    
+
     if (beamType === 'cantilever') {
       // Cantilever beam deflection formula
-      const deflectionAtPoint = maxDeflection * Math.pow(normalizedX, 2) * (3 - normalizedX) / 2;
+      const deflectionAtPoint = (maxDeflection * Math.pow(normalizedX, 2) * (3 - normalizedX)) / 2;
       y += deflectionAtPoint;
     } else {
       // Simply supported beam deflection formula
-      const deflectionAtPoint = maxDeflection * (normalizedX * (1 - normalizedX)) * 
-        (1 + normalizedX * (1 - normalizedX));
+      const deflectionAtPoint =
+        maxDeflection * (normalizedX * (1 - normalizedX)) * (1 + normalizedX * (1 - normalizedX));
       y += deflectionAtPoint;
     }
-    
+
     points.push({ x, y });
   }
-  
+
   return points;
 }
 
@@ -106,20 +106,20 @@ export function generateNormalDistributionPoints(
   const xMin = mean - range * stdDev;
   const xMax = mean + range * stdDev;
   const xStep = (xMax - xMin) / numPoints;
-  
-  const maxY = (1 / (stdDev * Math.sqrt(2 * Math.PI))); // Peak height at mean
-  
+
+  const maxY = 1 / (stdDev * Math.sqrt(2 * Math.PI)); // Peak height at mean
+
   for (let i = 0; i <= numPoints; i++) {
     const x = xMin + i * xStep;
     const exponent = -Math.pow(x - mean, 2) / (2 * stdDev * stdDev);
     const y = (1 / (stdDev * Math.sqrt(2 * Math.PI))) * Math.exp(exponent);
-    
+
     // Normalize to SVG coordinates
     const svgX = ((x - xMin) / (xMax - xMin)) * 400;
     const svgY = 200 - (y / maxY) * 150; // Inverted y-axis with margin
-    
+
     points.push({ x: svgX, y: svgY });
   }
-  
+
   return points;
 }

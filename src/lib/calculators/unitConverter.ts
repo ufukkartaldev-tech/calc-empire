@@ -14,10 +14,10 @@ import {
 } from '@/lib/formulas/converters';
 
 export const solve: SolveFn = (values: FieldValues): SolveResult => {
-  const category = values.category?.value;
+  const category = values.category?.value as any;
   const value = values.value?.value;
-  const fromUnit = values.fromUnit?.value;
-  const toUnit = values.toUnit?.value;
+  const fromUnit = values.fromUnit?.value as any;
+  const toUnit = values.toUnit?.value as any;
 
   if (!category || value === null || !fromUnit || !toUnit) {
     throw new Error('All parameters are required');

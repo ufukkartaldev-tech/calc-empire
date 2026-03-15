@@ -1,76 +1,76 @@
 {
   "HomePage": {
     "title": "CalcEmpire",
-    "description": "Professional engineering calculators — precise, fast, multilingual."
+    "description": "पेशेवर इंजीनियरिंग कैलकुलेटर — सटीक, तेज़, बहुभाषी।"
   },
   "CalculatorTemplate": {
-    "fieldsLabel": "Calculator inputs",
-    "leaveBlankHint": "Leave blank to solve",
-    "unitLabel": "unit",
-    "solveButton": "Solve",
-    "resetButton": "Reset",
-    "calculatedBadge": "Calculated",
-    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
-    "errorTooManyUnknowns": "Please fill in all but one field."
+    "fieldsLabel": "कैलकुलेटर इनपुट",
+    "leaveBlankHint": "हल करने के लिए खाली छोड़ दें",
+    "unitLabel": "इकाई",
+    "solveButton": "हल करें",
+    "resetButton": "रीसेट करें",
+    "calculatedBadge": "गणना की गई",
+    "errorAllFilled": "अज्ञात को हल करने के लिए ठीक एक फ़ील्ड खाली छोड़ें।",
+    "errorTooManyUnknowns": "कृपया एक को छोड़कर सभी फ़ील्ड भरें।"
   },
   "OhmCalculator": {
-    "title": "Ohm's Law",
+    "title": "ओम का नियम",
     "description": "V = I × R",
-    "voltage": "Voltage",
-    "voltagePlaceholder": "e.g. 12",
-    "current": "Current",
-    "currentPlaceholder": "e.g. 0.5",
-    "resistance": "Resistance",
-    "resistancePlaceholder": "e.g. 100"
+    "voltage": "वोल्टेज",
+    "voltagePlaceholder": "उदा. 12",
+    "current": "करंट",
+    "currentPlaceholder": "उदा. 0.5",
+    "resistance": "प्रतिरोध",
+    "resistancePlaceholder": "उदा. 100"
   },
   "Categories": {
-    "electrical": "Electrical Engineering",
-    "mechanical": "Mechanical Engineering",
-    "statistics": "Statistics & Math",
-    "toolReference": "Tool Reference"
+    "electrical": "विद्युत अभियांत्रिकी",
+    "mechanical": "यांत्रिक अभियांत्रिकी",
+    "statistics": "सांख्यिकी और गणित",
+    "toolReference": "उपकरण संदर्भ"
   },
   "Dashboard": {
-    "title": "Calculator Tools",
-    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
-    "backButton": "Go Back",
-    "ohmTitle": "Ohm's Law Calculator",
-    "ohmDesc": "Standard calculations for V = I × R.",
-    "resistorTitle": "Resistor Color Codes",
-    "resistorDesc": "4, 5, and 6 band color code reader.",
-    "beamTitle": "Beam Deflection Analysis",
-    "beamDesc": "Deflection calculation for various beam types.",
-    "normalTitle": "Normal Distribution Chart",
-    "normalDesc": "Standard deviation and mean visualizer."
+    "title": "कैलकुलेटर उपकरण",
+    "subtitle": "अपनी ज़रूरत का कैलकुलेटर चुनें और तुरंत गणना शुरू करें। स्वच्छ, सरल और तेज़।",
+    "backButton": "पीछे जाएं",
+    "ohmTitle": "ओम का नियम कैलकुलेटर",
+    "ohmDesc": "V = I × R के लिए मानक गणनाएँ।",
+    "resistorTitle": "रेजिस्टर कलर कोड",
+    "resistorDesc": "4, 5 और 6 बैंड कलर कोड रीडर।",
+    "beamTitle": "बीम विक्षेपण विश्लेषण",
+    "beamDesc": "विभिन्न बीम प्रकारों के लिए विक्षेपण गणना।",
+    "normalTitle": "सामान्य वितरण चार्ट",
+    "normalDesc": "मानक विचलन और माध्य विज़ुअलाइज़र।"
   },
   "ResistorVisualizer": {
-    "title": "Resistor Color Codes",
-    "bandCount": "Number of Bands",
-    "bandLabel": "Band",
-    "result": "Result",
-    "invalid": "Invalid color combination. Please check your selections."
+    "title": "रेजिस्टर कलर कोड",
+    "bandCount": "बैंड की संख्या",
+    "bandLabel": "बैंड",
+    "result": "परिणाम",
+    "invalid": "अमान्य रंग संयोजन। कृपया अपने चयन की जाँच करें।"
   },
   "BeamVisualizer": {
-    "title": "Beam Deflection Analysis",
-    "cantilever": "Cantilever Beam",
-    "simplySupported": "Simply Supported Beam",
-    "length": "Length (L)",
-    "load": "Load (W)",
-    "elasticModulus": "Elastic Mod. (E)",
-    "momentOfInertia": "Moment of Inertia (I)",
-    "maxDeflection": "Max Deflection",
-    "formula": "Formula",
-    "status": "Safety Status",
-    "safe": "Safe",
-    "check": "Check Design"
+    "title": "बीम विक्षेपण विश्लेषण",
+    "cantilever": "कैंटिलीवर बीम",
+    "simplySupported": "साधारणतः समर्थित बीम",
+    "length": "लंबाई (L)",
+    "load": "भार (W)",
+    "elasticModulus": "लोच मापांक (E)",
+    "momentOfInertia": "जड़त्व आघूर्ण (I)",
+    "maxDeflection": "अधिकतम विक्षेपण",
+    "formula": "सूत्र",
+    "status": "सुरक्षा स्थिति",
+    "safe": "सुरक्षित",
+    "check": "डिज़ाइन की जाँच करें"
   },
   "NormalDistribution": {
-    "title": "Normal Distribution Curve",
-    "mean": "Mean (μ)",
-    "stdDev": "Std Deviation (σ)",
-    "values": "Values (x)",
-    "stats": "Distribution Statistics",
-    "peak": "Peak (Max)",
-    "range": "Range",
-    "empirical": "Empirical Rule (68-95-99.7)"
+    "title": "सामान्य वितरण वक्र",
+    "mean": "माध्य (μ)",
+    "stdDev": "मानक विचलन (σ)",
+    "values": "मान (x)",
+    "stats": "वितरण सांख्यिकी",
+    "peak": "शिखर (अधिकतम)",
+    "range": "श्रेणी",
+    "empirical": "अनुभवजन्य नियम (68-95-99.7)"
   }
 }

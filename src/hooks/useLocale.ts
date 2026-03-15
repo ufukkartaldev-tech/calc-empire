@@ -14,21 +14,25 @@ export function useLocaleManager() {
   const locale = useNextIntlLocale();
   const router = useRouter();
   const pathname = usePathname();
-  
+
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const currentLocale = LOCALE_OPTIONS.find((l) => l.code === locale) || LOCALE_OPTIONS[0];
 
-  const fuse = useMemo(() => new Fuse(LOCALE_OPTIONS, {
-    keys: ['label', 'code'],
-    threshold: 0.3,
-  }), []);
+  const fuse = useMemo(
+    () =>
+      new Fuse(LOCALE_OPTIONS, {
+        keys: ['label', 'code'],
+        threshold: 0.3,
+      }),
+    []
+  );
 
   const filteredLocales = useMemo(() => {
     if (!searchQuery.trim()) return LOCALE_OPTIONS;
-    return fuse.search(searchQuery).map(res => res.item);
+    return fuse.search(searchQuery).map((res) => res.item);
   }, [searchQuery, fuse]);
 
   const handleLocaleChange = (nextLocale: string) => {

@@ -8,24 +8,24 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface BeamDeflectionParams {
-    W: number;
-    L: number;
-    E: number;
-    I: number;
-    type: 'cantilever' | 'simply-supported';
+  W: number;
+  L: number;
+  E: number;
+  I: number;
+  type: 'cantilever' | 'simply-supported';
 }
 
 export function beamDeflection({ W, L, E, I, type }: BeamDeflectionParams): number {
-    if (L <= 0) throw new Error("Span length must be positive");
-    if (E <= 0 || I <= 0) throw new Error("E and I must be positive");
+  if (L <= 0) throw new Error('Span length must be positive');
+  if (E <= 0 || I <= 0) throw new Error('E and I must be positive');
 
-    if (type === 'cantilever') {
-        return (W * Math.pow(L, 3)) / (3 * E * I);
-    } else if (type === 'simply-supported') {
-        return (W * Math.pow(L, 3)) / (48 * E * I);
-    } else {
-        throw new Error("Unknown beam type");
-    }
+  if (type === 'cantilever') {
+    return (W * Math.pow(L, 3)) / (3 * E * I);
+  } else if (type === 'simply-supported') {
+    return (W * Math.pow(L, 3)) / (48 * E * I);
+  } else {
+    throw new Error('Unknown beam type');
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -33,20 +33,25 @@ export function beamDeflection({ W, L, E, I, type }: BeamDeflectionParams): numb
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface GearRatioParams {
-    driverTeeth: number;
-    drivenTeeth: number;
-    inputSpeedRpm?: number;
-    inputTorqueNm?: number;
+  driverTeeth: number;
+  drivenTeeth: number;
+  inputSpeedRpm?: number;
+  inputTorqueNm?: number;
 }
 
-export function gearRatio({ driverTeeth, drivenTeeth, inputSpeedRpm, inputTorqueNm }: GearRatioParams) {
-    if (driverTeeth <= 0 || drivenTeeth <= 0) throw new Error("Teeth must be > 0");
+export function gearRatio({
+  driverTeeth,
+  drivenTeeth,
+  inputSpeedRpm,
+  inputTorqueNm,
+}: GearRatioParams) {
+  if (driverTeeth <= 0 || drivenTeeth <= 0) throw new Error('Teeth must be > 0');
 
-    const ratio = drivenTeeth / driverTeeth;
-    const outputSpeedRpm = inputSpeedRpm !== undefined ? inputSpeedRpm / ratio : undefined;
-    const outputTorqueNm = inputTorqueNm !== undefined ? inputTorqueNm * ratio : undefined;
+  const ratio = drivenTeeth / driverTeeth;
+  const outputSpeedRpm = inputSpeedRpm !== undefined ? inputSpeedRpm / ratio : undefined;
+  const outputTorqueNm = inputTorqueNm !== undefined ? inputTorqueNm * ratio : undefined;
 
-    return { ratio, outputSpeedRpm, outputTorqueNm };
+  return { ratio, outputSpeedRpm, outputTorqueNm };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -54,33 +59,38 @@ export function gearRatio({ driverTeeth, drivenTeeth, inputSpeedRpm, inputTorque
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface TorquePowerParams {
-    torqueNm?: number;
-    speedRpm?: number;
-    omegaRadS?: number;
-    powerW?: number;
+  torqueNm?: number;
+  speedRpm?: number;
+  omegaRadS?: number;
+  powerW?: number;
 }
 
-export function torquePower({ torqueNm, speedRpm, omegaRadS, powerW }: TorquePowerParams): TorquePowerParams {
-    let T = torqueNm;
-    let w = omegaRadS;
-    let P = powerW;
+export function torquePower({
+  torqueNm,
+  speedRpm,
+  omegaRadS,
+  powerW,
+}: TorquePowerParams): TorquePowerParams {
+  let T = torqueNm;
+  let w = omegaRadS;
+  let P = powerW;
 
-    if (speedRpm !== undefined) {
-        w = (2 * Math.PI * speedRpm) / 60;
-    }
+  if (speedRpm !== undefined) {
+    w = (2 * Math.PI * speedRpm) / 60;
+  }
 
-    const count = [T, w, P].filter(v => v !== undefined).length;
-    if (count < 2) throw new Error("Not enough parameters");
+  const count = [T, w, P].filter((v) => v !== undefined).length;
+  if (count < 2) throw new Error('Not enough parameters');
 
-    if (T !== undefined && w !== undefined) {
-        P = T * w;
-    } else if (P !== undefined && w !== undefined && w !== 0) {
-        T = P / w;
-    } else if (P !== undefined && T !== undefined && T !== 0) {
-        w = P / T;
-    }
+  if (T !== undefined && w !== undefined) {
+    P = T * w;
+  } else if (P !== undefined && w !== undefined && w !== 0) {
+    T = P / w;
+  } else if (P !== undefined && T !== undefined && T !== 0) {
+    w = P / T;
+  }
 
-    return { torqueNm: T, omegaRadS: w, powerW: P };
+  return { torqueNm: T, omegaRadS: w, powerW: P };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -88,17 +98,17 @@ export function torquePower({ torqueNm, speedRpm, omegaRadS, powerW }: TorquePow
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface ThermalExpansionParams {
-    L0: number;
-    alpha: number;
-    deltaT: number;
+  L0: number;
+  alpha: number;
+  deltaT: number;
 }
 
 export function thermalExpansion({ L0, alpha, deltaT }: ThermalExpansionParams) {
-    if (L0 <= 0) throw new Error("Initial length must be > 0");
-    if (alpha <= 0) throw new Error("Thermal expansion coefficient must be > 0");
+  if (L0 <= 0) throw new Error('Initial length must be > 0');
+  if (alpha <= 0) throw new Error('Thermal expansion coefficient must be > 0');
 
-    const deltaL = L0 * alpha * deltaT;
-    const Lfinal = L0 + deltaL;
+  const deltaL = L0 * alpha * deltaT;
+  const Lfinal = L0 + deltaL;
 
-    return { deltaL, Lfinal };
+  return { deltaL, Lfinal };
 }

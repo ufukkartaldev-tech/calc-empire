@@ -5,5 +5,5 @@ import CalculatorTemplate from '../../CalculatorTemplate';
 import { ohmConfig } from '@/lib/calculators/ohm';
 
 export function OhmCalculator() {
-    return <CalculatorTemplate config={ohmConfig} />;
+  return <CalculatorTemplate config={ohmConfig} />;
 }

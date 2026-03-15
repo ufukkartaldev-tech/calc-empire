@@ -10,7 +10,7 @@
  * @returns Sum of a and b
  */
 export const add = (a: number, b: number): number => {
-    return a + b;
+  return a + b;
 };
 
 /**
@@ -19,7 +19,7 @@ export const add = (a: number, b: number): number => {
  * @returns Formatted string
  */
 export const formatNumber = (num: number): string => {
-    return num.toLocaleString('en-US');
+  return num.toLocaleString('en-US');
 };
 
 /**
@@ -29,8 +29,8 @@ export const formatNumber = (num: number): string => {
  * @returns Rounded number
  */
 export const roundToDecimal = (num: number, decimals: number = 2): number => {
-    const factor = Math.pow(10, decimals);
-    return Math.round(num * factor) / factor;
+  const factor = Math.pow(10, decimals);
+  return Math.round(num * factor) / factor;
 };
 
 /**
@@ -41,7 +41,7 @@ export const roundToDecimal = (num: number, decimals: number = 2): number => {
  * @returns Clamped number
  */
 export const clamp = (num: number, min: number, max: number): number => {
-    return Math.min(Math.max(num, min), max);
+  return Math.min(Math.max(num, min), max);
 };
 
 /**
@@ -51,8 +51,8 @@ export const clamp = (num: number, min: number, max: number): number => {
  * @returns Percentage change (positive = increase, negative = decrease)
  */
 export const percentageChange = (oldVal: number, newVal: number): number => {
-    if (oldVal === 0) return 0;
-    return ((newVal - oldVal) / Math.abs(oldVal)) * 100;
+  if (oldVal === 0) return 0;
+  return ((newVal - oldVal) / Math.abs(oldVal)) * 100;
 };
 
 /**
@@ -62,7 +62,7 @@ export const percentageChange = (oldVal: number, newVal: number): number => {
  * @returns Random integer
  */
 export const randomInt = (min: number, max: number): number => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 /**
@@ -71,13 +71,13 @@ export const randomInt = (min: number, max: number): number => {
  * @returns Factorial of n
  */
 export const factorial = (n: number): number => {
-    if (n < 0) throw new Error('Factorial not defined for negative numbers');
-    if (n === 0 || n === 1) return 1;
-    let result = 1;
-    for (let i = 2; i <= n; i++) {
-        result *= i;
-    }
-    return result;
+  if (n < 0) throw new Error('Factorial not defined for negative numbers');
+  if (n === 0 || n === 1) return 1;
+  let result = 1;
+  for (let i = 2; i <= n; i++) {
+    result *= i;
+  }
+  return result;
 };
 
 /**
@@ -87,9 +87,9 @@ export const factorial = (n: number): number => {
  * @returns Number of combinations
  */
 export const nCr = (n: number, r: number): number => {
-    if (r < 0 || r > n) return 0;
-    if (r === 0 || r === n) return 1;
-    return factorial(n) / (factorial(r) * factorial(n - r));
+  if (r < 0 || r > n) return 0;
+  if (r === 0 || r === n) return 1;
+  return factorial(n) / (factorial(r) * factorial(n - r));
 };
 
 /**
@@ -99,6 +99,6 @@ export const nCr = (n: number, r: number): number => {
  * @returns Number of permutations
  */
 export const nPr = (n: number, r: number): number => {
-    if (r < 0 || r > n) return 0;
-    return factorial(n) / factorial(n - r);
+  if (r < 0 || r > n) return 0;
+  return factorial(n) / factorial(n - r);
 };

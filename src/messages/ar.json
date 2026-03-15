@@ -1,76 +1,76 @@
 {
   "HomePage": {
     "title": "CalcEmpire",
-    "description": "Professional engineering calculators — precise, fast, multilingual."
+    "description": "حاسبات هندسية احترافية — دقيقة، سريعة، ومتعددة اللغات."
   },
   "CalculatorTemplate": {
-    "fieldsLabel": "Calculator inputs",
-    "leaveBlankHint": "Leave blank to solve",
-    "unitLabel": "unit",
-    "solveButton": "Solve",
-    "resetButton": "Reset",
-    "calculatedBadge": "Calculated",
-    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
-    "errorTooManyUnknowns": "Please fill in all but one field."
+    "fieldsLabel": "مدخلات الحاسبة",
+    "leaveBlankHint": "اتركه فارغًا للحل",
+    "unitLabel": "وحدة",
+    "solveButton": "حل",
+    "resetButton": "إعادة تعيين",
+    "calculatedBadge": "تم الحساب",
+    "errorAllFilled": "اترك حقلًا واحدًا فارغًا بالضبط لحساب المجهول.",
+    "errorTooManyUnknowns": "الرجاء ملء جميع الحقول باستثناء حقل واحد."
   },
   "OhmCalculator": {
-    "title": "Ohm's Law",
+    "title": "قانون أوم",
     "description": "V = I × R",
-    "voltage": "Voltage",
-    "voltagePlaceholder": "e.g. 12",
-    "current": "Current",
-    "currentPlaceholder": "e.g. 0.5",
-    "resistance": "Resistance",
-    "resistancePlaceholder": "e.g. 100"
+    "voltage": "الجهد",
+    "voltagePlaceholder": "مثال: 12",
+    "current": "التيار",
+    "currentPlaceholder": "مثال: 0.5",
+    "resistance": "المقاومة",
+    "resistancePlaceholder": "مثال: 100"
   },
   "Categories": {
-    "electrical": "Electrical Engineering",
-    "mechanical": "Mechanical Engineering",
-    "statistics": "Statistics & Math",
-    "toolReference": "Tool Reference"
+    "electrical": "الهندسة الكهربائية",
+    "mechanical": "الهندسة الميكانيكية",
+    "statistics": "الإحصاء والرياضيات",
+    "toolReference": "مرجع الأدوات"
   },
   "Dashboard": {
-    "title": "Calculator Tools",
-    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
-    "backButton": "Go Back",
-    "ohmTitle": "Ohm's Law Calculator",
-    "ohmDesc": "Standard calculations for V = I × R.",
-    "resistorTitle": "Resistor Color Codes",
-    "resistorDesc": "4, 5, and 6 band color code reader.",
-    "beamTitle": "Beam Deflection Analysis",
-    "beamDesc": "Deflection calculation for various beam types.",
-    "normalTitle": "Normal Distribution Chart",
-    "normalDesc": "Standard deviation and mean visualizer."
+    "title": "أدوات الحاسبة",
+    "subtitle": "اختر الحاسبة التي تحتاجها وابدأ الحساب فورًا. نظيفة، بسيطة، وسريعة.",
+    "backButton": "العودة",
+    "ohmTitle": "حاسبة قانون أوم",
+    "ohmDesc": "الحسابات القياسية لـ V = I × R.",
+    "resistorTitle": "رموز ألوان المقاومات",
+    "resistorDesc": "قارئ رموز الألوان للمقاومات ذات 4 و 5 و 6 نطاقات.",
+    "beamTitle": "تحليل انحراف العوارض",
+    "beamDesc": "حساب الانحراف لأنواع مختلفة من العوارض.",
+    "normalTitle": "مخطط التوزيع الطبيعي",
+    "normalDesc": "مصور الانحراف المعياري والمتوسط."
   },
   "ResistorVisualizer": {
-    "title": "Resistor Color Codes",
-    "bandCount": "Number of Bands",
-    "bandLabel": "Band",
-    "result": "Result",
-    "invalid": "Invalid color combination. Please check your selections."
+    "title": "رموز ألوان المقاومات",
+    "bandCount": "عدد النطاقات",
+    "bandLabel": "النطاق",
+    "result": "النتيجة",
+    "invalid": "تركيبة ألوان غير صالحة. يرجى التحقق من اختياراتك."
   },
   "BeamVisualizer": {
-    "title": "Beam Deflection Analysis",
-    "cantilever": "Cantilever Beam",
-    "simplySupported": "Simply Supported Beam",
-    "length": "Length (L)",
-    "load": "Load (W)",
-    "elasticModulus": "Elastic Mod. (E)",
-    "momentOfInertia": "Moment of Inertia (I)",
-    "maxDeflection": "Max Deflection",
-    "formula": "Formula",
-    "status": "Safety Status",
-    "safe": "Safe",
-    "check": "Check Design"
+    "title": "تحليل انحراف العوارض",
+    "cantilever": "عارضة كابولية",
+    "simplySupported": "عارضة مدعومة ببساطة",
+    "length": "الطول (L)",
+    "load": "الحمل (W)",
+    "elasticModulus": "معامل المرونة (E)",
+    "momentOfInertia": "عزم القصور الذاتي (I)",
+    "maxDeflection": "الحد الأقصى للانحراف",
+    "formula": "الصيغة",
+    "status": "حالة الأمان",
+    "safe": "آمن",
+    "check": "التحقق من التصميم"
   },
   "NormalDistribution": {
-    "title": "Normal Distribution Curve",
-    "mean": "Mean (μ)",
-    "stdDev": "Std Deviation (σ)",
-    "values": "Values (x)",
-    "stats": "Distribution Statistics",
-    "peak": "Peak (Max)",
-    "range": "Range",
-    "empirical": "Empirical Rule (68-95-99.7)"
+    "title": "منحنى التوزيع الطبيعي",
+    "mean": "المتوسط (μ)",
+    "stdDev": "الانحراف المعياري (σ)",
+    "values": "القيم (x)",
+    "stats": "إحصائيات التوزيع",
+    "peak": "الذروة (الحد الأقصى)",
+    "range": "النطاق",
+    "empirical": "القاعدة التجريبية (68-95-99.7)"
   }
 }

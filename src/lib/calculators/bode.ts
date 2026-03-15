@@ -7,7 +7,7 @@ import type { SolveFn, FieldValues, SolveResult } from '@/types';
 import { calculateBodePlot } from '@/lib/formulas/electrical';
 
 export const solve: SolveFn = (values: FieldValues): SolveResult => {
-  const type = values.type?.value as 'low-pass' | 'high-pass';
+  const type = (values.type?.value as any) as 'low-pass' | 'high-pass';
   const R = values.R?.value;
   const C = values.C?.value ?? undefined;
   const L = values.L?.value ?? undefined;

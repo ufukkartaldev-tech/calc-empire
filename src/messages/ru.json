@@ -1,76 +1,76 @@
 {
   "HomePage": {
     "title": "CalcEmpire",
-    "description": "Professional engineering calculators — precise, fast, multilingual."
+    "description": "Профессиональные инженерные калькуляторы — точные, быстрые, многоязычные."
   },
   "CalculatorTemplate": {
-    "fieldsLabel": "Calculator inputs",
-    "leaveBlankHint": "Leave blank to solve",
-    "unitLabel": "unit",
-    "solveButton": "Solve",
-    "resetButton": "Reset",
-    "calculatedBadge": "Calculated",
-    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
-    "errorTooManyUnknowns": "Please fill in all but one field."
+    "fieldsLabel": "Входные данные калькулятора",
+    "leaveBlankHint": "Оставьте пустым для расчета",
+    "unitLabel": "единица",
+    "solveButton": "Рассчитать",
+    "resetButton": "Сброс",
+    "calculatedBadge": "Рассчитано",
+    "errorAllFilled": "Оставьте ровно одно поле пустым для определения неизвестной величины.",
+    "errorTooManyUnknowns": "Пожалуйста, заполните все поля, кроме одного."
   },
   "OhmCalculator": {
-    "title": "Ohm's Law",
+    "title": "Закон Ома",
     "description": "V = I × R",
-    "voltage": "Voltage",
-    "voltagePlaceholder": "e.g. 12",
-    "current": "Current",
-    "currentPlaceholder": "e.g. 0.5",
-    "resistance": "Resistance",
-    "resistancePlaceholder": "e.g. 100"
+    "voltage": "Напряжение",
+    "voltagePlaceholder": "напр. 12",
+    "current": "Ток",
+    "currentPlaceholder": "напр. 0.5",
+    "resistance": "Сопротивление",
+    "resistancePlaceholder": "напр. 100"
   },
   "Categories": {
-    "electrical": "Electrical Engineering",
-    "mechanical": "Mechanical Engineering",
-    "statistics": "Statistics & Math",
-    "toolReference": "Tool Reference"
+    "electrical": "Электротехника",
+    "mechanical": "Машиностроение",
+    "statistics": "Статистика и математика",
+    "toolReference": "Справочник инструментов"
   },
   "Dashboard": {
-    "title": "Calculator Tools",
-    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
-    "backButton": "Go Back",
-    "ohmTitle": "Ohm's Law Calculator",
-    "ohmDesc": "Standard calculations for V = I × R.",
-    "resistorTitle": "Resistor Color Codes",
-    "resistorDesc": "4, 5, and 6 band color code reader.",
-    "beamTitle": "Beam Deflection Analysis",
-    "beamDesc": "Deflection calculation for various beam types.",
-    "normalTitle": "Normal Distribution Chart",
-    "normalDesc": "Standard deviation and mean visualizer."
+    "title": "Инженерные калькуляторы",
+    "subtitle": "Выберите нужный калькулятор и немедленно приступайте к расчетам. Чисто, просто и быстро.",
+    "backButton": "Назад",
+    "ohmTitle": "Калькулятор закона Ома",
+    "ohmDesc": "Стандартные расчеты для V = I × R.",
+    "resistorTitle": "Цветовые коды резисторов",
+    "resistorDesc": "Считыватель цветовых кодов для 4, 5 и 6 полос.",
+    "beamTitle": "Анализ прогиба балок",
+    "beamDesc": "Расчет прогиба для различных типов балок.",
+    "normalTitle": "График нормального распределения",
+    "normalDesc": "Визуализатор стандартного отклонения и среднего значения."
   },
   "ResistorVisualizer": {
-    "title": "Resistor Color Codes",
-    "bandCount": "Number of Bands",
-    "bandLabel": "Band",
-    "result": "Result",
-    "invalid": "Invalid color combination. Please check your selections."
+    "title": "Цветовые коды резисторов",
+    "bandCount": "Количество полос",
+    "bandLabel": "Полоса",
+    "result": "Результат",
+    "invalid": "Неверная комбинация цветов. Пожалуйста, проверьте свой выбор."
   },
   "BeamVisualizer": {
-    "title": "Beam Deflection Analysis",
-    "cantilever": "Cantilever Beam",
-    "simplySupported": "Simply Supported Beam",
-    "length": "Length (L)",
-    "load": "Load (W)",
-    "elasticModulus": "Elastic Mod. (E)",
-    "momentOfInertia": "Moment of Inertia (I)",
-    "maxDeflection": "Max Deflection",
-    "formula": "Formula",
-    "status": "Safety Status",
-    "safe": "Safe",
-    "check": "Check Design"
+    "title": "Анализ прогиба балок",
+    "cantilever": "Консольная балка",
+    "simplySupported": "Шарнирно-опертая балка",
+    "length": "Длина (L)",
+    "load": "Нагрузка (W)",
+    "elasticModulus": "Модуль упругости (E)",
+    "momentOfInertia": "Момент инерции (I)",
+    "maxDeflection": "Максимальный прогиб",
+    "formula": "Формула",
+    "status": "Статус безопасности",
+    "safe": "Безопасно",
+    "check": "Проверить расчет"
   },
   "NormalDistribution": {
-    "title": "Normal Distribution Curve",
-    "mean": "Mean (μ)",
-    "stdDev": "Std Deviation (σ)",
-    "values": "Values (x)",
-    "stats": "Distribution Statistics",
-    "peak": "Peak (Max)",
-    "range": "Range",
-    "empirical": "Empirical Rule (68-95-99.7)"
+    "title": "Кривая нормального распределения",
+    "mean": "Среднее значение (μ)",
+    "stdDev": "Стандартное отклонение (σ)",
+    "values": "Значения (x)",
+    "stats": "Статистика распределения",
+    "peak": "Пик (Макс.)",
+    "range": "Диапазон",
+    "empirical": "Эмпирическое правило (68-95-99.7)"
   }
 }

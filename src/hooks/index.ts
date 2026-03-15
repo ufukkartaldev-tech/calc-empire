@@ -5,3 +5,4 @@
 
 export { useDashboard } from './useDashboard';
 export { useLocaleManager } from './useLocale';
+export { useUrlState } from './useUrlState';

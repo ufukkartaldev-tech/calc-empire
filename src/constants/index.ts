@@ -10,8 +10,16 @@ import type { CategoryKey, LocaleCode } from '@/types';
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const CATEGORY_ORDER: readonly CategoryKey[] = [
-  'electrical', 'software', 'finance', 'civil', 'mechanical',
-  'chemistry', 'fluid', 'statistics', 'mathematics', 'converters'
+  'electrical',
+  'software',
+  'finance',
+  'civil',
+  'mechanical',
+  'chemistry',
+  'fluid',
+  'statistics',
+  'mathematics',
+  'converters',
 ] as const;
 
 export const CATEGORY_ICONS: Record<CategoryKey, string> = {
@@ -24,7 +32,7 @@ export const CATEGORY_ICONS: Record<CategoryKey, string> = {
   fluid: '🌊',
   statistics: '📊',
   mathematics: '🧮',
-  converters: '🔄'
+  converters: '🔄',
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -32,8 +40,22 @@ export const CATEGORY_ICONS: Record<CategoryKey, string> = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const SUPPORTED_LOCALES: readonly LocaleCode[] = [
-  'en', 'tr', 'ru', 'hi', 'ja', 'es', 'fr', 'de',
-  'it', 'pt', 'nl', 'pl', 'zh', 'ar', 'ko', 'id'
+  'en',
+  'tr',
+  'ru',
+  'hi',
+  'ja',
+  'es',
+  'fr',
+  'de',
+  'it',
+  'pt',
+  'nl',
+  'pl',
+  'zh',
+  'ar',
+  'ko',
+  'id',
 ] as const;
 
 export const RTL_LOCALES = new Set<LocaleCode>(['ar']);
@@ -47,7 +69,7 @@ export const DEFAULT_LOCALE: LocaleCode = 'en';
 export const FUSE_OPTIONS = {
   keys: ['translatedTitle', 'translatedDesc', 'translatedCat'] as const,
   threshold: 0.35,
-  distance: 100
+  distance: 100,
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -77,7 +99,8 @@ export const RESISTANCE_UNITS = [
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const APP_NAME = 'CalcEmpire';
-export const APP_DESCRIPTION = 'Professional engineering calculators — precise, fast, multilingual.';
+export const APP_DESCRIPTION =
+  'Professional engineering calculators — precise, fast, multilingual.';
 export const CONTACT_EMAIL = 'contact@calcempire.com';
 export const TWITTER_HANDLE = '@calcempire';
 
@@ -96,5 +119,5 @@ export const ERROR_TOLERANCE = 0.0001;
 export const MAX_DECIMAL_PLACES = 6;
 export const SCIENTIFIC_NOTATION_THRESHOLD = {
   MIN: 0.0001,
-  MAX: 1000000
+  MAX: 1000000,
 } as const;

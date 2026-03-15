@@ -21,7 +21,7 @@ test.describe('Calculator - Ohm', () => {
     await page.fill('input[placeholder="e.g. 0.5"]', '2');
     await page.fill('input[placeholder="e.g. 100"]', '50');
     await page.getByRole('button', { name: /Solve/ }).click();
-    
+
     await expect(page.getByLabel(/Voltage/)).toHaveValue('100');
   });
 
@@ -29,7 +29,7 @@ test.describe('Calculator - Ohm', () => {
     await page.fill('input[placeholder="e.g. 12"]', '12');
     await page.fill('input[placeholder="e.g. 100"]', '4');
     await page.getByRole('button', { name: /Solve/ }).click();
-    
+
     await expect(page.getByLabel(/Current/)).toHaveValue('3');
   });
 
@@ -37,7 +37,7 @@ test.describe('Calculator - Ohm', () => {
     await page.fill('input[placeholder="e.g. 12"]', '12');
     await page.fill('input[placeholder="e.g. 0.5"]', '2');
     await page.getByRole('button', { name: /Solve/ }).click();
-    
+
     await expect(page.getByLabel(/Resistance/)).toHaveValue('6');
   });
 
@@ -46,13 +46,13 @@ test.describe('Calculator - Ohm', () => {
     await page.fill('input[placeholder="e.g. 0.5"]', '2');
     await page.fill('input[placeholder="e.g. 100"]', '50');
     await page.getByRole('button', { name: /Solve/ }).click();
-    
+
     await expect(page.getByText(/Leave exactly one field blank/)).toBeVisible();
   });
 
   test('should show error when too many fields are empty', async ({ page }) => {
     await page.getByRole('button', { name: /Solve/ }).click();
-    
+
     await expect(page.getByText(/Please fill in all but one field/)).toBeVisible();
   });
 
@@ -62,14 +62,14 @@ test.describe('Calculator - Ohm', () => {
     await page.fill('input[placeholder="e.g. 0.5"]', '1000');
     await page.fill('input[placeholder="e.g. 100"]', '1');
     await page.getByRole('button', { name: /Solve/ }).click();
-    
+
     await expect(page.getByLabel(/Voltage/)).toHaveValue('1000');
   });
 
   test('should reset form correctly', async ({ page }) => {
     await page.fill('input[placeholder="e.g. 12"]', '12');
     await page.getByRole('button', { name: /Reset/ }).click();
-    
+
     await expect(page.getByLabel(/Voltage/)).toHaveValue('');
   });
 

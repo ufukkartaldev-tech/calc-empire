@@ -7,9 +7,6 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
-  experimental: {
-    instrumentationHook: true,
-  },
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
@@ -30,7 +27,6 @@ const sentryConfig = {
   project: process.env.SENTRY_PROJECT,
   widenClientFileUpload: true,
   hideSourceMaps: true,
-  disableLogger: true,
 };
 
 export default withSentryConfig(withNextIntl(nextConfig), sentryConfig);

@@ -25,7 +25,6 @@
   - _Requirements: 3.1, 3.2, 3.3, 3.4_
 
 - [ ] 3. Fix for 404 middleware i18n bug
-
   - [ ] 3.1 Eksik message dosyalarını oluştur
     - OPENAI_API_KEY environment variable'ını ayarla
     - `npm run translate` komutunu çalıştır

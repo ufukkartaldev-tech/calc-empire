@@ -5,11 +5,13 @@
 Kirchhoff's Laws consist of two fundamental principles for electrical circuit analysis:
 
 ### Kirchhoff's Current Law (KCL)
+
 The sum of currents entering a node equals the sum of currents leaving the node.
 
 $$\sum I_{in} = \sum I_{out}$$
 
 ### Kirchhoff's Voltage Law (KVL)
+
 The sum of all voltages around a closed loop is zero.
 
 $$\sum V = 0$$
@@ -17,14 +19,17 @@ $$\sum V = 0$$
 ## Basic Formulas
 
 ### KCL at Node:
+
 $$I_1 + I_2 = I_3 + I_4$$
 
 ### KVL for Loop:
+
 $$V_1 - I R_1 - I R_2 = 0$$
 
 ## Example Calculation
 
 ### Given:
+
 - V1 = 12 V
 - V2 = 6 V
 - R1 = 4 Ω
@@ -32,6 +37,7 @@ $$V_1 - I R_1 - I R_2 = 0$$
 - R3 = 3 Ω
 
 ### Find:
+
 Mesh currents I1 and I2
 
 ### Solution:

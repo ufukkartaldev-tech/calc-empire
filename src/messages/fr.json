@@ -1,76 +1,76 @@
 {
   "HomePage": {
     "title": "CalcEmpire",
-    "description": "Professional engineering calculators — precise, fast, multilingual."
+    "description": "Calculatrices d'ingénierie professionnelles — précises, rapides, multilingues."
   },
   "CalculatorTemplate": {
-    "fieldsLabel": "Calculator inputs",
-    "leaveBlankHint": "Leave blank to solve",
-    "unitLabel": "unit",
-    "solveButton": "Solve",
-    "resetButton": "Reset",
-    "calculatedBadge": "Calculated",
-    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
-    "errorTooManyUnknowns": "Please fill in all but one field."
+    "fieldsLabel": "Entrées de la calculatrice",
+    "leaveBlankHint": "Laisser vide pour résoudre",
+    "unitLabel": "unité",
+    "solveButton": "Résoudre",
+    "resetButton": "Réinitialiser",
+    "calculatedBadge": "Calculé",
+    "errorAllFilled": "Laissez exactement un champ vide pour résoudre l'inconnue.",
+    "errorTooManyUnknowns": "Veuillez remplir tous les champs sauf un."
   },
   "OhmCalculator": {
-    "title": "Ohm's Law",
+    "title": "Loi d'Ohm",
     "description": "V = I × R",
-    "voltage": "Voltage",
-    "voltagePlaceholder": "e.g. 12",
-    "current": "Current",
-    "currentPlaceholder": "e.g. 0.5",
-    "resistance": "Resistance",
-    "resistancePlaceholder": "e.g. 100"
+    "voltage": "Tension",
+    "voltagePlaceholder": "Ex : 12",
+    "current": "Courant",
+    "currentPlaceholder": "Ex : 0.5",
+    "resistance": "Résistance",
+    "resistancePlaceholder": "Ex : 100"
   },
   "Categories": {
-    "electrical": "Electrical Engineering",
-    "mechanical": "Mechanical Engineering",
-    "statistics": "Statistics & Math",
-    "toolReference": "Tool Reference"
+    "electrical": "Ingénierie électrique",
+    "mechanical": "Ingénierie mécanique",
+    "statistics": "Statistiques et mathématiques",
+    "toolReference": "Référence d'outils"
   },
   "Dashboard": {
-    "title": "Calculator Tools",
-    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
-    "backButton": "Go Back",
-    "ohmTitle": "Ohm's Law Calculator",
-    "ohmDesc": "Standard calculations for V = I × R.",
-    "resistorTitle": "Resistor Color Codes",
-    "resistorDesc": "4, 5, and 6 band color code reader.",
-    "beamTitle": "Beam Deflection Analysis",
-    "beamDesc": "Deflection calculation for various beam types.",
-    "normalTitle": "Normal Distribution Chart",
-    "normalDesc": "Standard deviation and mean visualizer."
+    "title": "Outils de calcul",
+    "subtitle": "Sélectionnez la calculatrice dont vous avez besoin et commencez à calculer immédiatement. Clair, simple et rapide.",
+    "backButton": "Retour",
+    "ohmTitle": "Calculatrice de la Loi d'Ohm",
+    "ohmDesc": "Calculs standards pour V = I × R.",
+    "resistorTitle": "Codes de couleur des résistances",
+    "resistorDesc": "Lecteur de codes de couleur à 4, 5 et 6 bandes.",
+    "beamTitle": "Analyse de la déflexion des poutres",
+    "beamDesc": "Calcul de la déflexion pour différents types de poutres.",
+    "normalTitle": "Diagramme de distribution normale",
+    "normalDesc": "Visualisateur d'écart-type et de moyenne."
   },
   "ResistorVisualizer": {
-    "title": "Resistor Color Codes",
-    "bandCount": "Number of Bands",
-    "bandLabel": "Band",
-    "result": "Result",
-    "invalid": "Invalid color combination. Please check your selections."
+    "title": "Codes de couleur des résistances",
+    "bandCount": "Nombre de bandes",
+    "bandLabel": "Bande",
+    "result": "Résultat",
+    "invalid": "Combinaison de couleurs invalide. Veuillez vérifier vos sélections."
   },
   "BeamVisualizer": {
-    "title": "Beam Deflection Analysis",
-    "cantilever": "Cantilever Beam",
-    "simplySupported": "Simply Supported Beam",
-    "length": "Length (L)",
-    "load": "Load (W)",
-    "elasticModulus": "Elastic Mod. (E)",
-    "momentOfInertia": "Moment of Inertia (I)",
-    "maxDeflection": "Max Deflection",
-    "formula": "Formula",
-    "status": "Safety Status",
-    "safe": "Safe",
-    "check": "Check Design"
+    "title": "Analyse de la déflexion des poutres",
+    "cantilever": "Poutre en porte-à-faux",
+    "simplySupported": "Poutre simplement appuyée",
+    "length": "Longueur (L)",
+    "load": "Charge (W)",
+    "elasticModulus": "Module d'élasticité (E)",
+    "momentOfInertia": "Moment d'inertie (I)",
+    "maxDeflection": "Déflexion maximale",
+    "formula": "Formule",
+    "status": "Statut de sécurité",
+    "safe": "Sûr",
+    "check": "Vérifier la conception"
   },
   "NormalDistribution": {
-    "title": "Normal Distribution Curve",
-    "mean": "Mean (μ)",
-    "stdDev": "Std Deviation (σ)",
-    "values": "Values (x)",
-    "stats": "Distribution Statistics",
-    "peak": "Peak (Max)",
-    "range": "Range",
-    "empirical": "Empirical Rule (68-95-99.7)"
+    "title": "Courbe de distribution normale",
+    "mean": "Moyenne (μ)",
+    "stdDev": "Écart-type (σ)",
+    "values": "Valeurs (x)",
+    "stats": "Statistiques de distribution",
+    "peak": "Pic (Max)",
+    "range": "Étendue",
+    "empirical": "Règle empirique (68-95-99.7)"
   }
 }

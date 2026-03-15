@@ -80,7 +80,7 @@ export function EngineeringDashboard() {
               <div className="mb-12">
                 <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
                   {activeCategory
-                    ? tCat(activeCategory as keyof IntlMessages['Categories'])
+                    ? tCat(activeCategory as any)
                     : tDash('title')}
                 </h1>
                 <p className="text-lg text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">

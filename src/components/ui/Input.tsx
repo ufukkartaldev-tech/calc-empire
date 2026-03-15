@@ -13,15 +13,15 @@ interface InputProps {
   className?: string;
 }
 
-export function Input({ 
-  value, 
-  onChange, 
-  label, 
-  unit = '', 
+export function Input({
+  value,
+  onChange,
+  label,
+  unit = '',
   step = 1,
   min,
   max,
-  className = '' 
+  className = '',
 }: InputProps) {
   return (
     <div className={`space-y-1 ${className}`}>

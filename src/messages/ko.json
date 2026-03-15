@@ -1,76 +1,76 @@
 {
   "HomePage": {
     "title": "CalcEmpire",
-    "description": "Professional engineering calculators — precise, fast, multilingual."
+    "description": "전문 엔지니어링 계산기 — 정확하고 빠르며 다국어를 지원합니다."
   },
   "CalculatorTemplate": {
-    "fieldsLabel": "Calculator inputs",
-    "leaveBlankHint": "Leave blank to solve",
-    "unitLabel": "unit",
-    "solveButton": "Solve",
-    "resetButton": "Reset",
-    "calculatedBadge": "Calculated",
-    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
-    "errorTooManyUnknowns": "Please fill in all but one field."
+    "fieldsLabel": "계산기 입력",
+    "leaveBlankHint": "풀이하려면 비워 두세요",
+    "unitLabel": "단위",
+    "solveButton": "풀기",
+    "resetButton": "초기화",
+    "calculatedBadge": "계산됨",
+    "errorAllFilled": "미지수를 풀려면 정확히 하나의 필드를 비워 두세요.",
+    "errorTooManyUnknowns": "하나의 필드를 제외하고 모두 채워주세요."
   },
   "OhmCalculator": {
-    "title": "Ohm's Law",
+    "title": "옴의 법칙",
     "description": "V = I × R",
-    "voltage": "Voltage",
-    "voltagePlaceholder": "e.g. 12",
-    "current": "Current",
-    "currentPlaceholder": "e.g. 0.5",
-    "resistance": "Resistance",
-    "resistancePlaceholder": "e.g. 100"
+    "voltage": "전압",
+    "voltagePlaceholder": "예: 12",
+    "current": "전류",
+    "currentPlaceholder": "예: 0.5",
+    "resistance": "저항",
+    "resistancePlaceholder": "예: 100"
   },
   "Categories": {
-    "electrical": "Electrical Engineering",
-    "mechanical": "Mechanical Engineering",
-    "statistics": "Statistics & Math",
-    "toolReference": "Tool Reference"
+    "electrical": "전기 공학",
+    "mechanical": "기계 공학",
+    "statistics": "통계 및 수학",
+    "toolReference": "도구 참조"
   },
   "Dashboard": {
-    "title": "Calculator Tools",
-    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
-    "backButton": "Go Back",
-    "ohmTitle": "Ohm's Law Calculator",
-    "ohmDesc": "Standard calculations for V = I × R.",
-    "resistorTitle": "Resistor Color Codes",
-    "resistorDesc": "4, 5, and 6 band color code reader.",
-    "beamTitle": "Beam Deflection Analysis",
-    "beamDesc": "Deflection calculation for various beam types.",
-    "normalTitle": "Normal Distribution Chart",
-    "normalDesc": "Standard deviation and mean visualizer."
+    "title": "계산기 도구",
+    "subtitle": "필요한 계산기를 선택하고 즉시 계산을 시작하세요. 깔끔하고 간단하며 빠릅니다.",
+    "backButton": "뒤로 가기",
+    "ohmTitle": "옴의 법칙 계산기",
+    "ohmDesc": "V = I × R에 대한 표준 계산입니다.",
+    "resistorTitle": "저항 색상 코드",
+    "resistorDesc": "4, 5, 6밴드 색상 코드 판독기입니다.",
+    "beamTitle": "보 처짐 분석",
+    "beamDesc": "다양한 보 유형에 대한 처짐 계산입니다.",
+    "normalTitle": "정규 분포 차트",
+    "normalDesc": "표준 편차 및 평균 시각화 도구입니다."
   },
   "ResistorVisualizer": {
-    "title": "Resistor Color Codes",
-    "bandCount": "Number of Bands",
-    "bandLabel": "Band",
-    "result": "Result",
-    "invalid": "Invalid color combination. Please check your selections."
+    "title": "저항 색상 코드",
+    "bandCount": "밴드 수",
+    "bandLabel": "밴드",
+    "result": "결과",
+    "invalid": "잘못된 색상 조합입니다. 선택 사항을 확인해주세요."
   },
   "BeamVisualizer": {
-    "title": "Beam Deflection Analysis",
-    "cantilever": "Cantilever Beam",
-    "simplySupported": "Simply Supported Beam",
-    "length": "Length (L)",
-    "load": "Load (W)",
-    "elasticModulus": "Elastic Mod. (E)",
-    "momentOfInertia": "Moment of Inertia (I)",
-    "maxDeflection": "Max Deflection",
-    "formula": "Formula",
-    "status": "Safety Status",
-    "safe": "Safe",
-    "check": "Check Design"
+    "title": "보 처짐 분석",
+    "cantilever": "외팔보",
+    "simplySupported": "단순 지지보",
+    "length": "길이 (L)",
+    "load": "하중 (W)",
+    "elasticModulus": "탄성 계수 (E)",
+    "momentOfInertia": "관성 모멘트 (I)",
+    "maxDeflection": "최대 처짐",
+    "formula": "공식",
+    "status": "안전 상태",
+    "safe": "안전",
+    "check": "설계 확인"
   },
   "NormalDistribution": {
-    "title": "Normal Distribution Curve",
-    "mean": "Mean (μ)",
-    "stdDev": "Std Deviation (σ)",
-    "values": "Values (x)",
-    "stats": "Distribution Statistics",
-    "peak": "Peak (Max)",
-    "range": "Range",
-    "empirical": "Empirical Rule (68-95-99.7)"
+    "title": "정규 분포 곡선",
+    "mean": "평균 (μ)",
+    "stdDev": "표준 편차 (σ)",
+    "values": "값 (x)",
+    "stats": "분포 통계",
+    "peak": "정점 (최대)",
+    "range": "범위",
+    "empirical": "경험 법칙 (68-95-99.7)"
   }
 }

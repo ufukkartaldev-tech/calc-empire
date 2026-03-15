@@ -63,10 +63,10 @@ test.describe('Homepage', () => {
 test.describe('Homepage - Dark Mode', () => {
   test('should toggle dark mode', async ({ page }) => {
     await page.goto('/');
-    
+
     const themeToggle = page.getByRole('button', { name: /Theme Toggle/ });
     await themeToggle.click();
-    
+
     await expect(page.locator('body')).toHaveClass(/dark/);
   });
 });
@@ -74,18 +74,18 @@ test.describe('Homepage - Dark Mode', () => {
 test.describe('Homepage - Search', () => {
   test('should filter tools by search query', async ({ page }) => {
     await page.goto('/');
-    
+
     await page.fill('input[type="text"]', 'ohm');
-    
+
     await expect(page.getByRole('button', { name: /Ohm's Law Calculator/ })).toBeVisible();
     await expect(page.getByRole('button', { name: /Resistor Color Codes/ })).not.toBeVisible();
   });
 
   test('should show no results when no match found', async ({ page }) => {
     await page.goto('/');
-    
+
     await page.fill('input[type="text"]', 'nonexistent-tool-xyz');
-    
+
     await expect(page.getByText(/no results|bulunamadı/i)).toBeVisible();
   });
 });
@@ -93,18 +93,18 @@ test.describe('Homepage - Search', () => {
 test.describe('Homepage - Category Filter', () => {
   test('should filter by electrical category', async ({ page }) => {
     await page.goto('/');
-    
+
     await page.getByRole('button', { name: 'Electrical Engineering' }).click();
-    
+
     await expect(page.getByRole('button', { name: /Ohm's Law Calculator/ })).toBeVisible();
     await expect(page.getByRole('button', { name: /Beam Deflection/ })).not.toBeVisible();
   });
 
   test('should show all tools when clicking "All Tools"', async ({ page }) => {
     await page.goto('/');
-    
+
     await page.getByRole('button', { name: /Tüm Araçlar|All Tools/ }).click();
-    
+
     await expect(page.getByRole('button', { name: /Ohm's Law Calculator/ })).toBeVisible();
     await expect(page.getByRole('button', { name: /Beam Deflection/ })).toBeVisible();
   });

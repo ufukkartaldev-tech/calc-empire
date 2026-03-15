@@ -3,7 +3,11 @@
 import React, { useState, useMemo } from 'react';
 import { normalPdf } from '@/lib/formulas/statistics';
 import { Input } from '../ui/Input';
-import { generateNormalDistributionPoints, generateSmoothPath, normalizeToSvg } from '@/utils/svg-helpers';
+import {
+  generateNormalDistributionPoints,
+  generateSmoothPath,
+  normalizeToSvg,
+} from '@/utils/svg-helpers';
 
 interface NormalDistributionChartProps {
   className?: string;
@@ -33,12 +37,12 @@ export function NormalDistributionChart({ className = '' }: NormalDistributionCh
     const range = 4;
     const xMin = mean - range * stdDev;
     const xMax = mean + range * stdDev;
-    
+
     return {
       peakHeight,
       xMin,
       xMax,
-      meanX: normalizeToSvg(mean, xMin, xMax, 0, 400)
+      meanX: normalizeToSvg(mean, xMin, xMax, 0, 400),
     };
   }, [mean, stdDev]);
 
@@ -47,53 +51,32 @@ export function NormalDistributionChart({ className = '' }: NormalDistributionCh
     const range = 4;
     const xMin = mean - range * stdDev;
     const xMax = mean + range * stdDev;
-    
+
     const elements: React.ReactNode[] = [];
-    
+
     // Vertical grid lines and x-axis labels
     for (let i = 0; i <= 8; i++) {
       const x = (i / 8) * 400;
       const value = xMin + (i / 8) * (xMax - xMin);
-      
+
       elements.push(
         <g key={`grid-${i}`}>
-          <line
-            x1={x}
-            y1="0"
-            x2={x}
-            y2="200"
-            stroke="#E5E7EB"
-            strokeWidth="1"
-          />
-          <text
-            x={x}
-            y="220"
-            textAnchor="middle"
-            fontSize="12"
-            fill="#6B7280"
-          >
+          <line x1={x} y1="0" x2={x} y2="200" stroke="#E5E7EB" strokeWidth="1" />
+          <text x={x} y="220" textAnchor="middle" fontSize="12" fill="#6B7280">
             {value.toFixed(1)}
           </text>
         </g>
       );
     }
-    
+
     // Horizontal grid lines
     for (let i = 0; i <= 5; i++) {
       const y = (i / 5) * 200;
       elements.push(
-        <line
-          key={`hgrid-${i}`}
-          x1="0"
-          y1={y}
-          x2="400"
-          y2={y}
-          stroke="#E5E7EB"
-          strokeWidth="1"
-        />
+        <line key={`hgrid-${i}`} x1="0" y1={y} x2="400" y2={y} stroke="#E5E7EB" strokeWidth="1" />
       );
     }
-    
+
     // Mean line (dashed)
     elements.push(
       <line
@@ -107,7 +90,7 @@ export function NormalDistributionChart({ className = '' }: NormalDistributionCh
         strokeDasharray="8,4"
       />
     );
-    
+
     // Mean label
     elements.push(
       <text
@@ -122,14 +105,14 @@ export function NormalDistributionChart({ className = '' }: NormalDistributionCh
         μ = {mean}
       </text>
     );
-    
+
     return elements;
   };
 
   return (
     <div className={`bg-white rounded-lg shadow-lg p-6 ${className}`}>
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Normal Distribution (Bell Curve)</h2>
-      
+
       {/* Input Controls */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <Input
@@ -139,7 +122,7 @@ export function NormalDistributionChart({ className = '' }: NormalDistributionCh
           step={0.1}
           className="w-full"
         />
-        
+
         <Input
           value={stdDev}
           onChange={setStdDev}
@@ -152,34 +135,20 @@ export function NormalDistributionChart({ className = '' }: NormalDistributionCh
 
       {/* SVG Chart */}
       <div className="mb-6 p-4 bg-gray-50 rounded-lg overflow-x-auto">
-        <svg
-          width="400"
-          height="250"
-          viewBox="0 0 400 250"
-          className="w-full h-auto"
-        >
+        <svg width="400" height="250" viewBox="0 0 400 250" className="w-full h-auto">
           {/* Grid and labels */}
           {generateGridAndLabels()}
-          
+
           {/* Filled area under curve */}
-          <path
-            d={fillAreaPath}
-            fill="#3B82F6"
-            fillOpacity="0.3"
-          />
-          
+          <path d={fillAreaPath} fill="#3B82F6" fillOpacity="0.3" />
+
           {/* Bell curve */}
-          <path
-            d={bellCurvePath}
-            fill="none"
-            stroke="#3B82F6"
-            strokeWidth="3"
-          />
-          
+          <path d={bellCurvePath} fill="none" stroke="#3B82F6" strokeWidth="3" />
+
           {/* Axes */}
           <line x1="0" y1="200" x2="400" y2="200" stroke="#374151" strokeWidth="2" />
           <line x1="0" y1="0" x2="0" y2="200" stroke="#374151" strokeWidth="2" />
-          
+
           {/* Axis labels */}
           <text x="200" y="245" textAnchor="middle" fontSize="14" fill="#374151" fontWeight="bold">
             X Değerleri
@@ -204,9 +173,7 @@ export function NormalDistributionChart({ className = '' }: NormalDistributionCh
           </div>
           <div>
             <p className="text-sm text-blue-700">Tepe Yüksekliği</p>
-            <p className="text-xl font-bold text-blue-800">
-              {statistics.peakHeight.toFixed(4)}
-            </p>
+            <p className="text-xl font-bold text-blue-800">{statistics.peakHeight.toFixed(4)}</p>
           </div>
           <div>
             <p className="text-sm text-blue-700">Gösterilen Aralık</p>
@@ -215,7 +182,7 @@ export function NormalDistributionChart({ className = '' }: NormalDistributionCh
             </p>
           </div>
         </div>
-        
+
         <div className="mt-4 pt-4 border-t border-blue-300">
           <p className="text-sm font-semibold text-blue-800 mb-2">Empirik Kural (68-95-99.7)</p>
           <div className="grid grid-cols-3 gap-4 text-sm">

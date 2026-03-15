@@ -17,17 +17,20 @@ export function formatNumber(num: number): string {
  * Format calculation result with scientific notation for extreme values
  */
 export function formatResult(value: number): string {
-  if (value === 0) return "0";
-  
+  if (value === 0) return '0';
+
   try {
     const b = new Big(value);
     const absValue = Math.abs(value);
-    
+
     // Use scientific notation for very small or very large numbers
-    if (absValue < SCIENTIFIC_NOTATION_THRESHOLD.MIN || absValue > SCIENTIFIC_NOTATION_THRESHOLD.MAX) {
+    if (
+      absValue < SCIENTIFIC_NOTATION_THRESHOLD.MIN ||
+      absValue > SCIENTIFIC_NOTATION_THRESHOLD.MAX
+    ) {
       return b.toExponential(4);
     }
-    
+
     // Otherwise, round to max decimal places and remove trailing zeros
     return parseFloat(b.toFixed(MAX_DECIMAL_PLACES)).toString();
   } catch {

@@ -15,6 +15,7 @@ $$\delta_{max} = \frac{P L^3}{48 E I}$$
 $$\delta_{max} = \frac{P L^3}{3 E I}$$
 
 Where:
+
 - **δ** = Deflection (m)
 - **P** = Load (N)
 - **L** = Length (m)
@@ -24,12 +25,14 @@ Where:
 ## Example Calculation
 
 ### Given:
+
 - Load (P) = 1000 N
 - Length (L) = 2 m
 - Elastic Modulus (E) = 200 GPa
 - Moment of Inertia (I) = 8.33 × 10⁻⁶ m⁴
 
 ### Find:
+
 Maximum deflection for simply supported beam
 
 ### Solution:

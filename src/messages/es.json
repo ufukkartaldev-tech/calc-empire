@@ -1,76 +1,76 @@
 {
   "HomePage": {
     "title": "CalcEmpire",
-    "description": "Professional engineering calculators — precise, fast, multilingual."
+    "description": "Calculadoras de ingeniería profesionales — precisas, rápidas, multilingües."
   },
   "CalculatorTemplate": {
-    "fieldsLabel": "Calculator inputs",
-    "leaveBlankHint": "Leave blank to solve",
-    "unitLabel": "unit",
-    "solveButton": "Solve",
-    "resetButton": "Reset",
-    "calculatedBadge": "Calculated",
-    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
-    "errorTooManyUnknowns": "Please fill in all but one field."
+    "fieldsLabel": "Entradas de la calculadora",
+    "leaveBlankHint": "Deje en blanco para resolver",
+    "unitLabel": "unidad",
+    "solveButton": "Resolver",
+    "resetButton": "Restablecer",
+    "calculatedBadge": "Calculado",
+    "errorAllFilled": "Deje exactamente un campo en blanco para resolver la incógnita.",
+    "errorTooManyUnknowns": "Por favor, rellene todos los campos excepto uno."
   },
   "OhmCalculator": {
-    "title": "Ohm's Law",
+    "title": "Ley de Ohm",
     "description": "V = I × R",
-    "voltage": "Voltage",
-    "voltagePlaceholder": "e.g. 12",
-    "current": "Current",
-    "currentPlaceholder": "e.g. 0.5",
-    "resistance": "Resistance",
-    "resistancePlaceholder": "e.g. 100"
+    "voltage": "Voltaje",
+    "voltagePlaceholder": "ej. 12",
+    "current": "Corriente",
+    "currentPlaceholder": "ej. 0.5",
+    "resistance": "Resistencia",
+    "resistancePlaceholder": "ej. 100"
   },
   "Categories": {
-    "electrical": "Electrical Engineering",
-    "mechanical": "Mechanical Engineering",
-    "statistics": "Statistics & Math",
-    "toolReference": "Tool Reference"
+    "electrical": "Ingeniería Eléctrica",
+    "mechanical": "Ingeniería Mecánica",
+    "statistics": "Estadística y Matemáticas",
+    "toolReference": "Referencia de Herramientas"
   },
   "Dashboard": {
-    "title": "Calculator Tools",
-    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
-    "backButton": "Go Back",
-    "ohmTitle": "Ohm's Law Calculator",
-    "ohmDesc": "Standard calculations for V = I × R.",
-    "resistorTitle": "Resistor Color Codes",
-    "resistorDesc": "4, 5, and 6 band color code reader.",
-    "beamTitle": "Beam Deflection Analysis",
-    "beamDesc": "Deflection calculation for various beam types.",
-    "normalTitle": "Normal Distribution Chart",
-    "normalDesc": "Standard deviation and mean visualizer."
+    "title": "Herramientas de Calculadora",
+    "subtitle": "Seleccione la calculadora que necesite y empiece a calcular de inmediato. Clara, sencilla y rápida.",
+    "backButton": "Volver",
+    "ohmTitle": "Calculadora de la Ley de Ohm",
+    "ohmDesc": "Cálculos estándar para V = I × R.",
+    "resistorTitle": "Códigos de Colores de Resistencias",
+    "resistorDesc": "Lector de códigos de colores de 4, 5 y 6 bandas.",
+    "beamTitle": "Análisis de Deflexión de Vigas",
+    "beamDesc": "Cálculo de deflexión para varios tipos de vigas.",
+    "normalTitle": "Gráfico de Distribución Normal",
+    "normalDesc": "Visualizador de desviación estándar y media."
   },
   "ResistorVisualizer": {
-    "title": "Resistor Color Codes",
-    "bandCount": "Number of Bands",
-    "bandLabel": "Band",
-    "result": "Result",
-    "invalid": "Invalid color combination. Please check your selections."
+    "title": "Códigos de Colores de Resistencias",
+    "bandCount": "Número de Bandas",
+    "bandLabel": "Banda",
+    "result": "Resultado",
+    "invalid": "Combinación de colores no válida. Por favor, revise sus selecciones."
   },
   "BeamVisualizer": {
-    "title": "Beam Deflection Analysis",
-    "cantilever": "Cantilever Beam",
-    "simplySupported": "Simply Supported Beam",
-    "length": "Length (L)",
-    "load": "Load (W)",
-    "elasticModulus": "Elastic Mod. (E)",
-    "momentOfInertia": "Moment of Inertia (I)",
-    "maxDeflection": "Max Deflection",
-    "formula": "Formula",
-    "status": "Safety Status",
-    "safe": "Safe",
-    "check": "Check Design"
+    "title": "Análisis de Deflexión de Vigas",
+    "cantilever": "Viga en Voladizo",
+    "simplySupported": "Viga Simplemente Apoyada",
+    "length": "Longitud (L)",
+    "load": "Carga (W)",
+    "elasticModulus": "Módulo Elástico (E)",
+    "momentOfInertia": "Momento de Inercia (I)",
+    "maxDeflection": "Deflexión Máxima",
+    "formula": "Fórmula",
+    "status": "Estado de Seguridad",
+    "safe": "Seguro",
+    "check": "Verificar Diseño"
   },
   "NormalDistribution": {
-    "title": "Normal Distribution Curve",
-    "mean": "Mean (μ)",
-    "stdDev": "Std Deviation (σ)",
-    "values": "Values (x)",
-    "stats": "Distribution Statistics",
-    "peak": "Peak (Max)",
-    "range": "Range",
-    "empirical": "Empirical Rule (68-95-99.7)"
+    "title": "Curva de Distribución Normal",
+    "mean": "Media (μ)",
+    "stdDev": "Desviación Estándar (σ)",
+    "values": "Valores (x)",
+    "stats": "Estadísticas de Distribución",
+    "peak": "Pico (Máx.)",
+    "range": "Rango",
+    "empirical": "Regla Empírica (68-95-99.7)"
   }
 }

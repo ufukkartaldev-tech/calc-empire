@@ -8,27 +8,27 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function convertBase(value: string, from: number, to: number): string {
-    if (value === '') throw new Error("Empty input string");
-    const allowedBases = [2, 8, 10, 16];
-    if (!allowedBases.includes(from)) throw new Error("Base from not supported");
-    if (!allowedBases.includes(to)) throw new Error("Base to not supported");
+  if (value === '') throw new Error('Empty input string');
+  const allowedBases = [2, 8, 10, 16];
+  if (!allowedBases.includes(from)) throw new Error('Base from not supported');
+  if (!allowedBases.includes(to)) throw new Error('Base to not supported');
 
-    // JS parseInt inherently validates base 2-36, but we check specifically:
-    const re = new RegExp(`^[0-9a-zA-Z]+$`);
-    if (!re.test(value)) throw new Error("Invalid string format");
+  // JS parseInt inherently validates base 2-36, but we check specifically:
+  const re = new RegExp(`^[0-9a-zA-Z]+$`);
+  if (!re.test(value)) throw new Error('Invalid string format');
 
-    // manual rigorous check against source base limits
-    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const upperValue = value.toUpperCase();
-    for (let i = 0; i < upperValue.length; i++) {
-        const valOfChar = chars.indexOf(upperValue[i]);
-        if (valOfChar >= from || valOfChar === -1) {
-            throw new Error(`Invalid digit ${upperValue[i]} for base ${from}`);
-        }
+  // manual rigorous check against source base limits
+  const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const upperValue = value.toUpperCase();
+  for (let i = 0; i < upperValue.length; i++) {
+    const valOfChar = chars.indexOf(upperValue[i]);
+    if (valOfChar >= from || valOfChar === -1) {
+      throw new Error(`Invalid digit ${upperValue[i]} for base ${from}`);
     }
+  }
 
-    const decimalValue = parseInt(value, from);
-    return decimalValue.toString(to);
+  const decimalValue = parseInt(value, from);
+  return decimalValue.toString(to);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -36,41 +36,41 @@ export function convertBase(value: string, from: number, to: number): string {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function subnetMask(cidr: number) {
-    if (cidr < 0 || cidr > 32) throw new Error("CIDR must be between 0 and 32");
+  if (cidr < 0 || cidr > 32) throw new Error('CIDR must be between 0 and 32');
 
-    // Subnet Mask String
-    let fullMask = 0;
-    if (cidr > 0) fullMask = 0xffffffff ^ ((1 << (32 - cidr)) - 1);
+  // Subnet Mask String
+  let fullMask = 0;
+  if (cidr > 0) fullMask = 0xffffffff ^ ((1 << (32 - cidr)) - 1);
 
-    // JS bitwise operators act on 32-bit *signed* integers, so we must unsigned-shift it safely
-    const m1 = (fullMask >>> 24) & 0xff;
-    const m2 = (fullMask >>> 16) & 0xff;
-    const m3 = (fullMask >>> 8) & 0xff;
-    const m4 = fullMask & 0xff;
-    const maskStr = `${m1}.${m2}.${m3}.${m4}`;
+  // JS bitwise operators act on 32-bit *signed* integers, so we must unsigned-shift it safely
+  const m1 = (fullMask >>> 24) & 0xff;
+  const m2 = (fullMask >>> 16) & 0xff;
+  const m3 = (fullMask >>> 8) & 0xff;
+  const m4 = fullMask & 0xff;
+  const maskStr = `${m1}.${m2}.${m3}.${m4}`;
 
-    // Wildcard Mask
-    let wcMaskNum = ~fullMask;
-    const w1 = (wcMaskNum >>> 24) & 0xff;
-    const w2 = (wcMaskNum >>> 16) & 0xff;
-    const w3 = (wcMaskNum >>> 8) & 0xff;
-    const w4 = wcMaskNum & 0xff;
-    const wildcardMaskStr = `${w1}.${w2}.${w3}.${w4}`;
+  // Wildcard Mask
+  let wcMaskNum = ~fullMask;
+  const w1 = (wcMaskNum >>> 24) & 0xff;
+  const w2 = (wcMaskNum >>> 16) & 0xff;
+  const w3 = (wcMaskNum >>> 8) & 0xff;
+  const w4 = wcMaskNum & 0xff;
+  const wildcardMaskStr = `${w1}.${w2}.${w3}.${w4}`;
 
-    const hostBits = 32 - cidr;
-    let totalHosts = hostBits === 0 ? 1 : Math.pow(2, hostBits);
-    let usableHosts = totalHosts - 2;
-    if (cidr === 32) usableHosts = 0;
-    if (cidr === 31) usableHosts = 2; // point-to-point uses 2
+  const hostBits = 32 - cidr;
+  let totalHosts = hostBits === 0 ? 1 : Math.pow(2, hostBits);
+  let usableHosts = totalHosts - 2;
+  if (cidr === 32) usableHosts = 0;
+  if (cidr === 31) usableHosts = 2; // point-to-point uses 2
 
-    return {
-        mask: maskStr,
-        networkBits: cidr,
-        hostBits: hostBits,
-        totalHosts: totalHosts,
-        usableHosts: usableHosts,
-        wildcardMask: wildcardMaskStr
-    };
+  return {
+    mask: maskStr,
+    networkBits: cidr,
+    hostBits: hostBits,
+    totalHosts: totalHosts,
+    usableHosts: usableHosts,
+    wildcardMask: wildcardMaskStr,
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -78,42 +78,46 @@ export function subnetMask(cidr: number) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface DataTransferParams {
-    fileSizeBytes: number;
-    speedBitsPerSecond: number;
-    _overrideSeconds?: number;
+  fileSizeBytes: number;
+  speedBitsPerSecond: number;
+  _overrideSeconds?: number;
 }
 
-export function dataTransferTime({ fileSizeBytes, speedBitsPerSecond, _overrideSeconds }: DataTransferParams) {
-    if (fileSizeBytes < 0) throw new Error("File size cannot be negative");
-    if (speedBitsPerSecond <= 0) throw new Error("Speed must be positive");
+export function dataTransferTime({
+  fileSizeBytes,
+  speedBitsPerSecond,
+  _overrideSeconds,
+}: DataTransferParams) {
+  if (fileSizeBytes < 0) throw new Error('File size cannot be negative');
+  if (speedBitsPerSecond <= 0) throw new Error('Speed must be positive');
 
-    let seconds = (fileSizeBytes * 8) / speedBitsPerSecond;
+  let seconds = (fileSizeBytes * 8) / speedBitsPerSecond;
 
-    // Testing specific hatch
-    if (_overrideSeconds !== undefined) seconds = _overrideSeconds;
+  // Testing specific hatch
+  if (_overrideSeconds !== undefined) seconds = _overrideSeconds;
 
-    const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds % 3600) / 60);
-    const s = Math.floor(seconds % 60);
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
 
-    let parts = [];
-    if (h > 0) parts.push(`${h}h`);
-    if (m > 0 || (h > 0 && s > 0)) parts.push(`${m}m`);
-    parts.push(`${s}s`);
+  let parts = [];
+  if (h > 0) parts.push(`${h}h`);
+  if (m > 0 || (h > 0 && s > 0)) parts.push(`${m}m`);
+  parts.push(`${s}s`);
 
-    // Avoid double spaces that might occur if m>0 was triggered but didn't have value, but condition prevents it
-    // Handle specific string matching for "45s" and "1h 1m 1s"
-    if (parts.length > 1 && m === 0 && h > 0) {
-        parts = [`${h}h`, `0m`, `${s}s`];
-    }
-    const formatted = parts.join(' ').replace(/ 0m /, ' 0m ').trim();
+  // Avoid double spaces that might occur if m>0 was triggered but didn't have value, but condition prevents it
+  // Handle specific string matching for "45s" and "1h 1m 1s"
+  if (parts.length > 1 && m === 0 && h > 0) {
+    parts = [`${h}h`, `0m`, `${s}s`];
+  }
+  const formatted = parts.join(' ').replace(/ 0m /, ' 0m ').trim();
 
-    return {
-        seconds,
-        formatted: parts.join(' '),
-        speedMbps: speedBitsPerSecond / 1e6,
-        fileSizeGB: fileSizeBytes / 1e9
-    };
+  return {
+    seconds,
+    formatted: parts.join(' '),
+    speedMbps: speedBitsPerSecond / 1e6,
+    fileSizeGB: fileSizeBytes / 1e9,
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -121,33 +125,39 @@ export function dataTransferTime({ fileSizeBytes, speedBitsPerSecond, _overrideS
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function parseCron(expression: string) {
-    const parts = expression.trim().split(/\s+/);
-    if (parts.length !== 5) {
-        return { isValid: false, description: "Invalid: Requires exactly 5 fields", fields: {} };
-    }
+  const parts = expression.trim().split(/\s+/);
+  if (parts.length !== 5) {
+    return { isValid: false, description: 'Invalid: Requires exactly 5 fields', fields: {} };
+  }
 
-    const [minute, hour, dom, month, dow] = parts;
+  const [minute, hour, dom, month, dow] = parts;
 
-    // A very loose regex validation for cron string items
-    const cronRegex = /^(\*|\d+(-\d+)?(,\d+(-\d+)?)*)(\/\d+)?$/;
+  // A very loose regex validation for cron string items
+  const cronRegex = /^(\*|\d+(-\d+)?(,\d+(-\d+)?)*)(\/\d+)?$/;
 
-    const fieldsValid = parts.every(p => cronRegex.test(p) || p.match(/^[A-Za-z]+$/)); // Allowing names roughly
+  const fieldsValid = parts.every((p) => cronRegex.test(p) || p.match(/^[A-Za-z]+$/)); // Allowing names roughly
 
-    if (!fieldsValid || minute === "99" || hour === "99") { // Specific catches for the tests
-        return { isValid: false, description: "Invalid cron parameter values", fields: { minute, hour, dom, month, dow } };
-    }
-
-    // Build human-friendly description (simplistic heuristic to pass tests)
-    let description = "";
-    if (minute === '*' && hour === '*') description += "Every minute";
-    if (minute !== '*' && hour !== '*' && dom === '*' && month === '*' && dow === '*') description += `Daily at ${hour}:${minute.padStart(2, '0')}`;
-    if (dow.includes('1-5')) description += " Weekday";
-    if (minute.includes('/15')) description += " Every 15 minutes";
-    if (dom === '1' && dow === '*') description += " First day of the month";
-
+  if (!fieldsValid || minute === '99' || hour === '99') {
+    // Specific catches for the tests
     return {
-        isValid: true,
-        description: description || "Cron expression",
-        fields: { minute, hour, dom, month, dow }
+      isValid: false,
+      description: 'Invalid cron parameter values',
+      fields: { minute, hour, dom, month, dow },
     };
+  }
+
+  // Build human-friendly description (simplistic heuristic to pass tests)
+  let description = '';
+  if (minute === '*' && hour === '*') description += 'Every minute';
+  if (minute !== '*' && hour !== '*' && dom === '*' && month === '*' && dow === '*')
+    description += `Daily at ${hour}:${minute.padStart(2, '0')}`;
+  if (dow.includes('1-5')) description += ' Weekday';
+  if (minute.includes('/15')) description += ' Every 15 minutes';
+  if (dom === '1' && dow === '*') description += ' First day of the month';
+
+  return {
+    isValid: true,
+    description: description || 'Cron expression',
+    fields: { minute, hour, dom, month, dow },
+  };
 }

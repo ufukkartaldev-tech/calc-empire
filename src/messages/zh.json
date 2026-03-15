@@ -1,76 +1,76 @@
 {
   "HomePage": {
     "title": "CalcEmpire",
-    "description": "Professional engineering calculators — precise, fast, multilingual."
+    "description": "专业的工程计算器 — 精准、快速、多语言。"
   },
   "CalculatorTemplate": {
-    "fieldsLabel": "Calculator inputs",
-    "leaveBlankHint": "Leave blank to solve",
-    "unitLabel": "unit",
-    "solveButton": "Solve",
-    "resetButton": "Reset",
-    "calculatedBadge": "Calculated",
-    "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
-    "errorTooManyUnknowns": "Please fill in all but one field."
+    "fieldsLabel": "计算器输入",
+    "leaveBlankHint": "留空以求解",
+    "unitLabel": "单位",
+    "solveButton": "求解",
+    "resetButton": "重置",
+    "calculatedBadge": "已计算",
+    "errorAllFilled": "请精确留空一个字段以求解未知数。",
+    "errorTooManyUnknowns": "请填写除一个字段外的所有字段。"
   },
   "OhmCalculator": {
-    "title": "Ohm's Law",
+    "title": "欧姆定律",
     "description": "V = I × R",
-    "voltage": "Voltage",
-    "voltagePlaceholder": "e.g. 12",
-    "current": "Current",
-    "currentPlaceholder": "e.g. 0.5",
-    "resistance": "Resistance",
-    "resistancePlaceholder": "e.g. 100"
+    "voltage": "电压",
+    "voltagePlaceholder": "例如 12",
+    "current": "电流",
+    "currentPlaceholder": "例如 0.5",
+    "resistance": "电阻",
+    "resistancePlaceholder": "例如 100"
   },
   "Categories": {
-    "electrical": "Electrical Engineering",
-    "mechanical": "Mechanical Engineering",
-    "statistics": "Statistics & Math",
-    "toolReference": "Tool Reference"
+    "electrical": "电气工程",
+    "mechanical": "机械工程",
+    "statistics": "统计与数学",
+    "toolReference": "工具参考"
   },
   "Dashboard": {
-    "title": "Calculator Tools",
-    "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
-    "backButton": "Go Back",
-    "ohmTitle": "Ohm's Law Calculator",
-    "ohmDesc": "Standard calculations for V = I × R.",
-    "resistorTitle": "Resistor Color Codes",
-    "resistorDesc": "4, 5, and 6 band color code reader.",
-    "beamTitle": "Beam Deflection Analysis",
-    "beamDesc": "Deflection calculation for various beam types.",
-    "normalTitle": "Normal Distribution Chart",
-    "normalDesc": "Standard deviation and mean visualizer."
+    "title": "计算器工具",
+    "subtitle": "选择您需要的计算器，立即开始计算。简洁、易用、快速。",
+    "backButton": "返回",
+    "ohmTitle": "欧姆定律计算器",
+    "ohmDesc": "V = I × R 的标准计算。",
+    "resistorTitle": "电阻色环码",
+    "resistorDesc": "4、5、6色环码读取器。",
+    "beamTitle": "梁挠度分析",
+    "beamDesc": "各种梁类型的挠度计算。",
+    "normalTitle": "正态分布图",
+    "normalDesc": "标准差和平均值可视化器。"
   },
   "ResistorVisualizer": {
-    "title": "Resistor Color Codes",
-    "bandCount": "Number of Bands",
-    "bandLabel": "Band",
-    "result": "Result",
-    "invalid": "Invalid color combination. Please check your selections."
+    "title": "电阻色环码",
+    "bandCount": "色环数量",
+    "bandLabel": "色环",
+    "result": "结果",
+    "invalid": "无效的颜色组合。请检查您的选择。"
   },
   "BeamVisualizer": {
-    "title": "Beam Deflection Analysis",
-    "cantilever": "Cantilever Beam",
-    "simplySupported": "Simply Supported Beam",
-    "length": "Length (L)",
-    "load": "Load (W)",
-    "elasticModulus": "Elastic Mod. (E)",
-    "momentOfInertia": "Moment of Inertia (I)",
-    "maxDeflection": "Max Deflection",
-    "formula": "Formula",
-    "status": "Safety Status",
-    "safe": "Safe",
-    "check": "Check Design"
+    "title": "梁挠度分析",
+    "cantilever": "悬臂梁",
+    "simplySupported": "简支梁",
+    "length": "长度 (L)",
+    "load": "载荷 (W)",
+    "elasticModulus": "弹性模量 (E)",
+    "momentOfInertia": "惯性矩 (I)",
+    "maxDeflection": "最大挠度",
+    "formula": "公式",
+    "status": "安全状态",
+    "safe": "安全",
+    "check": "检查设计"
   },
   "NormalDistribution": {
-    "title": "Normal Distribution Curve",
-    "mean": "Mean (μ)",
-    "stdDev": "Std Deviation (σ)",
-    "values": "Values (x)",
-    "stats": "Distribution Statistics",
-    "peak": "Peak (Max)",
-    "range": "Range",
-    "empirical": "Empirical Rule (68-95-99.7)"
+    "title": "正态分布曲线",
+    "mean": "均值 (μ)",
+    "stdDev": "标准差 (σ)",
+    "values": "值 (x)",
+    "stats": "分布统计",
+    "peak": "峰值 (最大)",
+    "range": "范围",
+    "empirical": "经验法则 (68-95-99.7)"
   }
 }

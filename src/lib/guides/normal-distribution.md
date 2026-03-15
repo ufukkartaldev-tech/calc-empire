@@ -15,6 +15,7 @@ $$f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2} \left( \frac{x - \mu}{\sig
 $$F(x) = \frac{1}{2} \left[ 1 + \text{erf} \left( \frac{x - \mu}{\sigma \sqrt{2}} \right) \right]$$
 
 Where:
+
 - **μ** = Mean
 - **σ** = Standard deviation
 - **erf** = Error function
@@ -22,11 +23,13 @@ Where:
 ## Example Calculation
 
 ### Given:
+
 - Mean (μ) = 100
 - Standard Deviation (σ) = 15
 - Value (x) = 115
 
 ### Find:
+
 Probability P(X ≤ 115)
 
 ### Solution:

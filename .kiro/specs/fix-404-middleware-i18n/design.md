@@ -11,7 +11,7 @@ Next.js uygulaması, routing.ts'de tanımlı 16 locale için message dosyaların
 - **Preservation**: Mevcut 5 dil dosyasının (en, hi, ja, ru, tr) içeriği ve çeviri kalitesi değişmeden korunmalı
 - **routing.ts**: src/i18n/routing.ts dosyası - next-intl routing konfigürasyonunu tanımlar, 16 locale içerir
 - **i18n.ts**: Kök dizindeki i18n.ts dosyası - next-intl'in getRequestConfig fonksiyonunu kullanarak locale'e göre message dosyalarını dinamik olarak yükler
-- **strings.json**: src/i18n/strings.json dosyası - master çeviri kaynağı, _meta.targetLocales ile hedef dilleri tanımlar
+- **strings.json**: src/i18n/strings.json dosyası - master çeviri kaynağı, \_meta.targetLocales ile hedef dilleri tanımlar
 - **translate script**: scripts/translate.mjs - OpenAI API kullanarak strings.json'dan tüm locale'ler için message dosyaları oluşturur
 
 ## Bug Details
@@ -21,11 +21,12 @@ Next.js uygulaması, routing.ts'de tanımlı 16 locale için message dosyaların
 Bug, routing.ts'de tanımlı bir locale için karşılık gelen message dosyası src/messages/ klasöründe bulunmadığında ortaya çıkar. i18n.ts'deki `getRequestConfig` fonksiyonu her request'te çalışır ve `await import(\`./src/messages/${locale}.json\`)` satırı eksik dosyalar için başarısız olur, bu da tüm routing'in çökmesine neden olur.
 
 **Formal Specification:**
+
 ```
 FUNCTION isBugCondition(locale)
   INPUT: locale of type string
   OUTPUT: boolean
-  
+
   RETURN locale IN routing.locales
          AND NOT fileExists(`src/messages/${locale}.json`)
          AND dynamicImportFails(`./src/messages/${locale}.json`)
@@ -44,6 +45,7 @@ END FUNCTION
 ### Preservation Requirements
 
 **Unchanged Behaviors:**
+
 - Mevcut 5 dil dosyasının (en.json, hi.json, ja.json, ru.json, tr.json) içeriği değişmemeli
 - routing.ts'deki locale sıralaması ve defaultLocale ayarı değişmemeli
 - strings.json'daki mevcut çeviri içeriği değişmemeli
@@ -70,7 +72,7 @@ Bug'ın temel nedeni açık:
 
 4. **Translate Script Çalıştırılmamış**: npm run translate komutu eksik dosyaları oluşturabilir ancak çalıştırılmamış
    - Script OPENAI_API_KEY gerektirir
-   - strings.json'daki _meta.targetLocales ile routing.ts'deki locales senkronize
+   - strings.json'daki \_meta.targetLocales ile routing.ts'deki locales senkronize
 
 ## Correctness Properties
 
@@ -99,12 +101,13 @@ Fix için iki yaklaşım mevcut:
 **Command**: `npm run translate`
 
 **Specific Changes**:
+
 1. **OPENAI_API_KEY Ayarlama**: Environment variable olarak OpenAI API key'i sağlanmalı
    - `.env.local` dosyasına eklenebilir veya command-line'da verilebilir
    - Örnek: `OPENAI_API_KEY=sk-... npm run translate`
 
 2. **Script Çalıştırma**: translate.mjs script'i otomatik olarak:
-   - strings.json'dan _meta.targetLocales'i okur
+   - strings.json'dan \_meta.targetLocales'i okur
    - Her locale için OpenAI API'ye çeviri isteği gönderir
    - src/messages/{locale}.json dosyalarını oluşturur
    - Eksik 11 dosyayı (de, fr, es, pt, zh, ar, ko, it, nl, pl, id) otomatik oluşturur
@@ -121,11 +124,13 @@ Eğer OpenAI API key'i mevcut değilse:
 **File**: `src/messages/{locale}.json` (11 yeni dosya)
 
 **Specific Changes**:
+
 1. **İngilizce Kopyalama**: en.json'ı her eksik locale için kopyala
    - Geçici çözüm olarak İngilizce metinler kullanılır
    - Daha sonra translate script ile güncellenebilir
 
 2. **Dosya Oluşturma**: Her eksik locale için:
+
    ```bash
    cp src/messages/en.json src/messages/de.json
    cp src/messages/en.json src/messages/fr.json
@@ -135,6 +140,7 @@ Eğer OpenAI API key'i mevcut değilse:
 3. **Doğrulama**: 16 dosyanın tümü mevcut olmalı
 
 **Önerilen Yaklaşım**: Yaklaşım 1 (translate script) çünkü:
+
 - Otomatik ve hatasız
 - Kaliteli çeviriler üretir
 - strings.json ile senkronize kalır
@@ -153,12 +159,14 @@ Testing stratejisi iki aşamalı: önce bug'ı unfixed code'da doğrula, sonra f
 **Test Plan**: Unfixed code'da eksik locale'ler için request simüle et ve import hatasını gözlemle.
 
 **Test Cases**:
+
 1. **Eksik de.json Testi**: /de URL'sine request gönder (unfixed code'da başarısız olacak)
 2. **Eksik fr.json Testi**: /fr URL'sine request gönder (unfixed code'da başarısız olacak)
 3. **Eksik es.json Testi**: /es URL'sine request gönder (unfixed code'da başarısız olacak)
 4. **Root URL Testi**: / URL'sine request gönder (unfixed code'da middleware çöktüğü için başarısız olacak)
 
 **Expected Counterexamples**:
+
 - Dynamic import hatası: "Cannot find module './src/messages/de.json'"
 - 404 hatası tüm URL'lerde
 - Middleware initialization hatası
@@ -168,6 +176,7 @@ Testing stratejisi iki aşamalı: önce bug'ı unfixed code'da doğrula, sonra f
 **Goal**: Fix uygulandıktan sonra tüm locale'ler için message dosyalarının mevcut olduğunu ve import'ların başarılı olduğunu doğrula.
 
 **Pseudocode:**
+
 ```
 FOR ALL locale IN routing.locales DO
   filePath := `src/messages/${locale}.json`
@@ -182,6 +191,7 @@ END FOR
 **Goal**: Mevcut 5 dil dosyasının içeriğinin değişmediğini doğrula.
 
 **Pseudocode:**
+
 ```
 FOR ALL existingLocale IN ['en', 'hi', 'ja', 'ru', 'tr'] DO
   originalContent := readFile(`src/messages/${existingLocale}.json`, beforeFix)
@@ -191,6 +201,7 @@ END FOR
 ```
 
 **Testing Approach**: Property-based testing burada gerekli değil çünkü:
+
 - Dosya içeriği deterministik
 - Basit dosya karşılaştırması yeterli
 - Input domain sınırlı (5 dosya)
@@ -198,6 +209,7 @@ END FOR
 **Test Plan**: Fix öncesi mevcut dosyaların snapshot'ını al, fix sonrası karşılaştır.
 
 **Test Cases**:
+
 1. **en.json Preservation**: İçerik değişmemeli (translate script en.json'ı yeniden yazar ama aynı içerikle)
 2. **tr.json Preservation**: İçerik değişmemeli
 3. **ru.json Preservation**: İçerik değişmemeli
@@ -214,6 +226,7 @@ END FOR
 ### Property-Based Tests
 
 Property-based testing bu bug için gerekli değil çünkü:
+
 - Input domain sınırlı ve deterministik (16 locale)
 - Dosya varlığı binary bir durum (var/yok)
 - Manuel unit testler yeterli coverage sağlar

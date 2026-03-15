@@ -9,6 +9,7 @@ Ohm's Law states that the current through a conductor between two points is dire
 $$V = I \times R$$
 
 Where:
+
 - **V** = Voltage (volts, V)
 - **I** = Current (amperes, A)
 - **R** = Resistance (ohms, Ω)
@@ -16,10 +17,12 @@ Where:
 ## Example Calculation
 
 ### Given:
+
 - Voltage (V) = 12 V
 - Resistance (R) = 4 Ω
 
 ### Find:
+
 Current (I)
 
 ### Solution:
