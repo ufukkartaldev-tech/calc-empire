@@ -8,6 +8,15 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
     globals: true,
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/cypress/**',
+      '**/.{idea,git,cache,output,temp}/**',
+      '**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*',
+      '**/e2e/**', // Exclude E2E tests (Playwright)
+      '**/*.spec.ts', // Exclude Playwright spec files
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
@@ -19,6 +28,7 @@ export default defineConfig({
         '**/mockData',
         '**/*.test.{ts,tsx}',
         '**/*.spec.{ts,tsx}',
+        '**/e2e/**',
         '.next/',
         'out/',
         'coverage/',
