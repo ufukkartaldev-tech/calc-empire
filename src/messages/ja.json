@@ -40,7 +40,15 @@
     "beamTitle": "梁のたわみ解析",
     "beamDesc": "様々な梁タイプにおけるたわみ計算。",
     "normalTitle": "正規分布図",
-    "normalDesc": "標準偏差と平均の可視化ツール。"
+    "normalDesc": "標準偏差と平均の可視化ツール。",
+    "searchPlaceholder": "ツールを検索...",
+    "categoriesTitle": "カテゴリ",
+    "allTools": "すべてのツール",
+    "openTool": "ツールを開く",
+    "consentTitle": "免責事項",
+    "disclaimer": "このアプリケーションの計算は情報提供のみを目的としています。最終的なエンジニアリング上の決定には使用しないでください。結果の正確性については、資格を持つエンジニアに相談してください。",
+    "footerCopyright": "全著作権所有。",
+    "acknowledgeDisclaimer": "これらの計算は情報提供のみを目的としており、専門的なエンジニアリング判断の代替にはならないことを理解しています。"
   },
   "ResistorVisualizer": {
     "title": "抵抗器カラーコード",

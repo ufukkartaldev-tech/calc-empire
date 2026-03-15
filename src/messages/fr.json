@@ -40,7 +40,15 @@
     "beamTitle": "Analyse de la déflexion des poutres",
     "beamDesc": "Calcul de la déflexion pour différents types de poutres.",
     "normalTitle": "Diagramme de distribution normale",
-    "normalDesc": "Visualisateur d'écart-type et de moyenne."
+    "normalDesc": "Visualisateur d'écart-type et de moyenne.",
+    "searchPlaceholder": "Rechercher des outils...",
+    "categoriesTitle": "CATÉGORIES",
+    "allTools": "Tous les outils",
+    "openTool": "OUVRIR L'OUTIL",
+    "consentTitle": "AVERTISSEMENT",
+    "disclaimer": "Les calculs de cette application sont fournis à titre informatif uniquement. Ils ne doivent pas être utilisés pour des décisions d'ingénierie finales. Consultez un ingénieur qualifié pour vérifier l'exactitude des résultats.",
+    "footerCopyright": "Tous droits réservés.",
+    "acknowledgeDisclaimer": "Je comprends que ces calculs sont fournis à titre informatif uniquement et ne remplacent pas le jugement d'un ingénieur professionnel."
   },
   "ResistorVisualizer": {
     "title": "Codes de couleur des résistances",

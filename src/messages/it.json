@@ -40,7 +40,15 @@
     "beamTitle": "Analisi Deflessione Trave",
     "beamDesc": "Calcolo della deflessione per vari tipi di trave.",
     "normalTitle": "Grafico Distribuzione Normale",
-    "normalDesc": "Visualizzatore di deviazione standard e media."
+    "normalDesc": "Visualizzatore di deviazione standard e media.",
+    "searchPlaceholder": "Cerca strumenti...",
+    "categoriesTitle": "CATEGORIE",
+    "allTools": "Tutti gli Strumenti",
+    "openTool": "APRI STRUMENTO",
+    "consentTitle": "AVVERTENZA",
+    "disclaimer": "I calcoli in questa applicazione sono solo a scopo informativo. Non devono essere utilizzati per decisioni ingegneristiche definitive. Consultare un ingegnere qualificato per verificare l'accuratezza dei risultati.",
+    "footerCopyright": "Tutti i diritti riservati.",
+    "acknowledgeDisclaimer": "Capisco che questi calcoli sono solo a scopo informativo e non sostituiscono il giudizio ingegneristico professionale."
   },
   "ResistorVisualizer": {
     "title": "Codici Colore Resistori",

@@ -40,7 +40,15 @@
     "beamTitle": "Beam Deflection Analysis",
     "beamDesc": "Deflection calculation for various beam types.",
     "normalTitle": "Normal Distribution Chart",
-    "normalDesc": "Standard deviation and mean visualizer."
+    "normalDesc": "Standard deviation and mean visualizer.",
+    "searchPlaceholder": "Zoek tools...",
+    "categoriesTitle": "CATEGORIEËN",
+    "allTools": "Alle Tools",
+    "openTool": "TOOL OPENEN",
+    "consentTitle": "DISCLAIMER",
+    "disclaimer": "De berekeningen in deze applicatie zijn uitsluitend bedoeld voor informatieve doeleinden. Ze mogen niet worden gebruikt voor definitieve technische beslissingen. Raadpleeg een gekwalificeerde ingenieur voor de nauwkeurigheid van de resultaten.",
+    "footerCopyright": "Alle rechten voorbehouden.",
+    "acknowledgeDisclaimer": "Ik begrijp dat deze berekeningen uitsluitend voor informatieve doeleinden zijn en geen professioneel technisch oordeel vervangen."
   },
   "ResistorVisualizer": {
     "title": "Resistor Color Codes",

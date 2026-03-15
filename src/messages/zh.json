@@ -40,7 +40,15 @@
     "beamTitle": "梁挠度分析",
     "beamDesc": "各种梁类型的挠度计算。",
     "normalTitle": "正态分布图",
-    "normalDesc": "标准差和平均值可视化器。"
+    "normalDesc": "标准差和平均值可视化器。",
+    "searchPlaceholder": "搜索工具...",
+    "categoriesTitle": "分类",
+    "allTools": "所有工具",
+    "openTool": "打开工具",
+    "consentTitle": "免责声明",
+    "disclaimer": "本应用程序中的计算仅供参考。不应用于最终工程决策。请咨询合格的工程师以验证结果的准确性。",
+    "footerCopyright": "版权所有。",
+    "acknowledgeDisclaimer": "我了解这些计算仅供参考，不能替代专业工程判断。"
   },
   "ResistorVisualizer": {
     "title": "电阻色环码",

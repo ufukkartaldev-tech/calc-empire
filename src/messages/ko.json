@@ -40,7 +40,15 @@
     "beamTitle": "보 처짐 분석",
     "beamDesc": "다양한 보 유형에 대한 처짐 계산입니다.",
     "normalTitle": "정규 분포 차트",
-    "normalDesc": "표준 편차 및 평균 시각화 도구입니다."
+    "normalDesc": "표준 편차 및 평균 시각화 도구입니다.",
+    "searchPlaceholder": "도구 검색...",
+    "categoriesTitle": "카테고리",
+    "allTools": "모든 도구",
+    "openTool": "도구 열기",
+    "consentTitle": "면책 조항",
+    "disclaimer": "이 애플리케이션의 계산은 정보 제공 목적으로만 사용됩니다. 최종 엔지니어링 결정에 사용해서는 안 됩니다. 결과의 정확성을 위해 자격을 갖춘 엔지니어와 상담하십시오.",
+    "footerCopyright": "모든 권리 보유.",
+    "acknowledgeDisclaimer": "이 계산이 정보 제공 목적으로만 사용되며 전문적인 엔지니어링 판단을 대체하지 않는다는 것을 이해합니다."
   },
   "ResistorVisualizer": {
     "title": "저항 색상 코드",

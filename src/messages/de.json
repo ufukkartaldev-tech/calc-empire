@@ -40,7 +40,15 @@
     "beamTitle": "Balkendurchbiegungsanalyse",
     "beamDesc": "Durchbiegungsberechnung für verschiedene Balkentypen.",
     "normalTitle": "Diagramm der Normalverteilung",
-    "normalDesc": "Visualisierer für Standardabweichung und Mittelwert."
+    "normalDesc": "Visualisierer für Standardabweichung und Mittelwert.",
+    "searchPlaceholder": "Werkzeuge suchen...",
+    "categoriesTitle": "KATEGORIEN",
+    "allTools": "Alle Werkzeuge",
+    "openTool": "WERKZEUG ÖFFNEN",
+    "consentTitle": "HAFTUNGSAUSSCHLUSS",
+    "disclaimer": "Die Berechnungen in dieser Anwendung dienen nur zu Informationszwecken. Sie sollten nicht für endgültige Ingenieurentscheidungen verwendet werden. Konsultieren Sie einen qualifizierten Ingenieur für die Genauigkeit der Ergebnisse.",
+    "footerCopyright": "Alle Rechte vorbehalten.",
+    "acknowledgeDisclaimer": "Ich verstehe, dass diese Berechnungen nur zu Informationszwecken dienen und kein professionelles ingenieurtechnisches Urteil ersetzen."
   },
   "ResistorVisualizer": {
     "title": "Widerstandsfarbcodes",

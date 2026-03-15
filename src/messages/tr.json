@@ -95,7 +95,15 @@
     "functionPlotTitle": "Fonksiyon Çizici",
     "functionPlotDesc": "Matematiksel fonksiyonları grafikle.",
     "unitConverterTitle": "Birim Dönüştürücü",
-    "unitConverterDesc": "Ölçü birimleri arasında dönüşüm."
+    "unitConverterDesc": "Ölçü birimleri arasında dönüşüm.",
+    "searchPlaceholder": "Araç ara...",
+    "categoriesTitle": "KATEGORİLER",
+    "allTools": "Tüm Araçlar",
+    "openTool": "ARACI AÇ",
+    "consentTitle": "SORUMLULUK REDDİ",
+    "disclaimer": "Bu uygulamadaki hesaplamalar yalnızca bilgilendirme amaçlıdır. Nihai mühendislik kararları için kullanılmamalıdır. Sonuçların doğruluğu için yetkili bir mühendise danışın.",
+    "footerCopyright": "Tüm hakları saklıdır.",
+    "acknowledgeDisclaimer": "Bu hesaplamaların yalnızca bilgilendirme amaçlı olduğunu ve profesyonel mühendislik kararlarının yerini tutmadığını anlıyorum."
   },
   "ResistorVisualizer": {
     "title": "Direnç Renk Kodları",

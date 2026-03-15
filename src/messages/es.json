@@ -40,7 +40,15 @@
     "beamTitle": "Análisis de Deflexión de Vigas",
     "beamDesc": "Cálculo de deflexión para varios tipos de vigas.",
     "normalTitle": "Gráfico de Distribución Normal",
-    "normalDesc": "Visualizador de desviación estándar y media."
+    "normalDesc": "Visualizador de desviación estándar y media.",
+    "searchPlaceholder": "Buscar herramientas...",
+    "categoriesTitle": "CATEGORÍAS",
+    "allTools": "Todas las Herramientas",
+    "openTool": "ABRIR HERRAMIENTA",
+    "consentTitle": "AVISO LEGAL",
+    "disclaimer": "Los cálculos de esta aplicación son solo para fines informativos. No deben utilizarse para decisiones de ingeniería finales. Consulte a un ingeniero calificado para verificar la exactitud de los resultados.",
+    "footerCopyright": "Todos los derechos reservados.",
+    "acknowledgeDisclaimer": "Entiendo que estos cálculos son solo para fines informativos y no reemplazan el juicio de un ingeniero profesional."
   },
   "ResistorVisualizer": {
     "title": "Códigos de Colores de Resistencias",
