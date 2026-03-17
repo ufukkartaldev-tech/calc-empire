@@ -2,7 +2,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Outfit, JetBrains_Mono } from 'next/font/google';
 import { Navbar } from '@/components/ui/Navbar';
 import {
   generateWebsiteSchema,
@@ -16,13 +16,13 @@ import '../globals.css';
 
 const RTL_LOCALES = new Set(['ar']);
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const outfit = Outfit({
+  variable: '--font-outfit',
   subsets: ['latin'],
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-jetbrains',
   subsets: ['latin'],
 });
 
@@ -151,7 +151,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased ce-bg flex flex-col min-h-screen`}
+        className={`${outfit.variable} ${jetbrainsMono.variable} font-sans antialiased mesh-bg flex flex-col min-h-screen transition-colors duration-500`}
       >
         <ErrorBoundary>
           <NextIntlClientProvider messages={messages}>

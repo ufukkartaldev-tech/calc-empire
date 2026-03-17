@@ -190,59 +190,63 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
   }, [config]);
 
   return (
-    <div className="w-full bg-white dark:bg-slate-900 rounded-[40px] border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-500">
+    <div className="w-full premium-card overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
       <div className="flex flex-col lg:flex-row">
         {/* Visual Section & Info */}
-        <div className="lg:w-1/3 bg-slate-50 dark:bg-slate-950 p-8 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-2">
+        <div className="lg:w-1/3 bg-slate-50/30 dark:bg-slate-900/40 p-10 border-b lg:border-b-0 lg:border-r border-slate-200/50 dark:border-slate-800/50 flex flex-col items-center justify-center gap-10">
+          <div className="text-center group">
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-3 tracking-tight group-hover:text-blue-600 transition-colors">
               {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {t(config.titleKey as any)}
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed italic">
+            <div className="h-1.5 w-12 bg-blue-600 dark:bg-blue-500 rounded-full mx-auto mb-6 scale-x-75 group-hover:scale-x-100 transition-transform duration-500"></div>
+            <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
               {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {t(config.descriptionKey as any)}
             </p>
           </div>
 
-          {config.visual ? (
-            <div className="w-full max-w-[200px] aspect-square flex items-center justify-center p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-inner border border-slate-200 dark:border-slate-800">
-              {typeof config.visual === 'function' ? (
-                <config.visual fields={state.fields} result={state.result} />
-              ) : (
-                config.visual
-              )}
-            </div>
-          ) : (
-            <div className="w-full max-w-[200px] aspect-square flex items-center justify-center p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-inner border border-slate-200 dark:border-slate-800 text-6xl">
-              📐
-            </div>
-          )}
+          <div className="w-full max-w-[240px] aspect-square flex items-center justify-center p-6 bg-white/50 dark:bg-slate-950/50 rounded-[40px] shadow-2xl shadow-blue-500/10 border border-white/20 dark:border-white/5 relative group overflow-hidden">
+            <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl"></div>
+            {config.visual ? (
+              <div className="relative z-10 w-full h-full flex items-center justify-center">
+                {typeof config.visual === 'function' ? (
+                  <config.visual fields={state.fields} result={state.result} />
+                ) : (
+                  <div className="text-7xl filter drop-shadow-xl animate-float">{config.visual}</div>
+                )}
+              </div>
+            ) : (
+              <div className="text-7xl filter drop-shadow-xl animate-float">📐</div>
+            )}
+          </div>
         </div>
 
         {/* Form Section */}
-        <div className="lg:w-2/3 p-8 md:p-12">
-          <div className="grid grid-cols-1 gap-8 mb-10">
+        <div className="lg:w-2/3 p-10 md:p-14">
+          <div className="grid grid-cols-1 gap-10 mb-12">
             {config.fields.map((field) => {
               const fs = state.fields[field.key];
               const isResult = state.result?.[field.key] !== undefined;
 
               return (
-                <div key={field.key} className="space-y-2 group">
-                  <div className="flex justify-between items-center px-1">
-                    <label className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                <div key={field.key} className="space-y-3 group">
+                  <div className="flex justify-between items-center px-2">
+                    <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
                       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                       {t(field.labelKey as any)}
                     </label>
                     {isResult && (
-                      <span className="text-[10px] bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-full font-bold">
+                      <span className="text-[10px] bg-blue-500 text-white px-3 py-1 rounded-full font-black uppercase tracking-wider shadow-lg shadow-blue-500/20 animate-in fade-in zoom-in duration-300">
                         {t('CalculatorTemplate.calculatedBadge')}
                       </span>
                     )}
                   </div>
 
                   <div
-                    className={`relative flex items-center transition-all ${isResult ? 'ring-4 ring-blue-500/10' : ''}`}
+                    className={`relative flex items-center transition-all duration-500 ${
+                      isResult ? 'scale-[1.02]' : 'hover:scale-[1.01]'
+                    }`}
                   >
                     <input
                       type="number"
@@ -260,7 +264,11 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
                               t(field.placeholderKey as any)
                             : t('CalculatorTemplate.leaveBlankHint')
                       }
-                      className={`eng-input pr-24 ${isResult ? 'border-blue-500/50 bg-blue-50/30 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-black' : ''}`}
+                      className={`eng-input !font-jetbrains !text-xl ${
+                        isResult
+                          ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-black shadow-xl shadow-blue-500/10'
+                          : 'group-focus-within:border-blue-400/50 group-focus-within:bg-white dark:group-focus-within:bg-slate-900'
+                      }`}
                       readOnly={isResult}
                     />
                     <div className="absolute right-0 flex items-center h-full">
@@ -269,7 +277,7 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
                         onChange={(e) =>
                           dispatch({ type: 'SET_UNIT', key: field.key, unit: e.target.value })
                         }
-                        className="eng-select h-full rounded-r-2xl pr-4 pl-3"
+                        className="eng-select h-full rounded-r-3xl pr-6 pl-4"
                       >
                         {field.units.map((u) => (
                           <option key={u.symbol} value={u.symbol}>
@@ -285,21 +293,27 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
           </div>
 
           {state.error && (
-            <div className="mb-8 p-4 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-2xl text-red-600 dark:text-red-400 text-sm font-medium flex items-center gap-3 animate-in shake">
-              <span>❌</span> {state.error}
+            <div className="mb-10 p-5 bg-red-500/10 border border-red-500/20 rounded-3xl text-red-600 dark:text-red-400 text-sm font-bold flex items-center gap-4 animate-in shake duration-500">
+              <span className="text-xl">⚠️</span> {state.error}
             </div>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-6">
             <button
               onClick={handleSolve}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-2xl transition-all shadow-lg shadow-blue-500/25 active:scale-[0.98] flex items-center justify-center gap-2"
+              className="flex-[2] bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black py-5 rounded-[24px] transition-all shadow-xl shadow-blue-500/25 active:scale-[0.97] flex items-center justify-center gap-3 group relative overflow-hidden"
             >
-              <span>⚡</span> {t('CalculatorTemplate.solveButton')}
+              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+              <span className="text-xl relative z-10 group-hover:rotate-12 transition-transform">
+                ⚡
+              </span>
+              <span className="relative z-10 tracking-wider">
+                {t('CalculatorTemplate.solveButton')}
+              </span>
             </button>
             <button
               onClick={handleReset}
-              className="px-8 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-2xl transition-all"
+              className="flex-1 px-8 py-5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-black rounded-[24px] transition-all shadow-lg active:scale-[0.97] tracking-wider"
             >
               {t('CalculatorTemplate.resetButton')}
             </button>
@@ -308,7 +322,7 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
       </div>
 
       {config.referenceKey && (
-        <div className="px-8 md:px-12 pb-8 md:pb-12">
+        <div className="px-10 md:px-14 pb-10 md:pb-14 border-t border-slate-200/50 dark:border-slate-800/50 pt-10">
           <ReferenceCard referenceKey={config.referenceKey} />
         </div>
       )}

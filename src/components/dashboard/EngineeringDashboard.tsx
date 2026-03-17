@@ -56,15 +56,15 @@ export function EngineeringDashboard({ initialToolId = null }: { initialToolId?:
     }
 
     return (
-      <div className="w-full max-w-4xl mx-auto py-8 px-6 animate-in fade-in zoom-in-95 duration-300">
+      <div className="w-full max-w-5xl mx-auto py-12 px-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
         <button
           onClick={() => {
             setActiveTool(null);
             router.push('/');
           }}
-          className="mb-8 px-4 py-2 flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-all shadow-sm"
+          className="mb-12 px-6 py-3 flex items-center gap-3 text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/50 hover:bg-white dark:hover:bg-slate-900 hover:text-blue-600 dark:hover:text-blue-400 rounded-2xl transition-all shadow-xl shadow-blue-500/5 group"
         >
-          ← {tDash('backButton')}
+          <span className="group-hover:-translate-x-1 transition-transform">←</span> {tDash('backButton')}
         </button>
         <ToolRenderer activeTool={activeTool} />
       </div>
@@ -72,7 +72,7 @@ export function EngineeringDashboard({ initialToolId = null }: { initialToolId?:
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="flex flex-col min-h-screen">
       <div className="flex flex-1">
         <Sidebar
           activeCategory={activeCategory}
@@ -85,14 +85,13 @@ export function EngineeringDashboard({ initialToolId = null }: { initialToolId?:
           {activeTool ? (
             renderToolView()
           ) : (
-            <div className="p-6 md:p-10 max-w-7xl mx-auto">
-              <div className="mb-12">
-                <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
-                  {activeCategory
-                    ? tCat(activeCategory as any)
-                    : tDash('title')}
+            <div className="p-8 md:p-14 lg:p-20 max-w-7xl mx-auto">
+              <div className="mb-20 animate-in fade-in slide-in-from-left-8 duration-1000">
+                <h1 className="text-4xl md:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-6 uppercase">
+                  {activeCategory ? tCat(activeCategory as any) : tDash('title')}
                 </h1>
-                <p className="text-lg text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed">
+                <div className="h-2 w-24 bg-blue-600 dark:bg-blue-500 rounded-full mb-8"></div>
+                <p className="text-xl text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed font-medium">
                   {tDash('subtitle')}
                 </p>
               </div>
