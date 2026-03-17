@@ -48,7 +48,7 @@ body {
 }
 
 .premium-card {
-  @apply glass rounded-5xl p-8 transition-all duration-500 hover:shadow-blue-500/10 hover:border-blue-500/20;
+  @apply bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border border-white/20 dark:border-white/5 shadow-2xl rounded-5xl p-8 transition-all duration-500 hover:shadow-blue-500/10 hover:border-blue-500/20;
 }
 
 /* Engineering Input styling */
