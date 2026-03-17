@@ -28,10 +28,10 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 hover:scale-110 transition-all shadow-sm border border-slate-200 dark:border-slate-700"
+      className="w-9 h-9 flex items-center justify-center rounded-md bg-slate-950 border border-slate-800 hover:border-blue-600 transition-colors focus:outline-none"
       aria-label="Toggle Theme"
     >
-      <span className="text-xl">{theme === 'light' ? '🌙' : '☀️'}</span>
+      <span className="text-sm">{theme === 'light' ? '🌙' : '☀️'}</span>
     </button>
   );
 }

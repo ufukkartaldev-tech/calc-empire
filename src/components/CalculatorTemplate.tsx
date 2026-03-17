@@ -26,6 +26,7 @@ import Big from 'big.js';
 import type { CalculatorConfig, FieldValue, FieldValues } from '@/types';
 import { SOLVER_REGISTRY } from '@/lib/calculators/registry';
 import { ReferenceCard } from './ui/ReferenceCard';
+import { Zap } from 'lucide-react';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Internal State
@@ -190,64 +191,59 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
   }, [config]);
 
   return (
-    <div className="w-full premium-card overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+    <div className="w-full bento-card overflow-hidden">
       <div className="flex flex-col lg:flex-row">
         {/* Visual Section & Info */}
-        <div className="lg:w-1/3 bg-slate-50/30 dark:bg-slate-900/40 p-10 border-b lg:border-b-0 lg:border-r border-slate-200/50 dark:border-slate-800/50 flex flex-col items-center justify-center gap-10">
-          <div className="text-center group">
-            <h2 className="text-3xl font-black text-slate-900 dark:text-white mb-3 tracking-tight group-hover:text-blue-600 transition-colors">
+        <div className="lg:w-1/3 bg-slate-900/50 p-8 border-b lg:border-b-0 lg:border-r border-slate-800 flex flex-col items-center justify-center gap-8">
+          <div className="text-center">
+            <h2 className="text-2xl font-semibold text-white mb-2 tracking-tight">
               {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {t(config.titleKey as any)}
             </h2>
-            <div className="h-1.5 w-12 bg-blue-600 dark:bg-blue-500 rounded-full mx-auto mb-6 scale-x-75 group-hover:scale-x-100 transition-transform duration-500"></div>
-            <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+            <div className="h-[1px] w-8 bg-blue-600 mx-auto mb-4"></div>
+            <p className="text-xs text-slate-400 leading-relaxed font-medium px-4">
               {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {t(config.descriptionKey as any)}
             </p>
           </div>
 
-          <div className="w-full max-w-[240px] aspect-square flex items-center justify-center p-6 bg-white/50 dark:bg-slate-950/50 rounded-[40px] shadow-2xl shadow-blue-500/10 border border-white/20 dark:border-white/5 relative group overflow-hidden">
-            <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl"></div>
+          <div className="w-full max-w-[200px] aspect-square flex items-center justify-center p-4 bg-slate-950 rounded-xl border border-slate-800/50 relative overflow-hidden group">
             {config.visual ? (
               <div className="relative z-10 w-full h-full flex items-center justify-center">
                 {typeof config.visual === 'function' ? (
                   <config.visual fields={state.fields} result={state.result} />
                 ) : (
-                  <div className="text-7xl filter drop-shadow-xl animate-float">{config.visual}</div>
+                  <div className="text-6xl">{config.visual}</div>
                 )}
               </div>
             ) : (
-              <div className="text-7xl filter drop-shadow-xl animate-float">📐</div>
+              <div className="text-6xl">📐</div>
             )}
           </div>
         </div>
 
         {/* Form Section */}
-        <div className="lg:w-2/3 p-10 md:p-14">
-          <div className="grid grid-cols-1 gap-10 mb-12">
+        <div className="lg:w-2/3 p-8">
+          <div className="grid grid-cols-1 gap-6 mb-8">
             {config.fields.map((field) => {
               const fs = state.fields[field.key];
               const isResult = state.result?.[field.key] !== undefined;
 
               return (
-                <div key={field.key} className="space-y-3 group">
-                  <div className="flex justify-between items-center px-2">
-                    <label className="text-[11px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
+                <div key={field.key} className="space-y-2">
+                  <div className="flex justify-between items-center px-1">
+                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                       {t(field.labelKey as any)}
                     </label>
                     {isResult && (
-                      <span className="text-[10px] bg-blue-500 text-white px-3 py-1 rounded-full font-black uppercase tracking-wider shadow-lg shadow-blue-500/20 animate-in fade-in zoom-in duration-300">
+                      <span className="text-[9px] text-blue-500 font-bold uppercase tracking-wider">
                         {t('CalculatorTemplate.calculatedBadge')}
                       </span>
                     )}
                   </div>
 
-                  <div
-                    className={`relative flex items-center transition-all duration-500 ${
-                      isResult ? 'scale-[1.02]' : 'hover:scale-[1.01]'
-                    }`}
-                  >
+                  <div className="relative flex items-center">
                     <input
                       type="number"
                       step="any"
@@ -264,10 +260,8 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
                               t(field.placeholderKey as any)
                             : t('CalculatorTemplate.leaveBlankHint')
                       }
-                      className={`eng-input !font-jetbrains !text-xl ${
-                        isResult
-                          ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-black shadow-xl shadow-blue-500/10'
-                          : 'group-focus-within:border-blue-400/50 group-focus-within:bg-white dark:group-focus-within:bg-slate-900'
+                      className={`eng-input !font-geist-mono ${
+                        isResult ? 'border-blue-600 bg-blue-600/5 text-blue-400 font-bold' : ''
                       }`}
                       readOnly={isResult}
                     />
@@ -277,10 +271,10 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
                         onChange={(e) =>
                           dispatch({ type: 'SET_UNIT', key: field.key, unit: e.target.value })
                         }
-                        className="eng-select h-full rounded-r-3xl pr-6 pl-4"
+                        className="eng-select h-full rounded-r-lg pr-4 pl-3"
                       >
                         {field.units.map((u) => (
-                          <option key={u.symbol} value={u.symbol}>
+                          <option key={u.symbol} value={u.symbol} className="bg-slate-900">
                             {u.label}
                           </option>
                         ))}
@@ -293,27 +287,22 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
           </div>
 
           {state.error && (
-            <div className="mb-10 p-5 bg-red-500/10 border border-red-500/20 rounded-3xl text-red-600 dark:text-red-400 text-sm font-bold flex items-center gap-4 animate-in shake duration-500">
-              <span className="text-xl">⚠️</span> {state.error}
+            <div className="mb-6 p-4 bg-red-950/20 border border-red-900/50 rounded-lg text-red-500 text-xs font-bold flex items-center gap-3">
+              <span>⚠️</span> {state.error}
             </div>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <button
               onClick={handleSolve}
-              className="flex-[2] bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black py-5 rounded-[24px] transition-all shadow-xl shadow-blue-500/25 active:scale-[0.97] flex items-center justify-center gap-3 group relative overflow-hidden"
+              className="sm:col-span-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-md transition-all active:scale-[0.98] flex items-center justify-center gap-2 uppercase tracking-widest text-xs"
             >
-              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-              <span className="text-xl relative z-10 group-hover:rotate-12 transition-transform">
-                ⚡
-              </span>
-              <span className="relative z-10 tracking-wider">
-                {t('CalculatorTemplate.solveButton')}
-              </span>
+              <Zap size={14} strokeWidth={2.5} />
+              {t('CalculatorTemplate.solveButton')}
             </button>
             <button
               onClick={handleReset}
-              className="flex-1 px-8 py-5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-black rounded-[24px] transition-all shadow-lg active:scale-[0.97] tracking-wider"
+              className="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3.5 rounded-md transition-all active:scale-[0.98] uppercase tracking-widest text-xs"
             >
               {t('CalculatorTemplate.resetButton')}
             </button>

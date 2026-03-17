@@ -1,71 +1,76 @@
-/**
- * @file components/dashboard/ToolGrid.tsx
- * @description Tool grid display component
- */
-
 'use client';
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import type { SearchableTool, ToolId } from '@/types';
-import { CATEGORY_ORDER, CATEGORY_ICONS } from '@/constants';
-
 import { Link } from '@/i18n/routing';
+import { CATEGORY_ORDER } from '@/constants';
+import type { SearchableTool } from '@/types';
+import { 
+  Zap, Code, Banknote, Building, Settings, 
+  FlaskConical, Waves, BarChart3, Divide, 
+  RefreshCw, ArrowRight
+} from 'lucide-react';
 
 interface ToolGridProps {
   toolsByCategory: Partial<Record<string, SearchableTool[]>>;
 }
+
+const ICON_MAP: Record<string, React.ReactNode> = {
+  electrical: <Zap size={20} strokeWidth={1.5} />,
+  software: <Code size={20} strokeWidth={1.5} />,
+  finance: <Banknote size={20} strokeWidth={1.5} />,
+  civil: <Building size={20} strokeWidth={1.5} />,
+  mechanical: <Settings size={20} strokeWidth={1.5} />,
+  chemistry: <FlaskConical size={20} strokeWidth={1.5} />,
+  fluid: <Waves size={20} strokeWidth={1.5} />,
+  statistics: <BarChart3 size={20} strokeWidth={1.5} />,
+  mathematics: <Divide size={20} strokeWidth={1.5} />,
+  converters: <RefreshCw size={20} strokeWidth={1.5} />,
+};
 
 export function ToolGrid({ toolsByCategory }: ToolGridProps) {
   const tCat = useTranslations('Categories');
   const tDash = useTranslations('Dashboard');
 
   return (
-    <div className="space-y-24">
+    <div className="space-y-12 pb-20">
       {CATEGORY_ORDER.map((catKey) => {
         const catTools = toolsByCategory[catKey];
         if (!catTools || catTools.length === 0) return null;
 
         return (
-          <div key={catKey} className="animate-in fade-in slide-in-from-bottom-12 duration-1000">
-            <div className="flex items-center gap-6 mb-12">
-              <span className="flex items-center justify-center w-16 h-16 rounded-3xl bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl border border-slate-200 dark:border-slate-800 text-3xl shadow-2xl shadow-blue-500/10 animate-float">
-                {CATEGORY_ICONS[catKey]}
+          <div key={catKey}>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-slate-400 group-hover:text-blue-500 transition-colors">
+                {ICON_MAP[catKey]}
               </span>
-              <div>
-                <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-                  {tCat(catKey as any)}
-                </h2>
-                <div className="h-1 w-12 bg-blue-600 dark:bg-blue-500 rounded-full mt-2"></div>
-              </div>
+              <h2 className="text-sm font-bold text-slate-200 uppercase tracking-[0.15em]">
+                {tCat(catKey as any)}
+              </h2>
+              <div className="flex-1 h-[1px] bg-slate-800 ml-4"></div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               {catTools.map((tool) => (
                 <Link
                   key={tool.id}
                   href={`/calculators/${tool.id}`}
-                  className="group relative flex flex-col items-start p-8 rounded-[40px] bg-white/50 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/50 hover:border-blue-500/50 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-2"
+                  className="bento-card group p-3 flex items-center gap-4"
                 >
-                  {/* Decorative Gradient Background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-
-                  <div className="flex items-center gap-5 mb-6 relative z-10">
-                    <span className="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/50 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 text-3xl shadow-inner group-hover:scale-110 group-hover:rotate-3">
-                      {tool.icon}
-                    </span>
-                    <span className="font-black text-xl text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-slate-300 group-hover:bg-blue-600/20 group-hover:text-blue-500 transition-all border border-slate-700">
+                    <span className="text-lg">{tool.icon}</span>
+                  </div>
+                  
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm font-bold text-slate-100 tracking-tight group-hover:text-blue-500 transition-colors truncate">
                       {tool.translatedTitle}
-                    </span>
+                    </h3>
+                    <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5 leading-tight">
+                      {tool.translatedDesc}
+                    </p>
                   </div>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed font-medium relative z-10">
-                    {tool.translatedDesc}
-                  </p>
 
-                  <div className="mt-8 flex items-center gap-2 text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.2em] opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0 relative z-10">
-                    {tDash('openTool' as any) || 'ARACI AÇ'} 
-                    <span className="w-8 h-[2px] bg-blue-600/30 group-hover:bg-blue-600 transition-all"></span>
-                  </div>
+                  <ArrowRight size={14} className="text-slate-700 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all opacity-0 group-hover:opacity-100" />
                 </Link>
               ))}
             </div>
