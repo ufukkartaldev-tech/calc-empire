@@ -5,6 +5,8 @@
 
 import type { SolveFn, FieldValues, SolveResult } from '@/types';
 
+import { PI } from '@/constants/physics';
+
 export const solve: SolveFn = (values: FieldValues): SolveResult => {
   const cohesion = values.cohesion?.value;
   const frictionAngle = values.frictionAngle?.value;
@@ -15,7 +17,7 @@ export const solve: SolveFn = (values: FieldValues): SolveResult => {
   }
 
   // Mohr-Coulomb failure criterion: τ = c + σ * tan(φ)
-  const frictionAngleRad = (frictionAngle * Math.PI) / 180;
+  const frictionAngleRad = (frictionAngle * PI) / 180;
   const shearStrength = cohesion + normalStress * Math.tan(frictionAngleRad);
 
   return { shearStrength };

@@ -28,5 +28,8 @@ export const solve: SolveFn = (values: FieldValues): SolveResult => {
     R2,
     maxShear,
     maxMoment,
+    P: load,
+    L: length,
+    a: position,
   };
 };

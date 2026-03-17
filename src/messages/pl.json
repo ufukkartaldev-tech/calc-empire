@@ -79,6 +79,37 @@
     "stats": "Distribution Statistics",
     "peak": "Peak (Max)",
     "range": "Range",
-    "empirical": "Empirical Rule (68-95-99.7)"
+    "empirical": "Reguła empiryczna (68-95-99.7)"
+  },
+  "Kirchhoff": {
+    "title": "Prawa Kirchhoffa",
+    "description": "Rozwiąż obwód 2-pętlowy używając prawa napięć (KVL) i prawa prądów (KCL).",
+    "visualizerTitle": "Schemat Obwodu",
+    "v1Label": "Źródło napięcia V₁",
+    "v2Label": "Źródło napięcia V₂",
+    "r1Label": "Rezystor R₁",
+    "r2Label": "Rezystor R₂",
+    "r3Label": "Wspólny rezystor R₃",
+    "calculatedTitle": "Obliczone prądy",
+    "mesh1": "Prąd pętli 1 (I₁)",
+    "mesh2": "Prąd pętli 2 (I₂)",
+    "middle": "Prąd gałęzi (I₃)",
+    "errorInvalid": "Nie można rozwiązać — sprawdź wartości.",
+    "errorZero": "Wartości rezystorów muszą być większe niż zero."
+  },
+  "PowerCalculator": {
+    "title": "Kalkulator mocy AC",
+    "description": "Oblicz moc pozorną, czynną i bierną z napięcia, prądu i kąta fazowego.",
+    "voltage": "Napięcie (V)",
+    "current": "Prąd (A)",
+    "phaseAngle": "Kąt fazowy (φ)",
+    "results": "Obliczone wyniki",
+    "apparentPower": "Moc pozorna",
+    "activePower": "Moc czynna",
+    "reactivePower": "Moc bierna",
+    "powerFactor": "Współczynnik mocy",
+    "lagging": "Opóźnimiony",
+    "leading": "Wyprzedzający",
+    "visualizer": "Trójkąt mocy"
   }
 }

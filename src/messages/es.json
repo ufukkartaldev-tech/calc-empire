@@ -80,5 +80,39 @@
     "peak": "Pico (Máx.)",
     "range": "Rango",
     "empirical": "Regla Empírica (68-95-99.7)"
+  },
+  "Kirchhoff": {
+    "title": "Leyes de Kirchhoff",
+    "description": "Resuelva un circuito de 2 mallas usando la Ley de Voltajes (KVL) y la Ley de Corrientes (KCL).",
+    "visualizerTitle": "Esquema del Circuito",
+    "v1Label": "Fuente de Voltaje V₁",
+    "v2Label": "Fuente de Voltaje V₂",
+    "r1Label": "Resistencia R₁",
+    "r2Label": "Resistencia R₂",
+    "r3Label": "Resistencia Compartida R₃",
+    "calculatedTitle": "Corrientes Calculadas",
+    "mesh1": "Corriente Malla 1 (I₁)",
+    "mesh2": "Corriente Malla 2 (I₂)",
+    "middle": "Corriente de Rama (I₃)",
+    "errorInvalid": "No se pudo resolver — verifique los valores.",
+    "errorZero": "Los valores de resistencia deben ser mayores que cero."
+  },
+  "PowerCalculator": {
+    "title": "Calculadora de Potencia AC",
+    "description": "Calcule la potencia aparente, activa y reactiva a partir del voltaje, la corriente y el ángulo de fase.",
+    "voltage": "Voltaje (V)",
+    "current": "Corriente (A)",
+    "phaseAngle": "Ángulo de Fase (φ)",
+    "results": "Resultados Calculados",
+    "apparentPower": "Potencia Aparente",
+    "activePower": "Potencia Activa",
+    "reactivePower": "Potencia Reactiva",
+    "powerFactor": "Factor de Potencia",
+    "lagging": "Retrasado",
+    "leading": "Adelantado",
+    "visualizer": "Triángulo de Potencia"
+  },
+  "Common": {
+    "comingSoon": "¡Esta herramienta está en fase de investigación y desarrollo (I+D). Se añadirá muy pronto!"
   }
 }

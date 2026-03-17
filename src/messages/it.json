@@ -80,5 +80,36 @@
     "peak": "Picco (Max)",
     "range": "Intervallo",
     "empirical": "Regola Empirica (68-95-99.7)"
+  },
+  "Kirchhoff": {
+    "title": "Leggi di Kirchhoff",
+    "description": "Risolvi un circuito a 2 maglie usando la Legge delle Tensioni (KVL) e la Legge delle Correnti (KCL).",
+    "visualizerTitle": "Schema del Circuito",
+    "v1Label": "Generatore di Tensione V₁",
+    "v2Label": "Generatore di Tensione V₂",
+    "r1Label": "Resistenza R₁",
+    "r2Label": "Resistenza R₂",
+    "r3Label": "Resistenza Comune R₃",
+    "calculatedTitle": "Correnti Calcolate",
+    "mesh1": "Corrente Maglia 1 (I₁)",
+    "mesh2": "Corrente Maglia 2 (I₂)",
+    "middle": "Corrente di Ramo (I₃)",
+    "errorInvalid": "Impossibile risolvere — controlla i valori.",
+    "errorZero": "I valori delle resistenze devono essere maggiori di zero."
+  },
+  "PowerCalculator": {
+    "title": "Calcolatrice Potenza AC",
+    "description": "Calcola la potenza apparente, attiva e reattiva da tensione, corrente e angolo di fase.",
+    "voltage": "Tensione (V)",
+    "current": "Corrente (A)",
+    "phaseAngle": "Angolo di Fase (φ)",
+    "results": "Risultati Calcolati",
+    "apparentPower": "Potenza Apparente",
+    "activePower": "Potenza Attiva",
+    "reactivePower": "Potenza Reattiva",
+    "powerFactor": "Fattore di Potenza",
+    "lagging": "In Ritardo",
+    "leading": "In Anticipo",
+    "visualizer": "Triangolo delle Potenze"
   }
 }

@@ -80,5 +80,36 @@
     "peak": "Spitze (Max)",
     "range": "Bereich",
     "empirical": "Empirische Regel (68-95-99.7)"
+  },
+  "Kirchhoff": {
+    "title": "Kirchhoffschen Gesetze",
+    "description": "Lösen Sie einen 2-Schleifen-Schaltkreis mit dem Kirchhoffschen Spannungsgesetz (KVL) und Stromgesetz (KCL).",
+    "visualizerTitle": "Schaltschema",
+    "v1Label": "Spannungsquelle V₁",
+    "v2Label": "Spannungsquelle V₂",
+    "r1Label": "Widerstand R₁",
+    "r2Label": "Widerstand R₂",
+    "r3Label": "Gemeinsamer Widerstand R₃",
+    "calculatedTitle": "Berechnete Ströme",
+    "mesh1": "Schleife 1 Strom (I₁)",
+    "mesh2": "Schleife 2 Strom (I₂)",
+    "middle": "Zweigstrom (I₃)",
+    "errorInvalid": "Keine Lösung möglich \u2014 Werte überprüfen.",
+    "errorZero": "Widerstandswerte müssen größer als null sein."
+  },
+  "PowerCalculator": {
+    "title": "Wechselstrom-Leistungsrechner",
+    "description": "Schein-, Wirk- und Blindleistung aus Spannung, Strom und Phasenwinkel berechnen.",
+    "voltage": "Spannung (V)",
+    "current": "Strom (A)",
+    "phaseAngle": "Phasenwinkel (φ)",
+    "results": "Berechnete Ergebnisse",
+    "apparentPower": "Scheinleistung",
+    "activePower": "Wirkleistung",
+    "reactivePower": "Blindleistung",
+    "powerFactor": "Leistungsfaktor",
+    "lagging": "Nacheilend",
+    "leading": "Voreilend",
+    "visualizer": "Leistungsdreieck"
   }
 }

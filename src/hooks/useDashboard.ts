@@ -5,16 +5,18 @@
 
 import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/routing';
 import Fuse from 'fuse.js';
 import type { ToolId, SearchableTool } from '@/types';
 import { TOOLS_CONFIG } from '@/config/tools.config';
 import { FUSE_OPTIONS, SCROLL_DELAY } from '@/constants';
 
-export function useDashboard() {
+export function useDashboard(initialToolId: ToolId = null) {
   const tCat = useTranslations('Categories');
   const tDash = useTranslations('Dashboard');
+  const router = useRouter();
 
-  const [activeTool, setActiveTool] = useState<ToolId>(null);
+  const [activeTool, setActiveTool] = useState<ToolId>(initialToolId);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [acknowledgedTools, setAcknowledgedTools] = useState<Set<ToolId>>(new Set());
@@ -62,7 +64,11 @@ export function useDashboard() {
   // Smooth scroll to category
   const scrollToCategory = (catKey: string | null) => {
     setActiveCategory(catKey);
-    setActiveTool(null);
+    
+    if (activeTool) {
+      setActiveTool(null);
+      router.push('/');
+    }
 
     if (catKey) {
       setTimeout(() => {

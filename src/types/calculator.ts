@@ -79,4 +79,6 @@ export interface CalculatorConfig {
   solverKey: string;
   /** Optional i18n key for the guide content. */
   guideKey?: string;
+  /** Optional i18n key for the reference/info content. */
+  referenceKey?: string;
 }

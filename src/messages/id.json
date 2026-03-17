@@ -80,5 +80,36 @@
     "peak": "Peak (Max)",
     "range": "Range",
     "empirical": "Empirical Rule (68-95-99.7)"
+  },
+  "Kirchhoff": {
+    "title": "Kirchhoff's Laws",
+    "description": "Solve a 2-loop circuit using Kirchhoff's Voltage Law (KVL) and Current Law (KCL).",
+    "visualizerTitle": "Circuit Schematic",
+    "v1Label": "Voltage Source V₁",
+    "v2Label": "Voltage Source V₂",
+    "r1Label": "Resistor R₁",
+    "r2Label": "Resistor R₂",
+    "r3Label": "Shared Resistor R₃",
+    "calculatedTitle": "Calculated Currents",
+    "mesh1": "Loop 1 Current (I₁)",
+    "mesh2": "Loop 2 Current (I₂)",
+    "middle": "Branch Current (I₃)",
+    "errorInvalid": "Could not solve — check your values.",
+    "errorZero": "Resistor values must be greater than zero."
+  },
+  "PowerCalculator": {
+    "title": "AC Power Calculator",
+    "description": "Calculate apparent, active, and reactive power from voltage, current, and phase angle.",
+    "voltage": "Voltage (V)",
+    "current": "Current (A)",
+    "phaseAngle": "Phase Angle (φ)",
+    "results": "Calculated Results",
+    "apparentPower": "Apparent Power",
+    "activePower": "Active Power",
+    "reactivePower": "Reactive Power",
+    "powerFactor": "Power Factor",
+    "lagging": "Lagging",
+    "leading": "Leading",
+    "visualizer": "Power Triangle"
   }
 }

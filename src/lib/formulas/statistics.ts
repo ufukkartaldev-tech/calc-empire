@@ -169,3 +169,69 @@ export function confidenceInterval({ mean, stdDev, n, confidence }: ConfidenceIn
     marginOfError,
   };
 }
+// ─────────────────────────────────────────────────────────────────────────────
+// Discrete Distributions
+// ─────────────────────────────────────────────────────────────────────────────
+
+export function factorial(n: number): number {
+  if (n < 0) return NaN;
+  if (n === 0) return 1;
+  let res = 1;
+  for (let i = 2; i <= n; i++) res *= i;
+  return res;
+}
+
+export function combination(n: number, k: number): number {
+  if (k < 0 || k > n) return 0;
+  if (k === 0 || k === n) return 1;
+  if (k > n / 2) k = n - k;
+  
+  let res = 1;
+  for (let i = 1; i <= k; i++) {
+    res = res * (n - i + 1) / i;
+  }
+  return res;
+}
+
+export function binomialPdf(k: number, n: number, p: number): number {
+  if (k < 0 || k > n || p < 0 || p > 1) return 0;
+  return combination(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
+}
+
+export function poissonPdf(k: number, lambda: number): number {
+  if (k < 0 || lambda <= 0) return 0;
+  return (Math.pow(lambda, k) * Math.exp(-lambda)) / factorial(k);
+}
+// ─────────────────────────────────────────────────────────────────────────────
+// Visualization Helpers
+// ─────────────────────────────────────────────────────────────────────────────
+
+export function generateHistogram(data: number[], binCount: number = 10): { binLabel: string; count: number }[] {
+  if (data.length === 0) return [];
+  const min = Math.min(...data);
+  const max = Math.max(...data);
+  const range = max - min;
+  
+  // If all values are the same, just one bin
+  if (range === 0) {
+    return [{ binLabel: `${min.toFixed(1)}`, count: data.length }];
+  }
+
+  const binSize = range / binCount;
+  const bins = new Array(binCount).fill(0);
+  
+  for (const val of data) {
+    let binIndex = Math.floor((val - min) / binSize);
+    if (binIndex >= binCount) binIndex = binCount - 1; 
+    bins[binIndex]++;
+  }
+  
+  return bins.map((count, i) => {
+    const start = min + i * binSize;
+    const end = start + binSize;
+    return {
+      binLabel: `${start.toFixed(1)}-${end.toFixed(1)}`,
+      count
+    };
+  });
+}

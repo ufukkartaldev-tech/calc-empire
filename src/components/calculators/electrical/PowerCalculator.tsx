@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { acPower } from '@/lib/formulas/electrical';
+import { ReferenceCard } from '../../ui/ReferenceCard';
 
 export function PowerCalculator() {
   const t = useTranslations('PowerCalculator');
@@ -308,6 +309,7 @@ export function PowerCalculator() {
           </div>
         </div>
       </div>
+      <ReferenceCard referenceKey="ToolReference.power" />
     </div>
   );
 }

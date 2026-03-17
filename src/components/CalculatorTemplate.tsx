@@ -207,7 +207,11 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
 
           {config.visual ? (
             <div className="w-full max-w-[200px] aspect-square flex items-center justify-center p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-inner border border-slate-200 dark:border-slate-800">
-              {config.visual}
+              {typeof config.visual === 'function' ? (
+                <config.visual fields={state.fields} result={state.result} />
+              ) : (
+                config.visual
+              )}
             </div>
           ) : (
             <div className="w-full max-w-[200px] aspect-square flex items-center justify-center p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-inner border border-slate-200 dark:border-slate-800 text-6xl">

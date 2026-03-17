@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { ReferenceCard } from '../../ui/ReferenceCard';
 
 export function CompoundInterestCalculator() {
   const t = useTranslations('CompoundInterest');
@@ -319,6 +320,7 @@ export function CompoundInterestCalculator() {
           </div>
         </div>
       </div>
+      <ReferenceCard referenceKey="ToolReference.compoundInterest" />
     </div>
   );
 }

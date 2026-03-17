@@ -80,20 +80,20 @@
     "pressureLossDesc": "Boru akışı basınç düşüşü analizi.",
     "normalTitle": "Normal Dağılım Grafiği",
     "normalDesc": "Standart sapma ve ortalama görselleştiricisi.",
-    "basicStatsTitle": "Temel İstatistikler",
-    "basicStatsDesc": "Ortalama, medyan, mod ve varyans.",
-    "discreteDistTitle": "Kesikli Dağılım",
-    "discreteDistDesc": "Binom ve Poisson dağılımları.",
-    "dataVizTitle": "Veri Görselleştirici",
-    "dataVizDesc": "Verilerinizden grafikler oluşturun.",
-    "calculusTitle": "Kalkülüs Hesaplayıcı",
-    "calculusDesc": "Türev ve integral çözücü.",
-    "matrixTitle": "Matris İşlemleri",
-    "matrixDesc": "Matris çarpımı ve determinantlar.",
-    "geometryTitle": "Geometri Hesaplayıcı",
-    "geometryDesc": "Alan, çevre ve hacim formülleri.",
-    "functionPlotTitle": "Fonksiyon Çizici",
-    "functionPlotDesc": "Matematiksel fonksiyonları grafikle.",
+    "basicStatsTitle": "Temel İstatistik Pro",
+    "basicStatsDesc": "Veri seti analizi ve varyans hesaplayıcı.",
+    "discreteDistTitle": "Kesikli Dağılım Gözlemcisi",
+    "discreteDistDesc": "Binom ve Poisson dağılımları görselleştirici.",
+    "dataVizTitle": "Veri Görselleştirici Pro",
+    "dataVizDesc": "Ham verileri histogram ve grafiklerle analiz edin.",
+    "calculusTitle": "Kalkülüs Pro",
+    "calculusDesc": "Türev ve integral görselleştirici.",
+    "matrixTitle": "Matrix Master",
+    "matrixDesc": "Matris işlemleri ve determinantlar.",
+    "geometryTitle": "Akıllı Geometri",
+    "geometryDesc": "Alan, çevre ve hacim görselleştirici.",
+    "functionPlotTitle": "Graph Lab",
+    "functionPlotDesc": "İnteraktif fonksiyon çizici.",
     "unitConverterTitle": "Birim Dönüştürücü",
     "unitConverterDesc": "Ölçü birimleri arasında dönüşüm.",
     "searchPlaceholder": "Araç ara...",
@@ -135,5 +135,343 @@
     "peak": "Tepe (Maks.)",
     "range": "Aralık",
     "empirical": "Ampirik Kural (68-95-99.7)"
+  },
+  "Kirchhoff": {
+    "title": "Kirchhoff Yasaları",
+    "description": "Kirchhoff'un Gerilim Yasası (KVL) ve Akım Yasası (KCL) kullanarak 2 döngülü devre çözümü.",
+    "visualizerTitle": "Devre Şeması",
+    "v1Label": "Gerilim Kaynağı V₁",
+    "v2Label": "Gerilim Kaynağı V₂",
+    "r1Label": "Direnç R₁",
+    "r2Label": "Direnç R₂",
+    "r3Label": "Ortak Direnç R₃",
+    "calculatedTitle": "Hesaplanan Akımlar",
+    "mesh1": "Döngü 1 Akımı (I₁)",
+    "mesh2": "Döngü 2 Akımı (I₂)",
+    "middle": "Dal Akımı (I₃)",
+    "errorInvalid": "Çözülemedi \u2014 değerleri kontrol edin.",
+    "errorZero": "Direnç değerleri sıfırdan büyük olmalıdır."
+  },
+  "PowerCalculator": {
+    "title": "AC Güç Hesaplayıcı",
+    "description": "Gerilim, akım ve faz açısından görünür, aktif ve reaktif gücü hesaplayın.",
+    "voltage": "Gerilim (V)",
+    "current": "Akım (A)",
+    "phaseAngle": "Faz Açısı (φ)",
+    "results": "Hesaplanan Sonuçlar",
+    "apparentPower": "Görünür Güç",
+    "activePower": "Aktif Güç",
+    "reactivePower": "Reaktif Güç",
+    "powerFactor": "Güç Faktörü",
+    "lagging": "Geride",
+    "leading": "Önde",
+    "visualizer": "Güç Üçgeni"
+  },
+  "UnitConverter": {
+    "title": "Birim Dönüştürücü",
+    "description": "Birden fazla kategoride yayın mühendislik ölçü birimleri arasında dönüşüm yapın.",
+    "categoryLabel": "Kategori",
+    "fromLabel": "Kıymdan",
+    "toLabel": "Kıya",
+    "inputPlaceholder": "Değer girin",
+    "result": "Sonuç",
+    "swapButton": "Tartış",
+    "copyButton": "Kopyala",
+    "copiedButton": "Kopyalandı!",
+    "formula": "Formül",
+    "categories": {
+      "length": "Uzunluk",
+      "mass": "Kütle",
+      "temperature": "Sıcaklık",
+      "area": "Alan",
+      "volume": "Hacim",
+      "speed": "Hız",
+      "pressure": "Basınç",
+      "energy": "Enerji",
+      "power": "Güç",
+      "frequency": "Frekans",
+      "angle": "Açı",
+      "data": "Dijital Veri"
+    }
+  },
+  "DiscreteDistribution": {
+    "title": "Kesikli Dağılım Görselleştirici",
+    "subtitle": "Binom ve Poisson dağılım olasılıklarını hesaplayın ve görselleştirin.",
+    "binomial": "Binom Dağılımı",
+    "poisson": "Poisson Dağılımı",
+    "stats": "Dağılım İstatistikleri",
+    "mean": "Beklenen Değer (μ)",
+    "variance": "Varyans (σ²)"
+  },
+  "BasicStatistics": {
+    "title": "Temel İstatistik Hesaplayıcı",
+    "inputLabel": "Veri Seti (virgül ile ayırın)",
+    "inputPlaceholder": "Örn: 10, 20, 30, 40",
+    "results": "Analiz Sonuçları",
+    "mean": "Aritmetik Ortalama",
+    "median": "Medyan (Ortanca)",
+    "mode": "Mod (Tepe Değer)",
+    "stdDev": "Standart Sapma",
+    "variance": "Varyans",
+    "min": "Minimum",
+    "max": "Maksimum",
+    "count": "Veri Sayısı",
+    "sum": "Toplam",
+    "sample": "Örneklem",
+    "population": "Popülasyon",
+    "errorInvalid": "Lütfen geçerli sayılar girin."
+  },
+  "DataVisualizer": {
+    "title": "Veri Görselleştirici Pro",
+    "subtitle": "Ham verileri histogram ve temel istatistiklerle analiz edin.",
+    "inputLabel": "Veri Girişi",
+    "bins": "Bin (Grup) Sayısı",
+    "summary": "Veri Özeti",
+    "count": "Gözlem Sayısı",
+    "histogram": "Histogram Dağılımı",
+    "noData": "Görselleştirilecek veri yok. Lütfen yukarıya sayıları girin."
+  },
+  "Bernoulli": {
+    "title": "Bernoulli Akış Analizi",
+    "subtitle": "İdeal akışkanlarda enerji korunumunu hesaplayın.",
+    "fluidParams": "Akışkan Özellikleri",
+    "density": "Yoğunluk (ρ)",
+    "gravity": "Yerçekimi (g)",
+    "point1": "Nokta 1",
+    "point2": "Nokta 2",
+    "pressure": "Basınç (P)",
+    "velocity": "Hız (v)",
+    "height": "Yükseklik (h)",
+    "solveFor": "Bilinmeyeni Çöz",
+    "unknownField": "Lütfen bilinmeyen alanın kutusunu boş bırakın.",
+    "errorImaginary": "Hata: Fiziksel olarak imkansız hız değeri.",
+    "result": "Hesaplanan Değer"
+  },
+  "PressureLoss": {
+    "title": "Boru Hattı Basınç Kaybı",
+    "subtitle": "Darcy-Weisbach denklemi ile sürtünme kaynaklı basınç düşüşü analizi.",
+    "params": "Sistem Parametreleri",
+    "frictionFactor": "Sürtünme Katsayısı (f)",
+    "pipeLength": "Boru Uzunluğu (L)",
+    "pipeDiameter": "Boru İç Çapı (D)",
+    "fluidDensity": "Akışkan Yoğunluğu (ρ)",
+    "velocity": "Akış Hızı (v)",
+    "result": "Basınç Kaybı Sonucu",
+    "pressureDrop": "Basınç Düşüşü",
+    "headLoss": "Yük Kaybı",
+    "unitPa": "Pa",
+    "unitM": "m"
+  },
+  "PeriodicTable": {
+    "title": "Periyodik Tablo",
+    "subtitle": "Elementlerin özellikleri ve periyodik sistem görselleştirmesi.",
+    "atomicMass": "Atomik Kütle",
+    "atomicNumber": "Atom Numarası",
+    "symbol": "Sembol",
+    "name": "Ad",
+    "category": "Kategori",
+    "group": "Grup",
+    "period": "Periyot",
+    "details": "Element Detayları",
+    "categories": {
+      "nonmetal": "Ametal",
+      "nobleGas": "Soygaz",
+      "alkali": "Alkali Metal",
+      "alkalineEarth": "Toprak Alkali",
+      "metalloid": "Yarı Metal",
+      "halogen": "Halojen",
+      "postTransition": "Zayıf Metal",
+      "transition": "Geçiş Metali",
+      "lanthanide": "Lantanit",
+      "actinide": "Aktinit"
+    }
+  },
+  "IdealGas": {
+    "title": "İdeal Gaz Yasası",
+    "subtitle": "PV = nRT denklemi ile gaz durumlarını hesaplayın.",
+    "pressure": "Basınç (P)",
+    "volume": "Hacim (V)",
+    "amount": "Madde Miktarı (n)",
+    "temperature": "Sıcaklık (T)",
+    "unitPa": "Pa",
+    "unitM3": "m³",
+    "unitMol": "mol",
+    "unitK": "K",
+    "solveFor": "Bilinmeyeni Çöz",
+    "result": "Hesaplanan Değer",
+    "errorTemperature": "Sıcaklık mutlak sıfırdan (-273.15°C) düşük olamaz."
+  },
+  "StressStrain": {
+    "title": "Gerilme-Şekil Değiştirme Analizi",
+    "subtitle": "Malzeme deformasyonu ve Young modülü hesaplamaları.",
+    "force": "Uygulanan Kuvvet (F)",
+    "area": "Yüzey Alanı (A)",
+    "deltaL": "Uzama Miktarı (ΔL)",
+    "L0": "İlk Uzunluk (L₀)",
+    "youngModulus": "Young Modülü (E)",
+    "stress": "Gerilme (σ)",
+    "strain": "Şekil Değiştirme (ε)",
+    "unitN": "N",
+    "unitM2": "m²",
+    "unitM": "m",
+    "unitPa": "Pa",
+    "result": "Analiz Sonuçları"
+  },
+  "ShearMoment": {
+    "title": "Kesme ve Moment Diyagramları",
+    "subtitle": "Kiriş üzerindeki iç kuvvetlerin ve momentlerin görselleştirilmesi.",
+    "load": "Noktasal Yük (P)",
+    "length": "Kiriş Uzunluğu (L)",
+    "position": "Yük Konumu (a)",
+    "unitN": "N",
+    "unitM": "m",
+    "unitNM": "Nm",
+    "reactions": "Mesnet Tepkileri",
+    "leftReaction": "Sol Tepki (R₁)",
+    "rightReaction": "Sağ Tepki (R₂)",
+    "shearDiagram": "Kesme Kuvveti Diyagramı (SFD)",
+    "momentDiagram": "Eğilme Momenti Diyagramı (BMD)",
+    "maxShear": "Maksimum Kesme",
+    "maxMoment": "Maksimum Moment"
+  },
+  "SoilMechanics": {
+    "title": "Zemin Mekaniği Analizi",
+    "subtitle": "Mohr-Coulomb yenilme kriteri ile zemin kayma mukavemeti hesabı.",
+    "cohesion": "Kohezyon (c)",
+    "frictionAngle": "İçsel Sürtünme Açısı (φ)",
+    "normalStress": "Normal Gerilme (σ)",
+    "unitKpa": "kPa",
+    "unitDeg": "°",
+    "result": "Zemin Mukavemeti",
+    "shearStrength": "Kayma Mukavemeti (τ)",
+    "failureEnv": "Yenilme Zarfı",
+    "stable": "Stabil",
+    "failure": "Yenilme"
+  },
+  "CryptoPnl": {
+    "title": "Kripto Kar/Zarar Hesaplayıcı",
+    "subtitle": "Kripto para işlemleriniz için anlık P&L ve ROI analizi.",
+    "entryPrice": "Giriş Fiyatı",
+    "exitPrice": "Çıkış Fiyatı",
+    "quantity": "Miktar (Coin)",
+    "leverage": "Kaldıraç (x)",
+    "unitUsd": "USD",
+    "result": "İşlem Özeti",
+    "totalPnl": "Toplam Kar/Zarar",
+    "pnlPercent": "Kar/Zarar Yüzdesi",
+    "roi": "Yatırım Getirisi (ROI)",
+    "profit": "KAR",
+    "loss": "ZARAR",
+    "breakEven": "Başa Baş"
+  },
+  "CronParser": {
+    "title": "Cron İfadesi Çözümleyici",
+    "subtitle": "Cron zamanlamalarını insan tarafından okunabilir metne dönüştürün.",
+    "placeholder": "Örn: */15 * * * *",
+    "minute": "Dakika",
+    "hour": "Saat",
+    "dom": "Ayın Günü",
+    "month": "Ay",
+    "dow": "Haftanın Günü",
+    "result": "Zamanlama Özeti",
+    "nextRun": "Sonraki Çalışma Zamanları",
+    "invalid": "Geçersiz Cron İfadesi",
+    "every": "Her",
+    "at": "Saatinde",
+    "on": "Gününde",
+    "between": "Arasında"
+  },
+  "JsonFormatter": {
+    "title": "JSON Formatlayıcı",
+    "subtitle": "JSON verilerini güzelleştirin, küçültün ve doğrulayın.",
+    "placeholder": "JSON verisini buraya yapıştırın...",
+    "format": "Formatla (Güzelleştir)",
+    "minify": "Küçült (Minify)",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı!",
+    "clear": "Temizle",
+    "invalid": "Geçersiz JSON Verisi",
+    "valid": "JSON Geçerli",
+    "stats": "Veri İstatistikleri",
+    "size": "Boyut",
+    "lines": "Satır Sayısı"
+  },
+  "Common": {
+    "comingSoon": "Bu araç araştırma & geliştirme (Ar-Ge) aşamasındadır. Çok yakında eklenecek!"
+  },
+  "ToolReference": {
+    "title": "Bilgi ve Referans",
+    "howItWorks": "Nasıl Çalışır?",
+    "sources": "Kaynaklar ve Referanslar",
+    "ohm": {
+      "content": "Ohm Yasası, bir elektrik devresindeki voltaj (V), akım (I) ve direnç (R) arasındaki ilişkiyi tanımlar. Temel formül V = I × R şeklindedir.\n\n• **Voltaj (V):** İki nokta arasındaki elektriksel potansiyel farkıdır (Birim: Volt).\n• **Akım (I)::** Elektrik yükünün akış hızıdır (Birim: Amper).\n• **Direnç (R):** Akıma karşı gösterilen zorluktur (Birim: Ohm).\n\nBu hesaplayıcı ile herhangi iki değeri girerek üçüncüsünü otomatik olarak bulabilirsiniz.",
+      "links": [
+        { "label": "Wikipedia - Ohm Yasası", "url": "https://tr.wikipedia.org/wiki/Ohm_yasas%C4%B1" },
+        { "label": "All About Circuits - Ohm's Law", "url": "https://www.allaboutcircuits.com/textbook/direct-current/chpt-2/voltage-current-resistance-relate/" }
+      ]
+    },
+    "kirchhoff": {
+      "content": "Kirchhoff Yasaları, karmaşık devrelerin analizinde temel taşıdır:\n\n1. **Akım Yasası (KCL):** Bir düğüm noktasına giren akımların toplamı, çıkan akımların toplamına eşittir.\n2. **Gerilim Yasası (KVL):** Kapalı bir döngü boyunca tüm gerilim farklarının toplamı sıfırdır.\n\nBu araç, iki döngülü devreler için akım değerlerini bu iki yasayı temel alarak hesaplar.",
+      "links": [
+        { "label": "Electronics Tutorials - Kirchhoff's Circuit Law", "url": "https://www.electronics-tutorials.ws/dccircuits/dcc_6.html" },
+        { "label": "Wikipedia - Kirchhoff Devre Yasaları", "url": "https://tr.wikipedia.org/wiki/Kirchhoff_devre_yasalar%C4%B1" }
+      ]
+    },
+    "power": {
+      "content": "Elektriksel güç, enerjinin bir elektrik devresi tarafından ne kadar hızlı aktarıldığını ölçer. Doğru akım (DC) için P = V × I kullanılırken, alternatif akım (AC) için görünür, aktif ve reaktif güç kavramları devreye girer.\n\n• **Aktif Güç (P):** İşe dönüşen gerçek güç (Birim: Watt).\n• **Görünür Güç (S):** Sisteme beslenen toplam güç (Birim: VA).\n• **Güç Faktörü (cosφ):** Enerji verimliliğinin bir göstergesidir.",
+      "links": [
+        { "label": "Wikipedia - Elektriksel Güç", "url": "https://tr.wikipedia.org/wiki/Elektriksel_g%C3%BC%C3%A7" },
+        { "label": "Electrical4U - Power in AC Circuit", "url": "https://www.electrical4u.com/power-in-ac-circuit/" }
+      ]
+    },
+    "resistor": {
+      "content": "Direnç renk kodları, dirençlerin değerini ve toleransını hızlıca okumak için kullanılır. \n\n• **İlk Bantlar:** Basamak değerlerini temsil eder.\n• **Çarpan Bandı:** Değerin kaçla çarpılacağını belirtir.\n• **Tolerans Bandı:** Direnç değerindeki olası sapma payını gösterir (%5, %10 gibi).\n\nBu araç, seçtiğiniz renklerin sayısal karşılığını anında hesaplar.",
+      "links": [
+        { "label": "DigiKey - Direnç Renk Kodu Hesaplama", "url": "https://www.digikey.com.tr/tr/resources/conversion-calculators/calculator-resistor-color-code" },
+        { "label": "Wikipedia - Direnç Renk Kodları", "url": "https://tr.wikipedia.org/wiki/Diren%C3%A7_renk_kodlar%C4%B1" }
+      ]
+    },
+    "bode": {
+      "content": "Bode Grafiği, bir sistemin frekans tepkisini (genlik ve faz) görselleştirmek için kullanılır. Elektronik filtrelerin ve kontrol sistemlerinin performansını analiz etmekte vazgeçilmezdir.\n\n• **Genlik Grafiği:** Frekansa bağlı kazancı (dB) gösterir.\n• **Faz Grafiği:** Giriş ve çıkış sinyalleri arasındaki faz farkını (derece) gösterir.",
+      "links": [
+        { "label": "Wikipedia - Bode Diyagramı", "url": "https://tr.wikipedia.org/wiki/Bode_diyagram%C4%B1" },
+        { "label": "MIT OpenCourseWare - Bode Plots", "url": "https://ocw.mit.edu/" }
+      ]
+    },
+    "baseConverter": {
+      "content": "Sayı Sistemleri Dönüştürücü, sayıların farklı matematiksel tabanlar (ikili, onlu, on altılı vb.) arasında çevrilmesini sağlar. Bilgisayar mimarisinde verilerin fiziksel temsilini anlamak için temeldir.\n\n• **Binary (2):** Bilgisayarların temel dili olan 0 ve 1'lerden oluşur.\n• **Hexadecimal (16):** Bellek adresleri ve renk kodları için yaygın olarak kullanılır.\n• **Decimal (10):** Günlük hayatta kullandığımız onluk sistemdir.",
+      "links": [
+        { "label": "Wikipedia - Sayı Sistemleri", "url": "https://tr.wikipedia.org/wiki/Sayı_sistemleri" },
+        { "label": "GeeksforGeeks - Number Systems", "url": "https://www.geeksforgeeks.org/number-system-and-base-conversions/" }
+      ]
+    },
+    "cronParser": {
+      "content": "Cron İfadesi Çözümleyici, Unix tabanlı sistemlerde periyodik görevleri planlamak için kullanılan karmaşık ifadeleri (Örn: */15 * * * *) çözümler.\n\n• **Yıldız (*):** Her değer anlamına gelir.\n• **Soru İşareti (?):** Belirli bir değer olmadığını belirtir.\n• **Slash (/):** Artış değerlerini belirtir.",
+      "links": [
+        { "label": "Crontab.guru - Cron Zamanlama Düzenleyici", "url": "https://crontab.guru/" },
+        { "label": "Wikipedia - Cron", "url": "https://tr.wikipedia.org/wiki/Cron" }
+      ]
+    },
+    "jsonFormatter": {
+      "content": "JSON Formatlayıcı, veri değişim formatı olan JSON (JavaScript Object Notation) verilerini daha iyi okunabilmesi için yapılandırır veya ağ üzerinden hızlı iletim için sıkıştırır.\n\n• **Format (Güzelleştir):** Girintiler ekleyerek veriyi insan tarafından okunabilir kılar.\n• **Minify (Sıkıştır):** Tüm boşlukları kaldırarak dosya boyutunu küçültür.\n• **Doğrulama:** Sözdizimi hatalarını tespit eder.",
+      "links": [
+        { "label": "JSON.org - Resmi Web Sitesi", "url": "https://www.json.org/json-tr.html" },
+        { "label": "MDN - JSON ile Çalışmak", "url": "https://developer.mozilla.org/tr/docs/Learn/JavaScript/Objects/JSON" }
+      ]
+    },
+    "compoundInterest": {
+      "content": "Bileşik Faiz Hesaplayıcı, anapara üzerine eklenen faizin de sonraki dönemlerde faiz getirmesi prensibiyle çalışır. Uzun vadeli yatırımların gücünü anlamak için temel bir finansal araçtır.\n\n• **Anapara:** Başlangıçta yatırılan tutar.\n• **Bileşik Faiz Aralığı:** Faizin ne sıklıkla hesaplandığı (aylık, yıllık vb.).\n• **Zaman:** Yatırımın ne kadar süreyle sistemde kaldığı.",
+      "links": [
+        { "label": "Investopedia - Compound Interest", "url": "https://www.investopedia.com/terms/c/compoundinterest.asp" },
+        { "label": "Wikipedia - Bileşik Faiz", "url": "https://tr.wikipedia.org/wiki/Bileşik_faiz" }
+      ]
+    },
+    "cryptoPnl": {
+      "content": "Kripto Kar/Zarar Hesaplayıcı, kripto para işlemlerinizdeki potansiyel veya gerçekleşmiş kazanç/kayıpları analiz eder. Kaldıraçlı (leverage) işlemlerde risk yönetimini anlamak için kritiktir.\n\n• **ROI (Yatırım Getirisi):** Yatırımın maliyetine göre elde edilen verimlilik.\n• **PnL (Kar ve Zarar):** İşlem sonundaki net nakit değişimi.\n• **Kaldıraç (Leverage):** Küçük bir miktar sermaye ile daha büyük pozisyonlar açma imkanı.",
+      "links": [
+        { "label": "Binance Academy - ROI Nedir?", "url": "https://academy.binance.com/tr/articles/what-is-roi-and-how-to-calculate-it" },
+        { "label": "Investopedia - Profit and Loss (P&L)", "url": "https://www.investopedia.com/terms/p/plstatement.asp" }
+      ]
+    }
   }
 }

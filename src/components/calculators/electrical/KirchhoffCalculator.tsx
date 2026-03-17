@@ -3,15 +3,10 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { solveKirchhoff2Loop } from '@/lib/formulas/electrical';
+import { ReferenceCard } from '../../ui/ReferenceCard';
 
 export function KirchhoffCalculator() {
-  // Optional fallback technique if translations are incomplete
-  let t: any;
-  try {
-    t = useTranslations('Kirchhoff');
-  } catch {
-    t = (key: string) => key; // fallback if missing
-  }
+  const t = useTranslations('Kirchhoff');
 
   const [V1, setV1] = useState<number>(10);
   const [V2, setV2] = useState<number>(10);
@@ -419,6 +414,7 @@ export function KirchhoffCalculator() {
           )}
         </div>
       </div>
+      <ReferenceCard referenceKey="ToolReference.kirchhoff" />
     </div>
   );
 }

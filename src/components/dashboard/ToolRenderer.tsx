@@ -10,7 +10,7 @@ import {
   // Mechanical
   BeamDeflectionVisualizer,
   StressStrainCalculator,
-  ShearMomentVisualizer,
+  ShearMomentCalculator,
   // Civil
   ConcreteSectionCalculator,
   SoilMechanicsCalculator,
@@ -65,7 +65,7 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({ activeTool }) => {
     case 'stressStrain':
       return <StressStrainCalculator />;
     case 'shearMoment':
-      return <ShearMomentVisualizer />;
+      return <ShearMomentCalculator />;
 
     // Civil
     case 'concreteSection':

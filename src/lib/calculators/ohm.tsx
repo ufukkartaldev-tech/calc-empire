@@ -122,4 +122,5 @@ export const ohmConfig: CalculatorConfig = {
     },
   ],
   solverKey: 'ohm',
+  referenceKey: 'ToolReference.ohm',
 };

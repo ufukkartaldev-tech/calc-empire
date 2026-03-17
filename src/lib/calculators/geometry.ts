@@ -4,9 +4,10 @@
  */
 
 import type { SolveFn, FieldValues, SolveResult } from '@/types';
+import { PI } from '@/constants/physics';
 
 export const solve: SolveFn = (values: FieldValues): SolveResult => {
-  const shape = values.shape?.value as any;
+  const shape = values.shape?.value as unknown as string;
 
   if (!shape) {
     throw new Error('Shape type is required');
@@ -20,8 +21,8 @@ export const solve: SolveFn = (values: FieldValues): SolveResult => {
       if (radius === null || radius <= 0) {
         throw new Error('Valid radius is required');
       }
-      output.area = Math.PI * radius * radius;
-      output.circumference = 2 * Math.PI * radius;
+      output.area = PI * radius * radius;
+      output.circumference = 2 * PI * radius;
       break;
     }
     case 'rectangle': {

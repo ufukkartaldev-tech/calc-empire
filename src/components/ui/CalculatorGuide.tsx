@@ -66,6 +66,7 @@ export function CalculatorGuide({ content }: CalculatorGuideProps) {
                 />
               ),
               li: ({ node, ...props }) => <li className="pl-2" {...props} />,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               code: ({ node, inline, className, children, ...props }: any) => {
                 const match = /language-(\w+)/.exec(className || '');
                 return inline ? (
@@ -89,6 +90,7 @@ export function CalculatorGuide({ content }: CalculatorGuideProps) {
                   </pre>
                 );
               },
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               pre: ({ node, ...props }: any) => <div {...props} />,
               blockquote: ({ node, ...props }) => (
                 <blockquote

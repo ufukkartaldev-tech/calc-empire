@@ -80,5 +80,36 @@
     "peak": "정점 (최대)",
     "range": "범위",
     "empirical": "경험 법칙 (68-95-99.7)"
+  },
+  "Kirchhoff": {
+    "title": "키르히호프 법칙",
+    "description": "KVL 및 KCL을 사용하여 2루프 회로를 풀어보세요.",
+    "visualizerTitle": "회로 개략도",
+    "v1Label": "전압원 V₁",
+    "v2Label": "전압원 V₂",
+    "r1Label": "저항 R₁",
+    "r2Label": "저항 R₂",
+    "r3Label": "공유 저항 R₃",
+    "calculatedTitle": "계산된 전류",
+    "mesh1": "루프 1 전류 (I₁)",
+    "mesh2": "루프 2 전류 (I₂)",
+    "middle": "분기 전류 (I₃)",
+    "errorInvalid": "풀 수 없음 — 값을 확인하세요.",
+    "errorZero": "저항값은 0보다 커야 합니다."
+  },
+  "PowerCalculator": {
+    "title": "AC 전력 계산기",
+    "description": "전압, 전류, 위상각으로 피상, 유효, 무효 전력을 계산합니다.",
+    "voltage": "전압 (V)",
+    "current": "전류 (A)",
+    "phaseAngle": "위상각 (φ)",
+    "results": "계산 결과",
+    "apparentPower": "피상 전력",
+    "activePower": "유효 전력",
+    "reactivePower": "무효 전력",
+    "powerFactor": "역률수",
+    "lagging": "지연",
+    "leading": "선행",
+    "visualizer": "전력 삼각형"
   }
 }

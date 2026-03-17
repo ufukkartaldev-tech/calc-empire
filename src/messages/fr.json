@@ -80,5 +80,36 @@
     "peak": "Pic (Max)",
     "range": "Étendue",
     "empirical": "Règle empirique (68-95-99.7)"
+  },
+  "Kirchhoff": {
+    "title": "Lois de Kirchhoff",
+    "description": "Résoudre un circuit à 2 mailles avec la loi des tensions (KVL) et la loi des courants (KCL).",
+    "visualizerTitle": "Schéma du circuit",
+    "v1Label": "Source de tension V₁",
+    "v2Label": "Source de tension V₂",
+    "r1Label": "Résistance R₁",
+    "r2Label": "Résistance R₂",
+    "r3Label": "Résistance commune R₃",
+    "calculatedTitle": "Courants calculés",
+    "mesh1": "Courant boucle 1 (I₁)",
+    "mesh2": "Courant boucle 2 (I₂)",
+    "middle": "Courant de branche (I₃)",
+    "errorInvalid": "Impossible de résoudre — vérifiez les valeurs.",
+    "errorZero": "Les valeurs de résistance doivent être supérieures à zéro."
+  },
+  "PowerCalculator": {
+    "title": "Calculateur de puissance AC",
+    "description": "Calculez la puissance apparente, active et réactive à partir de la tension, du courant et de l'angle de phase.",
+    "voltage": "Tension (V)",
+    "current": "Courant (A)",
+    "phaseAngle": "Angle de phase (φ)",
+    "results": "Résultats calculés",
+    "apparentPower": "Puissance apparente",
+    "activePower": "Puissance active",
+    "reactivePower": "Puissance réactive",
+    "powerFactor": "Facteur de puissance",
+    "lagging": "En retard",
+    "leading": "En avance",
+    "visualizer": "Triangle de puissance"
   }
 }

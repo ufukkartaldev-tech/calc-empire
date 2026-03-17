@@ -14,10 +14,13 @@ import { Footer } from '../ui/Footer';
 import { DisclaimerView } from './DisclaimerView';
 import { ToolGrid } from './ToolGrid';
 import { EmptyState } from './EmptyState';
+import { useRouter } from '@/i18n/routing';
+import type { ToolId } from '@/types';
 
-export function EngineeringDashboard() {
+export function EngineeringDashboard({ initialToolId = null }: { initialToolId?: ToolId }) {
   const tCat = useTranslations('Categories');
   const tDash = useTranslations('Dashboard');
+  const router = useRouter();
 
   const {
     activeTool,
@@ -31,19 +34,22 @@ export function EngineeringDashboard() {
     scrollToCategory,
     handleToolSelect,
     acknowledgeTool,
-  } = useDashboard();
+  } = useDashboard(initialToolId);
 
   const renderToolView = () => {
     if (!activeTool) return null;
 
-    const isCritical = CRITICAL_TOOLS.includes(activeTool);
+    const isCritical = CRITICAL_TOOLS.includes(activeTool as any);
     const hasAcknowledged = acknowledgedTools.has(activeTool);
 
     if (isCritical && !hasAcknowledged) {
       return (
         <DisclaimerView
           activeTool={activeTool}
-          onBack={() => setActiveTool(null)}
+          onBack={() => {
+            setActiveTool(null);
+            router.push('/');
+          }}
           onAcknowledge={() => acknowledgeTool(activeTool)}
         />
       );
@@ -52,7 +58,10 @@ export function EngineeringDashboard() {
     return (
       <div className="w-full max-w-4xl mx-auto py-8 px-6 animate-in fade-in zoom-in-95 duration-300">
         <button
-          onClick={() => setActiveTool(null)}
+          onClick={() => {
+            setActiveTool(null);
+            router.push('/');
+          }}
           className="mb-8 px-4 py-2 flex items-center gap-2 text-sm font-medium text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-all shadow-sm"
         >
           ← {tDash('backButton')}
@@ -91,7 +100,7 @@ export function EngineeringDashboard() {
               {filteredTools.length === 0 ? (
                 <EmptyState />
               ) : (
-                <ToolGrid toolsByCategory={toolsByCategory} onToolSelect={handleToolSelect} />
+                <ToolGrid toolsByCategory={toolsByCategory} />
               )}
             </div>
           )}

@@ -8,7 +8,7 @@ export * from './electrical/BodePlotVisualizer';
 // Mechanical
 export * from './mechanical/BeamDeflectionVisualizer';
 export * from './mechanical/StressStrainCalculator';
-export * from './mechanical/ShearMomentVisualizer';
+export * from './mechanical/ShearMomentCalculator';
 
 // Fluid
 export * from './fluid/BernoulliCalculator';

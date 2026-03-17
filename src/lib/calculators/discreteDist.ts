@@ -6,7 +6,7 @@
 import type { SolveFn, FieldValues, SolveResult } from '@/types';
 
 export const solve: SolveFn = (values: FieldValues): SolveResult => {
-  const distribution = values.distribution?.value as any;
+  const distribution = values.distribution?.value as unknown as string;
   const n = values.n?.value;
   const p = values.p?.value;
 

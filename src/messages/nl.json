@@ -79,6 +79,40 @@
     "stats": "Distribution Statistics",
     "peak": "Peak (Max)",
     "range": "Range",
-    "empirical": "Empirical Rule (68-95-99.7)"
+    "empirical": "Empirische Regel (68-95-99.7)"
+  },
+  "Kirchhoff": {
+    "title": "Wetten van Kirchhoff",
+    "description": "Los een 2-lus circuit op met de Spanningswet (KVL) en de Stroomwet (KCL) van Kirchhoff.",
+    "visualizerTitle": "Circuitschema",
+    "v1Label": "Spanningsbron V₁",
+    "v2Label": "Spanningsbron V₂",
+    "r1Label": "Weerstand R₁",
+    "r2Label": "Weerstand R₂",
+    "r3Label": "Gedeelde Weerstand R₃",
+    "calculatedTitle": "Berekende Stromen",
+    "mesh1": "Lus 1 Stroom (I₁)",
+    "mesh2": "Lus 2 Stroom (I₂)",
+    "middle": "Takstroom (I₃)",
+    "errorInvalid": "Kon niet oplossen — controleer de waarden.",
+    "errorZero": "Weerstandswaarden moeten groter zijn dan nul."
+  },
+  "PowerCalculator": {
+    "title": "AC Vermogenscalculator",
+    "description": "Bereken schijnbaar, actief en reactief vermogen van spanning, stroom en fasehoek.",
+    "voltage": "Spanning (V)",
+    "current": "Stroom (A)",
+    "phaseAngle": "Fasehoek (φ)",
+    "results": "Berekende Resultaten",
+    "apparentPower": "Schijnbaar Vermogen",
+    "activePower": "Actief Vermogen",
+    "reactivePower": "Reactief Vermogen",
+    "powerFactor": "Vermogensfactor",
+    "lagging": "Naijlend",
+    "leading": "Voorijlend",
+    "visualizer": "Vermogensdriehoek"
+  },
+  "Common": {
+    "comingSoon": "Deze tool bevindt zich in de onderzoeks- en ontwikkelingsfase (R&D). Het wordt zeer binnenkort toegevoegd!"
   }
 }

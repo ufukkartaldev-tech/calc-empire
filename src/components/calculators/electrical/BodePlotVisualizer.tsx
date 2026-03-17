@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { calculateBodePlot } from '@/lib/formulas/electrical';
+import { ReferenceCard } from '../../ui/ReferenceCard';
 
 interface BodePlotVisualizerProps {
   className?: string;
@@ -11,12 +12,7 @@ interface BodePlotVisualizerProps {
 export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) {
   // Next-intl
   // Use an optional fallback technique if translations are incomplete
-  let t: any;
-  try {
-    t = useTranslations('BodePlot');
-  } catch {
-    t = (key: string) => key; // fallback if missing
-  }
+  const t = useTranslations('BodePlot');
 
   const [filterType, setFilterType] = useState<'low-pass' | 'high-pass'>('low-pass');
   const [systemType, setSystemType] = useState<'rc' | 'rl'>('rc');
@@ -338,6 +334,7 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
           </div>
         </div>
       )}
+      <ReferenceCard referenceKey="ToolReference.bode" />
     </div>
   );
 }

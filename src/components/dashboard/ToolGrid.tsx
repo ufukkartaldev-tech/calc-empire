@@ -10,12 +10,13 @@ import { useTranslations } from 'next-intl';
 import type { SearchableTool, ToolId } from '@/types';
 import { CATEGORY_ORDER, CATEGORY_ICONS } from '@/constants';
 
+import { Link } from '@/i18n/routing';
+
 interface ToolGridProps {
   toolsByCategory: Partial<Record<string, SearchableTool[]>>;
-  onToolSelect: (id: ToolId) => void;
 }
 
-export function ToolGrid({ toolsByCategory, onToolSelect }: ToolGridProps) {
+export function ToolGrid({ toolsByCategory }: ToolGridProps) {
   const tCat = useTranslations('Categories');
   const tDash = useTranslations('Dashboard');
 
@@ -39,9 +40,9 @@ export function ToolGrid({ toolsByCategory, onToolSelect }: ToolGridProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {catTools.map((tool) => (
-                <button
+                <Link
                   key={tool.id}
-                  onClick={() => onToolSelect(tool.id)}
+                  href={`/calculators/${tool.id}`}
                   className="group w-full flex flex-col items-start p-6 rounded-3xl bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all border border-slate-200 dark:border-slate-800 hover:border-blue-500/50 dark:hover:border-blue-500/50 text-left relative overflow-hidden"
                 >
                   <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
@@ -61,7 +62,7 @@ export function ToolGrid({ toolsByCategory, onToolSelect }: ToolGridProps) {
                   <div className="mt-6 flex items-center text-xs font-bold text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity translate-x-1 group-hover:translate-x-0">
                     {tDash('openTool' as any) || 'ARACI AÇ'} <span className="ml-1">→</span>
                   </div>
-                </button>
+                </Link>
               ))}
             </div>
           </div>

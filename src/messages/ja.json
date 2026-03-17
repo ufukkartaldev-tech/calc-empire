@@ -80,5 +80,36 @@
     "peak": "ピーク (最大値)",
     "range": "範囲",
     "empirical": "経験則 (68-95-99.7)"
+  },
+  "Kirchhoff": {
+    "title": "キルヒホッフの法則",
+    "description": "キルヒホッフの電圧則 (KVL) と電流則 (KCL) を使用して、2ループ回路を解く。",
+    "visualizerTitle": "回路図",
+    "v1Label": "電圧源 V₁",
+    "v2Label": "電圧源 V₂",
+    "r1Label": "抗抗器 R₁",
+    "r2Label": "抗抗器 R₂",
+    "r3Label": "共有抗抗器 R₃",
+    "calculatedTitle": "計算された電流",
+    "mesh1": "ループ1電流 (I₁)",
+    "mesh2": "ループ2電流 (I₂)",
+    "middle": "枝電流 (I₃)",
+    "errorInvalid": "解けませんでした — 値を確認してください。",
+    "errorZero": "抗抗器の値はゼロより大きくなければなりません。"
+  },
+  "PowerCalculator": {
+    "title": "交流電力計算機",
+    "description": "電圧、電流、位相角から皮相電力、有効電力、無効電力を計算する。",
+    "voltage": "電圧 (V)",
+    "current": "電流 (A)",
+    "phaseAngle": "位相角 (φ)",
+    "results": "計算結果",
+    "apparentPower": "皮相電力",
+    "activePower": "有効電力",
+    "reactivePower": "無効電力",
+    "powerFactor": "力率因数",
+    "lagging": "遅れ",
+    "leading": "進み",
+    "visualizer": "電力三角形"
   }
 }

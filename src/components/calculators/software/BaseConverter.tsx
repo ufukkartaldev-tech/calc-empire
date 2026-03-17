@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { ReferenceCard } from '../../ui/ReferenceCard';
 
 type Base = 2 | 8 | 10 | 16;
 type Operator = 'AND' | 'OR' | 'XOR' | 'NOT' | 'LSHIFT' | 'RSHIFT';
@@ -359,6 +360,7 @@ export function BaseConverter() {
           </div>
         </div>
       </div>
+      <ReferenceCard referenceKey="ToolReference.baseConverter" />
     </div>
   );
 }

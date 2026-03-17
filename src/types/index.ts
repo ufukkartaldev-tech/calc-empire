@@ -13,7 +13,7 @@ export interface FieldValue {
 }
 
 export type FieldValues = Record<string, FieldValue>;
-export type SolveResult = Record<string, any>;
+export type SolveResult = Record<string, unknown>;
 export type SolveFn = (values: FieldValues) => SolveResult;
 
 export interface UnitOption {
@@ -34,13 +34,19 @@ export interface FieldConfig {
   };
 }
 
+export interface CalculatorVisualProps {
+  fields: Record<string, { raw: string; unit: string }>;
+  result: Record<string, unknown> | null;
+}
+
 export interface CalculatorConfig {
   id: string;
   titleKey: string;
   descriptionKey: string;
-  visual?: React.ReactNode;
+  visual?: React.ReactNode | React.ComponentType<CalculatorVisualProps>;
   fields: FieldConfig[];
   solverKey: string;
+  referenceKey?: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

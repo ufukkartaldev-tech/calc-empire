@@ -4,6 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { resistorColorCode } from '@/lib/formulas/electrical';
 import { ColorPicker } from '../../ui/ColorPicker';
+import { ReferenceCard } from '../../ui/ReferenceCard';
 
 interface ResistorVisualizerProps {
   className?: string;
@@ -181,6 +182,7 @@ export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) 
           {t('invalid')}
         </div>
       )}
+      <ReferenceCard referenceKey="ToolReference.resistor" />
     </div>
   );
 }

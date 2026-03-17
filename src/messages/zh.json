@@ -80,5 +80,36 @@
     "peak": "峰值 (最大)",
     "range": "范围",
     "empirical": "经验法则 (68-95-99.7)"
+  },
+  "Kirchhoff": {
+    "title": "基尔霍夫定律",
+    "description": "使用基尔霍夫电压定律 (KVL) 和电流定律 (KCL) 求解2回路电路。",
+    "visualizerTitle": "电路图",
+    "v1Label": "电压源 V₁",
+    "v2Label": "电压源 V₂",
+    "r1Label": "电阔 R₁",
+    "r2Label": "电阔 R₂",
+    "r3Label": "公共电阔 R₃",
+    "calculatedTitle": "计算电流",
+    "mesh1": "回路1电流 (I₁)",
+    "mesh2": "回路2电流 (I₂)",
+    "middle": "支路电流 (I₃)",
+    "errorInvalid": "无法求解 — 请检查数值。",
+    "errorZero": "电阔局必须大于零。"
+  },
+  "PowerCalculator": {
+    "title": "AC功率计算器",
+    "description": "根据电压、电流和相角计算视干功率、有功功率和无功功率。",
+    "voltage": "电压 (V)",
+    "current": "电流 (A)",
+    "phaseAngle": "相角 (φ)",
+    "results": "计算结果",
+    "apparentPower": "视干功率",
+    "activePower": "有功功率",
+    "reactivePower": "无功功率",
+    "powerFactor": "功率因数",
+    "lagging": "滞后",
+    "leading": "超前",
+    "visualizer": "功率三角形"
   }
 }

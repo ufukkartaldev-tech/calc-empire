@@ -4,8 +4,7 @@
  */
 
 import type { SolveFn, FieldValues, SolveResult } from '@/types';
-
-const R = 8.314; // Universal gas constant (J/(mol·K))
+import { GAS_CONSTANT as R } from '@/constants/physics';
 
 export const solve: SolveFn = (values: FieldValues): SolveResult => {
   const P = values.P?.value;
