@@ -25,6 +25,7 @@ import { useTranslations } from 'next-intl';
 import Big from 'big.js';
 import type { CalculatorConfig, FieldValue, FieldValues } from '@/types';
 import { SOLVER_REGISTRY } from '@/lib/calculators/registry';
+import { ReferenceCard } from './ui/ReferenceCard';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Internal State
@@ -36,7 +37,7 @@ interface FieldState {
 }
 
 type FormState = Record<string, FieldState>;
-type ResultState = Record<string, any> | null;
+type ResultState = Record<string, unknown> | null;
 
 interface State {
   fields: FormState;
@@ -48,10 +49,20 @@ type Action =
   | { type: 'SET_VALUE'; key: string; raw: string }
   | { type: 'SET_UNIT'; key: string; unit: string }
   | { type: 'SET_RESULT'; result: ResultState; error: string | null }
+  | { type: 'HYDRATE'; payload: State }
   | { type: 'RESET'; fields: FormState };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
+    case 'HYDRATE':
+      return {
+        ...state,
+        ...action.payload,
+        fields: {
+          ...state.fields,
+          ...action.payload.fields,
+        },
+      };
     case 'SET_VALUE':
       return {
         ...state,
@@ -89,6 +100,8 @@ function buildInitialState(config: CalculatorConfig): State {
   return { fields, result: null, error: null };
 }
 
+const STORAGE_PREFIX = 'calc-state-';
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Component
 // ─────────────────────────────────────────────────────────────────────────────
@@ -102,6 +115,29 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
   const uid = useId();
 
   const [state, dispatch] = useReducer(reducer, config, buildInitialState);
+  const [isHydrated, setIsHydrated] = React.useState(false);
+
+  // Load state from localStorage on mount
+  React.useEffect(() => {
+    try {
+      const saved = localStorage.getItem(`${STORAGE_PREFIX}${config.solverKey}`);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        dispatch({ type: 'HYDRATE', payload: parsed });
+      }
+    } catch (err) {
+      console.error('Failed to load calculator state', err);
+    } finally {
+      setIsHydrated(true);
+    }
+  }, [config.solverKey]);
+
+  // Save state to localStorage on changes
+  React.useEffect(() => {
+    if (isHydrated) {
+      localStorage.setItem(`${STORAGE_PREFIX}${config.solverKey}`, JSON.stringify(state));
+    }
+  }, [state, config.solverKey, isHydrated]);
 
   const handleSolve = useCallback(() => {
     const values: FieldValues = {};
@@ -160,9 +196,11 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
         <div className="lg:w-1/3 bg-slate-50 dark:bg-slate-950 p-8 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center gap-8">
           <div className="text-center">
             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-2">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {t(config.titleKey as any)}
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed italic">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {t(config.descriptionKey as any)}
             </p>
           </div>
@@ -189,6 +227,7 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
                 <div key={field.key} className="space-y-2 group">
                   <div className="flex justify-between items-center px-1">
                     <label className="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                       {t(field.labelKey as any)}
                     </label>
                     {isResult && (
@@ -213,7 +252,8 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
                         isResult
                           ? ''
                           : field.placeholderKey
-                            ? t(field.placeholderKey as any)
+                            ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                              t(field.placeholderKey as any)
                             : t('CalculatorTemplate.leaveBlankHint')
                       }
                       className={`eng-input pr-24 ${isResult ? 'border-blue-500/50 bg-blue-50/30 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-black' : ''}`}
@@ -262,23 +302,35 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
           </div>
         </div>
       </div>
+
+      {config.referenceKey && (
+        <div className="px-8 md:px-12 pb-8 md:pb-12">
+          <ReferenceCard referenceKey={config.referenceKey} />
+        </div>
+      )}
     </div>
   );
 }
 
 /** Precision formatting using Big.js */
-function formatResult(value: any): string {
+function formatResult(value: unknown): string {
+  if (value === null || value === undefined) return '';
   if (typeof value === 'string') return value;
-  if (value === 0) return '0';
-  try {
-    const b = new Big(value);
-    // If it's very small or very large, use scientific notation
-    if (Math.abs(value) < 0.0001 || Math.abs(value) > 1000000) {
-      return b.toExponential(4);
+
+  if (typeof value === 'number') {
+    if (value === 0) return '0';
+    try {
+      const b = new Big(value);
+      // If it's very small or very large, use scientific notation
+      if (Math.abs(value) < 0.0001 || Math.abs(value) > 1000000) {
+        return b.toExponential(4);
+      }
+      // Otherwise, round to 6 decimal places and remove trailing zeros
+      return parseFloat(b.toFixed(6)).toString();
+    } catch {
+      return value.toString();
     }
-    // Otherwise, round to 6 decimal places and remove trailing zeros
-    return parseFloat(b.toFixed(6)).toString();
-  } catch {
-    return value.toString();
   }
+
+  return String(value);
 }
