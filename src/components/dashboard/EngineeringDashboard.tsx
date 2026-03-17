@@ -86,14 +86,14 @@ export function EngineeringDashboard({ initialToolId = null }: { initialToolId?:
             renderToolView()
           ) : (
             <div className="p-6 md:p-10 max-w-6xl mx-auto">
-              <div className="mb-12">
-                <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-white mb-4 uppercase">
+              <div className="mb-16">
+                <h1 className="text-2xl md:text-3xl font-bold tracking-tighter text-white mb-3 uppercase">
                   {activeCategory ? tCat(activeCategory as any) : tDash('title')}
                 </h1>
-                <p className="text-sm text-slate-400 max-w-2xl leading-relaxed">
+                <p className="text-xs md:text-sm text-slate-500 max-w-xl leading-relaxed font-medium">
                   {tDash('subtitle')}
                 </p>
-                <div className="h-[1px] w-full bg-slate-800 mt-8"></div>
+                <div className="h-[1px] w-full bg-slate-800/40 mt-10"></div>
               </div>
 
               {filteredTools.length === 0 ? (

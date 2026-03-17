@@ -106,6 +106,7 @@ export interface ToolConfig {
     shareableUrl?: boolean;
     pdfExport?: boolean;
   };
+  isPopular?: boolean;
 }
 
 export interface SearchableTool extends ToolConfig {

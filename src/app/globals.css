@@ -19,6 +19,7 @@
   --ce-text: #f1f5f9;
   --ce-text-muted: #94a3b8;
   --ce-accent: #2563eb;
+  --ce-shadow-glow: 0 0 25px rgba(37, 99, 235, 0.1);
 }
 
 body {
@@ -27,14 +28,14 @@ body {
   @apply antialiased min-h-screen selection:bg-blue-500/30 overflow-x-hidden;
 }
 
-/* Bento Style Card */
+/* Bento Style Card - Modern Linear Aesthetic */
 .bento-card {
-  @apply bg-slate-900 border border-slate-800 rounded-xl transition-all duration-200 hover:border-blue-600 hover:bg-slate-800/50 shadow-sm;
+  @apply bg-slate-900/80 border border-slate-800 border-t-white/5 rounded-xl transition-all duration-300 hover:border-blue-500/50 hover:bg-slate-900/100 hover:shadow-[var(--ce-shadow-glow)] shadow-sm backdrop-blur-sm;
 }
 
 /* Engineering Input styling - Compact & Technical */
 .eng-input {
-  @apply w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 font-mono text-base focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 transition-all placeholder:text-slate-600 text-slate-200;
+  @apply w-full bg-slate-950/50 border border-slate-700 rounded-lg px-4 py-2 font-mono text-base focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 transition-all placeholder:text-slate-600 text-slate-200;
 }
 
 .eng-select {

@@ -14,6 +14,7 @@ export const TOOLS_CONFIG: ToolConfig[] = [
     catKey: 'electrical',
     icon: 'Ω',
     features: { shareableUrl: true, pdfExport: true },
+    isPopular: true,
   },
   {
     id: 'kirchhoff',
@@ -47,6 +48,7 @@ export const TOOLS_CONFIG: ToolConfig[] = [
     descKey: 'baseConverterDesc',
     catKey: 'software',
     icon: '🔟',
+    isPopular: true,
   },
   {
     id: 'cronParser',

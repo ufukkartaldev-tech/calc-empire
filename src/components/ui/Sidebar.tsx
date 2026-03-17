@@ -55,10 +55,15 @@ export function Sidebar({
           </p>
           <button
             onClick={() => onCategorySelect(null)}
-            className={`w-full flex items-center gap-3 px-6 py-2.5 text-xs font-semibold transition-all ${
-              activeCategory === null ? 'nav-active' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+            className={`w-full flex items-center gap-3 px-6 py-2.5 text-xs font-semibold transition-all relative ${
+              activeCategory === null 
+                ? 'bg-blue-500/10 text-blue-400' 
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
             }`}
           >
+            {activeCategory === null && (
+              <span className="absolute left-0 top-0 bottom-0 w-[2px] bg-blue-500" />
+            )}
             <Home size={18} strokeWidth={1.5} />
             <span>{tDash('allTools' as any) || 'Tüm Araçlar'}</span>
           </button>
@@ -67,10 +72,15 @@ export function Sidebar({
             <button
               key={catKey}
               onClick={() => onCategorySelect(catKey)}
-              className={`w-full flex items-center gap-3 px-6 py-2.5 text-xs font-semibold transition-all ${
-                activeCategory === catKey ? 'nav-active' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50'
+              className={`w-full flex items-center gap-3 px-6 py-2.5 text-xs font-semibold transition-all relative ${
+                activeCategory === catKey 
+                  ? 'bg-blue-500/10 text-blue-400' 
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
               }`}
             >
+              {activeCategory === catKey && (
+                <span className="absolute left-0 top-0 bottom-0 w-[2px] bg-blue-500" />
+              )}
               {ICON_MAP[catKey]}
               <span>{tCat(catKey as any)}</span>
             </button>
