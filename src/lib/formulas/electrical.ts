@@ -8,7 +8,7 @@ interface OhmPowerParams {
 }
 
 export function ohmPower(params: OhmPowerParams): OhmPowerParams {
-  let { voltage: vIn, current: iIn, resistance: rIn, power: pIn } = params;
+  const { voltage: vIn, current: iIn, resistance: rIn, power: pIn } = params;
 
   const v = vIn !== undefined ? new Big(vIn) : undefined;
   const i = iIn !== undefined ? new Big(iIn) : undefined;
@@ -116,30 +116,30 @@ export function resistorColorCode(bands: string[]) {
     }
   }
 
-  let resistance = 0;
+  let resistance = new Big(0);
   let tolerance = 20; // Default 20%
   let tempCoeff: number | undefined;
 
   if (bands.length === 4) {
     const value = COLOR_VALUES[bands[0]] * 10 + COLOR_VALUES[bands[1]];
-    resistance = value * Math.pow(10, MULTIPLIERS[bands[2]] || 0);
+    resistance = new Big(value).times(new Big(10).pow(MULTIPLIERS[bands[2]] || 0));
     tolerance = TOLERANCES[bands[3]] || 20;
   } else if (bands.length === 5) {
     const value =
       COLOR_VALUES[bands[0]] * 100 + COLOR_VALUES[bands[1]] * 10 + COLOR_VALUES[bands[2]];
-    resistance = value * Math.pow(10, MULTIPLIERS[bands[3]] || 0);
+    resistance = new Big(value).times(new Big(10).pow(MULTIPLIERS[bands[3]] || 0));
     tolerance = TOLERANCES[bands[4]] || 20;
   } else if (bands.length === 6) {
     const value =
       COLOR_VALUES[bands[0]] * 100 + COLOR_VALUES[bands[1]] * 10 + COLOR_VALUES[bands[2]];
-    resistance = value * Math.pow(10, MULTIPLIERS[bands[3]] || 0);
+    resistance = new Big(value).times(new Big(10).pow(MULTIPLIERS[bands[3]] || 0));
     tolerance = TOLERANCES[bands[4]] || 20;
     tempCoeff = TEMP_COEFFS[bands[5]];
   } else {
     throw new Error('Invalid band count. Only 4, 5, or 6 bands are supported.');
   }
 
-  return { resistance, tolerance, tempCoeff };
+  return { resistance: resistance.toNumber(), tolerance, tempCoeff };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -148,28 +148,40 @@ export function resistorColorCode(bands: string[]) {
 
 export function seriesResistance(resistors: number[]): number {
   if (resistors.length === 0) throw new Error('Empty array');
-  for (const r of resistors) if (r <= 0) throw new Error('Values must be > 0');
-  return resistors.reduce((a, b) => a + b, 0);
+  return resistors
+    .reduce((acc, r) => {
+      if (r <= 0) throw new Error('Values must be > 0');
+      return acc.plus(r);
+    }, new Big(0))
+    .toNumber();
 }
 
 export function parallelResistance(resistors: number[]): number {
   if (resistors.length === 0) throw new Error('Empty array');
-  for (const r of resistors) if (r <= 0) throw new Error('Values must be > 0');
-  const sum = resistors.reduce((a, b) => a + 1 / b, 0);
-  return 1 / sum;
+  const sum = resistors.reduce((acc, r) => {
+    if (r <= 0) throw new Error('Values must be > 0');
+    return acc.plus(new Big(1).div(r));
+  }, new Big(0));
+  return new Big(1).div(sum).toNumber();
 }
 
 export function seriesCapacitance(capacitors: number[]): number {
   if (capacitors.length === 0) throw new Error('Empty array');
-  for (const c of capacitors) if (c <= 0) throw new Error('Values must be > 0');
-  const sum = capacitors.reduce((a, b) => a + 1 / b, 0);
-  return 1 / sum;
+  const sum = capacitors.reduce((acc, c) => {
+    if (c <= 0) throw new Error('Values must be > 0');
+    return acc.plus(new Big(1).div(c));
+  }, new Big(0));
+  return new Big(1).div(sum).toNumber();
 }
 
 export function parallelCapacitance(capacitors: number[]): number {
   if (capacitors.length === 0) throw new Error('Empty array');
-  for (const c of capacitors) if (c <= 0) throw new Error('Values must be > 0');
-  return capacitors.reduce((a, b) => a + b, 0);
+  return capacitors
+    .reduce((acc, c) => {
+      if (c <= 0) throw new Error('Values must be > 0');
+      return acc.plus(c);
+    }, new Big(0))
+    .toNumber();
 }
 
 export function seriesInductance(inductors: number[]): number {
@@ -186,7 +198,7 @@ export function parallelInductance(inductors: number[]): number {
 
 export function timeConstantRC(R: number, C: number): number {
   if (R <= 0 || C <= 0) throw new Error('Resistance and capacitance must be positive');
-  return R * C;
+  return new Big(R).times(C).toNumber();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -200,13 +212,21 @@ interface AcPowerParams {
 }
 
 export function acPower({ voltage, current, phiDeg }: AcPowerParams) {
-  const apparentPower = voltage * current;
+  const v = new Big(voltage);
+  const i = new Big(current);
+  const apparentPower = v.times(i);
+
   const phiRad = (phiDeg * Math.PI) / 180;
   const powerFactor = Math.cos(phiRad);
-  const activePower = apparentPower * powerFactor;
-  const reactivePower = apparentPower * Math.sin(phiRad);
+  const activePower = apparentPower.times(powerFactor);
+  const reactivePower = apparentPower.times(Math.sin(phiRad));
 
-  return { apparentPower, activePower, reactivePower, powerFactor };
+  return {
+    apparentPower: apparentPower.toNumber(),
+    activePower: activePower.toNumber(),
+    reactivePower: reactivePower.toNumber(),
+    powerFactor,
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -215,7 +235,9 @@ export function acPower({ voltage, current, phiDeg }: AcPowerParams) {
 
 export function voltageDivider({ Vin, R1, R2 }: { Vin: number; R1: number; R2: number }): number {
   if (R1 <= 0 || R2 <= 0) throw new Error('Resistances must be positive');
-  return Vin * (R2 / (R1 + R2));
+  const r1 = new Big(R1);
+  const r2 = new Big(R2);
+  return new Big(Vin).times(r2.div(r1.plus(r2))).toNumber();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -233,7 +255,7 @@ export function ledResistor({
 }): number {
   if (Vsupply <= Vled) throw new Error('Supply voltage must be > LED voltage');
   if (IledA <= 0) throw new Error('LED current must be > 0');
-  return (Vsupply - Vled) / IledA;
+  return new Big(Vsupply).minus(Vled).div(IledA).toNumber();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -251,17 +273,18 @@ interface BodePlotParams {
 export function calculateBodePlot({ type, R, C, L, points = 100 }: BodePlotParams) {
   if (R <= 0) throw new Error('Resistance must be positive');
 
-  let fc = 0;
+  let fcValue: Big;
   if (C !== undefined && C > 0) {
-    fc = 1 / (2 * Math.PI * R * C);
+    fcValue = new Big(1).div(new Big(2).times(Math.PI).times(R).times(C));
   } else if (L !== undefined && L > 0) {
-    fc = R / (2 * Math.PI * L);
+    fcValue = new Big(R).div(new Big(2).times(Math.PI).times(L));
   } else {
     if (C !== undefined && C <= 0) throw new Error('Capacitance or Inductance must be positive');
     if (L !== undefined && L <= 0) throw new Error('Capacitance or Inductance must be positive');
     throw new Error('Either valid C or L must be provided');
   }
 
+  const fc = fcValue.toNumber();
   const fMin = fc / 100;
   const fMax = fc * 100;
 
@@ -317,27 +340,37 @@ export function solveKirchhoff2Loop({ V1, V2, R1, R2, R3 }: Kirchhoff2LoopParams
     throw new Error('Resistances cannot be negative');
   }
 
+  const v1 = new Big(V1);
+  const v2 = new Big(V2);
+  const r1 = new Big(R1);
+  const r2 = new Big(R2);
+  const r3 = new Big(R3);
+
   // Standard 2-mesh equations:
   // Mesh 1: I1(R1 + R3) + I2(R3) = V1
   // Mesh 2: I1(R3) + I2(R2 + R3) = V2
   // Matrix [a, b; c, d] [I1; I2] = [V1; V2]
 
-  const a = R1 + R3;
-  const b = R3;
-  const c = R3;
-  const d = R2 + R3;
+  const a = r1.plus(r3);
+  const b = r3;
+  const c = r3;
+  const d = r2.plus(r3);
 
-  const det = a * d - b * c;
-  if (det === 0) {
+  const det = a.times(d).minus(b.times(c));
+  if (det.eq(0)) {
     throw new Error('Circuit has no unique valid solution (determinant is zero)');
   }
 
   // Cramer's rule
   // I1 = det([V1, b ; V2, d]) / det
   // I2 = det([a, V1 ; c, V2]) / det
-  const I1 = (V1 * d - b * V2) / det;
-  const I2 = (a * V2 - V1 * c) / det;
-  const I3 = I1 + I2; // Current down through the middle branch
+  const I1 = v1.times(d).minus(b.times(v2)).div(det);
+  const I2 = a.times(v2).minus(v1.times(c)).div(det);
+  const I3 = I1.plus(I2); // Current down through the middle branch
 
-  return { I1, I2, I3 };
+  return {
+    I1: I1.toNumber(),
+    I2: I2.toNumber(),
+    I3: I3.toNumber(),
+  };
 }
