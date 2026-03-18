@@ -38,13 +38,13 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-lg hover:bg-[var(--ce-surface-secondary)] transition-colors"
+      className="p-1 rounded hover:bg-[var(--ce-surface-secondary)] transition-colors"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {isDark ? (
-        <Sun size={18} className="text-[var(--ce-text-primary)]" />
+        <Sun size={16} className="text-[var(--ce-text-primary)]" />
       ) : (
-        <Moon size={18} className="text-[var(--ce-text-primary)]" />
+        <Moon size={16} className="text-[var(--ce-text-primary)]" />
       )}
     </button>
   );

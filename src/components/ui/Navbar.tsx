@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from '@/i18n/routing';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ThemeToggle } from './ThemeToggle';
-import { Calculator, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
 export function Navbar() {
@@ -13,21 +13,16 @@ export function Navbar() {
   return (
     <nav className="nav-professional">
       <div className="container-max">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-14">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white shadow-md group-hover:shadow-lg transition-all">
-                <Calculator size={20} strokeWidth={2} />
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="w-6 h-6 bg-[var(--ce-primary)] rounded flex items-center justify-center">
+                <span className="text-white text-xs font-bold">CE</span>
               </div>
-              <div className="flex flex-col">
-                <span className="font-bold text-lg text-[var(--ce-text-primary)] tracking-tight group-hover:text-[var(--ce-primary)] transition-colors">
-                  CalcEmpire
-                </span>
-                <span className="text-xs text-[var(--ce-text-muted)] font-medium">
-                  Engineering Tools
-                </span>
-              </div>
+              <span className="font-semibold text-[var(--ce-text-primary)] tracking-tight">
+                CalcEmpire
+              </span>
             </Link>
           </div>
 
@@ -36,41 +31,41 @@ export function Navbar() {
             <div className="flex items-center gap-6">
               <Link 
                 href="/calculators" 
-                className="text-sm font-medium text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors"
+                className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors"
               >
                 Calculators
               </Link>
               <Link 
                 href="/guides" 
-                className="text-sm font-medium text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors"
+                className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors"
               >
                 Guides
               </Link>
               <Link 
                 href="/about" 
-                className="text-sm font-medium text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors"
+                className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors"
               >
                 About
               </Link>
             </div>
             
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <ThemeToggle />
               <LanguageSwitcher />
             </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-3">
+          <div className="md:hidden flex items-center gap-2">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-lg hover:bg-[var(--ce-surface-secondary)] transition-colors"
+              className="p-1 rounded hover:bg-[var(--ce-surface-secondary)] transition-colors"
             >
               {isMobileMenuOpen ? (
-                <X size={20} className="text-[var(--ce-text-primary)]" />
+                <X size={18} className="text-[var(--ce-text-primary)]" />
               ) : (
-                <Menu size={20} className="text-[var(--ce-text-primary)]" />
+                <Menu size={18} className="text-[var(--ce-text-primary)]" />
               )}
             </button>
           </div>
@@ -78,30 +73,30 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-[var(--ce-border)] py-4">
-            <div className="flex flex-col gap-4">
+          <div className="md:hidden border-t border-[var(--ce-border)] py-3">
+            <div className="flex flex-col gap-2">
               <Link 
                 href="/calculators" 
-                className="text-sm font-medium text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-2"
+                className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Calculators
               </Link>
               <Link 
                 href="/guides" 
-                className="text-sm font-medium text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-2"
+                className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Guides
               </Link>
               <Link 
                 href="/about" 
-                className="text-sm font-medium text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-2"
+                className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 About
               </Link>
-              <div className="pt-4 border-t border-[var(--ce-border)]">
+              <div className="pt-2 border-t border-[var(--ce-border)] mt-2">
                 <LanguageSwitcher />
               </div>
             </div>

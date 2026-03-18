@@ -15,7 +15,7 @@ import { DisclaimerView } from './DisclaimerView';
 import { ToolGrid } from './ToolGrid';
 import { EmptyState } from './EmptyState';
 import { useRouter } from '@/i18n/routing';
-import { ArrowLeft, TrendingUp, Users, Award } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import type { ToolId } from '@/types';
 
 export function EngineeringDashboard({ initialToolId = null }: { initialToolId?: ToolId }) {
@@ -73,51 +73,15 @@ export function EngineeringDashboard({ initialToolId = null }: { initialToolId?:
   };
 
   const renderDashboardHeader = () => (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border-b border-[var(--ce-border)]">
-      <div className="container-max section-padding">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="heading-1 mb-6">
-              Professional Engineering
-              <span className="block text-[var(--ce-primary)]">Calculation Tools</span>
-            </h1>
-            <p className="body-large mb-8 max-w-lg">
-              Precision-engineered calculators for electrical, mechanical, civil, and software engineering professionals.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <div className="flex items-center gap-2 text-sm text-[var(--ce-text-muted)]">
-                <TrendingUp size={16} className="text-[var(--ce-success)]" />
-                <span>99.9% Accuracy</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-[var(--ce-text-muted)]">
-                <Users size={16} className="text-[var(--ce-primary)]" />
-                <span>10,000+ Engineers</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-[var(--ce-text-muted)]">
-                <Award size={16} className="text-[var(--ce-warning)]" />
-                <span>Industry Standard</span>
-              </div>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-4">
-            <div className="professional-card p-6 text-center">
-              <div className="text-2xl font-bold text-[var(--ce-primary)] mb-2">30+</div>
-              <div className="text-sm text-[var(--ce-text-muted)]">Calculators</div>
-            </div>
-            <div className="professional-card p-6 text-center">
-              <div className="text-2xl font-bold text-[var(--ce-success)] mb-2">8</div>
-              <div className="text-sm text-[var(--ce-text-muted)]">Categories</div>
-            </div>
-            <div className="professional-card p-6 text-center">
-              <div className="text-2xl font-bold text-[var(--ce-warning)] mb-2">5</div>
-              <div className="text-sm text-[var(--ce-text-muted)]">Languages</div>
-            </div>
-            <div className="professional-card p-6 text-center">
-              <div className="text-2xl font-bold text-[var(--ce-error)] mb-2">24/7</div>
-              <div className="text-sm text-[var(--ce-text-muted)]">Available</div>
-            </div>
-          </div>
+    <div className="border-b border-[var(--ce-border)]">
+      <div className="container-max py-12">
+        <div className="max-w-2xl">
+          <h1 className="heading-1 mb-4">
+            Engineering Calculators
+          </h1>
+          <p className="body-large">
+            Professional calculation tools for engineering workflows.
+          </p>
         </div>
       </div>
     </div>
@@ -140,13 +104,13 @@ export function EngineeringDashboard({ initialToolId = null }: { initialToolId?:
             <>
               {renderDashboardHeader()}
               
-              <div className="container-max py-12">
-                <div className="mb-12">
-                  <h2 className="heading-2 mb-4">
+              <div className="container-max py-8">
+                <div className="mb-8">
+                  <h2 className="heading-2 mb-2">
                     {activeCategory ? tCat(activeCategory as keyof IntlMessages['Categories']) : 'All Tools'}
                   </h2>
                   <p className="body-regular text-[var(--ce-text-muted)]">
-                    Choose from our comprehensive collection of engineering calculators
+                    Select a calculator from the list below
                   </p>
                 </div>
 
