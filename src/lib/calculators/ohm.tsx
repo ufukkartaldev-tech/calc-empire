@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import type { CalculatorConfig, FieldValues, SolveResult } from '@/types/calculator';
+import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { ohm as ohmFormula } from '@/lib/formulas';
 
 // ─────────────────────────────────────────────────────────────────────────────

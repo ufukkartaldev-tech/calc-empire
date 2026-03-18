@@ -39,13 +39,24 @@ export interface CalculatorVisualProps {
   result: Record<string, unknown> | null;
 }
 
+/**
+ * A single input field in a calculator.
+ * Alias of `FieldConfig` — use this when authoring calculator configs.
+ */
+export type CalculatorField = FieldConfig;
+
 export interface CalculatorConfig {
   id: string;
   titleKey: string;
   descriptionKey: string;
   visual?: React.ReactNode | React.ComponentType<CalculatorVisualProps>;
+  /** Input fields the user must fill in the calculator form. */
   fields: FieldConfig[];
+  /** Key to look up the solver function in SOLVER_REGISTRY. */
   solverKey: string;
+  /** Optional i18n key for a guide/how-to section. */
+  guideKey?: string;
+  /** Optional i18n key for reference links / external sources. */
   referenceKey?: string;
 }
 
