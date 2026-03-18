@@ -1,3 +1,5 @@
+import Big from 'big.js';
+
 /**
  * @file statistics.ts
  * @description Implementations for statistical analysis formulas.
@@ -9,15 +11,16 @@
 
 export function mean(arr: number[]): number {
   if (arr.length === 0) throw new Error('Empty array');
-  return arr.reduce((sum, val) => sum + val, 0) / arr.length;
+  const sum = arr.reduce((acc, val) => acc.plus(val), new Big(0));
+  return sum.div(arr.length).toNumber();
 }
 
 export function median(arr: number[]): number {
   if (arr.length === 0) throw new Error('Empty array');
-  const sorted = [...arr].sort((a, b) => a - b); // non-mutating sort
+  const sorted = [...arr].sort((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);
   if (sorted.length % 2 === 0) {
-    return (sorted[mid - 1] + sorted[mid]) / 2;
+    return new Big(sorted[mid - 1]).plus(sorted[mid]).div(2).toNumber();
   }
   return sorted[mid];
 }
@@ -51,14 +54,18 @@ export function variance(arr: number[], type: StatType = 'sample'): number {
   if (type === 'sample' && arr.length === 1) throw new Error('Sample variance requires n > 1');
 
   const m = mean(arr);
-  const sumSquares = arr.reduce((acc, val) => acc + Math.pow(val - m, 2), 0);
+  const mBig = new Big(m);
+  const sumSquares = arr.reduce(
+    (acc, val) => acc.plus(new Big(val).minus(mBig).pow(2)),
+    new Big(0)
+  );
   const n = type === 'sample' ? arr.length - 1 : arr.length;
 
-  return sumSquares / n;
+  return sumSquares.div(n).toNumber();
 }
 
 export function standardDeviation(arr: number[], type: StatType = 'sample'): number {
-  return Math.sqrt(variance(arr, type));
+  return new Big(variance(arr, type)).sqrt().toNumber();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -67,16 +74,15 @@ export function standardDeviation(arr: number[], type: StatType = 'sample'): num
 
 export function normalPdf(x: number, m: number, stdDev: number): number {
   if (stdDev <= 0) throw new Error('Standard deviation must be positive');
-  const coeff = 1 / (stdDev * Math.sqrt(2 * Math.PI));
+  const coeff = new Big(1).div(new Big(stdDev).times(Math.sqrt(2 * Math.PI)));
   const exponent = -Math.pow(x - m, 2) / (2 * stdDev * stdDev);
-  return coeff * Math.exp(exponent);
+  return coeff.times(Math.exp(exponent)).toNumber();
 }
 
 // Normal CDF approximation (using Error Function approximation)
 export function normalCdf(x: number, m: number, stdDev: number): number {
   if (stdDev <= 0) throw new Error('Standard deviation must be positive');
   const z = (x - m) / stdDev;
-  // Approximating the error function (erf)
   const sign = z < 0 ? -1 : 1;
   const absZ = Math.abs(z) / Math.sqrt(2);
 
@@ -89,7 +95,7 @@ export function normalCdf(x: number, m: number, stdDev: number): number {
       Math.exp(-absZ * absZ);
   const erf = sign * y;
 
-  return 0.5 * (1.0 + erf);
+  return new Big(0.5).times(1.0 + erf).toNumber();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -104,7 +110,7 @@ interface ZScoreParams {
 
 export function zScore({ x, mean, stdDev }: ZScoreParams): number {
   if (stdDev === 0) throw new Error('Standard deviation cannot be zero');
-  return (x - mean) / stdDev;
+  return new Big(x).minus(mean).div(stdDev).toNumber();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -153,20 +159,19 @@ function probit(p: number): number {
   }
 }
 
-export function confidenceInterval({ mean, stdDev, n, confidence }: ConfidenceIntervalParams) {
+export function confidenceInterval({ mean: m, stdDev, n, confidence }: ConfidenceIntervalParams) {
   if (n < 1) throw new Error('Sample size n must be >= 1');
   if (confidence <= 0 || confidence >= 1) throw new Error('Confidence must be between 0 and 1');
 
-  // z-score for two-tailed interval
   const alpha = 1 - confidence;
   const zStar = Math.abs(probit(1 - alpha / 2));
 
-  const marginOfError = zStar * (stdDev / Math.sqrt(n));
+  const marginOfError = new Big(zStar).times(new Big(stdDev).div(Math.sqrt(n)));
 
   return {
-    lower: mean - marginOfError,
-    upper: mean + marginOfError,
-    marginOfError,
+    lower: new Big(m).minus(marginOfError).toNumber(),
+    upper: new Big(m).plus(marginOfError).toNumber(),
+    marginOfError: marginOfError.toNumber(),
   };
 }
 // ─────────────────────────────────────────────────────────────────────────────
@@ -176,62 +181,68 @@ export function confidenceInterval({ mean, stdDev, n, confidence }: ConfidenceIn
 export function factorial(n: number): number {
   if (n < 0) return NaN;
   if (n === 0) return 1;
-  let res = 1;
-  for (let i = 2; i <= n; i++) res *= i;
-  return res;
+  let res = new Big(1);
+  for (let i = 2; i <= n; i++) res = res.times(i);
+  return res.toNumber();
 }
 
 export function combination(n: number, k: number): number {
   if (k < 0 || k > n) return 0;
   if (k === 0 || k === n) return 1;
   if (k > n / 2) k = n - k;
-  
-  let res = 1;
+
+  let res = new Big(1);
   for (let i = 1; i <= k; i++) {
-    res = res * (n - i + 1) / i;
+    res = res.times(n - i + 1).div(i);
   }
-  return res;
+  return res.toNumber();
 }
 
 export function binomialPdf(k: number, n: number, p: number): number {
   if (k < 0 || k > n || p < 0 || p > 1) return 0;
-  return combination(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
+  return new Big(combination(n, k))
+    .times(Math.pow(p, k))
+    .times(Math.pow(1 - p, n - k))
+    .toNumber();
 }
 
 export function poissonPdf(k: number, lambda: number): number {
   if (k < 0 || lambda <= 0) return 0;
-  return (Math.pow(lambda, k) * Math.exp(-lambda)) / factorial(k);
+  return new Big(Math.pow(lambda, k)).times(Math.exp(-lambda)).div(factorial(k)).toNumber();
 }
 // ─────────────────────────────────────────────────────────────────────────────
 // Visualization Helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function generateHistogram(data: number[], binCount: number = 10): { binLabel: string; count: number }[] {
+export function generateHistogram(
+  data: number[],
+  binCount: number = 10
+): { binLabel: string; count: number }[] {
   if (data.length === 0) return [];
   const min = Math.min(...data);
   const max = Math.max(...data);
   const range = max - min;
-  
-  // If all values are the same, just one bin
+
   if (range === 0) {
     return [{ binLabel: `${min.toFixed(1)}`, count: data.length }];
   }
 
   const binSize = range / binCount;
   const bins = new Array(binCount).fill(0);
-  
+
   for (const val of data) {
     let binIndex = Math.floor((val - min) / binSize);
-    if (binIndex >= binCount) binIndex = binCount - 1; 
+    if (binIndex >= binCount) binIndex = binCount - 1;
     bins[binIndex]++;
   }
-  
+
   return bins.map((count, i) => {
     const start = min + i * binSize;
     const end = start + binSize;
     return {
       binLabel: `${start.toFixed(1)}-${end.toFixed(1)}`,
-      count
+      count,
     };
   });
 }
+

@@ -1,3 +1,5 @@
+import Big from 'big.js';
+
 /**
  * @file civil.ts
  * @description Implementations for civil and structural engineering formulas.
@@ -24,47 +26,49 @@ export function concreteSectionCapacity({ bw, d, fck, fyk, As }: ConcreteSection
   }
 
   // Safety factors
-  const gammaC = 1.5;
-  const gammaS = 1.15;
+  const gammaC = new Big(1.5);
+  const gammaS = new Big(1.15);
 
-  const fcd = fck / gammaC;
-  const fyd = fyk / gammaS;
+  const fcd = new Big(fck).div(gammaC);
+  const fyd = new Big(fyk).div(gammaS);
 
   // Depth of equivalent rectangular stress block (a)
   // 0.85 * fcd * bw * a = As * fyd  => a = (As * fyd) / (0.85 * fcd * bw)
-  const a = (As * fyd) / (0.85 * fcd * bw);
+  const a = new Big(As).times(fyd).div(new Big(0.85).times(fcd).times(bw));
 
   // Depth of neutral axis (c)
   // assuming concrete C50 or less, beta1 = 0.85
-  let beta1 = 0.85;
+  let beta1 = new Big(0.85);
   if (fck > 50) {
-    beta1 = Math.max(0.65, 0.85 - 0.008 * (fck - 50));
+    const calculatedBeta1 = new Big(0.85).minus(new Big(0.008).times(fck - 50));
+    beta1 = calculatedBeta1.lt(0.65) ? new Big(0.65) : calculatedBeta1;
   }
-  const c = a / beta1;
+  const c = a.div(beta1);
 
   // Design moment capacity Md
-  const Md = As * fyd * (d - a / 2); // N·mm
-  const Md_kNm = Md / 1e6;
+  const Md = new Big(As).times(fyd).times(new Big(d).minus(a.div(2))); // N·mm
+  const Md_kNm = Md.div(1e6);
 
   // Strain in steel (epsS) assuming max concrete strain of 0.003
-  let epsS = 0;
-  if (c < d) {
-    epsS = 0.003 * ((d - c) / c);
+  let epsS = new Big(0);
+  if (c.lt(d)) {
+    epsS = new Big(0.003).times(new Big(d).minus(c).div(c));
   } else {
     // Over-reinforced or special case
-    epsS = 0;
+    epsS = new Big(0);
   }
 
   // Ductility check (epsS >= 0.005 for ductile failure)
-  const isDuctile = epsS >= 0.005;
-  const isOverReinforced = c >= d;
+  const isDuctile = epsS.gte(0.005);
+  const isOverReinforced = c.gte(d);
 
   return {
-    a,
-    c,
-    Md: Md_kNm,
-    epsS,
+    a: a.toNumber(),
+    c: c.toNumber(),
+    Md: Md_kNm.toNumber(),
+    epsS: epsS.toNumber(),
     isDuctile,
     isOverReinforced,
   };
 }
+

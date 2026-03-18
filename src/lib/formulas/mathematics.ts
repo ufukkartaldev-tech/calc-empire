@@ -1,3 +1,5 @@
+import Big from 'big.js';
+
 /**
  * @file mathematics.ts
  * @description Mathematics formulas and calculus logic
@@ -6,7 +8,6 @@
 /**
  * Evaluates a mathematical function string at a given x.
  * Supports basic operations and Math functions.
- * Note: In a production environment, use a proper parser library like mathjs.
  */
 export function evaluateFunction(expr: string, x: number): number {
   try {
@@ -25,11 +26,10 @@ export function evaluateFunction(expr: string, x: number): number {
       .replace(/e/g, 'Math.E')
       .replace(/abs/g, 'Math.abs');
 
-    // Basic x replacement - be careful with words containing 'x'
+    // Basic x replacement
     // This is a simple regex that replaces 'x' not preceded or followed by other letters
     safeExpr = safeExpr.replace(/(?<![a-z])x(?![a-z])/g, `(${x})`);
 
-    // Use Function constructor for evaluation (restricted context)
     // eslint-disable-next-line no-new-func
     const result = new Function(`return ${safeExpr}`)();
     return typeof result === 'number' ? result : NaN;
@@ -42,9 +42,9 @@ export function evaluateFunction(expr: string, x: number): number {
  * Numerical differentiation at point x
  */
 export function calculateDerivative(expr: string, x: number, h: number = 1e-7): number {
-  const f_plus = evaluateFunction(expr, x + h);
-  const f_minus = evaluateFunction(expr, x - h);
-  return (f_plus - f_minus) / (2 * h);
+  const f_plus = new Big(evaluateFunction(expr, x + h));
+  const f_minus = new Big(evaluateFunction(expr, x - h));
+  return f_plus.minus(f_minus).div(2 * h).toNumber();
 }
 
 /**
@@ -58,15 +58,16 @@ export function calculateIntegral(
 ): number {
   if (n % 2 !== 0) n++; // Simpson's rule requires even number of intervals
   const h = (b - a) / n;
-  let sum = evaluateFunction(expr, a) + evaluateFunction(expr, b);
+  const hBig = new Big(h);
+  let sum = new Big(evaluateFunction(expr, a)).plus(evaluateFunction(expr, b));
 
   for (let i = 1; i < n; i++) {
     const x = a + i * h;
-    const fx = evaluateFunction(expr, x);
-    sum += i % 2 === 0 ? 2 * fx : 4 * fx;
+    const fx = new Big(evaluateFunction(expr, x));
+    sum = sum.plus(i % 2 === 0 ? fx.times(2) : fx.times(4));
   }
 
-  return (h / 3) * sum;
+  return hBig.div(3).times(sum).toNumber();
 }
 
 /**
@@ -107,7 +108,7 @@ export function addMatrices(a: Matrix, b: Matrix): Matrix {
   const result = createEmptyMatrix(rows, cols);
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      result[i][j] = a[i][j] + b[i][j];
+      result[i][j] = new Big(a[i][j]).plus(b[i][j]).toNumber();
     }
   }
   return result;
@@ -120,11 +121,11 @@ export function multiplyMatrices(a: Matrix, b: Matrix): Matrix {
   const result = createEmptyMatrix(rowsA, colsB);
   for (let i = 0; i < rowsA; i++) {
     for (let j = 0; j < colsB; j++) {
-      let sum = 0;
+      let sum = new Big(0);
       for (let k = 0; k < colsA; k++) {
-        sum += a[i][k] * b[k][j];
+        sum = sum.plus(new Big(a[i][k]).times(b[k][j]));
       }
-      result[i][j] = sum;
+      result[i][j] = sum.toNumber();
     }
   }
   return result;
@@ -146,12 +147,19 @@ export function calculateDeterminant(a: Matrix): number {
   const n = a.length;
   if (n !== a[0].length) return NaN;
   if (n === 1) return a[0][0];
-  if (n === 2) return a[0][0] * a[1][1] - a[0][1] * a[1][0];
-  
-  let det = 0;
-  for (let i = 0; i < n; i++) {
-    const subMatrix = a.slice(1).map(row => row.filter((_, j) => j !== i));
-    det += Math.pow(-1, i) * a[0][i] * calculateDeterminant(subMatrix);
+  if (n === 2) {
+    return new Big(a[0][0])
+      .times(a[1][1])
+      .minus(new Big(a[0][1]).times(a[1][0]))
+      .toNumber();
   }
-  return det;
+
+  let det = new Big(0);
+  for (let i = 0; i < n; i++) {
+    const subMatrix = a.slice(1).map((row) => row.filter((_, j) => j !== i));
+    const term = new Big(Math.pow(-1, i)).times(a[0][i]).times(calculateDeterminant(subMatrix));
+    det = det.plus(term);
+  }
+  return det.toNumber();
 }
+

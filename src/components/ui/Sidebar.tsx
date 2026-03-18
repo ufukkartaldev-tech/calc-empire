@@ -7,7 +7,7 @@ import { CATEGORY_ORDER } from '@/constants';
 import { 
   Zap, Code, Banknote, Building, Settings, 
   FlaskConical, Waves, BarChart3, Divide, 
-  RefreshCw, Home, Search 
+  RefreshCw, Home, Search, Filter 
 } from 'lucide-react';
 
 const ICON_MAP: Record<string, React.ReactNode> = {
@@ -23,6 +23,19 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   converters: <RefreshCw size={18} strokeWidth={1.5} />,
 };
 
+const CATEGORY_COLORS: Record<string, string> = {
+  electrical: 'text-blue-600',
+  software: 'text-amber-600',
+  finance: 'text-emerald-600',
+  civil: 'text-orange-600',
+  mechanical: 'text-purple-600',
+  chemistry: 'text-rose-600',
+  fluid: 'text-cyan-600',
+  statistics: 'text-indigo-600',
+  mathematics: 'text-sky-600',
+  converters: 'text-gray-600',
+};
+
 export function Sidebar({
   activeCategory,
   onCategorySelect,
@@ -33,65 +46,88 @@ export function Sidebar({
   const tDash = useTranslations('Dashboard');
 
   return (
-    <aside className="w-64 hidden md:flex flex-col border-r border-slate-800 bg-slate-900 sticky top-16 h-[calc(100vh-4rem)]">
-      {/* Search Input */}
-      <div className="p-4 border-b border-slate-800">
-        <div className="relative group">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-blue-500 transition-colors" strokeWidth={1.5} />
+    <aside className="sidebar-professional">
+      {/* Search Section */}
+      <div className="p-6 border-b border-[var(--ce-border)]">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--ce-text-muted)]" strokeWidth={1.5} />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder={tDash('searchPlaceholder' as any) || 'Search...'}
-            className="w-full pl-9 pr-3 py-2 bg-slate-950 border border-slate-800 rounded-md text-xs font-medium focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all placeholder:text-slate-600 text-slate-300"
+            placeholder={tDash('searchPlaceholder' as keyof IntlMessages['Dashboard']) || 'Search calculators...'}
+            className="professional-input w-full pl-10 pr-4 py-3"
           />
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto custom-scrollbar py-4">
-        <nav className="space-y-0.5">
-          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] px-6 mb-3">
-            {tDash('categoriesTitle' as any) || 'HESAPLAYICI ARAÇLARI'}
-          </p>
-          <button
-            onClick={() => onCategorySelect(null)}
-            className={`w-full flex items-center gap-3 px-6 py-2.5 text-xs font-semibold transition-all relative ${
-              activeCategory === null 
-                ? 'bg-blue-500/10 text-blue-400' 
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
-            }`}
-          >
-            {activeCategory === null && (
-              <span className="absolute left-0 top-0 bottom-0 w-[2px] bg-blue-500" />
-            )}
-            <Home size={18} strokeWidth={1.5} />
-            <span>{tDash('allTools' as any) || 'Tüm Araçlar'}</span>
-          </button>
-
-          {CATEGORY_ORDER.map((catKey) => (
+      {/* Categories Section */}
+      <div className="flex-1 overflow-y-auto p-6">
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Filter size={16} className="text-[var(--ce-text-muted)]" />
+            <h3 className="text-sm font-semibold text-[var(--ce-text-primary)] uppercase tracking-wide">
+              Categories
+            </h3>
+          </div>
+          
+          <nav className="space-y-1">
             <button
-              key={catKey}
-              onClick={() => onCategorySelect(catKey)}
-              className={`w-full flex items-center gap-3 px-6 py-2.5 text-xs font-semibold transition-all relative ${
-                activeCategory === catKey 
-                  ? 'bg-blue-500/10 text-blue-400' 
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
+              onClick={() => onCategorySelect(null)}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                activeCategory === null 
+                  ? 'bg-[var(--ce-primary)] text-white shadow-md' 
+                  : 'text-[var(--ce-text-secondary)] hover:text-[var(--ce-text-primary)] hover:bg-[var(--ce-surface-secondary)]'
               }`}
             >
-              {activeCategory === catKey && (
-                <span className="absolute left-0 top-0 bottom-0 w-[2px] bg-blue-500" />
-              )}
-              {ICON_MAP[catKey]}
-              <span>{tCat(catKey as any)}</span>
+              <Home size={18} strokeWidth={1.5} />
+              <span>{tDash('allTools' as keyof IntlMessages['Dashboard']) || 'All Tools'}</span>
             </button>
-          ))}
-        </nav>
+
+            {CATEGORY_ORDER.map((catKey) => (
+              <button
+                key={catKey}
+                onClick={() => onCategorySelect(catKey)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                  activeCategory === catKey 
+                    ? 'bg-[var(--ce-primary)] text-white shadow-md' 
+                    : 'text-[var(--ce-text-secondary)] hover:text-[var(--ce-text-primary)] hover:bg-[var(--ce-surface-secondary)]'
+                }`}
+              >
+                <span className={activeCategory === catKey ? 'text-white' : CATEGORY_COLORS[catKey]}>
+                  {ICON_MAP[catKey]}
+                </span>
+                <span>{tCat(catKey as keyof IntlMessages['Categories'])}</span>
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="professional-card p-4">
+          <h4 className="text-sm font-semibold text-[var(--ce-text-primary)] mb-3">Quick Stats</h4>
+          <div className="space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-[var(--ce-text-muted)]">Total Tools</span>
+              <span className="font-medium text-[var(--ce-text-primary)]">30+</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-[var(--ce-text-muted)]">Categories</span>
+              <span className="font-medium text-[var(--ce-text-primary)]">8</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-[var(--ce-text-muted)]">Languages</span>
+              <span className="font-medium text-[var(--ce-text-primary)]">5</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="p-6 border-t border-slate-800 mt-auto bg-slate-950/30">
-        <p className="text-[10px] text-slate-500 leading-relaxed font-medium italic">
-          "En iyi mühendis, en az hesapla en sağlam işi çıkarandır."
-        </p>
+      {/* Footer Quote */}
+      <div className="p-6 border-t border-[var(--ce-border)] bg-[var(--ce-surface-secondary)]">
+        <blockquote className="text-xs text-[var(--ce-text-muted)] italic leading-relaxed">
+          &quot;Precision in calculation leads to excellence in engineering.&quot;
+        </blockquote>
       </div>
     </aside>
   );

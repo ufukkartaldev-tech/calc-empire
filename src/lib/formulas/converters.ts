@@ -1,3 +1,5 @@
+import Big from 'big.js';
+
 /**
  * @file converters.ts
  * @description Implementations for general unit conversion formulas.
@@ -20,7 +22,7 @@ const lengthToMeters: Record<string, number> = {
 
 export function convertLength(value: number, from: string, to: string): number {
   if (!lengthToMeters[from] || !lengthToMeters[to]) throw new Error('Unknown unit');
-  return value * (lengthToMeters[from] / lengthToMeters[to]);
+  return new Big(value).times(lengthToMeters[from]).div(lengthToMeters[to]).toNumber();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -40,7 +42,7 @@ const areaToSqMeters: Record<string, number> = {
 
 export function convertArea(value: number, from: string, to: string): number {
   if (!areaToSqMeters[from] || !areaToSqMeters[to]) throw new Error('Unknown unit');
-  return value * (areaToSqMeters[from] / areaToSqMeters[to]);
+  return new Big(value).times(areaToSqMeters[from]).div(areaToSqMeters[to]).toNumber();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -60,7 +62,7 @@ const volumeToLiters: Record<string, number> = {
 
 export function convertVolume(value: number, from: string, to: string): number {
   if (!volumeToLiters[from] || !volumeToLiters[to]) throw new Error('Unknown unit');
-  return value * (volumeToLiters[from] / volumeToLiters[to]);
+  return new Big(value).times(volumeToLiters[from]).div(volumeToLiters[to]).toNumber();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -80,7 +82,7 @@ const pressureToPa: Record<string, number> = {
 
 export function convertPressure(value: number, from: string, to: string): number {
   if (!pressureToPa[from] || !pressureToPa[to]) throw new Error('Unknown unit');
-  return value * (pressureToPa[from] / pressureToPa[to]);
+  return new Big(value).times(pressureToPa[from]).div(pressureToPa[to]).toNumber();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -95,18 +97,18 @@ export function convertTemperature(value: number, from: string, to: string): num
   if (to !== 'C' && to !== 'F' && to !== 'K') throw new Error('Unknown unit');
 
   // First convert everything to Celsius
-  let celsius = 0;
-  if (from === 'C') celsius = value;
-  else if (from === 'F') celsius = ((value - 32) * 5) / 9;
-  else if (from === 'K') celsius = value - 273.15;
+  let celsius = new Big(0);
+  if (from === 'C') celsius = new Big(value);
+  else if (from === 'F') celsius = new Big(value).minus(32).times(5).div(9);
+  else if (from === 'K') celsius = new Big(value).minus(273.15);
 
   // Check absolute zero
-  if (celsius < -273.15) throw new Error('Below absolute zero');
+  if (celsius.lt(-273.15)) throw new Error('Below absolute zero');
 
   // Convert Celsius to Target
-  if (to === 'C') return celsius;
-  else if (to === 'F') return (celsius * 9) / 5 + 32;
-  else return celsius + 273.15; // K
+  if (to === 'C') return celsius.toNumber();
+  else if (to === 'F') return celsius.times(9).div(5).plus(32).toNumber();
+  else return celsius.plus(273.15).toNumber(); // K
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -126,5 +128,6 @@ const energyToJoules: Record<string, number> = {
 
 export function convertEnergy(value: number, from: string, to: string): number {
   if (!energyToJoules[from] || !energyToJoules[to]) throw new Error('Unknown unit');
-  return value * (energyToJoules[from] / energyToJoules[to]);
+  return new Big(value).times(energyToJoules[from]).div(energyToJoules[to]).toNumber();
 }
+

@@ -1,3 +1,4 @@
+import Big from 'big.js';
 import { PI } from '@/constants/physics';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -10,10 +11,14 @@ interface SphereParams {
 
 export function sphere({ radius }: SphereParams) {
   if (radius <= 0) throw new Error('Radius must be > 0');
-  const volume = (4 / 3) * PI * Math.pow(radius, 3);
-  const surfaceArea = 4 * PI * Math.pow(radius, 2);
-  const centroid = { x: 0, y: 0, z: 0 };
-  return { volume, surfaceArea, centroid };
+  const rBig = new Big(radius);
+  const volume = new Big(4).div(3).times(PI).times(rBig.pow(3));
+  const surfaceArea = new Big(4).times(PI).times(rBig.pow(2));
+  return {
+    volume: volume.toNumber(),
+    surfaceArea: surfaceArea.toNumber(),
+    centroid: { x: 0, y: 0, z: 0 },
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -27,11 +32,19 @@ interface CylinderParams {
 
 export function cylinder({ radius, height }: CylinderParams) {
   if (radius <= 0 || height <= 0) throw new Error('Dimensions must be > 0');
-  const volume = PI * Math.pow(radius, 2) * height;
-  const lateralArea = 2 * PI * radius * height;
-  const totalSurfaceArea = lateralArea + 2 * PI * Math.pow(radius, 2);
-  const centroid = { x: 0, y: 0, z: height / 2 };
-  return { volume, lateralArea, totalSurfaceArea, centroid };
+  const rBig = new Big(radius);
+  const hBig = new Big(height);
+
+  const volume = new Big(PI).times(rBig.pow(2)).times(hBig);
+  const lateralArea = new Big(2).times(PI).times(rBig).times(hBig);
+  const totalSurfaceArea = lateralArea.plus(new Big(2).times(PI).times(rBig.pow(2)));
+
+  return {
+    volume: volume.toNumber(),
+    lateralArea: lateralArea.toNumber(),
+    totalSurfaceArea: totalSurfaceArea.toNumber(),
+    centroid: { x: 0, y: 0, z: hBig.div(2).toNumber() },
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -45,12 +58,21 @@ interface ConeParams {
 
 export function cone({ radius, height }: ConeParams) {
   if (radius <= 0 || height <= 0) throw new Error('Dimensions must be > 0');
-  const volume = (PI * Math.pow(radius, 2) * height) / 3;
-  const slantHeight = Math.sqrt(radius * radius + height * height);
-  const lateralArea = PI * radius * slantHeight;
-  const totalSurfaceArea = lateralArea + PI * Math.pow(radius, 2);
-  const centroid = { x: 0, y: 0, z: height / 4 };
-  return { volume, slantHeight, lateralArea, totalSurfaceArea, centroid };
+  const rBig = new Big(radius);
+  const hBig = new Big(height);
+
+  const volume = new Big(PI).times(rBig.pow(2)).times(hBig).div(3);
+  const slantHeight = rBig.pow(2).plus(hBig.pow(2)).sqrt();
+  const lateralArea = new Big(PI).times(rBig).times(slantHeight);
+  const totalSurfaceArea = lateralArea.plus(new Big(PI).times(rBig.pow(2)));
+
+  return {
+    volume: volume.toNumber(),
+    slantHeight: slantHeight.toNumber(),
+    lateralArea: lateralArea.toNumber(),
+    totalSurfaceArea: totalSurfaceArea.toNumber(),
+    centroid: { x: 0, y: 0, z: hBig.div(4).toNumber() },
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -65,10 +87,18 @@ interface RectangularPrismParams {
 
 export function rectangularPrism({ length, width, height }: RectangularPrismParams) {
   if (length <= 0 || width <= 0 || height <= 0) throw new Error('Dimensions must be > 0');
-  const volume = length * width * height;
-  const surfaceArea = 2 * (length * width + length * height + width * height);
-  const centroid = { x: length / 2, y: width / 2, z: height / 2 };
-  return { volume, surfaceArea, centroid };
+  const l = new Big(length);
+  const w = new Big(width);
+  const h = new Big(height);
+
+  const volume = l.times(w).times(h);
+  const surfaceArea = new Big(2).times(l.times(w).plus(l.times(h)).plus(w.times(h)));
+
+  return {
+    volume: volume.toNumber(),
+    surfaceArea: surfaceArea.toNumber(),
+    centroid: { x: l.div(2).toNumber(), y: w.div(2).toNumber(), z: h.div(2).toNumber() },
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -76,20 +106,25 @@ export function rectangularPrism({ length, width, height }: RectangularPrismPara
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface TorusParams {
-  majorRadius: number; // R
-  minorRadius: number; // r
+  majorRadius: number;
+  minorRadius: number;
 }
 
 export function torus({ majorRadius, minorRadius }: TorusParams) {
   if (minorRadius <= 0 || majorRadius <= minorRadius) {
     throw new Error('Minor radius must be > 0 and strictly less than Major radius');
   }
-  const R = majorRadius;
-  const r = minorRadius;
-  const volume = 2 * PI * PI * R * r * r;
-  const surfaceArea = 4 * PI * PI * R * r;
-  const centroid = { x: 0, y: 0, z: 0 };
-  return { volume, surfaceArea, centroid };
+  const R = new Big(majorRadius);
+  const r = new Big(minorRadius);
+
+  const volume = new Big(2).times(PI).times(PI).times(R).times(r.pow(2));
+  const surfaceArea = new Big(4).times(PI).times(PI).times(R).times(r);
+
+  return {
+    volume: volume.toNumber(),
+    surfaceArea: surfaceArea.toNumber(),
+    centroid: { x: 0, y: 0, z: 0 },
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -105,11 +140,19 @@ export function regularPolygon({ sides, sideLength }: RegularPolygonParams) {
   if (sides < 3) throw new Error('Number of sides must be >= 3');
   if (sideLength <= 0) throw new Error('Side length must be > 0');
 
-  const perimeter = sides * sideLength;
-  const apothem = sideLength / (2 * Math.tan(PI / sides));
-  const area = (sides * sideLength * sideLength) / (4 * Math.tan(PI / sides));
+  const sBig = new Big(sides);
+  const lBig = new Big(sideLength);
+  const tanVal = Math.tan(PI / sides);
 
-  return { area, perimeter, apothem };
+  const perimeter = sBig.times(lBig);
+  const apothem = lBig.div(new Big(2).times(tanVal));
+  const area = sBig.times(lBig.pow(2)).div(new Big(4).times(tanVal));
+
+  return {
+    area: area.toNumber(),
+    perimeter: perimeter.toNumber(),
+    apothem: apothem.toNumber(),
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -118,24 +161,30 @@ export function regularPolygon({ sides, sideLength }: RegularPolygonParams) {
 
 export function circle(radius: number) {
   if (radius <= 0) throw new Error('Radius must be > 0');
+  const r = new Big(radius);
   return {
-    area: PI * radius * radius,
-    perimeter: 2 * PI * radius
+    area: new Big(PI).times(r.pow(2)).toNumber(),
+    perimeter: new Big(2).times(PI).times(r).toNumber(),
   };
 }
 
 export function rectangle(width: number, height: number) {
   if (width <= 0 || height <= 0) throw new Error('Dimensions must be > 0');
+  const w = new Big(width);
+  const h = new Big(height);
   return {
-    area: width * height,
-    perimeter: 2 * (width + height)
+    area: w.times(h).toNumber(),
+    perimeter: new Big(2).times(w.plus(h)).toNumber(),
   };
 }
 
 export function triangle(base: number, height: number, a: number, b: number) {
   if (base <= 0 || height <= 0) throw new Error('Dimensions must be > 0');
+  const bBig = new Big(base);
+  const hBig = new Big(height);
   return {
-    area: 0.5 * base * height,
-    perimeter: base + a + b
+    area: new Big(0.5).times(bBig).times(hBig).toNumber(),
+    perimeter: bBig.plus(a).plus(b).toNumber(),
   };
 }
+

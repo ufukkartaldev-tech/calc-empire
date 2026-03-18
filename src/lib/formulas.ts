@@ -1,3 +1,5 @@
+import Big from 'big.js';
+
 type UnitValue = number | { value: number; unit: string };
 
 interface OhmParams {
@@ -20,23 +22,23 @@ const unitMultipliers: Record<string, number> = {
   n: 1e-9,
 };
 
-function normalizeValue(val: UnitValue): number {
+function normalizeValue(val: UnitValue): Big {
   if (typeof val === 'number') {
-    return val;
+    return new Big(val);
   }
 
   const multiplier = unitMultipliers[val.unit] || 1;
-  return val.value * multiplier;
+  return new Big(val.value).times(multiplier);
 }
 
-function validateAndNormalize(val?: UnitValue): number {
+function validateAndNormalize(val?: UnitValue): Big {
   if (val === undefined) {
     throw new Error('Missing value');
   }
 
   const normalized = normalizeValue(val);
 
-  if (normalized <= 0) {
+  if (normalized.lte(0)) {
     throw new Error('Invalid value: must be greater than 0');
   }
 
@@ -44,7 +46,6 @@ function validateAndNormalize(val?: UnitValue): number {
 }
 
 export function ohm({ voltage, current, resistance }: OhmParams): OhmResult {
-  // Check if at least two parameters are provided
   const paramsCount = [voltage, current, resistance].filter((p) => p !== undefined).length;
 
   if (paramsCount < 2) {
@@ -54,20 +55,21 @@ export function ohm({ voltage, current, resistance }: OhmParams): OhmResult {
   if (voltage !== undefined && current !== undefined) {
     const V = validateAndNormalize(voltage);
     const I = validateAndNormalize(current);
-    return { resistance: V / I };
+    return { resistance: V.div(I).toNumber() };
   }
 
   if (current !== undefined && resistance !== undefined) {
     const I = validateAndNormalize(current);
     const R = validateAndNormalize(resistance);
-    return { voltage: I * R };
+    return { voltage: I.times(R).toNumber() };
   }
 
   if (voltage !== undefined && resistance !== undefined) {
     const V = validateAndNormalize(voltage);
     const R = validateAndNormalize(resistance);
-    return { current: V / R };
+    return { current: V.div(R).toNumber() };
   }
 
   throw new Error('Missing value');
 }
+

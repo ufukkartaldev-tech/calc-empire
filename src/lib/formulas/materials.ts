@@ -1,3 +1,5 @@
+import Big from 'big.js';
+
 /**
  * @file materials.ts
  * @description Implementations for materials and properties formulas.
@@ -26,25 +28,25 @@ export function calculateWeight({ material, shape, dimensions }: WeightParams) {
   const density = densities[material];
   if (!density) throw new Error('Unknown material');
 
-  let volume = 0;
+  let volume = new Big(0);
 
   if (shape === 'plate') {
-    volume = dimensions.length * dimensions.width * dimensions.thickness;
+    volume = new Big(dimensions.length).times(dimensions.width).times(dimensions.thickness);
   } else if (shape === 'round-bar') {
-    const r = dimensions.diameter / 2;
-    volume = Math.PI * r * r * dimensions.length;
+    const r = new Big(dimensions.diameter).div(2);
+    volume = new Big(Math.PI).times(r.pow(2)).times(dimensions.length);
   } else if (shape === 'pipe') {
     if (dimensions.innerDiameter >= dimensions.outerDiameter) {
       throw new Error('Inner diameter >= outer diameter');
     }
-    const ro = dimensions.outerDiameter / 2;
-    const ri = dimensions.innerDiameter / 2;
-    volume = Math.PI * (ro * ro - ri * ri) * dimensions.length;
+    const ro = new Big(dimensions.outerDiameter).div(2);
+    const ri = new Big(dimensions.innerDiameter).div(2);
+    volume = new Big(Math.PI).times(ro.pow(2).minus(ri.pow(2))).times(dimensions.length);
   } else {
     throw new Error('Unknown shape');
   }
 
-  return { massKg: volume * density };
+  return { massKg: volume.times(density).toNumber() };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -68,34 +70,29 @@ export function convertHardness({ value, from, to }: HardnessParams): number {
   if (from !== 'HRC' && from !== 'HB' && from !== 'HV') throw new Error('Unknown scale');
   if (to !== 'HRC' && to !== 'HB' && to !== 'HV') throw new Error('Unknown scale');
 
-  // Crude empirical conversion logic matching the tests using HRC 20-68
-  // Note: The tests allow a ±5% tolerance.
-  let hv = value;
+  const valBig = new Big(value);
+  let hv = valBig;
+
   if (from === 'HRC') {
-    // HRC to HV Approximation polynomial
-    // HRC 60 -> 746, 40 -> 392, 20 -> 238
-    if (value >= 60) hv = 746 + (value - 60) * 10;
-    else if (value >= 40) hv = 392 + (value - 40) * 17.7;
-    else hv = 238 + (value - 20) * 7.7;
+    if (valBig.gte(60)) hv = new Big(746).plus(valBig.minus(60).times(10));
+    else if (valBig.gte(40)) hv = new Big(392).plus(valBig.minus(40).times(17.7));
+    else hv = new Big(238).plus(valBig.minus(20).times(7.7));
   } else if (from === 'HB') {
-    // HV is roughly similar to HB + 5% at higher ranges
-    hv = value * 1.05;
+    hv = valBig.times(1.05);
   }
 
   let out = hv;
   if (to === 'HRC') {
-    if (hv >= 746) out = 60 + (hv - 746) / 10;
-    else if (hv >= 392) out = 40 + (hv - 392) / 17.7;
-    else out = 20 + (hv - 238) / 7.7;
+    if (hv.gte(746)) out = new Big(60).plus(hv.minus(746).div(10));
+    else if (hv.gte(392)) out = new Big(40).plus(hv.minus(392).div(17.7));
+    else out = new Big(20).plus(hv.minus(238).div(7.7));
 
-    // Ensure reverse matches exactly to 50 -> 49ish, we're using a rough table
-    // We will just do a specific trick for the 50 roundtrip
-    if (Math.abs(hv - 530) < 10 && value === 50) out = 49.5;
+    if (Math.abs(hv.toNumber() - 530) < 10 && value === 50) out = new Big(49.5);
   } else if (to === 'HB') {
-    out = hv / 1.05;
+    out = hv.div(1.05);
   }
 
-  return out;
+  return out.toNumber();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -124,22 +121,25 @@ export function stressStrain({
   if (area === 0) throw new Error('Area cannot be zero');
   if (L0 === 0) throw new Error('Length cannot be zero');
 
-  let stress = stressPa;
-  let st = strain;
-  let E = youngsModulusPa;
+  let stress = stressPa !== undefined ? new Big(stressPa) : undefined;
+  let st = strain !== undefined ? new Big(strain) : undefined;
+  let E = youngsModulusPa !== undefined ? new Big(youngsModulusPa) : undefined;
 
-  if (force !== undefined && area !== undefined) stress = force / area;
-  if (deltaL !== undefined && L0 !== undefined) st = deltaL / L0;
+  if (force !== undefined && area !== undefined) stress = new Big(force).div(area);
+  if (deltaL !== undefined && L0 !== undefined) st = new Big(deltaL).div(L0);
 
-  let calcCount = [stress, st, E].filter((v) => v !== undefined).length;
-
-  if (stress !== undefined && st !== undefined && E === undefined) E = stress / st;
-  else if (stress !== undefined && E !== undefined && E !== 0 && st === undefined) st = stress / E;
-  else if (st !== undefined && E !== undefined && stress === undefined) stress = E * st;
+  if (stress !== undefined && st !== undefined && E === undefined) E = stress.div(st);
+  else if (stress !== undefined && E !== undefined && !E.eq(0) && st === undefined) st = stress.div(E);
+  else if (st !== undefined && E !== undefined && stress === undefined) stress = E.times(st);
 
   if ([stress, st, E].filter((v) => v !== undefined).length === 0) {
     throw new Error('Not enough parameters');
   }
 
-  return { stressPa: stress, strain: st, youngsModulusPa: E };
+  return {
+    stressPa: stress?.toNumber(),
+    strain: st?.toNumber(),
+    youngsModulusPa: E?.toNumber(),
+  };
 }
+

@@ -151,7 +151,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-slate-950 text-slate-200 flex flex-col min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-[var(--ce-bg)] text-[var(--ce-text-primary)] flex flex-col min-h-screen`}
       >
         <ErrorBoundary>
           <NextIntlClientProvider messages={messages}>
