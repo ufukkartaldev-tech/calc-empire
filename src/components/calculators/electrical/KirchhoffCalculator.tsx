@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
-import { solveKirchhoff2Loop } from '@/lib/formulas/electrical';
 import { ReferenceCard } from '../../ui/ReferenceCard';
 import { KirchhoffDiagram } from './KirchhoffDiagram';
 import { KirchhoffInputs } from './KirchhoffInputs';
@@ -16,11 +15,26 @@ export function KirchhoffCalculator() {
   const [R2, setR2] = useState<number>(10);
   const [R3, setR3] = useState<number>(10);
 
-  const results = useMemo(() => {
-    try {
-      return solveKirchhoff2Loop({ V1, V2, R1, R2, R3 });
-    } catch (error) {
-      return null;
+  const [results, setResults] = useState<{ I1: number; I2: number; I3: number } | null>(null);
+  const workerRef = useRef<Worker | null>(null);
+
+  useEffect(() => {
+    workerRef.current = new Worker(new URL('./kirchhoff.worker.ts', import.meta.url));
+    workerRef.current.onmessage = (event) => {
+      if (event.data.success) {
+        setResults(event.data.result);
+      } else {
+        setResults(null);
+      }
+    };
+    return () => {
+      workerRef.current?.terminate();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (workerRef.current) {
+      workerRef.current.postMessage({ V1, V2, R1, R2, R3 });
     }
   }, [V1, V2, R1, R2, R3]);
 
