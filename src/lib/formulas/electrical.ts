@@ -336,6 +336,46 @@ export function calculateBodePlot({ type, R, C, L, points = 100 }: BodePlotParam
 // Kirchhoff's Laws (2-Loop Mesh Analysis)
 // ─────────────────────────────────────────────────────────────────────────────
 
+function gaussianElimination(matrix: Big[][], constants: Big[]): Big[] {
+  const n = matrix.length;
+  const A = matrix.map((row, i) => [...row, constants[i]]);
+
+  for (let i = 0; i < n; i++) {
+    let maxRow = i;
+    for (let k = i + 1; k < n; k++) {
+      if (A[k][i].abs().gt(A[maxRow][i].abs())) {
+        maxRow = k;
+      }
+    }
+
+    if (A[maxRow][i].eq(0)) {
+      throw new Error('Circuit has no unique valid solution (determinant is zero or near zero)');
+    }
+
+    const temp = A[i];
+    A[i] = A[maxRow];
+    A[maxRow] = temp;
+
+    for (let k = i + 1; k < n; k++) {
+      const factor = A[k][i].div(A[i][i]);
+      for (let j = i; j <= n; j++) {
+        A[k][j] = A[k][j].minus(factor.times(A[i][j]));
+      }
+    }
+  }
+
+  const result: Big[] = new Array(n).fill(new Big(0));
+  for (let i = n - 1; i >= 0; i--) {
+    let sum = new Big(0);
+    for (let j = i + 1; j < n; j++) {
+      sum = sum.plus(A[i][j].times(result[j]));
+    }
+    result[i] = A[i][n].minus(sum).div(A[i][i]);
+  }
+
+  return result;
+}
+
 interface Kirchhoff2LoopParams {
   V1: number;
   V2: number;
@@ -355,26 +395,16 @@ export function solveKirchhoff2Loop({ V1, V2, R1, R2, R3 }: Kirchhoff2LoopParams
   const r2 = new Big(R2);
   const r3 = new Big(R3);
 
-  // Standard 2-mesh equations:
-  // Mesh 1: I1(R1 + R3) + I2(R3) = V1
-  // Mesh 2: I1(R3) + I2(R2 + R3) = V2
-  // Matrix [a, b; c, d] [I1; I2] = [V1; V2]
+  const matrix: Big[][] = [
+    [r1.plus(r3), r3],
+    [r3, r2.plus(r3)],
+  ];
+  const constants: Big[] = [v1, v2];
 
-  const a = r1.plus(r3);
-  const b = r3;
-  const c = r3;
-  const d = r2.plus(r3);
+  const solution = gaussianElimination(matrix, constants);
 
-  const det = a.times(d).minus(b.times(c));
-  if (det.eq(0)) {
-    throw new Error('Circuit has no unique valid solution (determinant is zero)');
-  }
-
-  // Cramer's rule
-  // I1 = det([V1, b ; V2, d]) / det
-  // I2 = det([a, V1 ; c, V2]) / det
-  const I1 = v1.times(d).minus(b.times(v2)).div(det);
-  const I2 = a.times(v2).minus(v1.times(c)).div(det);
+  const I1 = solution[0];
+  const I2 = solution[1];
   const I3 = I1.plus(I2); // Current down through the middle branch
 
   return {

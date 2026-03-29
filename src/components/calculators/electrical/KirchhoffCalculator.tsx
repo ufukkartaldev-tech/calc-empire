@@ -16,6 +16,7 @@ export function KirchhoffCalculator() {
   const [R3, setR3] = useState<number>(10);
 
   const [results, setResults] = useState<{ I1: number; I2: number; I3: number } | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const workerRef = useRef<Worker | null>(null);
 
   useEffect(() => {
@@ -23,8 +24,10 @@ export function KirchhoffCalculator() {
     workerRef.current.onmessage = (event) => {
       if (event.data.success) {
         setResults(event.data.result);
+        setErrorMsg(null);
       } else {
         setResults(null);
+        setErrorMsg(event.data.error || 'Unknown error');
       }
     };
     return () => {
@@ -39,9 +42,17 @@ export function KirchhoffCalculator() {
   }, [V1, V2, R1, R2, R3]);
 
   const formatCurrent = (val: number) => {
-    const absVal = Math.abs(val);
-    if (absVal < 0.001 && absVal > 0) return (val * 1000).toFixed(2) + ' mA';
-    return val.toFixed(3) + ' A';
+    if (val === 0) return '0.00 A';
+    const UNITS = ['fA', 'pA', 'nA', 'µA', 'mA', 'A', 'kA', 'MA', 'GA'];
+    const BASE_INDEX = 5; // index of 'A'
+
+    const power = Math.floor(Math.log10(Math.abs(val)) / 3);
+    const unitIndex = Math.min(UNITS.length - 1, Math.max(0, power + BASE_INDEX));
+
+    const multiplier = Math.pow(10, -(unitIndex - BASE_INDEX) * 3);
+    const convertedVal = val * multiplier;
+
+    return convertedVal.toFixed(2) + ' ' + UNITS[unitIndex];
   };
 
   return (
@@ -110,7 +121,9 @@ export function KirchhoffCalculator() {
           ) : (
             <div className="bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800/50 rounded-xl p-5 text-center">
               <p className="text-red-600 dark:text-red-400 font-semibold">{t('errorInvalid')}</p>
-              <p className="text-xs text-red-500 flex justify-center mt-1">{t('errorZero')}</p>
+              <p className="text-xs text-red-500 flex justify-center mt-1 text-balance">
+                {errorMsg || t('errorZero')}
+              </p>
             </div>
           )}
         </div>
