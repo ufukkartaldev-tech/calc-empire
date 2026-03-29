@@ -9,16 +9,18 @@ import { ReferenceCard } from '../../ui/ReferenceCard';
 import type { BodeWorkerInput, BodeWorkerResponse, BodeWorkerOutput } from './bodeplot.worker';
 import { BodePlotChart } from './BodePlotChart';
 
-const bodeSchema = z.object({
-  filterType: z.enum(['low-pass', 'high-pass']),
-  systemType: z.enum(['rc', 'rl']),
-  R: z.number({ invalid_type_error: 'Required' }).positive('R must be > 0'),
-  C: z.number().positive('C must be > 0').optional(),
-  L: z.number().positive('L must be > 0').optional(),
-}).refine((data) => data.systemType === 'rc' ? !!data.C : !!data.L, {
-  message: 'Component value is missing for the selected system',
-  path: ['systemType'],
-});
+const bodeSchema = z
+  .object({
+    filterType: z.enum(['low-pass', 'high-pass']),
+    systemType: z.enum(['rc', 'rl']),
+    R: z.number({ message: 'Required' }).positive('R must be > 0'),
+    C: z.number().positive('C must be > 0').optional(),
+    L: z.number().positive('L must be > 0').optional(),
+  })
+  .refine((data) => (data.systemType === 'rc' ? !!data.C : !!data.L), {
+    message: 'Component value is missing for the selected system',
+    path: ['systemType'],
+  });
 
 type BodeFormValues = z.infer<typeof bodeSchema>;
 
@@ -30,7 +32,11 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
   // Next-intl
   const t = useTranslations('BodePlot');
 
-  const { register, watch, formState: { errors } } = useForm<BodeFormValues>({
+  const {
+    register,
+    watch,
+    formState: { errors },
+  } = useForm<BodeFormValues>({
     resolver: zodResolver(bodeSchema),
     defaultValues: {
       filterType: 'low-pass',
@@ -69,7 +75,10 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
       const parsed = bodeSchema.safeParse(formValues);
       if (parsed.success) {
         workerRef.current.postMessage({
-          ...parsed.data,
+          type: parsed.data.filterType,
+          R: parsed.data.R,
+          C: parsed.data.C,
+          L: parsed.data.L,
           points: 500, // Safe point generation dynamically in worker thread
         } as BodeWorkerInput);
       }
@@ -108,13 +117,16 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
             <option value="rl">{t('rlCircuit')}</option>
           </select>
           {errors.systemType && (
-            <span className="text-xs text-red-500 font-medium ml-2 self-center">{errors.systemType.message}</span>
+            <span className="text-xs text-red-500 font-medium ml-2 self-center">
+              {errors.systemType.message}
+            </span>
           )}
         </div>
 
         <div className="ce-field__control">
           <label className="text-xs font-semibold text-slate-500 mb-1 block">
-            {t('resistance')} {errors.R && <span className="text-red-500">- {errors.R.message}</span>}
+            {t('resistance')}{' '}
+            {errors.R && <span className="text-red-500">- {errors.R.message}</span>}
           </label>
           <input
             type="number"
@@ -127,7 +139,8 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
         {systemType === 'rc' ? (
           <div className="ce-field__control">
             <label className="text-xs font-semibold text-slate-500 mb-1 block">
-              {t('capacitance')} {errors.C && <span className="text-red-500">- {errors.C.message}</span>}
+              {t('capacitance')}{' '}
+              {errors.C && <span className="text-red-500">- {errors.C.message}</span>}
             </label>
             <input
               type="number"
@@ -139,7 +152,8 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
         ) : (
           <div className="ce-field__control">
             <label className="text-xs font-semibold text-slate-500 mb-1 block">
-              {t('inductance')} {errors.L && <span className="text-red-500">- {errors.L.message}</span>}
+              {t('inductance')}{' '}
+              {errors.L && <span className="text-red-500">- {errors.L.message}</span>}
             </label>
             <input
               type="number"
