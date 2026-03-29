@@ -7,55 +7,64 @@ interface OhmPowerParams {
   power?: number;
 }
 
+interface OhmPowerContext {
+  V?: Big;
+  I?: Big;
+  R?: Big;
+  P?: Big;
+}
+
+type SolverFunction = (ctx: OhmPowerContext) => OhmPowerContext;
+
+const ohmSolvers: Record<string, SolverFunction> = {
+  VI: ({ V, I }) => ({ V, I, R: V!.div(I!), P: V!.times(I!) }),
+  VR: ({ V, R }) => {
+    if (R!.eq(0)) throw new Error('Resistance cannot be zero.');
+    return { V, R, I: V!.div(R!), P: V!.times(V!).div(R!) };
+  },
+  VP: ({ V, P }) => {
+    if (V!.eq(0)) throw new Error('Voltage cannot be zero.');
+    return { V, P, I: P!.div(V!), R: V!.times(V!).div(P!) };
+  },
+  IR: ({ I, R }) => ({ I, R, V: I!.times(R!), P: I!.times(I!).times(R!) }),
+  IP: ({ I, P }) => {
+    if (I!.eq(0)) throw new Error('Current cannot be zero.');
+    return { I, P, V: P!.div(I!), R: P!.div(I!.times(I!)) };
+  },
+  RP: ({ R, P }) => {
+    if (R!.eq(0)) throw new Error('Resistance cannot be zero.');
+    return { R, P, V: P!.times(R!).sqrt(), I: P!.div(R!).sqrt() };
+  },
+};
+
 export function ohmPower(params: OhmPowerParams): OhmPowerParams {
-  const { voltage: vIn, current: iIn, resistance: rIn, power: pIn } = params;
+  const ctx: OhmPowerContext = {
+    V: params.voltage !== undefined ? new Big(params.voltage) : undefined,
+    I: params.current !== undefined ? new Big(params.current) : undefined,
+    R: params.resistance !== undefined ? new Big(params.resistance) : undefined,
+    P: params.power !== undefined ? new Big(params.power) : undefined,
+  };
 
-  const v = vIn !== undefined ? new Big(vIn) : undefined;
-  const i = iIn !== undefined ? new Big(iIn) : undefined;
-  const r = rIn !== undefined ? new Big(rIn) : undefined;
-  const p = pIn !== undefined ? new Big(pIn) : undefined;
+  const providedKeys = (['V', 'I', 'R', 'P'] as const).filter((key) => ctx[key] !== undefined);
 
-  const count = [v, i, r, p].filter((val) => val !== undefined).length;
-  if (count < 2) throw new Error('At least two parameters are required.');
+  if (providedKeys.length < 2) throw new Error('At least two parameters are required.');
 
-  let Vout: Big | undefined = v;
-  let Iout: Big | undefined = i;
-  let Rout: Big | undefined = r;
-  let Pout: Big | undefined = p;
-
-  if (r !== undefined && r.lt(0)) throw new Error('Resistance (R) cannot be negative.');
-  if (p !== undefined && p.lt(0))
+  if (ctx.R !== undefined && ctx.R.lt(0)) throw new Error('Resistance (R) cannot be negative.');
+  if (ctx.P !== undefined && ctx.P.lt(0))
     throw new Error('Power (P) cannot be negative in passive systems.');
 
-  if (v !== undefined && i !== undefined) {
-    Rout = v.div(i);
-    Pout = v.times(i);
-  } else if (v !== undefined && r !== undefined) {
-    if (r.eq(0)) throw new Error('Resistance cannot be zero.');
-    Iout = v.div(r);
-    Pout = v.times(v).div(r);
-  } else if (v !== undefined && p !== undefined) {
-    if (v.eq(0)) throw new Error('Voltage cannot be zero.');
-    Iout = p.div(v);
-    Rout = v.times(v).div(p);
-  } else if (i !== undefined && r !== undefined) {
-    Vout = i.times(r);
-    Pout = i.times(i).times(r);
-  } else if (i !== undefined && p !== undefined) {
-    if (i.eq(0)) throw new Error('Current cannot be zero.');
-    Vout = p.div(i);
-    Rout = p.div(i.times(i));
-  } else if (r !== undefined && p !== undefined) {
-    if (r.eq(0)) throw new Error('Resistance cannot be zero.');
-    Vout = p.times(r).sqrt();
-    Iout = p.div(r).sqrt();
-  }
+  const strategyKey = providedKeys.slice(0, 2).join('');
+  const solver = ohmSolvers[strategyKey];
+
+  if (!solver) throw new Error('Invalid parameter combination provided.');
+
+  const result = solver(ctx);
 
   return {
-    voltage: Vout?.toNumber(),
-    current: Iout?.toNumber(),
-    resistance: Rout?.toNumber(),
-    power: Pout?.toNumber(),
+    voltage: result.V?.toNumber(),
+    current: result.I?.toNumber(),
+    resistance: result.R?.toNumber(),
+    power: result.P?.toNumber(),
   };
 }
 
