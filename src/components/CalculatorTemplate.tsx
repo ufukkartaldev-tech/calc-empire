@@ -26,6 +26,8 @@ import Big from 'big.js';
 import type { CalculatorConfig, FieldValue, FieldValues } from '@/types';
 import { SOLVER_REGISTRY } from '@/lib/calculators/registry';
 import { ReferenceCard } from './ui/ReferenceCard';
+import { CalculatorError } from './ui/CalculatorError';
+import { ErrorHandler, type ErrorDisplayInfo, ErrorSeverity } from '@/lib/errors/errorHandler';
 import { Zap } from 'lucide-react';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -43,13 +45,13 @@ type ResultState = Record<string, unknown> | null;
 interface State {
   fields: FormState;
   result: ResultState;
-  error: string | null;
+  error: ErrorDisplayInfo | null;
 }
 
 type Action =
   | { type: 'SET_VALUE'; key: string; raw: string }
   | { type: 'SET_UNIT'; key: string; unit: string }
-  | { type: 'SET_RESULT'; result: ResultState; error: string | null }
+  | { type: 'SET_RESULT'; result: ResultState; error: ErrorDisplayInfo | null }
   | { type: 'HYDRATE'; payload: State }
   | { type: 'RESET'; fields: FormState };
 
@@ -167,7 +169,12 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
         unknownCount === 0
           ? t('CalculatorTemplate.errorAllFilled')
           : t('CalculatorTemplate.errorTooManyUnknowns');
-      dispatch({ type: 'SET_RESULT', result: null, error: msg });
+      const errorInfo: ErrorDisplayInfo = {
+        message: msg,
+        severity: ErrorSeverity.LOW,
+        isUserError: true,
+      };
+      dispatch({ type: 'SET_RESULT', result: null, error: errorInfo });
       return;
     }
 
@@ -178,10 +185,15 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
       const result = solve(values);
       dispatch({ type: 'SET_RESULT', result, error: null });
     } catch (err) {
+      // Use ErrorHandler to process the error and get display info
+      const errorInfo = ErrorHandler.handleFormulaError(err, {
+        calculatorId: config.solverKey,
+        inputValues: values,
+      });
       dispatch({
         type: 'SET_RESULT',
         result: null,
-        error: err instanceof Error ? err.message : t('CalculatorTemplate.errorGeneric'),
+        error: errorInfo,
       });
     }
   }, [config, state.fields, t]);
@@ -286,11 +298,10 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
             })}
           </div>
 
-          {state.error && (
-            <div className="mb-6 p-4 bg-red-950/20 border border-red-900/50 rounded-lg text-red-500 text-xs font-bold flex items-center gap-3">
-              <span>⚠️</span> {state.error}
-            </div>
-          )}
+          <CalculatorError 
+            errorInfo={state.error} 
+            onDismiss={() => dispatch({ type: 'SET_RESULT', result: null, error: null })}
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <button

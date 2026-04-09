@@ -1,4 +1,5 @@
 import type { SolveFn } from '@/types';
+import { toCalculatorError } from '@/lib/errors/CalculatorError';
 
 /**
  * Dynamic solver registry using barrel exports for centralized imports.
@@ -10,6 +11,7 @@ import type { SolveFn } from '@/types';
  * 4. Add it to the SOLVER_MAP below with the corresponding key
  * 
  * This approach centralizes solver exports and reduces manual import duplication.
+ * All solver errors are automatically converted to structured CalculatorError types.
  */
 
 // Import all solvers from barrel export
@@ -51,9 +53,24 @@ const SOLVER_MAP: Record<string, keyof typeof solvers> = {
 };
 
 /**
+ * Wrap a solver function with error handling that converts errors to CalculatorError
+ */
+function wrapSolver(solver: SolveFn, solverKey: string): SolveFn {
+  return (values) => {
+    try {
+      return solver(values);
+    } catch (error) {
+      // Convert generic errors to structured CalculatorError types
+      throw toCalculatorError(error);
+    }
+  };
+}
+
+/**
  * Registry of all available calculator solvers.
  * This identifies logic at runtime based on a serializable key stored in the config.
  * Built dynamically from the SOLVER_MAP and barrel exports.
+ * All solvers are wrapped with error handling for consistent error types.
  */
 export const SOLVER_REGISTRY: Record<string, SolveFn> = Object.entries(
   SOLVER_MAP
@@ -61,7 +78,8 @@ export const SOLVER_REGISTRY: Record<string, SolveFn> = Object.entries(
   (acc, [key, solverName]) => {
     const solver = solvers[solverName] as SolveFn;
     if (solver) {
-      acc[key] = solver;
+      // Wrap solver with error handling
+      acc[key] = wrapSolver(solver, key);
     }
     return acc;
   },
