@@ -15,6 +15,7 @@ export interface FieldValue {
 export type FieldValues = Record<string, FieldValue>;
 export type SolveResult = Record<string, unknown>;
 export type SolveFn = (values: FieldValues) => SolveResult;
+export type AsyncSolveFn = (values: FieldValues) => Promise<SolveResult>;
 
 export interface UnitOption {
   label: string;

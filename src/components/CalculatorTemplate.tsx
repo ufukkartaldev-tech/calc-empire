@@ -20,15 +20,16 @@
  * ```
  */
 
-import React, { useCallback, useId, useReducer } from 'react';
+import React, { useCallback, useId, useReducer, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Big from 'big.js';
 import type { CalculatorConfig, FieldValue, FieldValues } from '@/types';
-import { SOLVER_REGISTRY } from '@/lib/calculators/registry';
+import { SOLVER_REGISTRY, ASYNC_SOLVER_REGISTRY } from '@/lib/calculators/registry';
+import { solverWorkerManager } from '@/lib/workers/solverWorkerManager';
 import { ReferenceCard } from './ui/ReferenceCard';
 import { CalculatorError } from './ui/CalculatorError';
 import { ErrorHandler, type ErrorDisplayInfo, ErrorSeverity } from '@/lib/errors/errorHandler';
-import { Zap } from 'lucide-react';
+import { Zap, Loader2 } from 'lucide-react';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Internal State
@@ -119,6 +120,7 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
 
   const [state, dispatch] = useReducer(reducer, config, buildInitialState);
   const [isHydrated, setIsHydrated] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Load state from localStorage on mount
   React.useEffect(() => {
@@ -142,7 +144,7 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
     }
   }, [state, config.solverKey, isHydrated]);
 
-  const handleSolve = useCallback(() => {
+  const handleSolve = useCallback(async () => {
     const values: FieldValues = {};
     for (const field of config.fields) {
       const fs = state.fields[field.key];
@@ -179,11 +181,25 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
     }
 
     try {
-      const solve = SOLVER_REGISTRY[config.solverKey];
-      if (!solve) throw new Error(`Solver not found: ${config.solverKey}`);
+      // Check if this solver should use Web Worker (async execution)
+      const isAsync = solverWorkerManager.isAsyncSolver(config.solverKey);
+      
+      if (isAsync) {
+        // Use async solver with Web Worker
+        setIsLoading(true);
+        const asyncSolve = ASYNC_SOLVER_REGISTRY[config.solverKey];
+        if (!asyncSolve) throw new Error(`Async solver not found: ${config.solverKey}`);
+        
+        const result = await asyncSolve(values);
+        dispatch({ type: 'SET_RESULT', result, error: null });
+      } else {
+        // Use synchronous solver
+        const solve = SOLVER_REGISTRY[config.solverKey];
+        if (!solve) throw new Error(`Solver not found: ${config.solverKey}`);
 
-      const result = solve(values);
-      dispatch({ type: 'SET_RESULT', result, error: null });
+        const result = solve(values);
+        dispatch({ type: 'SET_RESULT', result, error: null });
+      }
     } catch (err) {
       // Use ErrorHandler to process the error and get display info
       const errorInfo = ErrorHandler.handleFormulaError(err, {
@@ -195,6 +211,8 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
         result: null,
         error: errorInfo,
       });
+    } finally {
+      setIsLoading(false);
     }
   }, [config, state.fields, t]);
 
@@ -306,14 +324,20 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <button
               onClick={handleSolve}
-              className="sm:col-span-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-md transition-all active:scale-[0.98] flex items-center justify-center gap-2 uppercase tracking-widest text-xs"
+              disabled={isLoading}
+              className="sm:col-span-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-md transition-all active:scale-[0.98] flex items-center justify-center gap-2 uppercase tracking-widest text-xs"
             >
-              <Zap size={14} strokeWidth={2.5} />
-              {t('CalculatorTemplate.solveButton')}
+              {isLoading ? (
+                <Loader2 size={14} strokeWidth={2.5} className="animate-spin" />
+              ) : (
+                <Zap size={14} strokeWidth={2.5} />
+              )}
+              {isLoading ? 'Calculating...' : t('CalculatorTemplate.solveButton')}
             </button>
             <button
               onClick={handleReset}
-              className="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3.5 rounded-md transition-all active:scale-[0.98] uppercase tracking-widest text-xs"
+              disabled={isLoading}
+              className="bg-slate-800 hover:bg-slate-700 disabled:bg-slate-900 disabled:cursor-not-allowed text-slate-300 font-bold py-3.5 rounded-md transition-all active:scale-[0.98] uppercase tracking-widest text-xs"
             >
               {t('CalculatorTemplate.resetButton')}
             </button>
