@@ -1,37 +1,35 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Sun, Moon } from 'lucide-react';
+import React from 'react';
+import { Sun, Moon, Monitor } from 'lucide-react';
+import { useTheme } from './theme-provider';
 
 export function ThemeToggle() {
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      return savedTheme === 'dark' || (!savedTheme && prefersDark);
-    }
-    return false;
-  });
-
-  useEffect(() => {
-    // Apply theme to document
-    if (isDark) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-    }
-  }, [isDark]);
+  const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    
-    if (newTheme) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-      localStorage.setItem('theme', 'light');
+    setTheme(theme === 'light' ? 'dark' : theme === 'dark' ? 'system' : 'light');
+  };
+
+  const getIcon = () => {
+    switch (theme) {
+      case 'light':
+        return <Sun size={16} className="text-[var(--ce-text-primary)]" />;
+      case 'dark':
+        return <Moon size={16} className="text-[var(--ce-text-primary)]" />;
+      default:
+        return <Monitor size={16} className="text-[var(--ce-text-primary)]" />;
+    }
+  };
+
+  const getLabel = () => {
+    switch (theme) {
+      case 'light':
+        return 'Switch to dark mode';
+      case 'dark':
+        return 'Switch to system theme';
+      default:
+        return 'Switch to light mode';
     }
   };
 
@@ -39,13 +37,10 @@ export function ThemeToggle() {
     <button
       onClick={toggleTheme}
       className="p-1 rounded hover:bg-[var(--ce-surface-secondary)] transition-colors"
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label={getLabel()}
+      title={`Current theme: ${theme}`}
     >
-      {isDark ? (
-        <Sun size={16} className="text-[var(--ce-text-primary)]" />
-      ) : (
-        <Moon size={16} className="text-[var(--ce-text-primary)]" />
-      )}
+      {getIcon()}
     </button>
   );
 }

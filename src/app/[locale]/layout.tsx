@@ -40,6 +40,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: 'HomePage' });
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://calcempire.com';
 
+  // Generate structured data for Next.js 15+ Metadata API
+  const websiteSchema = generateWebsiteSchema(locale);
+  const organizationSchema = generateOrganizationSchema();
+  const webAppSchema = generateWebApplicationSchema();
+
   return {
     metadataBase: new URL(baseUrl),
     title: {
@@ -110,6 +115,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       google: 'your-google-verification-code',
       yandex: 'your-yandex-verification-code',
     },
+    other: {
+      'application/ld+json': [
+        JSON.stringify(websiteSchema),
+        JSON.stringify(organizationSchema),
+        JSON.stringify(webAppSchema),
+      ],
+    },
   };
 }
 
@@ -129,27 +141,8 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   const dir = RTL_LOCALES.has(locale) ? 'rtl' : 'ltr';
 
-  // Generate structured data
-  const websiteSchema = generateWebsiteSchema(locale);
-  const organizationSchema = generateOrganizationSchema();
-  const webAppSchema = generateWebApplicationSchema();
-
   return (
     <html lang={locale} dir={dir}>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-[var(--ce-bg)] text-[var(--ce-text-primary)] flex flex-col min-h-screen`}
       >

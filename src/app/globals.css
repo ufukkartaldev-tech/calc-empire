@@ -33,6 +33,7 @@
   }
 
   /* Dark Theme */
+  .dark,
   [data-theme="dark"] {
     --ce-bg: var(--ce-neutral-900);
     --ce-surface: var(--ce-neutral-800);
