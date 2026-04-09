@@ -20,7 +20,7 @@
  * ```
  */
 
-import React, { useCallback, useId, useReducer, useState } from 'react';
+import React, { useCallback, useId, useReducer, useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Big from 'big.js';
 import type { CalculatorConfig, FieldValue, FieldValues } from '@/types';
@@ -30,6 +30,7 @@ import { ReferenceCard } from './ui/ReferenceCard';
 import { CalculatorError } from './ui/CalculatorError';
 import { ErrorHandler, type ErrorDisplayInfo, ErrorSeverity } from '@/lib/errors/errorHandler';
 import { Zap, Loader2 } from 'lucide-react';
+import { debounce } from '@/lib/utils/debounce';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Internal State
@@ -137,11 +138,21 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
     }
   }, [config.solverKey]);
 
-  // Save state to localStorage on changes
-  React.useEffect(() => {
-    if (isHydrated) {
+  // Save state to localStorage on changes (debounced to prevent excessive writes)
+  useEffect(() => {
+    if (!isHydrated) return;
+
+    // Create debounced save function (500ms delay)
+    const debouncedSave = debounce(() => {
       localStorage.setItem(`${STORAGE_PREFIX}${config.solverKey}`, JSON.stringify(state));
-    }
+    }, 500);
+
+    debouncedSave();
+
+    // Cleanup function to cancel pending saves on unmount
+    return () => {
+      debouncedSave();
+    };
   }, [state, config.solverKey, isHydrated]);
 
   const handleSolve = useCallback(async () => {
