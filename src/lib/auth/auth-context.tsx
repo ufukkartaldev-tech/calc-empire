@@ -1,11 +1,13 @@
 /**
  * @file auth-context.tsx
- * @description React Context for authentication state management
+ * @description React Context for authentication state management with Supabase
  */
 
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { supabase } from './supabase-client';
+import type { Database } from './supabase-client';
 import type {
   AuthStatus,
   UserProfile,
@@ -39,21 +41,48 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const loadSession = useCallback(async () => {
     try {
       setStatus('loading');
-      // TODO: Implement actual session loading from authentication provider
-      const storedSession = localStorage.getItem('auth_session');
 
-      if (storedSession) {
-        const parsed = JSON.parse(storedSession);
-        // Validate session expiration
-        if (parsed.expiresAt > Date.now()) {
-          setSession(parsed);
-          setUser(parsed.user);
-          setStatus('authenticated');
-        } else {
-          // Session expired
-          localStorage.removeItem('auth_session');
-          setStatus('unauthenticated');
-        }
+      const {
+        data: { session: supabaseSession },
+        error,
+      } = await supabase.auth.getSession();
+
+      if (error) throw error;
+
+      if (supabaseSession) {
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', supabaseSession.user.id)
+          .single();
+
+        if (profileError) throw profileError;
+
+        const userProfile: UserProfile = {
+          id: supabaseSession.user.id,
+          email: supabaseSession.user.email!,
+          displayName: profile?.display_name || undefined,
+          avatarUrl: profile?.avatar_url || undefined,
+          createdAt: profile?.created_at || new Date().toISOString(),
+          updatedAt: profile?.updated_at || new Date().toISOString(),
+          preferences: profile?.preferences || {
+            theme: 'system',
+            language: 'en',
+            notifications: { email: true, push: false },
+            privacy: { share_history: false, public_profile: false },
+          },
+        };
+
+        const authSession: AuthSession = {
+          user: userProfile,
+          accessToken: supabaseSession.access_token,
+          refreshToken: supabaseSession.refresh_token,
+          expiresAt: new Date(supabaseSession.expires_at!).getTime(),
+        };
+
+        setSession(authSession);
+        setUser(userProfile);
+        setStatus('authenticated');
       } else {
         setStatus('unauthenticated');
       }
@@ -77,59 +106,104 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setStatus('loading');
       setError(null);
 
-      // TODO: Implement actual sign-in with authentication provider
-      // This will be implemented based on the chosen auth solution
-      console.log('Sign in with:', credentials.email);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: credentials.email,
+        password: credentials.password,
+      });
 
-      // Simulate API call delay for now
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (error) throw error;
 
-      // TODO: Replace with actual authentication logic
-      setStatus('authenticated');
+      if (data.session && data.user) {
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', data.user.id)
+          .single();
+
+        if (profileError && profileError.code !== 'PGRST116') throw profileError;
+
+        const userProfile: UserProfile = {
+          id: data.user.id,
+          email: data.user.email!,
+          displayName: profile?.display_name || undefined,
+          avatarUrl: profile?.avatar_url || undefined,
+          createdAt: profile?.created_at || new Date().toISOString(),
+          updatedAt: profile?.updated_at || new Date().toISOString(),
+          preferences: profile?.preferences || {
+            theme: 'system',
+            language: 'en',
+            notifications: { email: true, push: false },
+            privacy: { share_history: false, public_profile: false },
+          },
+        };
+
+        const authSession: AuthSession = {
+          user: userProfile,
+          accessToken: data.session.access_token,
+          refreshToken: data.session.refresh_token,
+          expiresAt: new Date(data.session.expires_at!).getTime(),
+        };
+
+        setSession(authSession);
+        setUser(userProfile);
+        setStatus('authenticated');
+      }
     } catch (err) {
       setStatus('error');
       setError({
         code: 'SIGN_IN_ERROR',
-        message: 'Failed to sign in',
+        message: err instanceof Error ? err.message : 'Failed to sign in',
         details: err instanceof Error ? { message: err.message } : undefined,
       });
       throw err;
     }
   }, []);
 
-  const signUp = useCallback(async (credentials: RegisterCredentials) => {
-    try {
-      setStatus('loading');
-      setError(null);
+  const signUp = useCallback(
+    async (credentials: RegisterCredentials) => {
+      try {
+        setStatus('loading');
+        setError(null);
 
-      // TODO: Implement actual sign-up with authentication provider
-      console.log('Sign up with:', credentials.email);
+        const { data, error } = await supabase.auth.signUp({
+          email: credentials.email,
+          password: credentials.password,
+          options: {
+            data: {
+              display_name: credentials.displayName,
+            },
+          },
+        });
 
-      // Simulate API call delay for now
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+        if (error) throw error;
 
-      // TODO: Replace with actual authentication logic
-      setStatus('authenticated');
-    } catch (err) {
-      setStatus('error');
-      setError({
-        code: 'SIGN_UP_ERROR',
-        message: 'Failed to sign up',
-        details: err instanceof Error ? { message: err.message } : undefined,
-      });
-      throw err;
-    }
-  }, []);
+        if (data.session && data.user) {
+          await loadSession();
+        } else {
+          setStatus('unauthenticated');
+        }
+      } catch (err) {
+        setStatus('error');
+        setError({
+          code: 'SIGN_UP_ERROR',
+          message: err instanceof Error ? err.message : 'Failed to sign up',
+          details: err instanceof Error ? { message: err.message } : undefined,
+        });
+        throw err;
+      }
+    },
+    [loadSession]
+  );
 
   const signOut = useCallback(async () => {
     try {
       setStatus('loading');
 
-      // TODO: Implement actual sign-out with authentication provider
-      localStorage.removeItem('auth_session');
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+
       setSession(null);
       setUser(null);
-
       setStatus('unauthenticated');
     } catch (err) {
       setStatus('error');
@@ -146,15 +220,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         if (!user) throw new Error('No authenticated user');
 
-        // TODO: Implement actual profile update with authentication provider
+        const dbUpdates: Partial<Database['public']['Tables']['profiles']['Update']> = {
+          updated_at: new Date().toISOString(),
+        };
+
+        if (updates.displayName !== undefined) dbUpdates.display_name = updates.displayName;
+        if (updates.avatarUrl !== undefined) dbUpdates.avatar_url = updates.avatarUrl;
+        if (updates.preferences !== undefined) dbUpdates.preferences = updates.preferences;
+
+        const { error } = await supabase.from('profiles').update(dbUpdates).eq('id', user.id);
+
+        if (error) throw error;
+
         const updatedUser = { ...user, ...updates, updatedAt: new Date().toISOString() };
         setUser(updatedUser);
 
-        // Update session if it exists
         if (session) {
           const updatedSession = { ...session, user: updatedUser };
           setSession(updatedSession);
-          localStorage.setItem('auth_session', JSON.stringify(updatedSession));
         }
       } catch (err) {
         setError({
@@ -170,15 +253,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const resetPassword = useCallback(async (email: string) => {
     try {
-      // TODO: Implement actual password reset with authentication provider
-      console.log('Reset password for:', email);
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth/reset-password`,
+      });
 
-      // Simulate API call delay for now
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (error) throw error;
     } catch (err) {
       setError({
         code: 'RESET_PASSWORD_ERROR',
-        message: 'Failed to reset password',
+        message: err instanceof Error ? err.message : 'Failed to reset password',
         details: err instanceof Error ? { message: err.message } : undefined,
       });
       throw err;
@@ -187,8 +270,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const refreshSession = useCallback(async () => {
     try {
-      // TODO: Implement actual session refresh with authentication provider
-      await loadSession();
+      const {
+        data: { session: supabaseSession },
+        error,
+      } = await supabase.auth.getSession();
+
+      if (error) throw error;
+
+      if (supabaseSession) {
+        const { data: refreshedSession, error: refreshError } =
+          await supabase.auth.refreshSession();
+        if (refreshError) throw refreshError;
+
+        if (refreshedSession.session) {
+          await loadSession();
+        }
+      }
     } catch (err) {
       setError({
         code: 'REFRESH_SESSION_ERROR',

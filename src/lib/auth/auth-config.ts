@@ -38,34 +38,34 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          const { email } = credentialsSchema.parse(credentials);
+          const { email, password } = credentialsSchema.parse(credentials);
 
-          // TODO: Implement custom authentication logic
-          // For now, this is a placeholder - you would typically:
-          // 1. Hash the password and compare with stored hash
-          // 2. Verify the user exists in Supabase
-          // 3. Return the user object if valid
+          // Authenticate with Supabase Auth
+          const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
 
-          // Placeholder implementation - replace with actual auth logic
-          const { data: user, error } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('email', email)
-            .single();
-
-          if (error || !user) {
+          if (authError || !authData.user) {
             throw new Error('Invalid credentials');
           }
 
-          // TODO: Add password verification here
-          // const isValidPassword = await verifyPassword(credentials.password, user.password_hash);
-          // if (!isValidPassword) throw new Error('Invalid credentials');
+          // Fetch user profile from profiles table
+          const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', authData.user.id)
+            .single();
+
+          if (profileError) {
+            console.warn('Profile fetch error:', profileError);
+          }
 
           return {
-            id: user.id,
-            email: user.email,
-            name: user.display_name,
-            image: user.avatar_url,
+            id: authData.user.id,
+            email: authData.user.email!,
+            name: profile?.display_name || authData.user.user_metadata?.display_name,
+            image: profile?.avatar_url || authData.user.user_metadata?.avatar_url,
           };
         } catch (error) {
           console.error('Auth error:', error);

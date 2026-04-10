@@ -32,8 +32,8 @@ export interface UserPreferences {
     push: boolean;
   };
   privacy: {
-    shareHistory: boolean;
-    publicProfile: boolean;
+    share_history: boolean;
+    public_profile: boolean;
   };
 }
 
