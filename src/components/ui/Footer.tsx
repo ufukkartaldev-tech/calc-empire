@@ -15,9 +15,7 @@ export function Footer() {
               <div className="w-6 h-6 bg-[var(--ce-primary)] rounded flex items-center justify-center">
                 <span className="text-white text-xs font-bold">CE</span>
               </div>
-              <span className="font-semibold text-[var(--ce-text-primary)]">
-                CalcEmpire
-              </span>
+              <span className="font-semibold text-[var(--ce-text-primary)]">CalcEmpire</span>
             </div>
             <p className="body-small text-[var(--ce-text-secondary)]">
               Professional engineering calculation tools for technical workflows.
@@ -29,20 +27,24 @@ export function Footer() {
               Disclaimer
             </h3>
             <p className="text-xs text-[var(--ce-text-muted)] leading-relaxed">
-              {tDash('disclaimer' as keyof IntlMessages['Dashboard']) ||
+              {tDash('disclaimer' as string) ||
                 'These calculations are for informational purposes only. Professional verification required for critical applications.'}
             </p>
           </div>
         </div>
 
         <div className="mt-8 pt-4 border-t border-[var(--ce-border)] flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[var(--ce-text-muted)]">
-          <p>
-            © {new Date().getFullYear()} CalcEmpire. All rights reserved.
-          </p>
+          <p>© {new Date().getFullYear()} CalcEmpire. All rights reserved.</p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-[var(--ce-primary)] transition-colors">Privacy</a>
-            <a href="#" className="hover:text-[var(--ce-primary)] transition-colors">Terms</a>
-            <a href="#" className="hover:text-[var(--ce-primary)] transition-colors">Contact</a>
+            <a href="#" className="hover:text-[var(--ce-primary)] transition-colors">
+              Privacy
+            </a>
+            <a href="#" className="hover:text-[var(--ce-primary)] transition-colors">
+              Terms
+            </a>
+            <a href="#" className="hover:text-[var(--ce-primary)] transition-colors">
+              Contact
+            </a>
           </div>
         </div>
       </div>

@@ -17,9 +17,11 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@auth/supabase-adapter": "^1.11.1",
     "@hookform/resolvers": "^5.2.2",
     "@react-pdf/renderer": "^4.3.2",
     "@sentry/nextjs": "^10.43.0",
+    "@supabase/supabase-js": "^2.103.0",
     "@types/big.js": "^6.2.2",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
@@ -29,6 +31,7 @@
     "katex": "^0.16.38",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
+    "next-auth": "^4.24.13",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.72.0",

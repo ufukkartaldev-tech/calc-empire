@@ -76,12 +76,8 @@ export function EngineeringDashboard({ initialToolId = null }: { initialToolId?:
     <div className="border-b border-[var(--ce-border)]">
       <div className="container-max py-12">
         <div className="max-w-2xl">
-          <h1 className="heading-1 mb-4">
-            Engineering Calculators
-          </h1>
-          <p className="body-large">
-            Professional calculation tools for engineering workflows.
-          </p>
+          <h1 className="heading-1 mb-4">Engineering Calculators</h1>
+          <p className="body-large">Professional calculation tools for engineering workflows.</p>
         </div>
       </div>
     </div>
@@ -103,11 +99,11 @@ export function EngineeringDashboard({ initialToolId = null }: { initialToolId?:
           ) : (
             <>
               {renderDashboardHeader()}
-              
+
               <div className="container-max py-8">
                 <div className="mb-8">
                   <h2 className="heading-2 mb-2">
-                    {activeCategory ? tCat(activeCategory as keyof IntlMessages['Categories']) : 'All Tools'}
+                    {activeCategory ? tCat(activeCategory as string) : 'All Tools'}
                   </h2>
                   <p className="body-regular text-[var(--ce-text-muted)]">
                     Select a calculator from the list below

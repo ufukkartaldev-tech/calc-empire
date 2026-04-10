@@ -36,17 +36,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<AuthSession | null>(null);
   const [error, setError] = useState<AuthError | null>(null);
 
-  // Load session from storage on mount
-  useEffect(() => {
-    loadSession();
-  }, []);
-
   const loadSession = useCallback(async () => {
     try {
       setStatus('loading');
-      // TODO: Implement actual session loading from Supabase/Firebase
+      // TODO: Implement actual session loading from authentication provider
       const storedSession = localStorage.getItem('auth_session');
-      
+
       if (storedSession) {
         const parsed = JSON.parse(storedSession);
         // Validate session expiration
@@ -72,18 +67,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  // Load session from storage on mount
+  useEffect(() => {
+    loadSession();
+  }, [loadSession]);
+
   const signIn = useCallback(async (credentials: AuthCredentials) => {
     try {
       setStatus('loading');
       setError(null);
-      
-      // TODO: Implement actual sign-in with Supabase/Firebase
-      // This is a placeholder implementation
+
+      // TODO: Implement actual sign-in with authentication provider
+      // This will be implemented based on the chosen auth solution
       console.log('Sign in with:', credentials.email);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
+      // Simulate API call delay for now
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // TODO: Replace with actual authentication logic
       setStatus('authenticated');
     } catch (err) {
       setStatus('error');
@@ -100,13 +101,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       setStatus('loading');
       setError(null);
-      
-      // TODO: Implement actual sign-up with Supabase/Firebase
+
+      // TODO: Implement actual sign-up with authentication provider
       console.log('Sign up with:', credentials.email);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
+      // Simulate API call delay for now
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // TODO: Replace with actual authentication logic
       setStatus('authenticated');
     } catch (err) {
       setStatus('error');
@@ -122,12 +124,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = useCallback(async () => {
     try {
       setStatus('loading');
-      
-      // TODO: Implement actual sign-out with Supabase/Firebase
+
+      // TODO: Implement actual sign-out with authentication provider
       localStorage.removeItem('auth_session');
       setSession(null);
       setUser(null);
-      
+
       setStatus('unauthenticated');
     } catch (err) {
       setStatus('error');
@@ -139,37 +141,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const updateProfile = useCallback(async (updates: Partial<UserProfile>) => {
-    try {
-      if (!user) throw new Error('No authenticated user');
-      
-      // TODO: Implement actual profile update with Supabase/Firebase
-      const updatedUser = { ...user, ...updates, updatedAt: new Date().toISOString() };
-      setUser(updatedUser);
-      
-      // Update session if it exists
-      if (session) {
-        const updatedSession = { ...session, user: updatedUser };
-        setSession(updatedSession);
-        localStorage.setItem('auth_session', JSON.stringify(updatedSession));
+  const updateProfile = useCallback(
+    async (updates: Partial<UserProfile>) => {
+      try {
+        if (!user) throw new Error('No authenticated user');
+
+        // TODO: Implement actual profile update with authentication provider
+        const updatedUser = { ...user, ...updates, updatedAt: new Date().toISOString() };
+        setUser(updatedUser);
+
+        // Update session if it exists
+        if (session) {
+          const updatedSession = { ...session, user: updatedUser };
+          setSession(updatedSession);
+          localStorage.setItem('auth_session', JSON.stringify(updatedSession));
+        }
+      } catch (err) {
+        setError({
+          code: 'UPDATE_PROFILE_ERROR',
+          message: 'Failed to update profile',
+          details: err instanceof Error ? { message: err.message } : undefined,
+        });
+        throw err;
       }
-    } catch (err) {
-      setError({
-        code: 'UPDATE_PROFILE_ERROR',
-        message: 'Failed to update profile',
-        details: err instanceof Error ? { message: err.message } : undefined,
-      });
-      throw err;
-    }
-  }, [user, session]);
+    },
+    [user, session]
+  );
 
   const resetPassword = useCallback(async (email: string) => {
     try {
-      // TODO: Implement actual password reset with Supabase/Firebase
+      // TODO: Implement actual password reset with authentication provider
       console.log('Reset password for:', email);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Simulate API call delay for now
+      await new Promise((resolve) => setTimeout(resolve, 500));
     } catch (err) {
       setError({
         code: 'RESET_PASSWORD_ERROR',
@@ -182,7 +187,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const refreshSession = useCallback(async () => {
     try {
-      // TODO: Implement actual session refresh with Supabase/Firebase
+      // TODO: Implement actual session refresh with authentication provider
       await loadSession();
     } catch (err) {
       setError({

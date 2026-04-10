@@ -27,26 +27,31 @@ export function useThrottle<T extends (...args: unknown[]) => unknown>(
   callback: T,
   delay: number
 ): T {
-  const throttledCallback = useRef<NodeJS.Timeout>();
-  const lastRan = useRef<number>();
+  const throttledCallback = useRef<NodeJS.Timeout | null>(null);
+  const lastRan = useRef<number | undefined>(undefined);
 
   return useCallback(
-    ((...args: Parameters<T>) => {
+    (...args: Parameters<T>) => {
       if (lastRan.current === undefined) {
         callback(...args);
         lastRan.current = Date.now();
       } else {
-        clearTimeout(throttledCallback.current);
-        throttledCallback.current = setTimeout(() => {
-          if (Date.now() - lastRan.current! >= delay) {
-            callback(...args);
-            lastRan.current = Date.now();
-          }
-        }, delay - (Date.now() - lastRan.current));
+        if (throttledCallback.current) {
+          clearTimeout(throttledCallback.current);
+        }
+        throttledCallback.current = setTimeout(
+          () => {
+            if (Date.now() - lastRan.current! >= delay) {
+              callback(...args);
+              lastRan.current = Date.now();
+            }
+          },
+          delay - (Date.now() - lastRan.current!)
+        );
       }
-    }) as T,
+    },
     [callback, delay]
-  );
+  ) as T;
 }
 
 // Intersection Observer hook for lazy loading
@@ -82,11 +87,7 @@ export function useIntersectionObserver(
 }
 
 // Virtual scrolling for large lists
-export function useVirtualScrolling<T>(
-  items: T[],
-  itemHeight: number,
-  containerHeight: number
-) {
+export function useVirtualScrolling<T>(items: T[], itemHeight: number, containerHeight: number) {
   const [scrollTop, setScrollTop] = useState(0);
 
   const visibleItems = useMemo(() => {
@@ -116,25 +117,19 @@ export function useVirtualScrolling<T>(
 }
 
 // Memoized calculation hook
-export function useMemoizedCalculation<T, R>(
-  calculation: (input: T) => R,
-  input: T
-): R {
+export function useMemoizedCalculation<T, R>(calculation: (input: T) => R, input: T): R {
   return useMemo(() => calculation(input), [calculation, input]);
 }
 
 // Web Worker hook for heavy calculations
-export function useWebWorker<T, R>(
-  workerScript: string,
-  onMessage?: (result: R) => void
-) {
-  const workerRef = useRef<Worker>();
+export function useWebWorker<T, R>(workerScript: string, onMessage?: (result: R) => void) {
+  const workerRef = useRef<Worker | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     workerRef.current = new Worker(workerScript);
-    
+
     workerRef.current.onmessage = (e) => {
       setIsLoading(false);
       setError(null);
@@ -147,7 +142,9 @@ export function useWebWorker<T, R>(
     };
 
     return () => {
-      workerRef.current?.terminate();
+      if (workerRef.current) {
+        workerRef.current.terminate();
+      }
     };
   }, [workerScript, onMessage]);
 
@@ -186,15 +183,16 @@ export function getOptimizedImageUrl(
 export function analyzeBundleSize() {
   if (typeof window !== 'undefined' && 'performance' in window) {
     const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-    
+
     return {
       domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
       loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
       firstPaint: performance.getEntriesByName('first-paint')[0]?.startTime || 0,
-      firstContentfulPaint: performance.getEntriesByName('first-contentful-paint')[0]?.startTime || 0,
+      firstContentfulPaint:
+        performance.getEntriesByName('first-contentful-paint')[0]?.startTime || 0,
     };
   }
-  
+
   return null;
 }
 
@@ -206,7 +204,7 @@ export function preloadResource(href: string, as: string, type?: string) {
     link.href = href;
     link.as = as;
     if (type) link.type = type;
-    
+
     document.head.appendChild(link);
   }
 }

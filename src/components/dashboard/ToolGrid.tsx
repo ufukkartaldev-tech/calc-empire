@@ -5,10 +5,17 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { CATEGORY_ORDER } from '@/constants';
 import type { SearchableTool } from '@/types';
-import { 
-  Zap, Code, Banknote, Building, Settings, 
-  FlaskConical, Waves, BarChart3, Divide, 
-  RefreshCw
+import {
+  Zap,
+  Code,
+  Banknote,
+  Building,
+  Settings,
+  FlaskConical,
+  Waves,
+  BarChart3,
+  Divide,
+  RefreshCw,
 } from 'lucide-react';
 
 interface ToolGridProps {
@@ -41,15 +48,11 @@ export function ToolGrid({ toolsByCategory }: ToolGridProps) {
           <section key={catKey} className="space-y-4">
             {/* Category Header */}
             <div className="flex items-center gap-2 pb-2 border-b border-[var(--ce-border)]">
-              <span className="text-[var(--ce-text-muted)]">
-                {ICON_MAP[catKey]}
-              </span>
+              <span className="text-[var(--ce-text-muted)]">{ICON_MAP[catKey]}</span>
               <h2 className="text-sm font-medium text-[var(--ce-text-primary)]">
-                {tCat(catKey as keyof IntlMessages['Categories'])}
+                {tCat(catKey as string)}
               </h2>
-              <span className="text-xs text-[var(--ce-text-muted)]">
-                ({catTools.length})
-              </span>
+              <span className="text-xs text-[var(--ce-text-muted)]">({catTools.length})</span>
             </div>
 
             {/* Tools Grid */}
@@ -64,7 +67,7 @@ export function ToolGrid({ toolsByCategory }: ToolGridProps) {
                     <div className="w-8 h-8 bg-[var(--ce-surface-secondary)] rounded flex items-center justify-center flex-shrink-0">
                       <span className="text-sm">{tool.icon}</span>
                     </div>
-                    
+
                     <div className="min-w-0 flex-1">
                       <h3 className="text-sm font-medium text-[var(--ce-text-primary)] line-clamp-1 mb-1">
                         {tool.translatedTitle}

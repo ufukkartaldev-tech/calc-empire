@@ -1,7 +1,7 @@
 /**
  * @file supabase-client.ts
  * @description Supabase client configuration for authentication and database
- * 
+ *
  * This file provides the structure for Supabase integration.
  * To enable Supabase:
  * 1. Install @supabase/supabase-js: npm install @supabase/supabase-js
@@ -10,34 +10,28 @@
  * 4. Update the AuthContext to use Supabase methods
  */
 
-// import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 
 /**
  * Supabase client initialization
- * Uncomment when Supabase is properly configured
+ * Environment variables should be set in .env.local
  */
-/*
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+  console.warn(
+    'Supabase environment variables not set. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY'
+  );
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabase = createClient(supabaseUrl || '', supabaseAnonKey || '', {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
   },
 });
-*/
-
-/**
- * Placeholder Supabase client for type checking
- * Replace with actual client when Supabase is configured
- */
-export const supabase = null as any;
 
 /**
  * Database schema types for Supabase

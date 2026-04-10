@@ -1,5 +1,5 @@
 import React from 'react';
-import type { ToolId } from './tools.config';
+import type { ToolId } from '@/types';
 import {
   // Electrical
   ResistorVisualizer,

@@ -4,10 +4,19 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import type { SidebarProps } from '@/types';
 import { CATEGORY_ORDER } from '@/constants';
-import { 
-  Zap, Code, Banknote, Building, Settings, 
-  FlaskConical, Waves, BarChart3, Divide, 
-  RefreshCw, Home, Search
+import {
+  Zap,
+  Code,
+  Banknote,
+  Building,
+  Settings,
+  FlaskConical,
+  Waves,
+  BarChart3,
+  Divide,
+  RefreshCw,
+  Home,
+  Search,
 } from 'lucide-react';
 
 const ICON_MAP: Record<string, React.ReactNode> = {
@@ -37,12 +46,15 @@ export function Sidebar({
       {/* Search Section */}
       <div className="p-4 border-b border-[var(--ce-border)]">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--ce-text-muted)]" strokeWidth={1.5} />
+          <Search
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--ce-text-muted)]"
+            strokeWidth={1.5}
+          />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder={tDash('searchPlaceholder' as keyof IntlMessages['Dashboard']) || 'Search...'}
+            placeholder={tDash('searchPlaceholder' as string) || 'Search...'}
             className="professional-input w-full pl-9 pr-3 py-2 text-sm"
           />
         </div>
@@ -54,13 +66,13 @@ export function Sidebar({
           <button
             onClick={() => onCategorySelect(null)}
             className={`w-full flex items-center gap-2 px-3 py-2 rounded text-sm transition-colors ${
-              activeCategory === null 
-                ? 'bg-[var(--ce-primary)] text-white' 
+              activeCategory === null
+                ? 'bg-[var(--ce-primary)] text-white'
                 : 'text-[var(--ce-text-secondary)] hover:text-[var(--ce-text-primary)] hover:bg-[var(--ce-surface-secondary)]'
             }`}
           >
             <Home size={16} strokeWidth={1.5} />
-            <span>{tDash('allTools' as keyof IntlMessages['Dashboard']) || 'All Tools'}</span>
+            <span>{tDash('allTools' as string) || 'All Tools'}</span>
           </button>
 
           {CATEGORY_ORDER.map((catKey) => (
@@ -68,12 +80,14 @@ export function Sidebar({
               key={catKey}
               onClick={() => onCategorySelect(catKey)}
               className={`w-full flex items-center gap-2 px-3 py-2 rounded text-sm transition-colors ${
-                activeCategory === catKey 
-                  ? 'bg-[var(--ce-primary)] text-white' 
+                activeCategory === catKey
+                  ? 'bg-[var(--ce-primary)] text-white'
                   : 'text-[var(--ce-text-secondary)] hover:text-[var(--ce-text-primary)] hover:bg-[var(--ce-surface-secondary)]'
               }`}
             >
-              <span className={activeCategory === catKey ? 'text-white' : 'text-[var(--ce-text-muted)]'}>
+              <span
+                className={activeCategory === catKey ? 'text-white' : 'text-[var(--ce-text-muted)]'}
+              >
                 {ICON_MAP[catKey]}
               </span>
               <span>{tCat(catKey as keyof IntlMessages['Categories'])}</span>
