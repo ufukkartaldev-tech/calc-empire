@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
+import type { TranslationKey } from '@/types';
 
 interface ReferenceCardProps {
   referenceKey: string;
@@ -20,10 +21,8 @@ interface Link {
 export function ReferenceCard({ referenceKey }: ReferenceCardProps) {
   const t = useTranslations();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const content = t(`${referenceKey}.content` as any);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const links = t.raw(`${referenceKey}.links` as any) as Link[];
+  const content = t(`${referenceKey}.content` as TranslationKey);
+  const links = t.raw(`${referenceKey}.links` as TranslationKey) as Link[];
   const hasLinks = Array.isArray(links) && links.length > 0;
 
   return (

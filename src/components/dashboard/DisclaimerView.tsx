@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import type { ToolId } from '@/types';
+import type { ToolId, TranslationKey } from '@/types';
 
 interface DisclaimerViewProps {
   activeTool: ToolId;
@@ -30,10 +30,10 @@ export function DisclaimerView({ activeTool, onBack, onAcknowledge }: Disclaimer
       <div className="p-10 bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-slate-200/50 dark:border-slate-800/50 rounded-[40px] shadow-2xl shadow-blue-500/5">
         <h3 className="text-amber-600 dark:text-amber-500 font-black text-2xl mb-6 flex items-center gap-4 uppercase tracking-tight">
           <span className="text-3xl">⚠️</span>{' '}
-          {tDash('consentTitle' as any) || 'Kullanım Öncesi Onay'}
+          {tDash('consentTitle' as TranslationKey) || 'Kullanım Öncesi Onay'}
         </h3>
         <p className="text-slate-600 dark:text-slate-400 text-base mb-10 leading-relaxed italic font-medium">
-          {tDash('disclaimer' as any)}
+          {tDash('disclaimer' as TranslationKey)}
         </p>
         <label className="flex items-center gap-6 cursor-pointer p-8 bg-white/60 dark:bg-slate-950/60 rounded-[32px] border border-amber-200/50 dark:border-amber-800/50 group hover:border-blue-500 transition-all shadow-xl shadow-blue-500/5">
           <input
@@ -46,7 +46,7 @@ export function DisclaimerView({ activeTool, onBack, onAcknowledge }: Disclaimer
             }}
           />
           <span className="text-sm text-slate-700 dark:text-slate-300 font-black uppercase tracking-wider group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-            {tDash('acknowledgeDisclaimer' as any)}
+            {tDash('acknowledgeDisclaimer' as TranslationKey)}
           </span>
         </label>
       </div>

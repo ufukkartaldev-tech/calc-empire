@@ -4,6 +4,17 @@
  */
 
 // ─────────────────────────────────────────────────────────────────────────────
+// i18n Types
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Type for dynamic translation keys.
+ * Use this instead of `as any` when passing dynamic keys to next-intl's t() function.
+ * This maintains type safety while allowing runtime-computed keys.
+ */
+export type TranslationKey = string & Record<never, never>;
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Calculator Types
 // ─────────────────────────────────────────────────────────────────────────────
 

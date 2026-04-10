@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { useLocaleManager } from '@/hooks';
 import { RTL_LOCALES } from '@/constants';
+import type { LocaleCode } from '@/types';
 
 export function LanguageSwitcher() {
   const {
@@ -18,7 +19,7 @@ export function LanguageSwitcher() {
     dropdownRef,
   } = useLocaleManager();
 
-  const isRtl = RTL_LOCALES.has(locale as any);
+  const isRtl = RTL_LOCALES.has(locale as LocaleCode);
 
   return (
     <div

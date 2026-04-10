@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
+import type { TranslationKey } from '@/types';
 
 interface PageProps {
   params: Promise<{ locale: string; toolId: string }>;
@@ -33,8 +34,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!tool) return {};
 
   const t = await getTranslations({ locale, namespace: 'Dashboard' });
-  const title = t(tool.titleKey as any);
-  const description = t(tool.descKey as any);
+  const title = t(tool.titleKey as TranslationKey);
+  const description = t(tool.descKey as TranslationKey);
 
   return {
     title,

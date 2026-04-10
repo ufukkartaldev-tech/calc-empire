@@ -23,7 +23,7 @@
 import React, { useCallback, useId, useReducer, useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Big from 'big.js';
-import type { CalculatorConfig, FieldValue, FieldValues } from '@/types';
+import type { CalculatorConfig, FieldValue, FieldValues, TranslationKey } from '@/types';
 import { SOLVER_REGISTRY, ASYNC_SOLVER_REGISTRY } from '@/lib/calculators/registry';
 import { solverWorkerManager } from '@/lib/workers/solverWorkerManager';
 import { ReferenceCard } from './ui/ReferenceCard';
@@ -238,13 +238,11 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
         <div className="lg:w-1/3 bg-slate-900/50 p-8 border-b lg:border-b-0 lg:border-r border-slate-800 flex flex-col items-center justify-center gap-8">
           <div className="text-center">
             <h2 className="text-2xl font-semibold text-white mb-2 tracking-tight">
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {t(config.titleKey as any)}
+              {t(config.titleKey as TranslationKey)}
             </h2>
             <div className="h-[1px] w-8 bg-blue-600 mx-auto mb-4"></div>
             <p className="text-xs text-slate-400 leading-relaxed font-medium px-4">
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              {t(config.descriptionKey as any)}
+              {t(config.descriptionKey as TranslationKey)}
             </p>
           </div>
 
@@ -274,8 +272,7 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
                 <div key={field.key} className="space-y-2">
                   <div className="flex justify-between items-center px-1">
                     <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                      {t(field.labelKey as any)}
+                      {t(field.labelKey as TranslationKey)}
                     </label>
                     {isResult && (
                       <span className="text-[9px] text-blue-500 font-bold uppercase tracking-wider">
@@ -297,8 +294,7 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
                         isResult
                           ? ''
                           : field.placeholderKey
-                            ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                              t(field.placeholderKey as any)
+                            ? t(field.placeholderKey as TranslationKey)
                             : t('CalculatorTemplate.leaveBlankHint')
                       }
                       className={`eng-input !font-geist-mono ${

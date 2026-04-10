@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { GRAVITY } from '@/constants/physics';
 import { calculateBernoulli, type BernoulliParams } from '@/lib/formulas/fluid';
@@ -45,8 +45,7 @@ export function BernoulliCalculator() {
       } else {
         const num = parseFloat(val);
         if (isNaN(num)) return null;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (numericParams as any)[k] = num;
+        (numericParams as unknown as Record<string, number>)[k] = num;
       }
     }
 
@@ -54,19 +53,23 @@ export function BernoulliCalculator() {
 
     try {
       const solved = calculateBernoulli(numericParams);
-      return { key: unknownKey, value: solved };
+      return { key: unknownKey, value: solved, error: null };
     } catch (e) {
-      setError(
+      const errorMessage =
         e instanceof Error &&
           e.message === 'Equation results in imaginary velocity (square root of negative)'
           ? t('errorImaginary')
           : e instanceof Error
             ? e.message
-            : String(e)
-      );
-      return null;
+            : String(e);
+      return { key: unknownKey, value: null, error: errorMessage };
     }
   }, [params, t]);
+
+  // Sync error from result calculation
+  useEffect(() => {
+    setError(result?.error ?? null);
+  }, [result]);
 
   const InputField = ({ label, id, unit }: { label: string, id: string, unit: string }) => (
     <div className="space-y-1">

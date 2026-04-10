@@ -7,7 +7,7 @@ import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
 import Fuse from 'fuse.js';
-import type { ToolId, SearchableTool } from '@/types';
+import type { ToolId, SearchableTool, TranslationKey } from '@/types';
 import { TOOLS_CONFIG } from '@/config/tools.config';
 import { FUSE_OPTIONS, SCROLL_DELAY } from '@/constants';
 
@@ -25,9 +25,9 @@ export function useDashboard(initialToolId: ToolId = null) {
   const searchableTools = useMemo<SearchableTool[]>(() => {
     return TOOLS_CONFIG.map((tool) => ({
       ...tool,
-      translatedTitle: tDash(tool.titleKey as any),
-      translatedDesc: tDash(tool.descKey as any),
-      translatedCat: tCat(tool.catKey as any),
+      translatedTitle: tDash(tool.titleKey as TranslationKey),
+      translatedDesc: tDash(tool.descKey as TranslationKey),
+      translatedCat: tCat(tool.catKey as TranslationKey),
     }));
   }, [tDash, tCat]);
 

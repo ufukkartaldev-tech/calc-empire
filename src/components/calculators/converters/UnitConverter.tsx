@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
+import type { TranslationKey } from '@/types';
 
 /* ─────────────────── Types ─────────────────── */
 interface UnitDef {
@@ -258,7 +259,7 @@ export function UnitConverter() {
             }`}
           >
             <span>{cat.icon}</span>
-            {t(`categories.${cat.key}` as any)}
+            {t(`categories.${cat.key}` as TranslationKey)}
           </button>
         ))}
       </div>
