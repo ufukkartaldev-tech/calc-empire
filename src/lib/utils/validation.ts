@@ -365,25 +365,43 @@ export function validateCalculatorInputs<T>(inputs: unknown, schema: z.ZodSchema
 /**
  * Rate limiting helper for input validation
  * Simple in-memory rate limiter for preventing abuse
+ * Includes automatic cleanup to prevent memory leaks
  */
 export class InputRateLimiter {
   private attempts: Map<string, number[]> = new Map();
   private maxAttempts: number;
   private windowMs: number;
+  private maxEntries: number;
+  private cleanupIntervalMs: number;
+  private lastCleanupTime: number = Date.now();
 
-  constructor(maxAttempts = 100, windowMs = 60000) {
+  constructor(maxAttempts = 100, windowMs = 60000, maxEntries = 10000, cleanupIntervalMs = 300000) {
     this.maxAttempts = maxAttempts;
     this.windowMs = windowMs;
+    this.maxEntries = maxEntries;
+    this.cleanupIntervalMs = cleanupIntervalMs;
   }
 
   /**
    * Check if rate limit is exceeded for a key
+   * Automatically triggers cleanup if needed
    */
   isRateLimited(key: string): boolean {
     const now = Date.now();
+
+    // Periodic cleanup check
+    if (now - this.lastCleanupTime > this.cleanupIntervalMs) {
+      this.cleanup();
+    }
+
+    // Enforce max entries limit (LRU eviction)
+    if (this.attempts.size >= this.maxEntries && !this.attempts.has(key)) {
+      this.evictOldestEntries(1);
+    }
+
     const attempts = this.attempts.get(key) || [];
 
-    // Clean old attempts
+    // Clean old attempts for this key
     const validAttempts = attempts.filter((time) => now - time < this.windowMs);
 
     if (validAttempts.length >= this.maxAttempts) {
@@ -410,6 +428,78 @@ export class InputRateLimiter {
     const attempts = this.attempts.get(key) || [];
     const validAttempts = attempts.filter((time) => now - time < this.windowMs);
     return Math.max(0, this.maxAttempts - validAttempts.length);
+  }
+
+  /**
+   * Clean up all expired entries from the map
+   * Removes keys with no valid attempts within the time window
+   */
+  cleanup(): void {
+    const now = Date.now();
+    const keysToDelete: string[] = [];
+
+    for (const [key, attempts] of this.attempts.entries()) {
+      const validAttempts = attempts.filter((time) => now - time < this.windowMs);
+
+      if (validAttempts.length === 0) {
+        keysToDelete.push(key);
+      } else if (validAttempts.length !== attempts.length) {
+        // Update with filtered attempts
+        this.attempts.set(key, validAttempts);
+      }
+    }
+
+    for (const key of keysToDelete) {
+      this.attempts.delete(key);
+    }
+
+    this.lastCleanupTime = now;
+  }
+
+  /**
+   * Evict oldest entries when max entries limit is reached
+   * Uses LRU strategy based on most recent attempt timestamp
+   */
+  private evictOldestEntries(count: number): void {
+    if (this.attempts.size === 0) return;
+
+    // Find entries with oldest most-recent attempt
+    const entriesWithLastAttempt: Array<{ key: string; lastAttempt: number }> = [];
+
+    for (const [key, attempts] of this.attempts.entries()) {
+      if (attempts.length > 0) {
+        const lastAttempt = Math.max(...attempts);
+        entriesWithLastAttempt.push({ key, lastAttempt });
+      } else {
+        // No attempts, safe to delete immediately
+        entriesWithLastAttempt.push({ key, lastAttempt: 0 });
+      }
+    }
+
+    // Sort by last attempt time (oldest first)
+    entriesWithLastAttempt.sort((a, b) => a.lastAttempt - b.lastAttempt);
+
+    // Delete oldest entries
+    const entriesToDelete = entriesWithLastAttempt.slice(0, count);
+    for (const entry of entriesToDelete) {
+      this.attempts.delete(entry.key);
+    }
+  }
+
+  /**
+   * Get current size of the attempts map
+   * Useful for monitoring memory usage
+   */
+  getSize(): number {
+    return this.attempts.size;
+  }
+
+  /**
+   * Clear all entries
+   */
+  clear(): void {
+    this.attempts.clear();
+    this.lastCleanupTime = Date.now();
   }
 }
 
