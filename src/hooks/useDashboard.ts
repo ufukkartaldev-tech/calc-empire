@@ -7,19 +7,19 @@ import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
 import Fuse from 'fuse.js';
-import type { ToolId, SearchableTool, TranslationKey } from '@/types';
+import type { NullableToolId, SearchableTool, TranslationKey } from '@/types';
 import { TOOLS_CONFIG } from '@/config/tools.config';
 import { FUSE_OPTIONS, SCROLL_DELAY } from '@/constants';
 
-export function useDashboard(initialToolId: ToolId = null) {
+export function useDashboard(initialToolId: NullableToolId = null) {
   const tCat = useTranslations('Categories');
   const tDash = useTranslations('Dashboard');
   const router = useRouter();
 
-  const [activeTool, setActiveTool] = useState<ToolId>(initialToolId);
+  const [activeTool, setActiveTool] = useState<NullableToolId>(initialToolId);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [acknowledgedTools, setAcknowledgedTools] = useState<Set<ToolId>>(new Set());
+  const [acknowledgedTools, setAcknowledgedTools] = useState<Set<NullableToolId>>(new Set());
 
   // Pre-translate tools for search
   const searchableTools = useMemo<SearchableTool[]>(() => {
@@ -64,7 +64,7 @@ export function useDashboard(initialToolId: ToolId = null) {
   // Smooth scroll to category
   const scrollToCategory = (catKey: string | null) => {
     setActiveCategory(catKey);
-    
+
     if (activeTool) {
       setActiveTool(null);
       router.push('/');
@@ -83,14 +83,18 @@ export function useDashboard(initialToolId: ToolId = null) {
   };
 
   // Handle tool selection
-  const handleToolSelect = (id: ToolId) => {
-    setActiveTool(id);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const handleToolSelect = (id: NullableToolId) => {
+    if (id) {
+      setActiveTool(id);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   // Acknowledge critical tool disclaimer
-  const acknowledgeTool = (id: ToolId) => {
-    setAcknowledgedTools((prev) => new Set([...prev, id]));
+  const acknowledgeTool = (id: NullableToolId) => {
+    if (id) {
+      setAcknowledgedTools((prev) => new Set([...prev, id]));
+    }
   };
 
   return {
@@ -106,10 +110,15 @@ export function useDashboard(initialToolId: ToolId = null) {
     toolsByCategory,
 
     // Actions
-    setActiveTool,
+    setActiveTool: (id: NullableToolId) => setActiveTool(id),
     setSearchQuery,
     scrollToCategory,
-    handleToolSelect,
+    handleToolSelect: (id: NullableToolId) => {
+      if (id) {
+        setActiveTool(id);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    },
     acknowledgeTool,
   };
 }

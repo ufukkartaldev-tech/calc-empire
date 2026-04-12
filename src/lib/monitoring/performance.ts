@@ -47,8 +47,8 @@ export function initPerformanceMonitoring(): void {
     // Additional metrics
     onFCP(reportWebVitals); // First Contentful Paint
     onTTFB(reportWebVitals); // Time to First Byte
-  } catch (error) {
-    console.error('Failed to initialize performance monitoring:', error);
+  } catch {
+    // Performance monitoring initialization failed silently
   }
 }
 

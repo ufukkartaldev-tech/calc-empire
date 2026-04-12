@@ -53,8 +53,7 @@ export class HistoryService {
       if (stored) {
         this.localHistory = JSON.parse(stored);
       }
-    } catch (error) {
-      console.error('Failed to load local history:', error);
+    } catch {
       this.localHistory = [];
     }
   }
@@ -67,8 +66,8 @@ export class HistoryService {
 
     try {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.localHistory));
-    } catch (error) {
-      console.error('Failed to save local history:', error);
+    } catch {
+      // Silently fail - localStorage errors are non-critical
     }
   }
 
@@ -123,7 +122,7 @@ export class HistoryService {
       });
 
       if (error) {
-        console.error('Failed to save to Supabase, falling back to localStorage:', error);
+        // Fallback to localStorage on Supabase error
         this.localHistory.unshift(newEntry);
         this.saveLocalHistory();
       }
@@ -177,7 +176,6 @@ export class HistoryService {
       const { data, error } = await query;
 
       if (error) {
-        console.error('Failed to fetch from Supabase:', error);
         filtered = [...this.localHistory];
       } else {
         filtered = (data || []).map((item) => ({
@@ -300,9 +298,7 @@ export class HistoryService {
         .select()
         .single();
 
-      if (error) {
-        console.error('Failed to update in Supabase:', error);
-      } else if (data) {
+      if (!error && data) {
         return {
           id: data.id,
           userId: data.user_id,
@@ -366,9 +362,7 @@ export class HistoryService {
     if (userId) {
       const { error } = await supabase.from('calculation_history').delete().eq('user_id', userId);
 
-      if (error) {
-        console.error('Failed to clear Supabase history:', error);
-      }
+      // Ignore Supabase errors for clear operation
     }
 
     // Always clear local history

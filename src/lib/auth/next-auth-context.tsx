@@ -44,8 +44,7 @@ function NextAuthProviderInner({ children }: { children: React.ReactNode }) {
         const result = await signIn();
         return result !== null && result !== undefined;
       }
-    } catch (error) {
-      console.error('Sign in error:', error);
+    } catch {
       return false;
     }
   };
@@ -53,8 +52,8 @@ function NextAuthProviderInner({ children }: { children: React.ReactNode }) {
   const handleSignOut = async () => {
     try {
       await signOut();
-    } catch (error) {
-      console.error('Sign out error:', error);
+    } catch {
+      return false;
     }
   };
 

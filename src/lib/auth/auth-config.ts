@@ -67,8 +67,7 @@ export const authOptions: NextAuthOptions = {
             name: profile?.display_name || authData.user.user_metadata?.display_name,
             image: profile?.avatar_url || authData.user.user_metadata?.avatar_url,
           };
-        } catch (error) {
-          console.error('Auth error:', error);
+        } catch {
           return null;
         }
       },

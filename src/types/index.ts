@@ -104,8 +104,10 @@ export type ToolId =
   | 'functionPlot'
   | 'compoundInterest'
   | 'cryptoPnl'
-  | 'unitConverter'
-  | null;
+  | 'unitConverter';
+
+/** Nullable variant for state management (avoids null in ToolId union) */
+export type NullableToolId = ToolId | null;
 
 export type CategoryKey =
   | 'electrical'

@@ -70,6 +70,11 @@ const cacheHeaders = [
 const nextConfig: NextConfig = {
   reactCompiler: true,
   images: {
+    // dangerouslyAllowSVG is required for flag images from flagcdn.com.
+    // Security impact: SVG content is sandboxed via CSP below.
+    // Recommendation: For inline SVGs in components, use optimized SVG
+    // files in public/ folder or import as React components to minimize
+    // bundle size impact.
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

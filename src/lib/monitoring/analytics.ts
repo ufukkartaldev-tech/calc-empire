@@ -31,8 +31,8 @@ interface AnalyticsProperties {
 export function trackEvent(event: AnalyticsEvent, properties?: AnalyticsProperties): void {
   try {
     track(event, properties);
-  } catch (error) {
-    console.error('Analytics tracking failed:', error);
+  } catch {
+    // Silently fail - analytics errors are non-critical
   }
 }
 
