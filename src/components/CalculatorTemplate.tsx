@@ -9,6 +9,9 @@
  * input-dropdown-result panel. Business logic lives entirely in the config's
  * `solve` function — this component is purely presentational + stateful UI.
  *
+ * Uses Zustand calculatorStore for state management with automatic localStorage
+ * persistence via persist middleware.
+ *
  * Usage:
  * ```tsx
  * import CalculatorTemplate from '@/components/CalculatorTemplate';
@@ -20,92 +23,31 @@
  * ```
  */
 
-import React, { useCallback, useId, useReducer, useState, useEffect } from 'react';
+import React, { useCallback, useId, useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Big from 'big.js';
-import type { CalculatorConfig, FieldValue, FieldValues, TranslationKey } from '@/types';
+import type { CalculatorConfig, FieldValues, TranslationKey } from '@/types';
 import { SOLVER_REGISTRY, ASYNC_SOLVER_REGISTRY } from '@/lib/calculators/registry';
 import { solverWorkerManager } from '@/lib/workers/solverWorkerManager';
 import { ReferenceCard } from './ui/ReferenceCard';
 import { CalculatorError } from './ui/CalculatorError';
 import { ErrorHandler, type ErrorDisplayInfo, ErrorSeverity } from '@/lib/errors/errorHandler';
 import { Zap, Loader2 } from 'lucide-react';
-import { debounce } from '@/lib/utils/debounce';
+import {
+  useCalculatorStore,
+  useCalculatorData,
+  useCalculatorHydrated,
+  parseFieldValues,
+  type CalculatorData,
+} from '@/stores/calculatorStore';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Internal State
+// Types
 // ─────────────────────────────────────────────────────────────────────────────
 
-interface FieldState {
-  raw: string;
-  unit: string;
-}
-
-type FormState = Record<string, FieldState>;
-type ResultState = Record<string, unknown> | null;
-
-interface State {
-  fields: FormState;
-  result: ResultState;
+interface CalculatorTemplateState extends CalculatorData {
   error: ErrorDisplayInfo | null;
 }
-
-type Action =
-  | { type: 'SET_VALUE'; key: string; raw: string }
-  | { type: 'SET_UNIT'; key: string; unit: string }
-  | { type: 'SET_RESULT'; result: ResultState; error: ErrorDisplayInfo | null }
-  | { type: 'HYDRATE'; payload: State }
-  | { type: 'RESET'; fields: FormState };
-
-function reducer(state: State, action: Action): State {
-  switch (action.type) {
-    case 'HYDRATE':
-      return {
-        ...state,
-        ...action.payload,
-        fields: {
-          ...state.fields,
-          ...action.payload.fields,
-        },
-      };
-    case 'SET_VALUE':
-      return {
-        ...state,
-        fields: {
-          ...state.fields,
-          [action.key]: { ...state.fields[action.key], raw: action.raw },
-        },
-        result: null,
-        error: null,
-      };
-    case 'SET_UNIT':
-      return {
-        ...state,
-        fields: {
-          ...state.fields,
-          [action.key]: { ...state.fields[action.key], unit: action.unit },
-        },
-        result: null,
-        error: null,
-      };
-    case 'SET_RESULT':
-      return { ...state, result: action.result, error: action.error };
-    case 'RESET':
-      return { fields: action.fields, result: null, error: null };
-    default:
-      return state;
-  }
-}
-
-function buildInitialState(config: CalculatorConfig): State {
-  const fields: FormState = {};
-  for (const field of config.fields) {
-    fields[field.key] = { raw: '', unit: field.units[0].symbol };
-  }
-  return { fields, result: null, error: null };
-}
-
-const STORAGE_PREFIX = 'calc-state-';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Component
@@ -118,60 +60,33 @@ interface CalculatorTemplateProps {
 export default function CalculatorTemplate({ config }: CalculatorTemplateProps) {
   const t = useTranslations();
   const uid = useId();
+  const calculatorKey = config.solverKey;
 
-  const [state, dispatch] = useReducer(reducer, config, buildInitialState);
-  const [isHydrated, setIsHydrated] = React.useState(false);
+  // Zustand store integration
+  const isHydrated = useCalculatorHydrated();
+  const calculatorData = useCalculatorData(calculatorKey);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<ErrorDisplayInfo | null>(null);
 
-  // Load state from localStorage on mount
-  React.useEffect(() => {
-    try {
-      const saved = localStorage.getItem(`${STORAGE_PREFIX}${config.solverKey}`);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        dispatch({ type: 'HYDRATE', payload: parsed });
-      }
-    } catch (err) {
-      console.error('Failed to load calculator state', err);
-    } finally {
-      setIsHydrated(true);
-    }
-  }, [config.solverKey]);
-
-  // Save state to localStorage on changes (debounced to prevent excessive writes)
+  // Initialize calculator in store on mount
   useEffect(() => {
-    if (!isHydrated) return;
+    const store = useCalculatorStore.getState();
+    store.initializeCalculator(calculatorKey, config);
+  }, [calculatorKey, config]);
 
-    // Create debounced save function (500ms delay)
-    const debouncedSave = debounce(() => {
-      localStorage.setItem(`${STORAGE_PREFIX}${config.solverKey}`, JSON.stringify(state));
-    }, 500);
-
-    debouncedSave();
-
-    // Cleanup function to cancel pending saves on unmount
-    return () => {
-      debouncedSave();
-    };
-  }, [state, config.solverKey, isHydrated]);
+  // Get state with fallback
+  const state: CalculatorTemplateState = calculatorData
+    ? { ...calculatorData, error }
+    : {
+        fields: {},
+        result: null,
+        error,
+      };
 
   const handleSolve = useCallback(async () => {
-    const values: FieldValues = {};
-    for (const field of config.fields) {
-      const fs = state.fields[field.key];
-      const val = fs.raw.trim();
+    if (!calculatorData) return;
 
-      if (val === '') {
-        values[field.key] = { value: null, unit: fs.unit };
-      } else {
-        try {
-          const parsed = new Big(val).toNumber();
-          values[field.key] = { value: parsed, unit: fs.unit };
-        } catch {
-          values[field.key] = { value: null, unit: fs.unit };
-        }
-      }
-    }
+    const values: FieldValues = parseFieldValues(calculatorData.fields, config);
 
     const filledCount = Object.values(values).filter((v) => v.value !== null).length;
     const totalFields = config.fields.length;
@@ -187,50 +102,106 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
         severity: ErrorSeverity.LOW,
         isUserError: true,
       };
-      dispatch({ type: 'SET_RESULT', result: null, error: errorInfo });
+      setError(errorInfo);
+      useCalculatorStore.getState().clearResult(calculatorKey);
       return;
     }
 
+    setError(null);
+
     try {
       // Check if this solver should use Web Worker (async execution)
-      const isAsync = solverWorkerManager.isAsyncSolver(config.solverKey);
-      
+      const isAsync = solverWorkerManager.isAsyncSolver(calculatorKey);
+
       if (isAsync) {
         // Use async solver with Web Worker
         setIsLoading(true);
-        const asyncSolve = ASYNC_SOLVER_REGISTRY[config.solverKey];
-        if (!asyncSolve) throw new Error(`Async solver not found: ${config.solverKey}`);
-        
+        const asyncSolve = ASYNC_SOLVER_REGISTRY[calculatorKey];
+        if (!asyncSolve) throw new Error(`Async solver not found: ${calculatorKey}`);
+
         const result = await asyncSolve(values);
-        dispatch({ type: 'SET_RESULT', result, error: null });
+        useCalculatorStore.getState().setResult(calculatorKey, result);
       } else {
         // Use synchronous solver
-        const solve = SOLVER_REGISTRY[config.solverKey];
-        if (!solve) throw new Error(`Solver not found: ${config.solverKey}`);
+        const solve = SOLVER_REGISTRY[calculatorKey];
+        if (!solve) throw new Error(`Solver not found: ${calculatorKey}`);
 
         const result = solve(values);
-        dispatch({ type: 'SET_RESULT', result, error: null });
+        useCalculatorStore.getState().setResult(calculatorKey, result);
       }
     } catch (err) {
       // Use ErrorHandler to process the error and get display info
       const errorInfo = ErrorHandler.handleFormulaError(err, {
-        calculatorId: config.solverKey,
+        calculatorId: calculatorKey,
         inputValues: values,
       });
-      dispatch({
-        type: 'SET_RESULT',
-        result: null,
-        error: errorInfo,
-      });
+      setError(errorInfo);
+      useCalculatorStore.getState().clearResult(calculatorKey);
     } finally {
       setIsLoading(false);
     }
-  }, [config, state.fields, t]);
+  }, [config, calculatorData, calculatorKey, t]);
 
   const handleReset = useCallback(() => {
-    dispatch({ type: 'RESET', fields: buildInitialState(config).fields });
-  }, [config]);
+    useCalculatorStore.getState().resetCalculator(calculatorKey, config);
+    setError(null);
+  }, [calculatorKey, config]);
 
+  // Prevent hydration mismatch
+  if (!isHydrated) {
+    return (
+      <div className="w-full bento-card overflow-hidden">
+        <div className="flex items-center justify-center p-16">
+          <Loader2 size={24} className="animate-spin text-blue-600" />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <CalculatorTemplateContent
+      config={config}
+      calculatorKey={calculatorKey}
+      state={state}
+      isLoading={isLoading}
+      error={error}
+      uid={uid}
+      t={t}
+      onSolve={handleSolve}
+      onReset={handleReset}
+      onDismissError={() => setError(null)}
+    />
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Sub-components (for render optimization)
+// ─────────────────────────────────────────────────────────────────────────────
+
+interface CalculatorTemplateContentProps {
+  config: CalculatorConfig;
+  calculatorKey: string;
+  state: CalculatorTemplateState;
+  isLoading: boolean;
+  error: ErrorDisplayInfo | null;
+  uid: string;
+  t: (key: string) => string;
+  onSolve: () => void;
+  onReset: () => void;
+  onDismissError: () => void;
+}
+
+function CalculatorTemplateContent({
+  config,
+  calculatorKey,
+  state,
+  isLoading,
+  error,
+  t,
+  onSolve,
+  onReset,
+  onDismissError,
+}: CalculatorTemplateContentProps) {
   return (
     <div className="w-full bento-card overflow-hidden">
       <div className="flex flex-col lg:flex-row">
@@ -264,73 +235,22 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
         {/* Form Section */}
         <div className="lg:w-2/3 p-8">
           <div className="grid grid-cols-1 gap-6 mb-8">
-            {config.fields.map((field) => {
-              const fs = state.fields[field.key];
-              const isResult = state.result?.[field.key] !== undefined;
-
-              return (
-                <div key={field.key} className="space-y-2">
-                  <div className="flex justify-between items-center px-1">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                      {t(field.labelKey as TranslationKey)}
-                    </label>
-                    {isResult && (
-                      <span className="text-[9px] text-blue-500 font-bold uppercase tracking-wider">
-                        {t('CalculatorTemplate.calculatedBadge')}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="relative flex items-center">
-                    <input
-                      type="number"
-                      step="any"
-                      value={isResult ? formatResult(state.result![field.key]) : fs.raw}
-                      onChange={(e) =>
-                        dispatch({ type: 'SET_VALUE', key: field.key, raw: e.target.value })
-                      }
-                      onKeyDown={(e) => e.key === 'Enter' && handleSolve()}
-                      placeholder={
-                        isResult
-                          ? ''
-                          : field.placeholderKey
-                            ? t(field.placeholderKey as TranslationKey)
-                            : t('CalculatorTemplate.leaveBlankHint')
-                      }
-                      className={`eng-input !font-geist-mono ${
-                        isResult ? 'border-blue-600 bg-blue-600/5 text-blue-400 font-bold' : ''
-                      }`}
-                      readOnly={isResult}
-                    />
-                    <div className="absolute right-0 flex items-center h-full">
-                      <select
-                        value={fs.unit}
-                        onChange={(e) =>
-                          dispatch({ type: 'SET_UNIT', key: field.key, unit: e.target.value })
-                        }
-                        className="eng-select h-full rounded-r-lg pr-4 pl-3"
-                      >
-                        {field.units.map((u) => (
-                          <option key={u.symbol} value={u.symbol} className="bg-slate-900">
-                            {u.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {config.fields.map((field) => (
+              <CalculatorField
+                key={field.key}
+                calculatorKey={calculatorKey}
+                field={field}
+                t={t}
+                onSolve={onSolve}
+              />
+            ))}
           </div>
 
-          <CalculatorError 
-            errorInfo={state.error} 
-            onDismiss={() => dispatch({ type: 'SET_RESULT', result: null, error: null })}
-          />
+          <CalculatorError errorInfo={error} onDismiss={onDismissError} />
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <button
-              onClick={handleSolve}
+              onClick={onSolve}
               disabled={isLoading}
               className="sm:col-span-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-md transition-all active:scale-[0.98] flex items-center justify-center gap-2 uppercase tracking-widest text-xs"
             >
@@ -342,7 +262,7 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
               {isLoading ? 'Calculating...' : t('CalculatorTemplate.solveButton')}
             </button>
             <button
-              onClick={handleReset}
+              onClick={onReset}
               disabled={isLoading}
               className="bg-slate-800 hover:bg-slate-700 disabled:bg-slate-900 disabled:cursor-not-allowed text-slate-300 font-bold py-3.5 rounded-md transition-all active:scale-[0.98] uppercase tracking-widest text-xs"
             >
@@ -357,6 +277,94 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
           <ReferenceCard referenceKey={config.referenceKey} />
         </div>
       )}
+    </div>
+  );
+}
+
+// Individual field component - only re-renders when its own state changes
+interface CalculatorFieldProps {
+  calculatorKey: string;
+  field: CalculatorConfig['fields'][number];
+  t: (key: string) => string;
+  onSolve: () => void;
+}
+
+function CalculatorField({ calculatorKey, field, t, onSolve }: CalculatorFieldProps) {
+  const fieldState = useCalculatorStore(
+    (state) => state.calculators.get(calculatorKey)?.fields[field.key]
+  );
+  const result = useCalculatorStore((state) => state.calculators.get(calculatorKey)?.result);
+
+  const fs = fieldState ?? { raw: '', unit: field.units[0].symbol };
+  const isResult = result?.[field.key] !== undefined;
+
+  const handleValueChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      useCalculatorStore.getState().setFieldValue(calculatorKey, field.key, e.target.value);
+    },
+    [calculatorKey, field.key]
+  );
+
+  const handleUnitChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      useCalculatorStore.getState().setFieldUnit(calculatorKey, field.key, e.target.value);
+    },
+    [calculatorKey, field.key]
+  );
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') onSolve();
+    },
+    [onSolve]
+  );
+
+  return (
+    <div className="space-y-2">
+      <div className="flex justify-between items-center px-1">
+        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+          {t(field.labelKey as TranslationKey)}
+        </label>
+        {isResult && (
+          <span className="text-[9px] text-blue-500 font-bold uppercase tracking-wider">
+            {t('CalculatorTemplate.calculatedBadge')}
+          </span>
+        )}
+      </div>
+
+      <div className="relative flex items-center">
+        <input
+          type="number"
+          step="any"
+          value={isResult ? formatResult(result![field.key]) : fs.raw}
+          onChange={handleValueChange}
+          onKeyDown={handleKeyDown}
+          placeholder={
+            isResult
+              ? ''
+              : field.placeholderKey
+                ? t(field.placeholderKey as TranslationKey)
+                : t('CalculatorTemplate.leaveBlankHint')
+          }
+          className={`eng-input !font-geist-mono ${
+            isResult ? 'border-blue-600 bg-blue-600/5 text-blue-400 font-bold' : ''
+          }`}
+          readOnly={isResult}
+        />
+        <div className="absolute right-0 flex items-center h-full">
+          <select
+            value={fs.unit}
+            onChange={handleUnitChange}
+            className="eng-select h-full rounded-r-lg pr-4 pl-3"
+          >
+            {field.units.map((u) => (
+              <option key={u.symbol} value={u.symbol} className="bg-slate-900">
+                {u.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
     </div>
   );
 }
