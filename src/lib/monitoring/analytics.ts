@@ -29,11 +29,6 @@ interface AnalyticsProperties {
  * Track custom analytics events
  */
 export function trackEvent(event: AnalyticsEvent, properties?: AnalyticsProperties): void {
-  if (process.env.NODE_ENV === 'development') {
-    console.log('[Analytics]', event, properties);
-    return;
-  }
-
   try {
     track(event, properties);
   } catch (error) {

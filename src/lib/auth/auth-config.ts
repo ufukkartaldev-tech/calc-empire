@@ -58,7 +58,7 @@ export const authOptions: NextAuthOptions = {
             .single();
 
           if (profileError) {
-            console.warn('Profile fetch error:', profileError);
+            // Profile fetch error
           }
 
           return {

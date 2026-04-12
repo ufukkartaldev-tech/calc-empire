@@ -10,11 +10,6 @@ import * as Sentry from '@sentry/nextjs';
  * Report Web Vitals to monitoring services
  */
 function reportWebVitals(metric: Metric): void {
-  // Log in development
-  if (process.env.NODE_ENV === 'development') {
-    console.log('[Web Vitals]', metric);
-  }
-
   // Send to Sentry with tags as separate parameter
   Sentry.metrics.distribution(metric.name, metric.value, {
     unit: 'millisecond',
@@ -63,10 +58,6 @@ export function initPerformanceMonitoring(): void {
 export function measurePerformance(name: string, startTime: number): void {
   const duration = performance.now() - startTime;
 
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`[Performance] ${name}: ${duration.toFixed(2)}ms`);
-  }
-
   Sentry.metrics.distribution(name, duration, {
     unit: 'millisecond',
   });
@@ -114,10 +105,6 @@ export function monitorLongTasks(): void {
           Sentry.metrics.distribution('long_task', entry.duration, {
             unit: 'millisecond',
           });
-
-          if (process.env.NODE_ENV === 'development') {
-            console.warn('[Long Task]', entry.duration.toFixed(2), 'ms');
-          }
         }
       }
     });
@@ -125,6 +112,5 @@ export function monitorLongTasks(): void {
     observer.observe({ entryTypes: ['longtask'] });
   } catch {
     // PerformanceObserver not supported
-    console.warn('Long task monitoring not supported');
   }
 }

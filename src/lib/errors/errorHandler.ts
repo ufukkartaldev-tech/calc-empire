@@ -40,16 +40,19 @@ export class ErrorHandler {
    * Handle an error from the formula layer
    * Logs to Sentry and returns user-friendly display information
    */
-  static handleFormulaError(error: unknown, context?: {
-    calculatorId?: string;
-    fieldKey?: string;
-    inputValues?: Record<string, unknown>;
-  }): ErrorDisplayInfo {
+  static handleFormulaError(
+    error: unknown,
+    context?: {
+      calculatorId?: string;
+      fieldKey?: string;
+      inputValues?: Record<string, unknown>;
+    }
+  ): ErrorDisplayInfo {
     const calculatorError = toCalculatorError(error);
-    
+
     // Log to Sentry with enhanced context
     this.logToSentry(calculatorError, context);
-    
+
     // Return user-friendly display information
     return this.toDisplayInfo(calculatorError);
   }
@@ -57,17 +60,17 @@ export class ErrorHandler {
   /**
    * Log error to Sentry with appropriate context
    */
-  private static logToSentry(error: CalculatorError, context?: {
-    calculatorId?: string;
-    fieldKey?: string;
-    inputValues?: Record<string, unknown>;
-  }): void {
+  private static logToSentry(
+    error: CalculatorError,
+    context?: {
+      calculatorId?: string;
+      fieldKey?: string;
+      inputValues?: Record<string, unknown>;
+    }
+  ): void {
     // Don't log validation errors to Sentry in production (user errors)
     // Only log calculation and configuration errors
     if (error instanceof ValidationError) {
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('[ValidationError]', error.message, error.context);
-      }
       return;
     }
 
@@ -128,11 +131,7 @@ export class ErrorHandler {
   /**
    * Create a validation error with common patterns
    */
-  static createValidationError(
-    field: string,
-    condition: string,
-    value?: unknown
-  ): ValidationError {
+  static createValidationError(field: string, condition: string, value?: unknown): ValidationError {
     const message = `${field} ${condition}${value !== undefined ? ` (got: ${value})` : ''}`;
     return new ValidationError(message, { field, value });
   }
@@ -140,10 +139,7 @@ export class ErrorHandler {
   /**
    * Create a calculation error
    */
-  static createCalculationError(
-    operation: string,
-    reason: string
-  ): CalculationError {
+  static createCalculationError(operation: string, reason: string): CalculationError {
     const message = `${operation} failed: ${reason}`;
     return new CalculationError(message, { operation, reason });
   }

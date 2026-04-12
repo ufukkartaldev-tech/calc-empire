@@ -46,29 +46,21 @@ function validateFieldConstraints(
 
   // Check if zero is allowed
   if (value === 0 && constraints.allowZero === false) {
-    console.warn(`Invalid parameter "${fieldKey}": zero value not allowed. Using default.`);
     return false;
   }
 
   // Check if negative is allowed
   if (value < 0 && constraints.allowNegative === false) {
-    console.warn(`Invalid parameter "${fieldKey}": negative value not allowed. Using default.`);
     return false;
   }
 
   // Check minimum constraint
   if (constraints.min !== undefined && value < constraints.min) {
-    console.warn(
-      `Invalid parameter "${fieldKey}": value ${value} below minimum ${constraints.min}. Using default.`
-    );
     return false;
   }
 
   // Check maximum constraint
   if (constraints.max !== undefined && value > constraints.max) {
-    console.warn(
-      `Invalid parameter "${fieldKey}": value ${value} exceeds maximum ${constraints.max}. Using default.`
-    );
     return false;
   }
 
@@ -131,7 +123,6 @@ export function useUrlState(options: UseUrlStateOptions = {}): UseUrlStateReturn
         // Check URL length constraint
         const fullUrl = `${pathname}?${queryString}`;
         if (fullUrl.length > opts.maxLength) {
-          console.warn(`URL length (${fullUrl.length}) exceeds maximum (${opts.maxLength})`);
           return;
         }
 
@@ -193,14 +184,13 @@ export function useUrlState(options: UseUrlStateOptions = {}): UseUrlStateReturn
               };
               hasValidParams = true;
             } else {
-              // Invalid parameter - logged by validateFieldConstraints, skip it
-              console.warn(`Skipping invalid parameter "${key}" with value ${value}`);
+              // Invalid parameter - skip it
             }
           } else {
-            console.warn(`Invalid numeric value for parameter "${key}": ${valueStr}`);
+            // Invalid numeric value
           }
         } catch (err) {
-          console.warn(`Failed to parse parameter "${key}": ${valueStr}`, err);
+          // Failed to parse parameter
         }
       }
     }

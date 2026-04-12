@@ -50,7 +50,7 @@ describe('Bug Condition Exploration - Message Files Missing', () => {
 
     // Eğer eksik dosya varsa, counterexample'ları göster
     if (missingLocales.length > 0) {
-      console.log('COUNTEREXAMPLES - Eksik message dosyaları:', missingLocales);
+      // Counterexamples logged via test failure
     }
   });
 
@@ -84,7 +84,7 @@ describe('Bug Condition Exploration - Message Files Missing', () => {
 
     // Eğer geçersiz dosya varsa, counterexample'ları göster
     if (invalidLocales.length > 0) {
-      console.log('COUNTEREXAMPLES - Geçersiz/eksik message dosyaları:', invalidLocales);
+      // Counterexamples logged via test failure
     }
   });
 
@@ -124,10 +124,7 @@ describe('Bug Condition Exploration - Message Files Missing', () => {
 
     // Eğer başarısız import varsa, counterexample'ları göster
     if (failedImports.length > 0) {
-      console.log("COUNTEREXAMPLES - Başarısız import'lar:");
-      failedImports.forEach(({ locale, error }) => {
-        console.log(`  - ${locale}.json: ${error}`);
-      });
+      // Counterexamples logged via test failure
     }
   });
 
