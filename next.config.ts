@@ -4,8 +4,70 @@ import { withSentryConfig } from '@sentry/nextjs';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
+/**
+ * OWASP-compliant security headers
+ * @see https://owasp.org/www-project-secure-headers/
+ */
+const securityHeaders = [
+  {
+    key: 'X-Frame-Options',
+    value: 'DENY',
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block',
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'strict-origin-when-cross-origin',
+  },
+  {
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+  },
+  {
+    key: 'Strict-Transport-Security',
+    value: 'max-age=63072000; includeSubDomains; preload',
+  },
+  {
+    key: 'Content-Security-Policy',
+    value: [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' blob: data: https://flagcdn.com",
+      "font-src 'self'",
+      "connect-src 'self' https://*.sentry.io",
+      "frame-ancestors 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+    ].join('; '),
+  },
+  {
+    key: 'Cross-Origin-Opener-Policy',
+    value: 'same-origin',
+  },
+  {
+    key: 'Cross-Origin-Resource-Policy',
+    value: 'same-origin',
+  },
+];
+
+/**
+ * SSR caching headers for improved performance
+ */
+const cacheHeaders = [
+  {
+    key: 'Cache-Control',
+    value: 'public, s-maxage=60, stale-while-revalidate=300',
+  },
+];
+
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
   images: {
     dangerouslyAllowSVG: true,
@@ -18,6 +80,42 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Security headers configuration
+  async headers() {
+    return [
+      {
+        // Apply security headers to all routes
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+      {
+        // Cache static assets aggressively
+        source: '/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        // Cache images
+        source: '/_next/image/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, stale-while-revalidate=604800',
+          },
+        ],
+      },
+    ];
+  },
+  // Compression for better performance
+  compress: true,
+  // Powered by header disabled for security
+  poweredByHeader: false,
+  // ETags for caching
+  generateEtags: true,
 };
 
 // Sentry configuration
