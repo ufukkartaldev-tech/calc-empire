@@ -9,11 +9,11 @@ import React from 'react';
 import { Sidebar } from '../ui/Sidebar';
 import { Footer } from '../ui/Footer';
 import { useDashboard } from '@/hooks';
-import type { ToolId } from '@/types';
+import type { NullableToolId } from '@/types';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
-  activeTool?: ToolId;
+  activeTool?: NullableToolId;
 }
 
 export function DashboardLayout({ children, activeTool: initialActiveTool = null }: DashboardLayoutProps) {

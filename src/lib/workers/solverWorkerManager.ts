@@ -66,34 +66,48 @@ export class SolverWorkerManager {
     solverKey: string,
     values: FieldValues
   ): Promise<SolveResult> {
-    const requestId = `${solverKey}-${Date.now()}-${Math.random()}`;
+    const requestId = `${solverKey}-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 
     try {
       // Get or create worker for this solver
       let worker = this.workers.get(solverKey);
-      
+
       if (!worker) {
         worker = new Worker(
           new URL('./solver.worker.ts', import.meta.url),
           { type: 'module' }
         );
         this.workers.set(solverKey, worker);
-        
-        // Set up message handler
+
+        // Set up message handler once per worker
+        // Uses response.requestId to correctly match with pending promise
         worker.onmessage = (e: MessageEvent<SolverWorkerResponse>) => {
-          const pending = this.pendingPromises.get(requestId);
+          const { requestId: responseRequestId } = e.data;
+          const pending = this.pendingPromises.get(responseRequestId);
           if (pending) {
             pending.resolve(e.data);
-            this.pendingPromises.delete(requestId);
+            this.pendingPromises.delete(responseRequestId);
           }
         };
 
         worker.onerror = (error) => {
-          const pending = this.pendingPromises.get(requestId);
-          if (pending) {
-            pending.reject(new Error(error.message || 'Worker error'));
-            this.pendingPromises.delete(requestId);
-          }
+          // On worker error, reject all pending promises for this worker
+          this.pendingPromises.forEach((pending, key) => {
+            if (key.startsWith(`${solverKey}-`)) {
+              pending.reject(new Error(error.message || 'Worker error'));
+              this.pendingPromises.delete(key);
+            }
+          });
+        };
+
+        worker.onmessageerror = (error) => {
+          // Handle message deserialization errors
+          this.pendingPromises.forEach((pending, key) => {
+            if (key.startsWith(`${solverKey}-`)) {
+              pending.reject(new Error('Worker message error: ' + error.toString()));
+              this.pendingPromises.delete(key);
+            }
+          });
         };
       }
 
@@ -102,8 +116,8 @@ export class SolverWorkerManager {
         this.pendingPromises.set(requestId, { resolve, reject });
       });
 
-      // Send request to worker
-      const input: SolverWorkerInput = { solverKey, values };
+      // Send request to worker with requestId for proper matching
+      const input: SolverWorkerInput = { solverKey, values, requestId };
       worker.postMessage(input);
 
       // Wait for response
@@ -115,6 +129,8 @@ export class SolverWorkerManager {
         throw new Error(response.error.message);
       }
     } catch (error) {
+      // Clean up pending promise on error
+      this.pendingPromises.delete(requestId);
       // Clean up worker on error
       this.terminateWorker(solverKey);
       throw error;

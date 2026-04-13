@@ -10,6 +10,7 @@ import * as solvers from '../calculators/index';
 export type SolverWorkerInput = {
   solverKey: string;
   values: Record<string, { value: number | null; unit: string }>;
+  requestId: string;
 };
 
 export type SolverWorkerOutput = {
@@ -17,12 +18,13 @@ export type SolverWorkerOutput = {
 };
 
 export type SolverWorkerResponse =
-  | { success: true; data: SolverWorkerOutput }
-  | { success: false; error: { message: string; code: string; context?: Record<string, unknown> } };
+  | { success: true; data: SolverWorkerOutput; requestId: string }
+  | { success: false; error: { message: string; code: string; context?: Record<string, unknown> }; requestId: string };
 
 self.onmessage = (e: MessageEvent<SolverWorkerInput>) => {
+  const { solverKey, values, requestId } = e.data;
+
   try {
-    const { solverKey, values } = e.data;
 
     // Get the solver function from the barrel export
     const solverName = `${solverKey}Solve` as keyof typeof solvers;
@@ -35,7 +37,7 @@ self.onmessage = (e: MessageEvent<SolverWorkerInput>) => {
     // Execute the solver
     const result = solver(values);
 
-    self.postMessage({ success: true, data: { result } } as SolverWorkerResponse);
+    self.postMessage({ success: true, data: { result }, requestId } as SolverWorkerResponse);
   } catch (error) {
     // Convert error to CalculatorError for consistent error handling
     const calculatorError = toCalculatorError(error);
@@ -47,6 +49,7 @@ self.onmessage = (e: MessageEvent<SolverWorkerInput>) => {
         code: calculatorError.code,
         context: calculatorError.context,
       },
+      requestId,
     } as SolverWorkerResponse);
   }
 };

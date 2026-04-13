@@ -166,7 +166,7 @@ const FieldValueSchema = z.object({
 });
 
 const CalculateRequestSchema = z.object({
-  inputs: z.record(FieldValueSchema),
+  inputs: z.record(z.string(), FieldValueSchema),
   skipCache: z.boolean().optional().default(false),
 });
 

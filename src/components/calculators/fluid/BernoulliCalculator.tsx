@@ -226,8 +226,8 @@ export function BernoulliCalculator() {
                    <p className="text-xs font-black uppercase tracking-[0.2em] opacity-80">{t('result')}</p>
                    <div className="flex items-baseline gap-2">
                      <span className="text-5xl font-mono font-black tracking-tighter">
-                       {result.value.toLocaleString(undefined, { maximumFractionDigits: 4 })}
-                     </span>
+                      {result.value?.toLocaleString(undefined, { maximumFractionDigits: 4 }) ?? '-'}
+                    </span>
                      <span className="text-xl font-bold opacity-60">
                         {result.key.startsWith('p') ? 'Pa' : result.key.startsWith('v') ? 'm/s' : 'm'}
                      </span>

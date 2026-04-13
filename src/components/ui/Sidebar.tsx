@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import type { SidebarProps } from '@/types';
+import type { SidebarProps, CategoryKey } from '@/types';
 import { CATEGORY_ORDER } from '@/constants';
 import {
   Zap,
@@ -90,7 +90,7 @@ export function Sidebar({
               >
                 {ICON_MAP[catKey]}
               </span>
-              <span>{tCat(catKey as keyof IntlMessages['Categories'])}</span>
+              <span>{tCat(catKey as CategoryKey)}</span>
             </button>
           ))}
         </nav>

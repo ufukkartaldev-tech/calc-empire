@@ -16,9 +16,9 @@ import { ToolGrid } from './ToolGrid';
 import { EmptyState } from './EmptyState';
 import { useRouter } from '@/i18n/routing';
 import { ArrowLeft } from 'lucide-react';
-import type { ToolId } from '@/types';
+import type { NullableToolId } from '@/types';
 
-export function EngineeringDashboard({ initialToolId = null }: { initialToolId?: ToolId }) {
+export function EngineeringDashboard({ initialToolId = null }: { initialToolId?: NullableToolId }) {
   const tCat = useTranslations('Categories');
   const tDash = useTranslations('Dashboard');
   const router = useRouter();

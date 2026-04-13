@@ -53,7 +53,7 @@ function NextAuthProviderInner({ children }: { children: React.ReactNode }) {
     try {
       await signOut();
     } catch {
-      return false;
+      // Silently ignore sign out errors
     }
   };
 
