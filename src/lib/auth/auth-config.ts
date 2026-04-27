@@ -11,16 +11,29 @@ import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { z } from 'zod';
 
+// Profile tip tanımı
+interface UserProfile {
+  id: string;
+  display_name?: string | null;
+  avatar_url?: string | null;
+}
+
 const credentialsSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
 });
 
+// Conditional adapter - only use SupabaseAdapter if env vars are set
+const hasSupabaseEnv =
+  process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY;
+
 export const authOptions: NextAuthOptions = {
-  adapter: SupabaseAdapter({
-    url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    secret: process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  }),
+  adapter: hasSupabaseEnv
+    ? SupabaseAdapter({
+        url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        secret: process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      })
+    : undefined,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -51,11 +64,11 @@ export const authOptions: NextAuthOptions = {
           }
 
           // Fetch user profile from profiles table
-          const { data: profile, error: profileError } = await supabase
+          const { data: profile, error: profileError } = (await supabase
             .from('profiles')
             .select('*')
             .eq('id', authData.user.id)
-            .single();
+            .single()) as { data: UserProfile | null; error: Error | null };
 
           if (profileError) {
             // Profile fetch error

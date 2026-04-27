@@ -12,6 +12,7 @@ import {
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ErrorBoundary } from '@/lib/monitoring';
+import { ThemeProvider } from '@/components/ui/theme-provider';
 import '../globals.css';
 
 const RTL_LOCALES = new Set(['ar']);
@@ -146,12 +147,14 @@ export default async function LocaleLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-[var(--ce-bg)] text-[var(--ce-text-primary)] flex flex-col min-h-screen`}
       >
-        <ErrorBoundary>
-          <NextIntlClientProvider messages={messages}>
-            <Navbar />
-            <div className="flex-1">{children}</div>
-          </NextIntlClientProvider>
-        </ErrorBoundary>
+        <ThemeProvider>
+          <ErrorBoundary>
+            <NextIntlClientProvider messages={messages}>
+              <Navbar />
+              <div className="flex-1">{children}</div>
+            </NextIntlClientProvider>
+          </ErrorBoundary>
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>

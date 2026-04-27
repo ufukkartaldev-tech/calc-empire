@@ -9,7 +9,19 @@
 export type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated' | 'error';
 
 /**
- * User profile information
+ * Database profile row shape (snake_case from Supabase)
+ */
+export interface DatabaseProfile {
+  id: string;
+  display_name?: string | null;
+  avatar_url?: string | null;
+  created_at?: string | null;
+  updated_at?: string | null;
+  preferences?: UserPreferences | null;
+}
+
+/**
+ * User profile information (camelCase for frontend)
  */
 export interface UserProfile {
   id: string;

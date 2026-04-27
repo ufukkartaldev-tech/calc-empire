@@ -164,6 +164,8 @@ export interface LogContext {
   userAgent?: string;
   endpoint?: string;
   method?: string;
+  operation?: string;
+  secretKey?: string;
 }
 
 export function createStructuredLog(

@@ -30,7 +30,7 @@ export function getCurrentEnvironment(): Environment {
     return Environment.PRODUCTION;
   }
 
-  if (vercelEnv === 'preview' || nodeEnv === 'staging') {
+  if (vercelEnv === 'preview') {
     return Environment.STAGING;
   }
 

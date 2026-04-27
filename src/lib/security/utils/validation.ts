@@ -30,7 +30,7 @@ export function sanitizeHTML(input: string): string {
 
 export function sanitizeSQL(input: string): string {
   return input
-    .replace(/[';--]/g, '') // Remove SQL injection patterns
+    .replace(/[';\-]/g, '') // Remove SQL injection patterns
     .replace(/\b(DROP|DELETE|INSERT|UPDATE|SELECT|UNION|ALTER|CREATE)\b/gi, '') // Remove SQL keywords
     .trim();
 }

@@ -217,7 +217,7 @@ export function generateApiKey(): string {
   return randomBytes(32).toString('base64url');
 }
 
-export function generateSecretKey(): string {
+export function generateRandomSecret(): string {
   return randomBytes(64).toString('hex');
 }
 

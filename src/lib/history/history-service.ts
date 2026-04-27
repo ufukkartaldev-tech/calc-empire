@@ -33,7 +33,8 @@ export class HistoryService {
    * Set up Supabase auth state change listener
    */
   private setupAuthListener(): void {
-    supabase.auth.onAuthStateChange((event, session) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    supabase.auth.onAuthStateChange((event: any, session: any) => {
       if (session?.user) {
         this.currentUserId = session.user.id;
       } else {
@@ -178,7 +179,8 @@ export class HistoryService {
       if (error) {
         filtered = [...this.localHistory];
       } else {
-        filtered = (data || []).map((item) => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        filtered = (data || []).map((item: any) => ({
           id: item.id,
           userId: item.user_id,
           calculatorId: item.calculator_id,

@@ -11,6 +11,7 @@ import type { Database } from './supabase-client';
 import type {
   AuthStatus,
   UserProfile,
+  DatabaseProfile,
   AuthCredentials,
   RegisterCredentials,
   AuthError,
@@ -50,11 +51,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (error) throw error;
 
       if (supabaseSession) {
-        const { data: profile, error: profileError } = await supabase
+        const { data: profile, error: profileError } = (await supabase
           .from('profiles')
           .select('*')
           .eq('id', supabaseSession.user.id)
-          .single();
+          .single()) as { data: DatabaseProfile | null; error: Error | null };
 
         if (profileError) throw profileError;
 
@@ -114,13 +115,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (error) throw error;
 
       if (data.session && data.user) {
-        const { data: profile, error: profileError } = await supabase
+        const { data: profile, error: profileError } = (await supabase
           .from('profiles')
           .select('*')
           .eq('id', data.user.id)
-          .single();
+          .single()) as { data: DatabaseProfile | null; error: Error | null };
 
-        if (profileError && profileError.code !== 'PGRST116') throw profileError;
+        if (profileError && (profileError as { code?: string }).code !== 'PGRST116')
+          throw profileError;
 
         const userProfile: UserProfile = {
           id: data.user.id,
@@ -220,7 +222,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         if (!user) throw new Error('No authenticated user');
 
-        const dbUpdates: Partial<Database['public']['Tables']['profiles']['Update']> = {
+        const dbUpdates: Record<string, unknown> = {
           updated_at: new Date().toISOString(),
         };
 
