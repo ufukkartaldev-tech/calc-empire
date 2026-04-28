@@ -146,10 +146,10 @@ describe('CSPManager', () => {
         fc.property(
           fc.record({
             endpoint: fc.webUrl(),
-            nonce: fc.option(fc.string({ minLength: 16, maxLength: 32 })),
+            nonce: fc.option(fc.string({ minLength: 16, maxLength: 32 })).map(x => x === null ? undefined : x),
             hashes: fc.option(
               fc.array(fc.string({ minLength: 10, maxLength: 50 }), { maxLength: 5 })
-            ),
+            ).map(x => x === null ? undefined : x),
           }),
           (context: CSPContext) => {
             const header = stagingCspManager.buildCSPHeader(context);
@@ -187,7 +187,7 @@ describe('CSPManager', () => {
       await fc.assert(
         fc.asyncProperty(
           fc.record({
-            defaultSrc: fc.option(fc.array(fc.string(), { maxLength: 3 })),
+            defaultSrc: fc.option(fc.array(fc.string(), { maxLength: 3 })).map(x => x === null ? undefined : x),
             scriptSrc: fc.option(
               fc.array(
                 fc.oneof(
@@ -198,9 +198,9 @@ describe('CSPManager', () => {
                 ),
                 { maxLength: 5 }
               )
-            ),
-            styleSrc: fc.option(fc.array(fc.string(), { maxLength: 3 })),
-            imgSrc: fc.option(fc.array(fc.string(), { maxLength: 3 })),
+            ).map(x => x === null ? undefined : x),
+            styleSrc: fc.option(fc.array(fc.string(), { maxLength: 3 })).map(x => x === null ? undefined : x),
+            imgSrc: fc.option(fc.array(fc.string(), { maxLength: 3 })).map(x => x === null ? undefined : x),
           }),
           async (policy: Partial<CSPPolicy>) => {
             const result = await cspManager.testCSPPolicy(policy as CSPPolicy);
@@ -249,8 +249,8 @@ describe('CSPManager', () => {
                 fc.constant('eval')
               ),
               timestamp: fc.date(),
-              sourceFile: fc.option(fc.string()),
-              lineNumber: fc.option(fc.integer({ min: 1, max: 1000 })),
+              sourceFile: fc.option(fc.string()).map(x => x === null ? undefined : x),
+              lineNumber: fc.option(fc.integer({ min: 1, max: 1000 })).map(x => x === null ? undefined : x),
             }),
             { minLength: 1, maxLength: 20 }
           ),
