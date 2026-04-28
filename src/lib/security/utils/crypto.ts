@@ -114,7 +114,8 @@ export function generateCSPHash(
   content: string,
   algorithm: 'sha256' | 'sha384' | 'sha512' = 'sha256'
 ): string {
-  return createHash(algorithm).update(content, 'utf8').digest('base64');
+  const hash = createHash(algorithm).update(content, 'utf8').digest('base64');
+  return `${algorithm}-${hash}`;
 }
 
 export function generateStyleHash(cssContent: string): string {

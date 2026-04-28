@@ -4,11 +4,13 @@ import React from 'react';
 import { Link } from '@/i18n/routing';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ThemeToggle } from './ThemeToggle';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User } from 'lucide-react';
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <nav className="nav-professional">
@@ -29,29 +31,38 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             <div className="flex items-center gap-6">
-              <Link 
-                href="/calculators" 
+              <Link
+                href="/calculators"
                 className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors"
               >
                 Calculators
               </Link>
-              <Link 
-                href="/guides" 
+              <Link
+                href="/guides"
                 className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors"
               >
                 Guides
               </Link>
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors"
               >
                 About
               </Link>
             </div>
-            
+
             <div className="flex items-center gap-2">
               <ThemeToggle />
               <LanguageSwitcher />
+              {session?.user && (
+                <Link
+                  href="/profile"
+                  className="flex items-center gap-1 text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors px-2 py-1 rounded hover:bg-[var(--ce-surface-secondary)]"
+                >
+                  <User size={16} />
+                  <span className="hidden lg:inline">{session.user.name || 'Profile'}</span>
+                </Link>
+              )}
             </div>
           </div>
 
@@ -75,22 +86,22 @@ export function Navbar() {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-[var(--ce-border)] py-3">
             <div className="flex flex-col gap-2">
-              <Link 
-                href="/calculators" 
+              <Link
+                href="/calculators"
                 className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Calculators
               </Link>
-              <Link 
-                href="/guides" 
+              <Link
+                href="/guides"
                 className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Guides
               </Link>
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1"
                 onClick={() => setIsMobileMenuOpen(false)}
               >

@@ -57,6 +57,43 @@
     "converters": "Unit Converters",
     "toolReference": "Tool Reference"
   },
+  "Profile": {
+    "pageTitle": "Profile",
+    "pageDescription": "Manage your profile and view your activity",
+    "title": "My Profile",
+    "anonymous": "Anonymous User",
+    "emailLocked": "Email cannot be changed",
+    "fields": {
+      "name": "Display Name",
+      "email": "Email Address"
+    },
+    "placeholders": {
+      "name": "Enter your name"
+    },
+    "buttons": {
+      "edit": "Edit Profile",
+      "save": "Save Changes",
+      "cancel": "Cancel"
+    },
+    "sections": {
+      "accountInfo": "Account Information",
+      "usageStats": "Usage Statistics"
+    },
+    "labels": {
+      "userId": "User ID",
+      "memberSince": "Member Since",
+      "newMember": "New Member"
+    },
+    "badges": {
+      "active": "Active",
+      "verified": "Verified"
+    },
+    "stats": {
+      "calculations": "Calculations",
+      "savedResults": "Saved Results",
+      "toolsUsed": "Tools Used"
+    }
+  },
   "Dashboard": {
     "title": "Calculator Tools",
     "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",

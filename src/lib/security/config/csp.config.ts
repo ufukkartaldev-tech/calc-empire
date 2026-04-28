@@ -142,6 +142,9 @@ export function buildStyleSrcWithHash(
 export function generateCSPHeader(policy: CSPPolicy, nonce?: string, hashes?: string[]): string {
   const directives: string[] = [];
 
+  // Clean nonce - trim whitespace but keep the value if it has content after trimming
+  const validNonce = nonce ? nonce.trim() : undefined;
+
   // Process each directive
   Object.entries(policy).forEach(([directive, sources]) => {
     if (directive === 'reportUri' || directive === 'reportOnly') {
@@ -151,9 +154,12 @@ export function generateCSPHeader(policy: CSPPolicy, nonce?: string, hashes?: st
     if (Array.isArray(sources) && sources.length > 0) {
       let processedSources = [...sources];
 
-      // Replace nonce placeholder
-      if (nonce) {
-        processedSources = processedSources.map((source) => source.replace('{nonce}', nonce));
+      // Replace nonce placeholder or remove if nonce is empty
+      if (validNonce && validNonce.length > 0) {
+        processedSources = processedSources.map((source) => source.replace('{nonce}', validNonce));
+      } else {
+        // Remove nonce placeholders when no valid nonce provided
+        processedSources = processedSources.filter((source) => !source.includes('{nonce}'));
       }
 
       // Replace hash placeholders
