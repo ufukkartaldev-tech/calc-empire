@@ -221,6 +221,37 @@
       "today": "Today"
     }
   },
+  "Favorites": {
+    "pageTitle": "Favorite Calculators",
+    "pageDescription": "Manage your favorite calculator tools",
+    "title": "My Favorites",
+    "subtitle": "You have {count} favorite calculators",
+    "view": {
+      "grid": "Grid",
+      "list": "List"
+    },
+    "noteLabel": "Note",
+    "actions": {
+      "open": "Open",
+      "addNote": "Add Note",
+      "remove": "Remove from Favorites"
+    },
+    "editNote": {
+      "title": "Add/Edit Note",
+      "placeholder": "Add a personal note about this calculator...",
+      "save": "Save Note",
+      "cancel": "Cancel"
+    },
+    "empty": {
+      "title": "No Favorites Yet",
+      "description": "Add your most-used calculators to favorites for quick access.",
+      "cta": "Browse Calculators"
+    },
+    "addMore": {
+      "title": "Add More Calculators",
+      "viewAll": "View all {count} calculators →"
+    }
+  },
   "Dashboard": {
     "title": "Calculator Tools",
     "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",

@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from '@/i18n/routing';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ThemeToggle } from './ThemeToggle';
-import { Menu, X, User, History } from 'lucide-react';
+import { Menu, X, User, History, Star } from 'lucide-react';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 
@@ -56,6 +56,14 @@ export function Navbar() {
               <LanguageSwitcher />
               {session?.user && (
                 <>
+                  <Link
+                    href="/favorites"
+                    className="flex items-center gap-1 text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors px-2 py-1 rounded hover:bg-[var(--ce-surface-secondary)]"
+                    title="Favorites"
+                  >
+                    <Star size={16} />
+                    <span className="hidden lg:inline">Favorites</span>
+                  </Link>
                   <Link
                     href="/history"
                     className="flex items-center gap-1 text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors px-2 py-1 rounded hover:bg-[var(--ce-surface-secondary)]"
@@ -120,6 +128,14 @@ export function Navbar() {
               {session?.user && (
                 <>
                   <div className="pt-2 border-t border-[var(--ce-border)]" />
+                  <Link
+                    href="/favorites"
+                    className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1 flex items-center gap-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <Star size={16} />
+                    Favorites
+                  </Link>
                   <Link
                     href="/history"
                     className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1 flex items-center gap-2"
