@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from '@/i18n/routing';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ThemeToggle } from './ThemeToggle';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X, User, History } from 'lucide-react';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 
@@ -55,13 +55,23 @@ export function Navbar() {
               <ThemeToggle />
               <LanguageSwitcher />
               {session?.user && (
-                <Link
-                  href="/profile"
-                  className="flex items-center gap-1 text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors px-2 py-1 rounded hover:bg-[var(--ce-surface-secondary)]"
-                >
-                  <User size={16} />
-                  <span className="hidden lg:inline">{session.user.name || 'Profile'}</span>
-                </Link>
+                <>
+                  <Link
+                    href="/history"
+                    className="flex items-center gap-1 text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors px-2 py-1 rounded hover:bg-[var(--ce-surface-secondary)]"
+                    title="History"
+                  >
+                    <History size={16} />
+                    <span className="hidden lg:inline">History</span>
+                  </Link>
+                  <Link
+                    href="/profile"
+                    className="flex items-center gap-1 text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors px-2 py-1 rounded hover:bg-[var(--ce-surface-secondary)]"
+                  >
+                    <User size={16} />
+                    <span className="hidden lg:inline">{session.user.name || 'Profile'}</span>
+                  </Link>
+                </>
               )}
             </div>
           </div>
@@ -107,6 +117,27 @@ export function Navbar() {
               >
                 About
               </Link>
+              {session?.user && (
+                <>
+                  <div className="pt-2 border-t border-[var(--ce-border)]" />
+                  <Link
+                    href="/history"
+                    className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1 flex items-center gap-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <History size={16} />
+                    History
+                  </Link>
+                  <Link
+                    href="/profile"
+                    className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1 flex items-center gap-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <User size={16} />
+                    Profile
+                  </Link>
+                </>
+              )}
               <div className="pt-2 border-t border-[var(--ce-border)] mt-2">
                 <LanguageSwitcher />
               </div>

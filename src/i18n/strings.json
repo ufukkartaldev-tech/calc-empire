@@ -181,6 +181,46 @@
       "copyright": "© {year} CalcEmpire. All rights reserved."
     }
   },
+  "History": {
+    "pageTitle": "Calculation History",
+    "pageDescription": "View and manage your recent calculations",
+    "title": "Recent Calculations",
+    "subtitle": "You have {count} saved calculations",
+    "clearAll": "Clear All History",
+    "confirmClear": "Are you sure you want to delete all calculation history? This action cannot be undone.",
+    "searchPlaceholder": "Search by tool name, category, or notes...",
+    "filters": {
+      "allCategories": "All Categories"
+    },
+    "actions": {
+      "export": "Export",
+      "delete": "Delete",
+      "showDetails": "Show Details",
+      "hideDetails": "Hide Details",
+      "recalculate": "Recalculate with Same Values"
+    },
+    "details": {
+      "inputs": "Inputs",
+      "results": "Results",
+      "notes": "Notes"
+    },
+    "empty": {
+      "title": "No Calculations Yet",
+      "description": "Start using our calculators and your calculation history will appear here automatically.",
+      "cta": "Browse Calculators"
+    },
+    "noResults": {
+      "title": "No Results Found",
+      "description": "Try adjusting your search or filter criteria."
+    },
+    "stats": {
+      "title": "Calculation Statistics",
+      "total": "Total Calculations",
+      "categories": "Categories Used",
+      "thisWeek": "This Week",
+      "today": "Today"
+    }
+  },
   "Dashboard": {
     "title": "Calculator Tools",
     "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
