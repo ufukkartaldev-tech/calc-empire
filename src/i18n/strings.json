@@ -94,6 +94,93 @@
       "toolsUsed": "Tools Used"
     }
   },
+  "Guides": {
+    "pageTitle": "Guides",
+    "pageDescription": "Learn how to use our calculator tools effectively",
+    "title": "User Guides",
+    "subtitle": "Explore our comprehensive guides for each calculator category. Learn best practices and get the most out of our tools.",
+    "needHelp": "Need Help?",
+    "helpText": "If you cannot find what you are looking for, please visit our",
+    "contactLink": "About page",
+    "electrical": {
+      "ohmTitle": "Ohm's Law Guide",
+      "ohmDesc": "Learn how to calculate voltage, current, and resistance",
+      "kirchhoffTitle": "Kirchhoff's Laws Guide",
+      "kirchhoffDesc": "Understand KCL and KVL for circuit analysis",
+      "powerTitle": "Power Calculator Guide",
+      "powerDesc": "Calculate electrical power in various circuits"
+    },
+    "software": {
+      "baseConverterTitle": "Base Converter Guide",
+      "baseConverterDesc": "Convert between binary, decimal, and hexadecimal",
+      "cronParserTitle": "Cron Parser Guide",
+      "cronParserDesc": "Understand and create cron expressions",
+      "jsonFormatterTitle": "JSON Formatter Guide",
+      "jsonFormatterDesc": "Format and validate JSON data easily"
+    },
+    "finance": {
+      "compoundInterestTitle": "Compound Interest Guide",
+      "compoundInterestDesc": "Calculate investment growth over time",
+      "cryptoPnlTitle": "Crypto P&L Guide",
+      "cryptoPnlDesc": "Track cryptocurrency profit and loss"
+    }
+  },
+  "About": {
+    "pageTitle": "About",
+    "pageDescription": "Learn more about CalcEmpire and our mission",
+    "title": "About CalcEmpire",
+    "subtitle": "Professional engineering calculators for modern workflows",
+    "mission": {
+      "title": "Our Mission",
+      "text1": "CalcEmpire was built to provide engineers, students, and professionals with accurate, reliable calculation tools. We believe that complex calculations should be accessible and easy to perform.",
+      "text2": "Our platform combines modern web technologies with proven engineering formulas to deliver fast, accurate results across multiple disciplines."
+    },
+    "features": {
+      "title": "Key Features",
+      "calculators": {
+        "title": "50+ Calculators",
+        "desc": "Comprehensive collection of engineering and scientific calculators"
+      },
+      "multilingual": {
+        "title": "Multilingual Support",
+        "desc": "Available in 17 languages to serve users worldwide"
+      },
+      "security": {
+        "title": "Secure & Private",
+        "desc": "Enterprise-grade security with data protection"
+      },
+      "responsive": {
+        "title": "Mobile Friendly",
+        "desc": "Works seamlessly on desktop, tablet, and mobile devices"
+      },
+      "fast": {
+        "title": "Lightning Fast",
+        "desc": "Optimized calculations with instant results"
+      },
+      "export": {
+        "title": "Export & Share",
+        "desc": "PDF export and shareable URLs for your calculations"
+      }
+    },
+    "categories": {
+      "title": "Calculator Categories",
+      "electrical": "Electrical Engineering",
+      "mechanical": "Mechanical Engineering",
+      "software": "Software Development",
+      "finance": "Finance & Investment",
+      "civil": "Civil Engineering",
+      "chemistry": "Chemistry & Science"
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "text": "Explore our full collection of calculators and find the tools you need for your next project.",
+      "button": "Browse Calculators"
+    },
+    "footer": {
+      "version": "Version {version}",
+      "copyright": "© {year} CalcEmpire. All rights reserved."
+    }
+  },
   "Dashboard": {
     "title": "Calculator Tools",
     "subtitle": "Select the calculator you need and start computing immediately. Clean, simple, and fast.",
