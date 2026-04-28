@@ -343,5 +343,150 @@
     "peak": "Peak (Max)",
     "range": "Range",
     "empirical": "Empirical Rule (68-95-99.7)"
+  },
+  "Navbar": {
+    "brand": "CalcEmpire",
+    "links": {
+      "calculators": "Calculators",
+      "guides": "Guides",
+      "about": "About",
+      "profile": "Profile",
+      "history": "History",
+      "favorites": "Favorites"
+    }
+  },
+  "Auth": {
+    "login": {
+      "title": "Sign In",
+      "subtitle": "Welcome back! Please sign in to continue.",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "submit": "Sign In",
+      "loading": "Signing in...",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "continueWithGoogle": "Continue with Google",
+      "continueWithGithub": "Continue with GitHub",
+      "errors": {
+        "invalidEmail": "Please enter a valid email address",
+        "invalidPassword": "Password must be at least 6 characters",
+        "invalidCredentials": "Invalid email or password",
+        "generic": "An error occurred. Please try again."
+      }
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Join CalcEmpire and start calculating",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your name",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Create a password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "submit": "Create Account",
+      "loading": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "errors": {
+        "passwordMismatch": "Passwords do not match",
+        "weakPassword": "Password must be at least 8 characters with numbers and symbols",
+        "emailExists": "An account with this email already exists",
+        "generic": "An error occurred. Please try again."
+      }
+    },
+    "logout": {
+      "title": "Sign Out",
+      "confirm": "Are you sure you want to sign out?",
+      "cancel": "Cancel",
+      "confirmButton": "Sign Out"
+    }
+  },
+  "Errors": {
+    "404": {
+      "title": "Page Not Found",
+      "description": "The page you're looking for doesn't exist or has been moved.",
+      "backHome": "Go back home"
+    },
+    "500": {
+      "title": "Server Error",
+      "description": "Something went wrong on our end. Please try again later.",
+      "retry": "Try again"
+    },
+    "generic": {
+      "title": "Oops!",
+      "description": "Something went wrong.",
+      "retry": "Try again"
+    },
+    "offline": {
+      "title": "No Internet Connection",
+      "description": "Please check your internet connection and try again.",
+      "retry": "Retry"
+    }
+  },
+  "Common": {
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "open": "Open",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "continue": "Continue",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "clear": "Clear",
+    "reset": "Reset",
+    "apply": "Apply",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info",
+    "optional": "Optional",
+    "required": "Required",
+    "show": "Show",
+    "hide": "Hide",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "share": "Share",
+    "download": "Download",
+    "print": "Print",
+    "export": "Export",
+    "import": "Import",
+    "refresh": "Refresh",
+    "update": "Update",
+    "create": "Create",
+    "add": "Add",
+    "remove": "Remove",
+    "select": "Select",
+    "selected": "Selected",
+    "all": "All",
+    "none": "None",
+    "more": "More",
+    "less": "Less",
+    "viewAll": "View all",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "readMore": "Read more",
+    "learnMore": "Learn more",
+    "comingSoon": "Coming soon",
+    "new": "New",
+    "popular": "Popular",
+    "recommended": "Recommended",
+    "featured": "Featured"
   }
 }
