@@ -27,6 +27,13 @@
     "electrical": "Elektrotechnik",
     "mechanical": "Maschinenbau",
     "statistics": "Statistik & Mathematik",
+    "software": "Software-Engineering",
+    "finance": "Finanzen",
+    "civil": "Bauingenieurwesen",
+    "chemistry": "Chemie",
+    "fluid": "Strömungsmechanik",
+    "mathematics": "Mathematik",
+    "converters": "Einheitenumrechner",
     "toolReference": "Werkzeugreferenz"
   },
   "Dashboard": {
@@ -35,12 +42,60 @@
     "backButton": "Zurück",
     "ohmTitle": "Rechner Ohmsches Gesetz",
     "ohmDesc": "Standardberechnungen für V = I × R.",
+    "kirchhoffTitle": "Kirchhoffsche Gesetze",
+    "kirchhoffDesc": "Schaltungsanalyse mit KCL und KVL.",
+    "powerTitle": "Leistungsrechner",
+    "powerDesc": "Berechnen Sie elektrische Leistung P = V × I.",
     "resistorTitle": "Widerstandsfarbcodes",
     "resistorDesc": "Leser für 4-, 5- und 6-Band-Farbcodes.",
+    "bodeTitle": "Bode-Diagramm",
+    "bodeDesc": "Frequenzgang-Visualisierung.",
+    "baseConverterTitle": "Basisumwandler",
+    "baseConverterDesc": "Konvertieren Sie zwischen Binär, Dezimal, Hex.",
+    "cronParserTitle": "Cron-Ausdruck-Parser",
+    "cronParserDesc": "Parsen und visualisieren Sie Cron-Zeitpläne.",
+    "jsonFormatterTitle": "JSON-Formatierer",
+    "jsonFormatterDesc": "Formatieren und validieren Sie JSON-Daten.",
+    "compoundInterestTitle": "Zinseszins",
+    "compoundInterestDesc": "Berechnen Sie das Investitionswachstum über Zeit.",
+    "cryptoPnlTitle": "Krypto-G/V-Rechner",
+    "cryptoPnlDesc": "Verfolgen Sie Kryptowährungsgewinne und -verluste.",
+    "concreteSectionTitle": "Betonquerschnittsbemessung",
+    "concreteSectionDesc": "Betonbalkenanalyse mit Bewehrung.",
+    "soilMechanicsTitle": "Bodenmechanik",
+    "soilMechanicsDesc": "Berechnungen zur Bodentragfähigkeit.",
     "beamTitle": "Balkendurchbiegungsanalyse",
     "beamDesc": "Durchbiegungsberechnung für verschiedene Balkentypen.",
-    "normalTitle": "Diagramm der Normalverteilung",
+    "stressStrainTitle": "Spannungs-Dehnungs-Analyse",
+    "stressStrainDesc": "Materialspannungs- und -dehnungsrechner.",
+    "shearMomentTitle": "Querkraft- & Momentendiagramme",
+    "shearMomentDesc": "Visualisieren Sie Querkraft und Biegemoment.",
+    "periodicTableTitle": "Periodensystem",
+    "periodicTableDesc": "Interaktiver Elementeigenschaften-Betrachter.",
+    "idealGasTitle": "Ideale Gasgleichung",
+    "idealGasDesc": "PV = nRT-Berechnungen.",
+    "bernoulliTitle": "Bernoulli-Gleichung",
+    "bernoulliDesc": "Energieerhaltung bei Strömungen.",
+    "pressureLossTitle": "Druckverlust-Rechner",
+    "pressureLossDesc": "Druckabfallanalyse in Rohrleitungen.",
+    "normalTitle": "Normalverteilungsdiagramm",
     "normalDesc": "Visualisierer für Standardabweichung und Mittelwert.",
+    "basicStatsTitle": "Grundlegende Statistik",
+    "basicStatsDesc": "Mittelwert, Median, Modus und Varianz.",
+    "discreteDistTitle": "Diskrete Verteilung",
+    "discreteDistDesc": "Binomial- und Poisson-Verteilungen.",
+    "dataVizTitle": "Datenvisualisierer",
+    "dataVizDesc": "Erstellen Sie Diagramme aus Ihren Daten.",
+    "calculusTitle": "Analysis-Rechner",
+    "calculusDesc": "Ableitungs- und Integrallöser.",
+    "matrixTitle": "Matrixoperationen",
+    "matrixDesc": "Matrixmultiplikation und Determinanten.",
+    "geometryTitle": "Geometrie-Rechner",
+    "geometryDesc": "Flächen-, Umfangs- und Volumenformeln.",
+    "functionPlotTitle": "Funktionsplotter",
+    "functionPlotDesc": "Grafische Darstellung mathematischer Funktionen.",
+    "unitConverterTitle": "Einheitenumrechner",
+    "unitConverterDesc": "Konvertieren Sie zwischen Maßeinheiten.",
     "searchPlaceholder": "Werkzeuge suchen...",
     "categoriesTitle": "KATEGORIEN",
     "allTools": "Alle Werkzeuge",
@@ -111,5 +166,345 @@
     "lagging": "Nacheilend",
     "leading": "Voreilend",
     "visualizer": "Leistungsdreieck"
+  },
+  "Profile": {
+    "pageTitle": "Profil",
+    "pageDescription": "Verwalten Sie Ihr Profil und sehen Sie Ihre Aktivitäten",
+    "title": "Mein Profil",
+    "anonymous": "Anonymer Benutzer",
+    "emailLocked": "E-Mail-Adresse kann nicht geändert werden",
+    "fields": {
+      "name": "Anzeigename",
+      "email": "E-Mail-Adresse"
+    },
+    "placeholders": {
+      "name": "Geben Sie Ihren Namen ein"
+    },
+    "buttons": {
+      "edit": "Profil bearbeiten",
+      "save": "Änderungen speichern",
+      "cancel": "Abbrechen"
+    },
+    "sections": {
+      "accountInfo": "Kontoinformationen",
+      "usageStats": "Nutzungsstatistiken"
+    },
+    "labels": {
+      "userId": "Benutzer-ID",
+      "memberSince": "Mitglied seit",
+      "newMember": "Neues Mitglied"
+    },
+    "badges": {
+      "active": "Aktiv",
+      "verified": "Verifiziert"
+    },
+    "stats": {
+      "calculations": "Berechnungen",
+      "savedResults": "Gespeicherte Ergebnisse",
+      "toolsUsed": "Verwendete Werkzeuge"
+    }
+  },
+  "Guides": {
+    "pageTitle": "Anleitungen",
+    "pageDescription": "Erfahren Sie, wie Sie unsere Rechnerwerkzeuge effektiv nutzen",
+    "title": "Benutzeranleitungen",
+    "subtitle": "Erkunden Sie unsere umfassenden Anleitungen für jede Rechnerkategorie. Lernen Sie Best Practices und holen Sie das Beste aus unseren Werkzeugen heraus.",
+    "needHelp": "Brauchen Sie Hilfe?",
+    "helpText": "Wenn Sie nicht finden, wonach Sie suchen, besuchen Sie bitte unsere",
+    "contactLink": "Über-Seite",
+    "electrical": {
+      "ohmTitle": "Anleitung zum Ohmschen Gesetz",
+      "ohmDesc": "Lernen Sie, wie man Spannung, Strom und Widerstand berechnet",
+      "kirchhoffTitle": "Anleitung zu den Kirchhoffschen Gesetzen",
+      "kirchhoffDesc": "Verstehen Sie KCL und KVL für die Schaltungsanalyse",
+      "powerTitle": "Anleitung zum Leistungsrechner",
+      "powerDesc": "Berechnen Sie die elektrische Leistung in verschiedenen Schaltkreisen"
+    },
+    "software": {
+      "baseConverterTitle": "Anleitung zum Basisumwandler",
+      "baseConverterDesc": "Konvertieren Sie zwischen Binär, Dezimal und Hexadezimal",
+      "cronParserTitle": "Anleitung zum Cron-Parser",
+      "cronParserDesc": "Verstehen und erstellen Sie Cron-Ausdrücke",
+      "jsonFormatterTitle": "Anleitung zum JSON-Formatierer",
+      "jsonFormatterDesc": "Formatieren und validieren Sie JSON-Daten einfach"
+    },
+    "finance": {
+      "compoundInterestTitle": "Anleitung zum Zinseszins",
+      "compoundInterestDesc": "Berechnen Sie das Investitionswachstum über Zeit",
+      "cryptoPnlTitle": "Anleitung zur Krypto-Gewinn/Verlust-Rechnung",
+      "cryptoPnlDesc": "Verfolgen Sie Kryptowährungsgewinne und -verluste"
+    }
+  },
+  "About": {
+    "pageTitle": "Über uns",
+    "pageDescription": "Erfahren Sie mehr über CalcEmpire und unsere Mission",
+    "title": "Über CalcEmpire",
+    "subtitle": "Professionelle Ingenieurrechner für moderne Workflows",
+    "mission": {
+      "title": "Unsere Mission",
+      "text1": "CalcEmpire wurde entwickelt, um Ingenieuren, Studenten und Fachleuten präzise, zuverlässige Berechnungswerkzeuge zur Verfügung zu stellen. Wir glauben, dass komplexe Berechnungen zugänglich und einfach durchzuführen sein sollten.",
+      "text2": "Unsere Plattform kombiniert moderne Webtechnologien mit bewährten Ingenieurformeln, um schnelle, genaue Ergebnisse in verschiedenen Disziplinen zu liefern."
+    },
+    "features": {
+      "title": "Hauptfunktionen",
+      "calculators": {
+        "title": "50+ Rechner",
+        "desc": "Umfassende Sammlung von Ingenieur- und wissenschaftlichen Rechnern"
+      },
+      "multilingual": {
+        "title": "Mehrsprachige Unterstützung",
+        "desc": "Verfügbar in 17 Sprachen für Benutzer weltweit"
+      },
+      "security": {
+        "title": "Sicher & Privat",
+        "desc": "Unternehmenssicherheit mit Datenschutz"
+      },
+      "responsive": {
+        "title": "Mobilfreundlich",
+        "desc": "Funktioniert nahtlos auf Desktop, Tablet und Mobilgeräten"
+      },
+      "fast": {
+        "title": "Blitzschnell",
+        "desc": "Optimierte Berechnungen mit sofortigen Ergebnissen"
+      },
+      "export": {
+        "title": "Exportieren & Teilen",
+        "desc": "PDF-Export und teilbare URLs für Ihre Berechnungen"
+      }
+    },
+    "categories": {
+      "title": "Rechnerkategorien",
+      "electrical": "Elektrotechnik",
+      "mechanical": "Maschinenbau",
+      "software": "Softwareentwicklung",
+      "finance": "Finanzen & Investitionen",
+      "civil": "Bauingenieurwesen",
+      "chemistry": "Chemie & Wissenschaft"
+    },
+    "cta": {
+      "title": "Bereit loszulegen?",
+      "text": "Erkunden Sie unsere vollständige Sammlung von Rechnern und finden Sie die Werkzeuge, die Sie für Ihr nächstes Projekt benötigen.",
+      "button": "Rechner durchsuchen"
+    },
+    "footer": {
+      "version": "Version {version}",
+      "copyright": "© {year} CalcEmpire. Alle Rechte vorbehalten."
+    }
+  },
+  "History": {
+    "pageTitle": "Berechnungsverlauf",
+    "pageDescription": "Anzeigen und Verwalten Ihrer letzten Berechnungen",
+    "title": "Letzte Berechnungen",
+    "subtitle": "Sie haben {count} gespeicherte Berechnungen",
+    "clearAll": "Gesamten Verlauf löschen",
+    "confirmClear": "Sind Sie sicher, dass Sie den gesamten Berechnungsverlauf löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "searchPlaceholder": "Nach Werkzeugname, Kategorie oder Notizen suchen...",
+    "filters": {
+      "allCategories": "Alle Kategorien"
+    },
+    "actions": {
+      "export": "Exportieren",
+      "delete": "Löschen",
+      "showDetails": "Details anzeigen",
+      "hideDetails": "Details ausblenden",
+      "recalculate": "Mit gleichen Werten neu berechnen"
+    },
+    "details": {
+      "inputs": "Eingaben",
+      "results": "Ergebnisse",
+      "notes": "Notizen"
+    },
+    "empty": {
+      "title": "Noch keine Berechnungen",
+      "description": "Beginnen Sie mit der Nutzung unserer Rechner und Ihr Berechnungsverlauf erscheint hier automatisch.",
+      "cta": "Rechner durchsuchen"
+    },
+    "noResults": {
+      "title": "Keine Ergebnisse gefunden",
+      "description": "Versuchen Sie, Ihre Suche oder Filterkriterien anzupassen."
+    },
+    "stats": {
+      "title": "Berechnungsstatistiken",
+      "total": "Gesamtberechnungen",
+      "categories": "Verwendete Kategorien",
+      "thisWeek": "Diese Woche",
+      "today": "Heute"
+    }
+  },
+  "Favorites": {
+    "pageTitle": "Favoriten-Rechner",
+    "pageDescription": "Verwalten Sie Ihre bevorzugten Rechnerwerkzeuge",
+    "title": "Meine Favoriten",
+    "subtitle": "Sie haben {count} favorisierte Rechner",
+    "view": {
+      "grid": "Raster",
+      "list": "Liste"
+    },
+    "noteLabel": "Notiz",
+    "actions": {
+      "open": "Öffnen",
+      "addNote": "Notiz hinzufügen",
+      "remove": "Aus Favoriten entfernen"
+    },
+    "editNote": {
+      "title": "Notiz hinzufügen/bearbeiten",
+      "placeholder": "Fügen Sie eine persönliche Notiz zu diesem Rechner hinzu...",
+      "save": "Notiz speichern",
+      "cancel": "Abbrechen"
+    },
+    "empty": {
+      "title": "Noch keine Favoriten",
+      "description": "Fügen Sie Ihre am häufigsten verwendeten Rechner zu den Favoriten für schnellen Zugriff hinzu.",
+      "cta": "Rechner durchsuchen"
+    },
+    "addMore": {
+      "title": "Mehr Rechner hinzufügen",
+      "viewAll": "Alle {count} Rechner anzeigen →"
+    }
+  },
+  "Navbar": {
+    "brand": "CalcEmpire",
+    "links": {
+      "calculators": "Rechner",
+      "guides": "Anleitungen",
+      "about": "Über uns",
+      "profile": "Profil",
+      "history": "Verlauf",
+      "favorites": "Favoriten"
+    }
+  },
+  "Auth": {
+    "login": {
+      "title": "Anmelden",
+      "subtitle": "Willkommen zurück! Bitte melden Sie sich an, um fortzufahren.",
+      "email": "E-Mail-Adresse",
+      "emailPlaceholder": "Geben Sie Ihre E-Mail ein",
+      "password": "Passwort",
+      "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
+      "submit": "Anmelden",
+      "loading": "Anmeldung läuft...",
+      "forgotPassword": "Passwort vergessen?",
+      "noAccount": "Kein Konto?",
+      "signUp": "Registrieren",
+      "continueWithGoogle": "Mit Google fortfahren",
+      "continueWithGithub": "Mit GitHub fortfahren",
+      "errors": {
+        "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+        "invalidPassword": "Das Passwort muss mindestens 6 Zeichen lang sein",
+        "invalidCredentials": "Ungültige E-Mail oder Passwort",
+        "generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+      }
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "subtitle": "Treten Sie CalcEmpire bei und beginnen Sie zu rechnen",
+      "name": "Vollständiger Name",
+      "namePlaceholder": "Geben Sie Ihren Namen ein",
+      "email": "E-Mail-Adresse",
+      "emailPlaceholder": "Geben Sie Ihre E-Mail ein",
+      "password": "Passwort",
+      "passwordPlaceholder": "Erstellen Sie ein Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "confirmPasswordPlaceholder": "Bestätigen Sie Ihr Passwort",
+      "submit": "Konto erstellen",
+      "loading": "Konto wird erstellt...",
+      "hasAccount": "Bereits ein Konto?",
+      "signIn": "Anmelden",
+      "errors": {
+        "passwordMismatch": "Passwörter stimmen nicht überein",
+        "weakPassword": "Passwort muss mindestens 8 Zeichen mit Zahlen und Symbolen enthalten",
+        "emailExists": "Ein Konto mit dieser E-Mail existiert bereits",
+        "generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+      }
+    },
+    "logout": {
+      "title": "Abmelden",
+      "confirm": "Sind Sie sicher, dass Sie sich abmelden möchten?",
+      "cancel": "Abbrechen",
+      "confirmButton": "Abmelden"
+    }
+  },
+  "Errors": {
+    "404": {
+      "title": "Seite nicht gefunden",
+      "description": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+      "backHome": "Zurück zur Startseite"
+    },
+    "500": {
+      "title": "Serverfehler",
+      "description": "Auf unserer Seite ist etwas schiefgelaufen. Bitte versuchen Sie es später erneut.",
+      "retry": "Erneut versuchen"
+    },
+    "generic": {
+      "title": "Ups!",
+      "description": "Etwas ist schiefgelaufen.",
+      "retry": "Erneut versuchen"
+    },
+    "offline": {
+      "title": "Keine Internetverbindung",
+      "description": "Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
+      "retry": "Wiederholen"
+    }
+  },
+  "Common": {
+    "loading": "Laden...",
+    "saving": "Speichern...",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen",
+    "open": "Öffnen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Zurück",
+    "continue": "Fortfahren",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "sort": "Sortieren",
+    "clear": "Löschen",
+    "reset": "Zurücksetzen",
+    "apply": "Anwenden",
+    "confirm": "Bestätigen",
+    "yes": "Ja",
+    "no": "Nein",
+    "success": "Erfolg",
+    "error": "Fehler",
+    "warning": "Warnung",
+    "info": "Info",
+    "optional": "Optional",
+    "required": "Erforderlich",
+    "show": "Anzeigen",
+    "hide": "Ausblenden",
+    "expand": "Erweitern",
+    "collapse": "Einklappen",
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "share": "Teilen",
+    "download": "Herunterladen",
+    "print": "Drucken",
+    "export": "Exportieren",
+    "import": "Importieren",
+    "refresh": "Aktualisieren",
+    "update": "Aktualisieren",
+    "create": "Erstellen",
+    "add": "Hinzufügen",
+    "remove": "Entfernen",
+    "select": "Auswählen",
+    "selected": "Ausgewählt",
+    "all": "Alle",
+    "none": "Keine",
+    "more": "Mehr",
+    "less": "Weniger",
+    "viewAll": "Alle anzeigen",
+    "showMore": "Mehr anzeigen",
+    "showLess": "Weniger anzeigen",
+    "readMore": "Mehr lesen",
+    "learnMore": "Mehr erfahren",
+    "comingSoon": "Demnächst verfügbar",
+    "new": "Neu",
+    "popular": "Beliebt",
+    "recommended": "Empfohlen",
+    "featured": "Hervorgehoben"
   }
 }
