@@ -27,6 +27,13 @@
     "electrical": "Ingeniería Eléctrica",
     "mechanical": "Ingeniería Mecánica",
     "statistics": "Estadística y Matemáticas",
+    "software": "Ingeniería de Software",
+    "finance": "Finanzas",
+    "civil": "Ingeniería Civil",
+    "chemistry": "Química",
+    "fluid": "Mecánica de Fluidos",
+    "mathematics": "Matemáticas",
+    "converters": "Convertidores de Unidades",
     "toolReference": "Referencia de Herramientas"
   },
   "Dashboard": {
@@ -35,12 +42,60 @@
     "backButton": "Volver",
     "ohmTitle": "Calculadora de la Ley de Ohm",
     "ohmDesc": "Cálculos estándar para V = I × R.",
+    "kirchhoffTitle": "Leyes de Kirchhoff",
+    "kirchhoffDesc": "Análisis de circuitos con KCL y KVL.",
+    "powerTitle": "Calculadora de Potencia",
+    "powerDesc": "Calcule la potencia eléctrica P = V × I.",
     "resistorTitle": "Códigos de Colores de Resistencias",
     "resistorDesc": "Lector de códigos de colores de 4, 5 y 6 bandas.",
+    "bodeTitle": "Diagrama de Bode",
+    "bodeDesc": "Visualización de respuesta en frecuencia.",
+    "baseConverterTitle": "Convertidor de Bases",
+    "baseConverterDesc": "Convierta entre binario, decimal y hexadecimal.",
+    "cronParserTitle": "Analizador de Expresiones Cron",
+    "cronParserDesc": "Analice y visualice programaciones cron.",
+    "jsonFormatterTitle": "Formateador JSON",
+    "jsonFormatterDesc": "Formatee y valide datos JSON.",
+    "compoundInterestTitle": "Interés Compuesto",
+    "compoundInterestDesc": "Calcule el crecimiento de la inversión con el tiempo.",
+    "cryptoPnlTitle": "Calculadora P&G Cripto",
+    "cryptoPnlDesc": "Rastree ganancias y pérdidas de criptomonedas.",
+    "concreteSectionTitle": "Diseño de Sección de Concreto",
+    "concreteSectionDesc": "Análisis de vigas de concreto reforzado.",
+    "soilMechanicsTitle": "Mecánica de Suelos",
+    "soilMechanicsDesc": "Cálculos de capacidad portante del suelo.",
     "beamTitle": "Análisis de Deflexión de Vigas",
     "beamDesc": "Cálculo de deflexión para varios tipos de vigas.",
+    "stressStrainTitle": "Análisis de Tensión-Deformación",
+    "stressStrainDesc": "Calculadora de tensión y deformación de materiales.",
+    "shearMomentTitle": "Diagramas de Cortante y Momento",
+    "shearMomentDesc": "Visualice fuerza cortante y momento flector.",
+    "periodicTableTitle": "Tabla Periódica",
+    "periodicTableDesc": "Visor interactivo de propiedades de elementos.",
+    "idealGasTitle": "Ley de Gases Ideales",
+    "idealGasDesc": "Cálculos PV = nRT.",
+    "bernoulliTitle": "Ecuación de Bernoulli",
+    "bernoulliDesc": "Conservación de energía en flujo de fluidos.",
+    "pressureLossTitle": "Calculadora de Pérdida de Presión",
+    "pressureLossDesc": "Análisis de caída de presión en tuberías.",
     "normalTitle": "Gráfico de Distribución Normal",
     "normalDesc": "Visualizador de desviación estándar y media.",
+    "basicStatsTitle": "Estadística Básica",
+    "basicStatsDesc": "Media, mediana, moda y varianza.",
+    "discreteDistTitle": "Distribución Discreta",
+    "discreteDistDesc": "Distribuciones binomial y de Poisson.",
+    "dataVizTitle": "Visualizador de Datos",
+    "dataVizDesc": "Cree gráficos a partir de sus datos.",
+    "calculusTitle": "Calculadora de Cálculo",
+    "calculusDesc": "Resuelve derivadas e integrales.",
+    "matrixTitle": "Operaciones con Matrices",
+    "matrixDesc": "Multiplicación de matrices y determinantes.",
+    "geometryTitle": "Calculadora de Geometría",
+    "geometryDesc": "Fórmulas de área, perímetro y volumen.",
+    "functionPlotTitle": "Graficador de Funciones",
+    "functionPlotDesc": "Grafique funciones matemáticas.",
+    "unitConverterTitle": "Convertidor de Unidades",
+    "unitConverterDesc": "Convierta entre unidades de medida.",
     "searchPlaceholder": "Buscar herramientas...",
     "categoriesTitle": "CATEGORÍAS",
     "allTools": "Todas las Herramientas",
@@ -113,6 +168,412 @@
     "visualizer": "Triángulo de Potencia"
   },
   "Common": {
-    "comingSoon": "¡Esta herramienta está en fase de investigación y desarrollo (I+D). Se añadirá muy pronto!"
+    "loading": "Cargando...",
+    "saving": "Guardando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "open": "Abrir",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "continue": "Continuar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "clear": "Limpiar",
+    "reset": "Restablecer",
+    "apply": "Aplicar",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No",
+    "success": "Éxito",
+    "error": "Error",
+    "warning": "Advertencia",
+    "info": "Info",
+    "optional": "Opcional",
+    "required": "Obligatorio",
+    "show": "Mostrar",
+    "hide": "Ocultar",
+    "expand": "Expandir",
+    "collapse": "Colapsar",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "share": "Compartir",
+    "download": "Descargar",
+    "print": "Imprimir",
+    "export": "Exportar",
+    "import": "Importar",
+    "refresh": "Actualizar",
+    "update": "Actualizar",
+    "create": "Crear",
+    "add": "Añadir",
+    "remove": "Eliminar",
+    "select": "Seleccionar",
+    "selected": "Seleccionado",
+    "all": "Todos",
+    "none": "Ninguno",
+    "more": "Más",
+    "less": "Menos",
+    "viewAll": "Ver todo",
+    "showMore": "Mostrar más",
+    "showLess": "Mostrar menos",
+    "readMore": "Leer más",
+    "learnMore": "Más información",
+    "comingSoon": "Próximamente",
+    "new": "Nuevo",
+    "popular": "Popular",
+    "recommended": "Recomendado",
+    "featured": "Destacado"
+  },
+  "Dashboard": {
+    "title": "Herramientas de Calculadora",
+    "subtitle": "Seleccione la calculadora que necesite y empiece a calcular de inmediato. Clara, sencilla y rápida.",
+    "backButton": "Volver",
+    "ohmTitle": "Calculadora de la Ley de Ohm",
+    "ohmDesc": "Cálculos estándar para V = I × R.",
+    "kirchhoffTitle": "Leyes de Kirchhoff",
+    "kirchhoffDesc": "Análisis de circuitos con KCL y KVL.",
+    "powerTitle": "Calculadora de Potencia",
+    "powerDesc": "Calcule la potencia eléctrica P = V × I.",
+    "resistorTitle": "Códigos de Colores de Resistencias",
+    "resistorDesc": "Lector de códigos de colores de 4, 5 y 6 bandas.",
+    "bodeTitle": "Diagrama de Bode",
+    "bodeDesc": "Visualización de respuesta en frecuencia.",
+    "baseConverterTitle": "Convertidor de Bases",
+    "baseConverterDesc": "Convierta entre binario, decimal y hexadecimal.",
+    "cronParserTitle": "Analizador de Expresiones Cron",
+    "cronParserDesc": "Analice y visualice programaciones cron.",
+    "jsonFormatterTitle": "Formateador JSON",
+    "jsonFormatterDesc": "Formatee y valide datos JSON.",
+    "compoundInterestTitle": "Interés Compuesto",
+    "compoundInterestDesc": "Calcule el crecimiento de la inversión con el tiempo.",
+    "cryptoPnlTitle": "Calculadora P&G Cripto",
+    "cryptoPnlDesc": "Rastree ganancias y pérdidas de criptomonedas.",
+    "concreteSectionTitle": "Diseño de Sección de Concreto",
+    "concreteSectionDesc": "Análisis de vigas de concreto reforzado.",
+    "soilMechanicsTitle": "Mecánica de Suelos",
+    "soilMechanicsDesc": "Cálculos de capacidad portante del suelo.",
+    "beamTitle": "Análisis de Deflexión de Vigas",
+    "beamDesc": "Cálculo de deflexión para varios tipos de vigas.",
+    "stressStrainTitle": "Análisis de Tensión-Deformación",
+    "stressStrainDesc": "Calculadora de tensión y deformación de materiales.",
+    "shearMomentTitle": "Diagramas de Cortante y Momento",
+    "shearMomentDesc": "Visualice fuerza cortante y momento flector.",
+    "periodicTableTitle": "Tabla Periódica",
+    "periodicTableDesc": "Visor interactivo de propiedades de elementos.",
+    "idealGasTitle": "Ley de Gases Ideales",
+    "idealGasDesc": "Cálculos PV = nRT.",
+    "bernoulliTitle": "Ecuación de Bernoulli",
+    "bernoulliDesc": "Conservación de energía en flujo de fluidos.",
+    "pressureLossTitle": "Calculadora de Pérdida de Presión",
+    "pressureLossDesc": "Análisis de caída de presión en tuberías.",
+    "normalTitle": "Gráfico de Distribución Normal",
+    "normalDesc": "Visualizador de desviación estándar y media.",
+    "basicStatsTitle": "Estadística Básica",
+    "basicStatsDesc": "Media, mediana, moda y varianza.",
+    "discreteDistTitle": "Distribución Discreta",
+    "discreteDistDesc": "Distribuciones binomial y de Poisson.",
+    "dataVizTitle": "Visualizador de Datos",
+    "dataVizDesc": "Cree gráficos a partir de sus datos.",
+    "calculusTitle": "Calculadora de Cálculo",
+    "calculusDesc": "Resuelve derivadas e integrales.",
+    "matrixTitle": "Operaciones con Matrices",
+    "matrixDesc": "Multiplicación de matrices y determinantes.",
+    "geometryTitle": "Calculadora de Geometría",
+    "geometryDesc": "Fórmulas de área, perímetro y volumen.",
+    "functionPlotTitle": "Graficador de Funciones",
+    "functionPlotDesc": "Grafique funciones matemáticas.",
+    "unitConverterTitle": "Convertidor de Unidades",
+    "unitConverterDesc": "Convierta entre unidades de medida.",
+    "searchPlaceholder": "Buscar herramientas...",
+    "categoriesTitle": "CATEGORÍAS",
+    "allTools": "Todas las Herramientas",
+    "openTool": "ABRIR HERRAMIENTA",
+    "consentTitle": "AVISO LEGAL",
+    "disclaimer": "Los cálculos de esta aplicación son solo para fines informativos. No deben utilizarse para decisiones de ingeniería finales. Consulte a un ingeniero calificado para verificar la exactitud de los resultados.",
+    "footerCopyright": "Todos los derechos reservados.",
+    "acknowledgeDisclaimer": "Entiendo que estos cálculos son solo para fines informativos y no reemplazan el juicio de un ingeniero profesional."
+  },
+  "Profile": {
+    "pageTitle": "Perfil",
+    "pageDescription": "Gestione su perfil y vea su actividad",
+    "title": "Mi Perfil",
+    "anonymous": "Usuario Anónimo",
+    "emailLocked": "La dirección de correo no se puede cambiar",
+    "fields": {
+      "name": "Nombre para Mostrar",
+      "email": "Dirección de Correo"
+    },
+    "placeholders": {
+      "name": "Ingrese su nombre"
+    },
+    "buttons": {
+      "edit": "Editar Perfil",
+      "save": "Guardar Cambios",
+      "cancel": "Cancelar"
+    },
+    "sections": {
+      "accountInfo": "Información de la Cuenta",
+      "usageStats": "Estadísticas de Uso"
+    },
+    "labels": {
+      "userId": "ID de Usuario",
+      "memberSince": "Miembro Desde",
+      "newMember": "Nuevo Miembro"
+    },
+    "badges": {
+      "active": "Activo",
+      "verified": "Verificado"
+    },
+    "stats": {
+      "calculations": "Cálculos",
+      "savedResults": "Resultados Guardados",
+      "toolsUsed": "Herramientas Usadas"
+    }
+  },
+  "Guides": {
+    "pageTitle": "Guías",
+    "pageDescription": "Aprenda a usar nuestras calculadoras de manera efectiva",
+    "title": "Guías de Usuario",
+    "subtitle": "Explore nuestras guías completas para cada categoría de calculadora. Aprenda las mejores prácticas y saque el máximo provecho de nuestras herramientas.",
+    "needHelp": "¿Necesita Ayuda?",
+    "helpText": "Si no encuentra lo que busca, visite nuestra",
+    "contactLink": "página Acerca de",
+    "electrical": {
+      "ohmTitle": "Guía de la Ley de Ohm",
+      "ohmDesc": "Aprenda a calcular voltaje, corriente y resistencia",
+      "kirchhoffTitle": "Guía de las Leyes de Kirchhoff",
+      "kirchhoffDesc": "Comprenda KCL y KVL para análisis de circuitos",
+      "powerTitle": "Guía de la Calculadora de Potencia",
+      "powerDesc": "Calcule la potencia eléctrica en varios circuitos"
+    },
+    "software": {
+      "baseConverterTitle": "Guía del Convertidor de Bases",
+      "baseConverterDesc": "Convierta entre binario, decimal y hexadecimal",
+      "cronParserTitle": "Guía del Analizador Cron",
+      "cronParserDesc": "Comprenda y cree expresiones cron",
+      "jsonFormatterTitle": "Guía del Formateador JSON",
+      "jsonFormatterDesc": "Formatee y valide datos JSON fácilmente"
+    },
+    "finance": {
+      "compoundInterestTitle": "Guía de Interés Compuesto",
+      "compoundInterestDesc": "Calcule el crecimiento de la inversión con el tiempo",
+      "cryptoPnlTitle": "Guía de P&G de Criptomonedas",
+      "cryptoPnlDesc": "Rastree ganancias y pérdidas de criptomonedas"
+    }
+  },
+  "About": {
+    "pageTitle": "Acerca de",
+    "pageDescription": "Conozca más sobre CalcEmpire y nuestra misión",
+    "title": "Acerca de CalcEmpire",
+    "subtitle": "Calculadoras de ingeniería profesionales para flujos de trabajo modernos",
+    "mission": {
+      "title": "Nuestra Misión",
+      "text1": "CalcEmpire fue construido para proporcionar a ingenieros, estudiantes y profesionales herramientas de cálculo precisas y confiables. Creemos que los cálculos complejos deben ser accesibles y fáciles de realizar.",
+      "text2": "Nuestra plataforma combina tecnologías web modernas con fórmulas de ingeniería probadas para ofrecer resultados rápidos y precisos en múltiples disciplinas."
+    },
+    "features": {
+      "title": "Características Principales",
+      "calculators": {
+        "title": "50+ Calculadoras",
+        "desc": "Colección completa de calculadoras de ingeniería y científicas"
+      },
+      "multilingual": {
+        "title": "Soporte Multilingüe",
+        "desc": "Disponible en 17 idiomas para usuarios de todo el mundo"
+      },
+      "security": {
+        "title": "Seguro y Privado",
+        "desc": "Seguridad de nivel empresarial con protección de datos"
+      },
+      "responsive": {
+        "title": "Compatible con Móviles",
+        "desc": "Funciona sin problemas en escritorio, tablet y dispositivos móviles"
+      },
+      "fast": {
+        "title": "Ultra Rápido",
+        "desc": "Cálculos optimizados con resultados instantáneos"
+      },
+      "export": {
+        "title": "Exportar y Compartir",
+        "desc": "Exportación a PDF y URLs compartibles para sus cálculos"
+      }
+    },
+    "categories": {
+      "title": "Categorías de Calculadoras",
+      "electrical": "Ingeniería Eléctrica",
+      "mechanical": "Ingeniería Mecánica",
+      "software": "Desarrollo de Software",
+      "finance": "Finanzas e Inversiones",
+      "civil": "Ingeniería Civil",
+      "chemistry": "Química y Ciencia"
+    },
+    "cta": {
+      "title": "¿Listo para Empezar?",
+      "text": "Explore nuestra colección completa de calculadoras y encuentre las herramientas que necesita para su próximo proyecto.",
+      "button": "Explorar Calculadoras"
+    },
+    "footer": {
+      "version": "Versión {version}",
+      "copyright": "© {year} CalcEmpire. Todos los derechos reservados."
+    }
+  },
+  "History": {
+    "pageTitle": "Historial de Cálculos",
+    "pageDescription": "Vea y gestione sus cálculos recientes",
+    "title": "Cálculos Recientes",
+    "subtitle": "Tiene {count} cálculos guardados",
+    "clearAll": "Borrar Todo el Historial",
+    "confirmClear": "¿Está seguro de que desea borrar todo el historial de cálculos? Esta acción no se puede deshacer.",
+    "searchPlaceholder": "Buscar por nombre de herramienta, categoría o notas...",
+    "filters": {
+      "allCategories": "Todas las Categorías"
+    },
+    "actions": {
+      "export": "Exportar",
+      "delete": "Eliminar",
+      "showDetails": "Mostrar Detalles",
+      "hideDetails": "Ocultar Detalles",
+      "recalculate": "Recalcular con los Mismos Valores"
+    },
+    "details": {
+      "inputs": "Entradas",
+      "results": "Resultados",
+      "notes": "Notas"
+    },
+    "empty": {
+      "title": "Aún No Hay Cálculos",
+      "description": "Comience a usar nuestras calculadoras y su historial de cálculos aparecerá aquí automáticamente.",
+      "cta": "Explorar Calculadoras"
+    },
+    "noResults": {
+      "title": "No Se Encontraron Resultados",
+      "description": "Intente ajustar su búsqueda o criterios de filtro."
+    },
+    "stats": {
+      "title": "Estadísticas de Cálculos",
+      "total": "Total de Cálculos",
+      "categories": "Categorías Usadas",
+      "thisWeek": "Esta Semana",
+      "today": "Hoy"
+    }
+  },
+  "Favorites": {
+    "pageTitle": "Calculadoras Favoritas",
+    "pageDescription": "Gestione sus calculadoras favoritas",
+    "title": "Mis Favoritos",
+    "subtitle": "Tiene {count} calculadoras favoritas",
+    "view": {
+      "grid": "Cuadrícula",
+      "list": "Lista"
+    },
+    "noteLabel": "Nota",
+    "actions": {
+      "open": "Abrir",
+      "addNote": "Añadir Nota",
+      "remove": "Quitar de Favoritos"
+    },
+    "editNote": {
+      "title": "Añadir/Editar Nota",
+      "placeholder": "Añada una nota personal sobre esta calculadora...",
+      "save": "Guardar Nota",
+      "cancel": "Cancelar"
+    },
+    "empty": {
+      "title": "Aún No Hay Favoritos",
+      "description": "Añada sus calculadoras más usadas a favoritos para acceso rápido.",
+      "cta": "Explorar Calculadoras"
+    },
+    "addMore": {
+      "title": "Añadir Más Calculadoras",
+      "viewAll": "Ver todas las {count} calculadoras →"
+    }
+  },
+  "Navbar": {
+    "brand": "CalcEmpire",
+    "links": {
+      "calculators": "Calculadoras",
+      "guides": "Guías",
+      "about": "Acerca de",
+      "profile": "Perfil",
+      "history": "Historial",
+      "favorites": "Favoritos"
+    }
+  },
+  "Auth": {
+    "login": {
+      "title": "Iniciar Sesión",
+      "subtitle": "¡Bienvenido de nuevo! Por favor, inicie sesión para continuar.",
+      "email": "Dirección de Correo",
+      "emailPlaceholder": "Ingrese su correo",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Ingrese su contraseña",
+      "submit": "Iniciar Sesión",
+      "loading": "Iniciando sesión...",
+      "forgotPassword": "¿Olvidó su contraseña?",
+      "noAccount": "¿No tiene una cuenta?",
+      "signUp": "Registrarse",
+      "continueWithGoogle": "Continuar con Google",
+      "continueWithGithub": "Continuar con GitHub",
+      "errors": {
+        "invalidEmail": "Por favor, ingrese una dirección de correo válida",
+        "invalidPassword": "La contraseña debe tener al menos 6 caracteres",
+        "invalidCredentials": "Correo o contraseña inválidos",
+        "generic": "Ocurrió un error. Por favor, inténtelo de nuevo."
+      }
+    },
+    "register": {
+      "title": "Crear Cuenta",
+      "subtitle": "Únase a CalcEmpire y empiece a calcular",
+      "name": "Nombre Completo",
+      "namePlaceholder": "Ingrese su nombre",
+      "email": "Dirección de Correo",
+      "emailPlaceholder": "Ingrese su correo",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Cree una contraseña",
+      "confirmPassword": "Confirmar Contraseña",
+      "confirmPasswordPlaceholder": "Confirme su contraseña",
+      "submit": "Crear Cuenta",
+      "loading": "Creando cuenta...",
+      "hasAccount": "¿Ya tiene una cuenta?",
+      "signIn": "Iniciar sesión",
+      "errors": {
+        "passwordMismatch": "Las contraseñas no coinciden",
+        "weakPassword": "La contraseña debe tener al menos 8 caracteres con números y símbolos",
+        "emailExists": "Ya existe una cuenta con este correo",
+        "generic": "Ocurrió un error. Por favor, inténtelo de nuevo."
+      }
+    },
+    "logout": {
+      "title": "Cerrar Sesión",
+      "confirm": "¿Está seguro de que desea cerrar sesión?",
+      "cancel": "Cancelar",
+      "confirmButton": "Cerrar Sesión"
+    }
+  },
+  "Errors": {
+    "404": {
+      "title": "Página No Encontrada",
+      "description": "La página que busca no existe o ha sido movida.",
+      "backHome": "Volver al inicio"
+    },
+    "500": {
+      "title": "Error del Servidor",
+      "description": "Algo salió mal de nuestro lado. Por favor, inténtelo más tarde.",
+      "retry": "Intentar de nuevo"
+    },
+    "generic": {
+      "title": "¡Ups!",
+      "description": "Algo salió mal.",
+      "retry": "Intentar de nuevo"
+    },
+    "offline": {
+      "title": "Sin Conexión a Internet",
+      "description": "Por favor, verifique su conexión a internet e inténtelo de nuevo.",
+      "retry": "Reintentar"
+    }
   }
 }
