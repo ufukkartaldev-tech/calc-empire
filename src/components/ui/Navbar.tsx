@@ -54,7 +54,7 @@ export function Navbar() {
             <div className="flex items-center gap-2">
               <ThemeToggle />
               <LanguageSwitcher />
-              {session?.user && (
+              {session?.user ? (
                 <>
                   <Link
                     href="/favorites"
@@ -72,15 +72,22 @@ export function Navbar() {
                     <History size={16} />
                     <span className="hidden lg:inline">History</span>
                   </Link>
-                  <Link
-                    href="/profile"
-                    className="flex items-center gap-1 text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors px-2 py-1 rounded hover:bg-[var(--ce-surface-secondary)]"
-                  >
-                    <User size={16} />
-                    <span className="hidden lg:inline">{session.user.name || 'Profile'}</span>
-                  </Link>
                 </>
+              ) : (
+                <Link
+                  href="/auth/signin"
+                  className="hidden md:flex items-center gap-1 text-sm font-medium bg-blue-600 text-white px-4 py-1.5 rounded-full hover:bg-blue-700 transition-colors shadow-sm"
+                >
+                  Sign In
+                </Link>
               )}
+              <Link
+                href="/profile"
+                className="flex items-center gap-1 text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors px-2 py-1 rounded hover:bg-[var(--ce-surface-secondary)]"
+              >
+                <User size={16} />
+                <span className="hidden lg:inline">{session?.user?.name || 'Profile'}</span>
+              </Link>
             </div>
           </div>
 
@@ -125,7 +132,7 @@ export function Navbar() {
               >
                 About
               </Link>
-              {session?.user && (
+              {session?.user ? (
                 <>
                   <div className="pt-2 border-t border-[var(--ce-border)]" />
                   <Link
@@ -144,16 +151,27 @@ export function Navbar() {
                     <History size={16} />
                     History
                   </Link>
+                </>
+              ) : (
+                <>
+                  <div className="pt-2 border-t border-[var(--ce-border)]" />
                   <Link
-                    href="/profile"
-                    className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1 flex items-center gap-2"
+                    href="/auth/signin"
+                    className="text-sm text-blue-600 dark:text-blue-400 font-medium py-1 flex items-center gap-2"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <User size={16} />
-                    Profile
+                    Sign In
                   </Link>
                 </>
               )}
+              <Link
+                href="/profile"
+                className="text-sm text-[var(--ce-text-secondary)] hover:text-[var(--ce-primary)] transition-colors py-1 flex items-center gap-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <User size={16} />
+                Profile
+              </Link>
               <div className="pt-2 border-t border-[var(--ce-border)] mt-2">
                 <LanguageSwitcher />
               </div>

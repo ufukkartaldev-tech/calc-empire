@@ -420,43 +420,76 @@
     "ohm": {
       "content": "Ohm Yasası, bir elektrik devresindeki voltaj (V), akım (I) ve direnç (R) arasındaki ilişkiyi tanımlar. Temel formül V = I × R şeklindedir.\n\n• **Voltaj (V):** İki nokta arasındaki elektriksel potansiyel farkıdır (Birim: Volt).\n• **Akım (I)::** Elektrik yükünün akış hızıdır (Birim: Amper).\n• **Direnç (R):** Akıma karşı gösterilen zorluktur (Birim: Ohm).\n\nBu hesaplayıcı ile herhangi iki değeri girerek üçüncüsünü otomatik olarak bulabilirsiniz.",
       "links": [
-        { "label": "Wikipedia - Ohm Yasası", "url": "https://tr.wikipedia.org/wiki/Ohm_yasas%C4%B1" },
-        { "label": "All About Circuits - Ohm's Law", "url": "https://www.allaboutcircuits.com/textbook/direct-current/chpt-2/voltage-current-resistance-relate/" }
+        {
+          "label": "Wikipedia - Ohm Yasası",
+          "url": "https://tr.wikipedia.org/wiki/Ohm_yasas%C4%B1"
+        },
+        {
+          "label": "All About Circuits - Ohm's Law",
+          "url": "https://www.allaboutcircuits.com/textbook/direct-current/chpt-2/voltage-current-resistance-relate/"
+        }
       ]
     },
     "kirchhoff": {
       "content": "Kirchhoff Yasaları, karmaşık devrelerin analizinde temel taşıdır:\n\n1. **Akım Yasası (KCL):** Bir düğüm noktasına giren akımların toplamı, çıkan akımların toplamına eşittir.\n2. **Gerilim Yasası (KVL):** Kapalı bir döngü boyunca tüm gerilim farklarının toplamı sıfırdır.\n\nBu araç, iki döngülü devreler için akım değerlerini bu iki yasayı temel alarak hesaplar.",
       "links": [
-        { "label": "Electronics Tutorials - Kirchhoff's Circuit Law", "url": "https://www.electronics-tutorials.ws/dccircuits/dcc_6.html" },
-        { "label": "Wikipedia - Kirchhoff Devre Yasaları", "url": "https://tr.wikipedia.org/wiki/Kirchhoff_devre_yasalar%C4%B1" }
+        {
+          "label": "Electronics Tutorials - Kirchhoff's Circuit Law",
+          "url": "https://www.electronics-tutorials.ws/dccircuits/dcc_6.html"
+        },
+        {
+          "label": "Wikipedia - Kirchhoff Devre Yasaları",
+          "url": "https://tr.wikipedia.org/wiki/Kirchhoff_devre_yasalar%C4%B1"
+        }
       ]
     },
     "power": {
       "content": "Elektriksel güç, enerjinin bir elektrik devresi tarafından ne kadar hızlı aktarıldığını ölçer. Doğru akım (DC) için P = V × I kullanılırken, alternatif akım (AC) için görünür, aktif ve reaktif güç kavramları devreye girer.\n\n• **Aktif Güç (P):** İşe dönüşen gerçek güç (Birim: Watt).\n• **Görünür Güç (S):** Sisteme beslenen toplam güç (Birim: VA).\n• **Güç Faktörü (cosφ):** Enerji verimliliğinin bir göstergesidir.",
       "links": [
-        { "label": "Wikipedia - Elektriksel Güç", "url": "https://tr.wikipedia.org/wiki/Elektriksel_g%C3%BC%C3%A7" },
-        { "label": "Electrical4U - Power in AC Circuit", "url": "https://www.electrical4u.com/power-in-ac-circuit/" }
+        {
+          "label": "Wikipedia - Elektriksel Güç",
+          "url": "https://tr.wikipedia.org/wiki/Elektriksel_g%C3%BC%C3%A7"
+        },
+        {
+          "label": "Electrical4U - Power in AC Circuit",
+          "url": "https://www.electrical4u.com/power-in-ac-circuit/"
+        }
       ]
     },
     "resistor": {
       "content": "Direnç renk kodları, dirençlerin değerini ve toleransını hızlıca okumak için kullanılır. \n\n• **İlk Bantlar:** Basamak değerlerini temsil eder.\n• **Çarpan Bandı:** Değerin kaçla çarpılacağını belirtir.\n• **Tolerans Bandı:** Direnç değerindeki olası sapma payını gösterir (%5, %10 gibi).\n\nBu araç, seçtiğiniz renklerin sayısal karşılığını anında hesaplar.",
       "links": [
-        { "label": "DigiKey - Direnç Renk Kodu Hesaplama", "url": "https://www.digikey.com.tr/tr/resources/conversion-calculators/calculator-resistor-color-code" },
-        { "label": "Wikipedia - Direnç Renk Kodları", "url": "https://tr.wikipedia.org/wiki/Diren%C3%A7_renk_kodlar%C4%B1" }
+        {
+          "label": "DigiKey - Direnç Renk Kodu Hesaplama",
+          "url": "https://www.digikey.com.tr/tr/resources/conversion-calculators/calculator-resistor-color-code"
+        },
+        {
+          "label": "Wikipedia - Direnç Renk Kodları",
+          "url": "https://tr.wikipedia.org/wiki/Diren%C3%A7_renk_kodlar%C4%B1"
+        }
       ]
     },
     "bode": {
       "content": "Bode Grafiği, bir sistemin frekans tepkisini (genlik ve faz) görselleştirmek için kullanılır. Elektronik filtrelerin ve kontrol sistemlerinin performansını analiz etmekte vazgeçilmezdir.\n\n• **Genlik Grafiği:** Frekansa bağlı kazancı (dB) gösterir.\n• **Faz Grafiği:** Giriş ve çıkış sinyalleri arasındaki faz farkını (derece) gösterir.",
       "links": [
-        { "label": "Wikipedia - Bode Diyagramı", "url": "https://tr.wikipedia.org/wiki/Bode_diyagram%C4%B1" },
+        {
+          "label": "Wikipedia - Bode Diyagramı",
+          "url": "https://tr.wikipedia.org/wiki/Bode_diyagram%C4%B1"
+        },
         { "label": "MIT OpenCourseWare - Bode Plots", "url": "https://ocw.mit.edu/" }
       ]
     },
     "baseConverter": {
       "content": "Sayı Sistemleri Dönüştürücü, sayıların farklı matematiksel tabanlar (ikili, onlu, on altılı vb.) arasında çevrilmesini sağlar. Bilgisayar mimarisinde verilerin fiziksel temsilini anlamak için temeldir.\n\n• **Binary (2):** Bilgisayarların temel dili olan 0 ve 1'lerden oluşur.\n• **Hexadecimal (16):** Bellek adresleri ve renk kodları için yaygın olarak kullanılır.\n• **Decimal (10):** Günlük hayatta kullandığımız onluk sistemdir.",
       "links": [
-        { "label": "Wikipedia - Sayı Sistemleri", "url": "https://tr.wikipedia.org/wiki/Sayı_sistemleri" },
-        { "label": "GeeksforGeeks - Number Systems", "url": "https://www.geeksforgeeks.org/number-system-and-base-conversions/" }
+        {
+          "label": "Wikipedia - Sayı Sistemleri",
+          "url": "https://tr.wikipedia.org/wiki/Sayı_sistemleri"
+        },
+        {
+          "label": "GeeksforGeeks - Number Systems",
+          "url": "https://www.geeksforgeeks.org/number-system-and-base-conversions/"
+        }
       ]
     },
     "cronParser": {
@@ -470,22 +503,96 @@
       "content": "JSON Formatlayıcı, veri değişim formatı olan JSON (JavaScript Object Notation) verilerini daha iyi okunabilmesi için yapılandırır veya ağ üzerinden hızlı iletim için sıkıştırır.\n\n• **Format (Güzelleştir):** Girintiler ekleyerek veriyi insan tarafından okunabilir kılar.\n• **Minify (Sıkıştır):** Tüm boşlukları kaldırarak dosya boyutunu küçültür.\n• **Doğrulama:** Sözdizimi hatalarını tespit eder.",
       "links": [
         { "label": "JSON.org - Resmi Web Sitesi", "url": "https://www.json.org/json-tr.html" },
-        { "label": "MDN - JSON ile Çalışmak", "url": "https://developer.mozilla.org/tr/docs/Learn/JavaScript/Objects/JSON" }
+        {
+          "label": "MDN - JSON ile Çalışmak",
+          "url": "https://developer.mozilla.org/tr/docs/Learn/JavaScript/Objects/JSON"
+        }
       ]
     },
     "compoundInterest": {
       "content": "Bileşik Faiz Hesaplayıcı, anapara üzerine eklenen faizin de sonraki dönemlerde faiz getirmesi prensibiyle çalışır. Uzun vadeli yatırımların gücünü anlamak için temel bir finansal araçtır.\n\n• **Anapara:** Başlangıçta yatırılan tutar.\n• **Bileşik Faiz Aralığı:** Faizin ne sıklıkla hesaplandığı (aylık, yıllık vb.).\n• **Zaman:** Yatırımın ne kadar süreyle sistemde kaldığı.",
       "links": [
-        { "label": "Investopedia - Compound Interest", "url": "https://www.investopedia.com/terms/c/compoundinterest.asp" },
+        {
+          "label": "Investopedia - Compound Interest",
+          "url": "https://www.investopedia.com/terms/c/compoundinterest.asp"
+        },
         { "label": "Wikipedia - Bileşik Faiz", "url": "https://tr.wikipedia.org/wiki/Bileşik_faiz" }
       ]
     },
     "cryptoPnl": {
       "content": "Kripto Kar/Zarar Hesaplayıcı, kripto para işlemlerinizdeki potansiyel veya gerçekleşmiş kazanç/kayıpları analiz eder. Kaldıraçlı (leverage) işlemlerde risk yönetimini anlamak için kritiktir.\n\n• **ROI (Yatırım Getirisi):** Yatırımın maliyetine göre elde edilen verimlilik.\n• **PnL (Kar ve Zarar):** İşlem sonundaki net nakit değişimi.\n• **Kaldıraç (Leverage):** Küçük bir miktar sermaye ile daha büyük pozisyonlar açma imkanı.",
       "links": [
-        { "label": "Binance Academy - ROI Nedir?", "url": "https://academy.binance.com/tr/articles/what-is-roi-and-how-to-calculate-it" },
-        { "label": "Investopedia - Profit and Loss (P&L)", "url": "https://www.investopedia.com/terms/p/plstatement.asp" }
+        {
+          "label": "Binance Academy - ROI Nedir?",
+          "url": "https://academy.binance.com/tr/articles/what-is-roi-and-how-to-calculate-it"
+        },
+        {
+          "label": "Investopedia - Profit and Loss (P&L)",
+          "url": "https://www.investopedia.com/terms/p/plstatement.asp"
+        }
       ]
     }
+  },
+  "Profile": {
+    "pageTitle": "Profiliniz | CalcEmpire",
+    "pageDescription": "Hesap ayarlarınızı yönetin ve kullanım istatistiklerinizi görüntüleyin.",
+    "title": "Profil Ayarları",
+    "anonymous": "İsimsiz Kullanıcı",
+    "emailLocked": "E-posta adresi değiştirilemez.",
+    "fields": {
+      "name": "Görüntülenen Ad",
+      "email": "E-posta Adresi"
+    },
+    "placeholders": {
+      "name": "Adınızı girin"
+    },
+    "buttons": {
+      "save": "Değişiklikleri Kaydet",
+      "cancel": "İptal",
+      "edit": "Profili Düzenle"
+    },
+    "sections": {
+      "accountInfo": "Hesap Bilgileri",
+      "usageStats": "Kullanım İstatistikleri"
+    },
+    "labels": {
+      "userId": "Kullanıcı Kimliği",
+      "memberSince": "Katılım Tarihi",
+      "newMember": "Yeni Üye"
+    },
+    "badges": {
+      "active": "Aktif",
+      "verified": "Doğrulanmış"
+    },
+    "stats": {
+      "calculations": "Toplam Hesaplama",
+      "savedResults": "Kaydedilen Sonuç",
+      "toolsUsed": "Kullanılan Araç"
+    }
+  },
+  "Auth": {
+    "signInTitle": "Giriş Yap | CalcEmpire",
+    "signInDescription": "Profilinize, geçmişinize ve favori araçlarınıza erişmek için giriş yapın.",
+    "welcomeBack": "Hoş Geldiniz",
+    "loginToContinue": "Hesabınıza devam etmek için giriş yapın.",
+    "invalidCredentials": "Girdiğiniz e-posta adresi veya şifre hatalı.",
+    "loginError": "Giriş sırasında bir hata oluştu. Lütfen tekrar deneyin.",
+    "orContinueWith": "Veya şununla devam et",
+    "email": "E-posta Adresi",
+    "password": "Şifre",
+    "forgotPassword": "Şifremi unuttum?",
+    "signInButton": "Giriş Yap",
+    "noAccount": "Hesabınız yok mu?",
+    "createAccount": "Hesap oluşturun",
+    "registerTitle": "Hesap Oluştur | CalcEmpire",
+    "registerDescription": "Hesaplamaları kaydetmek ve gelişmiş özelliklere erişmek için bize katılın.",
+    "joinUs": "CalcEmpire'a Katılın",
+    "createAccountToContinue": "Devam etmek için ücretsiz bir hesap oluşturun.",
+    "name": "Ad Soyad",
+    "confirmPassword": "Şifreyi Onayla",
+    "registerButton": "Hesap Oluştur",
+    "haveAccount": "Zaten hesabınız var mı?",
+    "registerError": "Hesap oluşturulamadı. E-posta kullanımda olabilir.",
+    "passwordsDoNotMatch": "Şifreler eşleşmiyor."
   }
 }
