@@ -389,5 +389,86 @@
   },
   "Common": {
     "comingSoon": "This tool is in the research & development (R&D) phase. It will be added very soon!"
+  },
+  "BodePlot": {
+    "title": "Bode Plot Calculator",
+    "lowPass": "Low-Pass Filter",
+    "highPass": "High-Pass Filter",
+    "rcCircuit": "RC Circuit",
+    "rlCircuit": "RL Circuit",
+    "resistance": "Resistance (R)",
+    "capacitance": "Capacitance (C)",
+    "inductance": "Inductance (L)",
+    "fcLabel": "Cutoff Frequency (fc)",
+    "magTitle": "Magnitude Response (dB)",
+    "phaseTitle": "Phase Response (°)",
+    "computing": "Computing response..."
+  },
+  "ToolReference": {
+    "title": "Information & Reference",
+    "howItWorks": "How It Works",
+    "sources": "Sources and References",
+    "ohm": {
+      "content": "Ohm's Law defines the relationship between voltage (V), current (I), and resistance (R) in an electrical circuit. The fundamental formula is V = I × R.\n\n• **Voltage (V):** The electrical potential difference between two points (Unit: Volt).\n• **Current (I):** The flow rate of electric charge (Unit: Ampere).\n• **Resistance (R):** The opposition to current flow (Unit: Ohm).",
+      "links": [
+        { "label": "Wikipedia - Ohm's Law", "url": "https://en.wikipedia.org/wiki/Ohm%27s_law" },
+        { "label": "All About Circuits - Ohm's Law", "url": "https://www.allaboutcircuits.com/textbook/direct-current/chpt-2/voltage-current-resistance-relate/" }
+      ]
+    },
+    "kirchhoff": {
+      "content": "Kirchhoff's Laws are the foundation for analyzing complex circuits:\n\n1. **Current Law (KCL):** The total current entering a junction equals the total current leaving.\n2. **Voltage Law (KVL):** The sum of all voltage differences around a closed loop is zero.",
+      "links": [
+        { "label": "Electronics Tutorials - Kirchhoff's Circuit Law", "url": "https://www.electronics-tutorials.ws/dccircuits/dcc_6.html" }
+      ]
+    },
+    "power": {
+      "content": "Electrical power measures the rate at which energy is transferred by an electrical circuit. For Direct Current (DC), P = V × I is used, while Alternating Current (AC) introduces apparent, active, and reactive power concepts.\n\n• **Active Power (P):** The real power that performs work (Unit: Watt).\n• **Apparent Power (S):** The total power supplied to the system (Unit: VA).\n• **Power Factor (cosφ):** An indicator of energy efficiency.",
+      "links": [
+        { "label": "Electrical4U - Power in AC Circuit", "url": "https://www.electrical4u.com/power-in-ac-circuit/" }
+      ]
+    },
+    "resistor": {
+      "content": "Resistor color codes are used to quickly identify a resistor's value and tolerance.\n\n• **First Bands:** Represent the significant digits.\n• **Multiplier Band:** Indicates the multiplier value.\n• **Tolerance Band:** Shows the possible deviation from the nominal value (e.g., 5%, 10%).",
+      "links": [
+        { "label": "DigiKey - Resistor Color Code Calculator", "url": "https://www.digikey.com/en/resources/conversion-calculators/conversion-calculator-resistor-color-code" }
+      ]
+    },
+    "bode": {
+      "content": "A Bode Plot is used to visualize a system's frequency response (magnitude and phase). It is essential for analyzing the performance of electronic filters and control systems.\n\n• **Magnitude Plot:** Shows the gain (dB) relative to frequency.\n• **Phase Plot:** Shows the phase difference (degrees) between input and output signals.",
+      "links": [
+        { "label": "Wikipedia - Bode Plot", "url": "https://en.wikipedia.org/wiki/Bode_plot" },
+        { "label": "MIT OpenCourseWare - Bode Plots", "url": "https://ocw.mit.edu/" }
+      ]
+    },
+    "baseConverter": {
+      "content": "The Number Systems Converter allows numbers to be translated between different mathematical bases (binary, decimal, hexadecimal, etc.). It is fundamental for understanding physical representations of data in computer architecture.\n\n• **Binary (2):** The fundamental language of computers, consisting of 0s and 1s.\n• **Hexadecimal (16):** Commonly used for memory addresses and color codes.\n• **Decimal (10):** The base-10 system used in everyday life.",
+      "links": [
+        { "label": "GeeksforGeeks - Number Systems", "url": "https://www.geeksforgeeks.org/number-system-and-base-conversions/" }
+      ]
+    },
+    "cronParser": {
+      "content": "The Cron Expression Parser decodes complex scheduling strings (e.g., */15 * * * *) used for periodic tasks in Unix-based systems.\n\n• **Asterisk (*):** Represents every value.\n• **Question Mark (?):** Indicates no specific value.\n• **Slash (/):** Specifies step values.",
+      "links": [
+        { "label": "Crontab.guru - Cron Schedule Editor", "url": "https://crontab.guru/" }
+      ]
+    },
+    "jsonFormatter": {
+      "content": "The JSON Formatter structures JSON (JavaScript Object Notation) data for better readability or compresses it for faster network transmission.\n\n• **Format (Beautify):** Adds indentation to make the data human-readable.\n• **Minify:** Removes all whitespace to reduce file size.\n• **Validation:** Detects syntax errors.",
+      "links": [
+        { "label": "JSON.org - Official Website", "url": "https://www.json.org/" }
+      ]
+    },
+    "compoundInterest": {
+      "content": "The Compound Interest Calculator works on the principle that the interest added to the principal also earns interest in subsequent periods. It is a fundamental financial tool for understanding the power of long-term investments.\n\n• **Principal:** The initial amount invested.\n• **Compound Frequency:** How often the interest is calculated (monthly, yearly, etc.).\n• **Time:** How long the investment remains in the system.",
+      "links": [
+        { "label": "Investopedia - Compound Interest", "url": "https://www.investopedia.com/terms/c/compoundinterest.asp" }
+      ]
+    },
+    "cryptoPnl": {
+      "content": "The Crypto P&L Calculator analyzes potential or realized profit/loss in your cryptocurrency trades. It is critical for understanding risk management in leveraged positions.\n\n• **ROI (Return on Investment):** The efficiency of an investment relative to its cost.\n• **PnL (Profit and Loss):** The net cash change after the trade.\n• **Leverage:** The ability to open larger positions with a smaller amount of capital.",
+      "links": [
+        { "label": "Binance Academy - What is ROI?", "url": "https://academy.binance.com/en/articles/what-is-roi-and-how-to-calculate-it" }
+      ]
+    }
   }
 }

@@ -8,6 +8,7 @@ import * as z from 'zod';
 import { ReferenceCard } from '../../ui/ReferenceCard';
 import type { BodeWorkerInput, BodeWorkerResponse, BodeWorkerOutput } from './bodeplot.worker';
 import { BodePlotChart } from './BodePlotChart';
+import { Loader2, AlertCircle } from 'lucide-react';
 
 const bodeSchema = z
   .object({
@@ -29,6 +30,12 @@ interface BodePlotVisualizerProps {
 }
 
 export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) {
+  // SSR Hydration Safety
+  const [isHydrated, setIsHydrated] = useState(false);
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
   // Next-intl
   const t = useTranslations('BodePlot');
 
@@ -53,27 +60,55 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
   const systemType = formValues.systemType || 'rc';
 
   const [plotData, setPlotData] = useState<BodeWorkerOutput | null>(null);
+  const [isComputing, setIsComputing] = useState(false);
+  const [workerError, setWorkerError] = useState<string | null>(null);
+  
   const workerRef = useRef<Worker | null>(null);
 
   useEffect(() => {
-    workerRef.current = new Worker(new URL('./bodeplot.worker.ts', import.meta.url));
-    workerRef.current.onmessage = (e: MessageEvent<BodeWorkerResponse>) => {
-      const response = e.data;
-      if (response.success) {
-        setPlotData(response.data);
-      } else {
+    if (!isHydrated) return;
+    
+    // Initialize worker only on the client
+    try {
+      workerRef.current = new Worker(new URL('./bodeplot.worker.ts', import.meta.url));
+      
+      workerRef.current.onmessage = (e: MessageEvent<BodeWorkerResponse>) => {
+        const response = e.data;
+        if (response.success) {
+          setPlotData(response.data);
+          setWorkerError(null);
+        } else {
+          setPlotData(null);
+          setWorkerError(response.error || 'Computation failed');
+        }
+        setIsComputing(false);
+      };
+
+      workerRef.current.onerror = (e) => {
         setPlotData(null);
-      }
-    };
+        setWorkerError('Failed to initialize Web Worker: ' + e.message);
+        setIsComputing(false);
+      };
+    } catch (e: any) {
+      setWorkerError('Web Worker not supported or failed to load: ' + e.message);
+      setIsComputing(false);
+    }
+    
     return () => {
       workerRef.current?.terminate();
+      workerRef.current = null;
     };
-  }, []);
+  }, [isHydrated]);
+
+  // Memoize form values to prevent infinite useEffect loops
+  const formValuesStr = JSON.stringify(formValues);
 
   useEffect(() => {
-    if (workerRef.current) {
-      const parsed = bodeSchema.safeParse(formValues);
+    if (isHydrated && workerRef.current) {
+      const parsed = bodeSchema.safeParse(JSON.parse(formValuesStr));
       if (parsed.success) {
+        setIsComputing(true);
+        setWorkerError(null);
         workerRef.current.postMessage({
           type: parsed.data.filterType,
           R: parsed.data.R,
@@ -81,11 +116,19 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
           L: parsed.data.L,
           points: 500, // Safe point generation dynamically in worker thread
         } as BodeWorkerInput);
+      } else {
+        setPlotData(null);
       }
     }
-  }, [formValues]);
+  }, [formValuesStr, isHydrated]);
 
-  // Plotting details extracted to BodePlotChart
+  if (!isHydrated) {
+    return (
+      <div className={`w-full max-w-4xl mx-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm flex justify-center items-center h-64 ${className}`}>
+        <Loader2 className="animate-spin text-blue-500" size={32} />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -165,15 +208,27 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
         )}
 
         <div className="ce-field__control flex flex-col justify-end">
-          {plotData && !Object.keys(errors).length && (
+          {isComputing ? (
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm py-2">
+              <Loader2 className="animate-spin w-4 h-4" />
+              <span>{t('computing', { defaultMessage: 'Computing...' })}</span>
+            </div>
+          ) : plotData && !Object.keys(errors).length ? (
             <div className="bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300 px-3 py-2 rounded-lg font-mono text-sm border border-blue-100 dark:border-blue-800/50">
               {t('fcLabel')} = {plotData.fc.toFixed(1)} Hz
             </div>
-          )}
+          ) : null}
         </div>
       </form>
 
-      {plotData && (
+      {workerError && (
+        <div className="flex items-center gap-2 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 p-4 rounded-lg mb-6 border border-red-200 dark:border-red-800/50">
+          <AlertCircle size={18} />
+          <span className="text-sm font-medium">{workerError}</span>
+        </div>
+      )}
+
+      {plotData && !isComputing && !workerError && (
         <div className="grid grid-cols-1 gap-6">
           {/* Magnitude Plot */}
           <BodePlotChart

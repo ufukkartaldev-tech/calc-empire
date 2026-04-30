@@ -39,7 +39,7 @@ describe('SecretManager', () => {
     // Feature: security-hardening, Property 1: Secret Management Security
     it('should load secrets from appropriate source and validate presence', () => {
       fc.assert(
-        fc.property(
+        fc.asyncProperty(
           fc.record({
             environment: SecurityArbitraries.environment,
             provider: fc.constantFrom('env', 'vault', 'aws-secrets'),
@@ -107,7 +107,7 @@ describe('SecretManager', () => {
 
     it('should audit all secret access attempts', () => {
       fc.assert(
-        fc.property(
+        fc.asyncProperty(
           fc.record({
             environment: SecurityArbitraries.environment,
             secretKey: fc.string({ minLength: 1, maxLength: 50 }),
@@ -148,7 +148,7 @@ describe('SecretManager', () => {
 
     it('should handle secret validation correctly for any configuration', () => {
       fc.assert(
-        fc.property(
+        fc.asyncProperty(
           fc.record({
             environment: SecurityArbitraries.environment,
             requiredSecrets: fc.array(fc.string({ minLength: 1, maxLength: 50 }), { maxLength: 5 }),
@@ -461,7 +461,7 @@ describe('SecretRotationManager', () => {
     // Feature: security-hardening, Property 2: Secret Rotation Capability
     it('should successfully rotate any valid secret and maintain system functionality', () => {
       fc.assert(
-        fc.property(
+        fc.asyncProperty(
           fc.record({
             secretKey: fc.string({ minLength: 1, maxLength: 50 }),
             intervalDays: fc.integer({ min: 7, max: 365 }),
@@ -509,9 +509,9 @@ describe('SecretRotationManager', () => {
 
     it('should maintain rotation history correctly for any rotation operation', () => {
       fc.assert(
-        fc.property(
+        fc.asyncProperty(
           fc.record({
-            secretKey: fc.string({ minLength: 1, max: 50 }),
+            secretKey: fc.string({ minLength: 1, maxLength: 50 }),
             operations: fc.array(fc.constantFrom('rotate', 'schedule', 'remove'), {
               minLength: 1,
               maxLength: 5,

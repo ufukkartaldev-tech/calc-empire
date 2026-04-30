@@ -81,7 +81,7 @@ test.describe('Performance - Lighthouse', () => {
           performance.getEntriesByType('paint').find((e) => e.name === 'first-contentful-paint')
             ?.startTime || 0,
         largestContentfulPaint:
-          performance.getEntriesByType('largest-contentful-paint')?.startTime || 0,
+          performance.getEntriesByType('largest-contentful-paint')[0]?.startTime || 0,
         totalBlockingTime: 0,
         cumulativeLayoutShift: 0,
       };

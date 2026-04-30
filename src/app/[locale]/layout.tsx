@@ -13,6 +13,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ErrorBoundary } from '@/lib/monitoring';
 import { ThemeProvider } from '@/components/ui/theme-provider';
+import { AuthProvider } from '@/components/ui/AuthProvider';
 import '../globals.css';
 
 const RTL_LOCALES = new Set(['ar']);
@@ -149,10 +150,12 @@ export default async function LocaleLayout({
       >
         <ThemeProvider>
           <ErrorBoundary>
-            <NextIntlClientProvider messages={messages}>
-              <Navbar />
-              <div className="flex-1">{children}</div>
-            </NextIntlClientProvider>
+            <AuthProvider>
+              <NextIntlClientProvider messages={messages}>
+                <Navbar />
+                <div className="flex-1">{children}</div>
+              </NextIntlClientProvider>
+            </AuthProvider>
           </ErrorBoundary>
         </ThemeProvider>
         <Analytics />

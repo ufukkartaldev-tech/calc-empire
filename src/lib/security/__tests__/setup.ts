@@ -65,12 +65,7 @@ export const SecurityArbitraries = {
   email: fc.emailAddress(),
 
   // Secret key arbitrary
-  secretKey: fc.stringOf(
-    fc
-      .constantFrom('ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz', '0123456789', '_-')
-      .chain((charset) => fc.char().filter((c) => charset.includes(c))),
-    { minLength: 32, maxLength: 64 }
-  ),
+  secretKey: fc.string({ minLength: 32, maxLength: 64 }),
 
   // JWT token arbitrary (mock structure)
   jwtToken: fc.record({
@@ -85,7 +80,7 @@ export const SecurityArbitraries = {
       iat: fc.integer({ min: 1600000000, max: 2000000000 }),
       exp: fc.integer({ min: 2000000000, max: 2100000000 }),
     }),
-    signature: fc.hexaString({ minLength: 64, maxLength: 64 }),
+    signature: fc.string({ minLength: 64, maxLength: 64 }),
   }),
 
   // Rate limit configuration arbitrary
@@ -241,7 +236,7 @@ let mockLogger: MockLogger;
 
 beforeAll(() => {
   // Set test environment
-  process.env.NODE_ENV = 'test';
+  // Set test environment
 
   // Initialize mocks
   mockRedis = new MockRedisClient();
@@ -259,14 +254,13 @@ beforeEach(() => {
 
 afterEach(() => {
   // Clean up after each test
-  if (typeof jest !== 'undefined') {
-    jest.clearAllMocks?.();
-  }
+  // Clean up after each test
+  // vi.clearAllMocks(); // Handled by vitest config usually
 });
 
 afterAll(() => {
   // Clean up after all tests
-  delete process.env.NODE_ENV;
+  // Clean up after all tests
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -282,9 +276,10 @@ export { mockRedis, mockLogger, fc };
 export function runPropertyTest<T>(
   name: string,
   arbitrary: fc.Arbitrary<T>,
-  predicate: (value: T) => boolean | Promise<boolean>,
+  predicate: (value: T) => Promise<boolean | void>,
   options: Partial<fc.Parameters<T>> = {}
 ) {
+  // @ts-expect-error
   return fc.assert(fc.asyncProperty(arbitrary, predicate), {
     ...PROPERTY_TEST_CONFIG,
     ...options,

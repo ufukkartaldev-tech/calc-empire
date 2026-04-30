@@ -399,6 +399,20 @@
   "Common": {
     "comingSoon": "Bu araç araştırma & geliştirme (Ar-Ge) aşamasındadır. Çok yakında eklenecek!"
   },
+  "BodePlot": {
+    "title": "Bode Grafiği Hesaplayıcı",
+    "lowPass": "Alçak Geçiren Filtre",
+    "highPass": "Yüksek Geçiren Filtre",
+    "rcCircuit": "RC Devresi",
+    "rlCircuit": "RL Devresi",
+    "resistance": "Direnç (R)",
+    "capacitance": "Kapasitans (C)",
+    "inductance": "İndüktans (L)",
+    "fcLabel": "Kesim Frekansı (fc)",
+    "magTitle": "Genlik Tepkisi (dB)",
+    "phaseTitle": "Faz Tepkisi (°)",
+    "computing": "Hesaplanıyor..."
+  },
   "ToolReference": {
     "title": "Bilgi ve Referans",
     "howItWorks": "Nasıl Çalışır?",
