@@ -81,8 +81,42 @@ export function ProfileForm({ user }: ProfileFormProps) {
       .slice(0, 2);
   };
 
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) return { text: t('greeting.morning'), icon: '☀️' };
+    if (hour >= 12 && hour < 18) return { text: t('greeting.afternoon'), icon: '🌤️' };
+    if (hour >= 18 && hour < 22) return { text: t('greeting.evening'), icon: '🌙' };
+    return { text: t('greeting.night'), icon: '🌌' };
+  };
+
+  const { text: greetingText, icon: greetingIcon } = getGreeting();
+  const firstName = user.name?.split(' ')[0] || t('anonymous');
+
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 w-full max-w-5xl mx-auto">
+      {/* Smart Greeting Card */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-blue-50/80 via-white to-purple-50/80 dark:from-blue-900/20 dark:via-slate-900/50 dark:to-purple-900/20 border border-blue-100/50 dark:border-blue-800/30 rounded-3xl p-6 md:p-8 shadow-sm backdrop-blur-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4 group transition-all hover:shadow-md hover:border-blue-200/50 dark:hover:border-blue-700/30">
+        <div className="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
+
+        <div className="relative z-10">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-slate-800 dark:text-slate-100 mb-2 flex items-center gap-3">
+            <span className="inline-block animate-bounce-slow" style={{ animationDuration: '3s' }}>
+              {greetingIcon}
+            </span>
+            <span>
+              {greetingText},{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+                {firstName}
+              </span>
+              !
+            </span>
+          </h2>
+          <p className="text-slate-600 dark:text-slate-400 font-medium text-sm md:text-base max-w-xl">
+            {t('greeting.subtitle')}
+          </p>
+        </div>
+      </div>
+
       {/* Premium Hero Banner */}
       <div className="relative rounded-3xl overflow-hidden shadow-xl dark:shadow-2xl dark:shadow-blue-900/20 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 transition-all">
         {/* Banner Background */}

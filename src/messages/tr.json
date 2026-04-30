@@ -539,6 +539,13 @@
     "title": "Profil Ayarları",
     "anonymous": "İsimsiz Kullanıcı",
     "emailLocked": "E-posta adresi değiştirilemez.",
+    "greeting": {
+      "morning": "Günaydın",
+      "afternoon": "İyi günler",
+      "evening": "İyi akşamlar",
+      "night": "İyi geceler",
+      "subtitle": "Bugün ne hesaplıyoruz? Araçlarımızı keşfetmeye başlayın."
+    },
     "fields": {
       "name": "Görüntülenen Ad",
       "email": "E-posta Adresi"

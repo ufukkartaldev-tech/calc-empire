@@ -494,6 +494,13 @@
     "title": "Profile Settings",
     "anonymous": "Anonymous User",
     "emailLocked": "Email address cannot be changed.",
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening",
+      "night": "Good night",
+      "subtitle": "What are we calculating today? Start exploring our tools."
+    },
     "fields": {
       "name": "Display Name",
       "email": "Email Address"
