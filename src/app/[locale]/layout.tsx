@@ -15,8 +15,17 @@ import { ErrorBoundary } from '@/lib/monitoring';
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import { AuthProvider } from '@/components/ui/AuthProvider';
 import '../globals.css';
+import type { Viewport } from 'next';
 
 const RTL_LOCALES = new Set(['ar']);
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: '#1f2937',
+};
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
