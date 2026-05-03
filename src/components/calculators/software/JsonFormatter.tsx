@@ -11,14 +11,17 @@ export function JsonFormatter() {
   const [copied, setCopied] = useState(false);
 
   const handleFormat = useCallback((minify: boolean = false) => {
-    if (!input.trim()) return;
+    if (!input.trim()) {
+      setError(t('emptyInput'));
+      return;
+    }
     try {
       const parsed = JSON.parse(input);
       const output = minify ? JSON.stringify(parsed) : JSON.stringify(parsed, null, 2);
       setInput(output);
       setError(null);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : t('invalid'));
+    } catch {
+      setError(t('invalid'));
     }
   }, [input, t]);
 
