@@ -171,6 +171,10 @@ export class CSPManager implements ICSPManager {
         timestamp: Date.now(),
       });
 
+      // Clean up expired cache entries to prevent memory leaks
+      this.cleanupNonceCache();
+      this.cleanupPolicyCache();
+
       // Log policy generation
       const securityEvent = createSecurityEvent(
         SecurityEventType.CSP_VIOLATION,
@@ -470,6 +474,18 @@ export class CSPManager implements ICSPManager {
     for (const [key, entry] of this.nonceCache.entries()) {
       if (now - entry.timestamp > this.NONCE_TTL) {
         this.nonceCache.delete(key);
+      }
+    }
+  }
+
+  /**
+   * Clean up expired policies from cache
+   */
+  private cleanupPolicyCache(): void {
+    const now = Date.now();
+    for (const [key, entry] of this.policyCache.entries()) {
+      if (now - entry.timestamp > this.POLICY_TTL) {
+        this.policyCache.delete(key);
       }
     }
   }
