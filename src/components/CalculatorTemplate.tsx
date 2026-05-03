@@ -45,7 +45,7 @@ import {
 // Types
 // ─────────────────────────────────────────────────────────────────────────────
 
-interface CalculatorTemplateState extends CalculatorData {
+interface CalculatorTemplateState extends Omit<CalculatorData, 'lastAccessed'> {
   error: ErrorDisplayInfo | null;
 }
 
@@ -68,10 +68,14 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ErrorDisplayInfo | null>(null);
 
-  // Initialize calculator in store on mount
+  // Initialize calculator in store on mount, cleanup on unmount
   useEffect(() => {
     const store = useCalculatorStore.getState();
     store.initializeCalculator(calculatorKey, config);
+
+    return () => {
+      store.cleanupCalculator(calculatorKey);
+    };
   }, [calculatorKey, config]);
 
   // Get state with fallback

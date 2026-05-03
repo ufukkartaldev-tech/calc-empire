@@ -49,6 +49,7 @@ export interface CalculatorStoreActions {
   // Calculator lifecycle
   initializeCalculator: (calculatorKey: string, config: CalculatorConfig) => void;
   resetCalculator: (calculatorKey: string, config: CalculatorConfig) => void;
+  cleanupCalculator: (calculatorKey: string) => void;
 
   // Utility
   getCalculatorData: (calculatorKey: string) => CalculatorData | undefined;
@@ -272,6 +273,22 @@ export const useCalculatorStore = create<CalculatorStore>()(
             },
             false,
             `resetCalculator/${calculatorKey}`
+          );
+        },
+
+        // Cleanup calculator from store (called on unmount)
+        cleanupCalculator: (calculatorKey) => {
+          set(
+            (state) => {
+              if (!state.calculators.has(calculatorKey)) return state;
+
+              const newCalculators = new Map(state.calculators);
+              newCalculators.delete(calculatorKey);
+
+              return { calculators: newCalculators };
+            },
+            false,
+            `cleanupCalculator/${calculatorKey}`
           );
         },
 
