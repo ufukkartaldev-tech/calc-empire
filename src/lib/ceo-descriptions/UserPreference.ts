@@ -1,10 +1,10 @@
 /**
  * @file lib/ceo-descriptions/UserPreference.ts
  * @description Service for managing user preferences for description mode persistence
- * 
+ *
  * Implements localStorage persistence, URL parameter support, and preference conflict resolution
  * with priority: URL param > localStorage > default
- * 
+ *
  * **Validates: Requirements 2.3**
  * - Requirement 2.3: THE Dashboard SHALL provide a toggle to switch between CEO and technical descriptions
  */
@@ -93,9 +93,9 @@ export class UserPreferenceService {
   /**
    * Gets the current user preference with conflict resolution
    * Priority: URL param > localStorage > default
-   * 
+   *
    * @returns The resolved user preference
-   * 
+   *
    * @throws {StorageError} When storage operations fail
    * @throws {ConflictResolutionError} When conflicts cannot be resolved
    */
@@ -103,7 +103,7 @@ export class UserPreferenceService {
     try {
       // Get preferences from all sources
       const storage = this.getPreferenceStorage();
-      
+
       // Resolve conflicts using priority: URL param > localStorage > default
       return this.resolvePreferenceConflict(storage);
     } catch (error) {
@@ -115,13 +115,13 @@ export class UserPreferenceService {
 
   /**
    * Sets the user preference and persists it to appropriate storage
-   * 
+   *
    * @param mode - The description mode to set
    * @param source - The source of the preference change
    * @param persist - Whether to persist to localStorage (default: true)
-   * 
+   *
    * @returns The updated user preference
-   * 
+   *
    * @throws {StorageError} When localStorage operations fail
    */
   static setPreference(
@@ -129,14 +129,14 @@ export class UserPreferenceService {
     source: PreferenceSource,
     persist: boolean = true
   ): UserPreference {
-    try {
-      const preference: UserPreference = {
-        mode,
-        timestamp: new Date(),
-        source,
-        sessionId: this.getSessionId(),
-      };
+    const preference: UserPreference = {
+      mode,
+      timestamp: new Date(),
+      source,
+      sessionId: this.getSessionId(),
+    };
 
+    try {
       // Persist to localStorage if requested and source is not URL param
       if (persist && source !== 'url-param') {
         this.saveToLocalStorage(preference);
@@ -172,7 +172,7 @@ export class UserPreferenceService {
 
   /**
    * Gets the current URL parameter for description mode
-   * 
+   *
    * @returns The description mode from URL parameter, or null if not present/invalid
    */
   static getUrlParameter(): DescriptionMode | null {
@@ -198,7 +198,7 @@ export class UserPreferenceService {
   /**
    * Updates the URL parameter for description mode
    * Uses history.replaceState to avoid page reload
-   * 
+   *
    * @param mode - The description mode to set in URL
    */
   static updateUrlParameter(mode: DescriptionMode): void {
@@ -228,7 +228,7 @@ export class UserPreferenceService {
 
   /**
    * Creates a shareable URL with the specified description mode
-   * 
+   *
    * @param mode - The description mode to include in URL
    * @param baseUrl - The base URL (defaults to current URL without params)
    * @returns Shareable URL with mode parameter
@@ -255,7 +255,7 @@ export class UserPreferenceService {
 
   /**
    * Gets preferences from all storage sources
-   * 
+   *
    * @returns Object containing preferences from all sources
    */
   private static getPreferenceStorage(): PreferenceStorage {
@@ -268,7 +268,7 @@ export class UserPreferenceService {
 
   /**
    * Gets preference from localStorage
-   * 
+   *
    * @returns User preference from localStorage, or null if not present/invalid
    */
   private static getLocalStoragePreference(): UserPreference | null {
@@ -283,7 +283,7 @@ export class UserPreferenceService {
       }
 
       const parsed = JSON.parse(stored);
-      
+
       // Validate the parsed object
       if (
         parsed &&
@@ -313,9 +313,9 @@ export class UserPreferenceService {
 
   /**
    * Saves preference to localStorage
-   * 
+   *
    * @param preference - The preference to save
-   * 
+   *
    * @throws {StorageError} When localStorage operations fail
    */
   private static saveToLocalStorage(preference: UserPreference): void {
@@ -342,17 +342,15 @@ export class UserPreferenceService {
   /**
    * Resolves conflicts between preference sources
    * Priority: URL param > localStorage > default
-   * 
+   *
    * @param storage - Preferences from all sources
    * @returns The resolved user preference
-   * 
+   *
    * @throws {ConflictResolutionError} When conflicts cannot be resolved
    */
-  private static resolvePreferenceConflict(
-    storage: PreferenceStorage
-  ): UserPreference {
+  private static resolvePreferenceConflict(storage: PreferenceStorage): UserPreference {
     const conflicts: PreferenceSource[] = [];
-    
+
     // Check URL parameter first (highest priority)
     if (storage.urlParam !== null) {
       return {
@@ -362,13 +360,13 @@ export class UserPreferenceService {
         sessionId: this.getSessionId(),
       };
     }
-    
+
     // Check localStorage next
     if (storage.localStorage !== null) {
       // Check if localStorage preference is stale (older than 30 days)
       const thirtyDaysAgo = new Date();
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      
+
       if (storage.localStorage.timestamp > thirtyDaysAgo) {
         return storage.localStorage;
       } else {
@@ -377,7 +375,7 @@ export class UserPreferenceService {
         conflicts.push('local-storage');
       }
     }
-    
+
     // Use default mode
     return this.createDefaultPreference();
   }
@@ -451,7 +449,7 @@ export class UserPreferenceService {
 
   /**
    * Validates a description mode string
-   * 
+   *
    * @param mode - The mode string to validate
    * @returns True if valid description mode
    */
@@ -472,7 +470,7 @@ export class UserPreferenceService {
       // Check for old format (just mode string)
       const oldKey = 'description-mode';
       const oldValue = window.localStorage.getItem(oldKey);
-      
+
       if (oldValue && (oldValue === 'ceo' || oldValue === 'technical')) {
         // Migrate to new format
         const newPreference: UserPreference = {
@@ -481,7 +479,7 @@ export class UserPreferenceService {
           source: 'local-storage',
           sessionId: this.getSessionId(),
         };
-        
+
         this.saveToLocalStorage(newPreference);
         window.localStorage.removeItem(oldKey);
       }
@@ -498,10 +496,10 @@ export class UserPreferenceService {
   static initialize(): void {
     // Migrate any old preferences
     this.migrateOldPreferences();
-    
+
     // Get initial preference to ensure localStorage is populated if needed
     const preference = this.getPreference();
-    
+
     // If preference came from default source and we're not in a URL param context,
     // save it to localStorage for future sessions
     if (preference.source === 'default' && this.getUrlParameter() === null) {
