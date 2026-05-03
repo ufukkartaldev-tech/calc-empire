@@ -26,10 +26,14 @@ const HEAVY_SOLVERS = new Set([
 export class SolverWorkerManager {
   private static instance: SolverWorkerManager;
   private workers: Map<string, Worker> = new Map();
-  private pendingPromises: Map<string, {
-    resolve: (value: SolverWorkerResponse) => void;
-    reject: (error: Error) => void;
-  }> = new Map();
+  private pendingPromises: Map<
+    string,
+    {
+      resolve: (value: SolverWorkerResponse) => void;
+      reject: (error: Error) => void;
+    }
+  > = new Map();
+  private pendingTimeouts: Map<string, NodeJS.Timeout> = new Map();
 
   private constructor() {}
 
@@ -62,10 +66,7 @@ export class SolverWorkerManager {
   /**
    * Execute solver in Web Worker
    */
-  private async executeInWorker(
-    solverKey: string,
-    values: FieldValues
-  ): Promise<SolveResult> {
+  private async executeInWorker(solverKey: string, values: FieldValues): Promise<SolveResult> {
     const requestId = `${solverKey}-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
 
     try {
@@ -73,10 +74,7 @@ export class SolverWorkerManager {
       let worker = this.workers.get(solverKey);
 
       if (!worker) {
-        worker = new Worker(
-          new URL('./solver.worker.ts', import.meta.url),
-          { type: 'module' }
-        );
+        worker = new Worker(new URL('./solver.worker.ts', import.meta.url), { type: 'module' });
         this.workers.set(solverKey, worker);
 
         // Set up message handler once per worker
@@ -84,7 +82,10 @@ export class SolverWorkerManager {
         worker.onmessage = (e: MessageEvent<SolverWorkerResponse>) => {
           const { requestId: responseRequestId } = e.data;
           const pending = this.pendingPromises.get(responseRequestId);
+          const timeoutId = this.pendingTimeouts.get(responseRequestId);
           if (pending) {
+            clearTimeout(timeoutId);
+            this.pendingTimeouts.delete(responseRequestId);
             pending.resolve(e.data);
             this.pendingPromises.delete(responseRequestId);
           }
@@ -94,6 +95,9 @@ export class SolverWorkerManager {
           // On worker error, reject all pending promises for this worker
           this.pendingPromises.forEach((pending, key) => {
             if (key.startsWith(`${solverKey}-`)) {
+              const timeoutId = this.pendingTimeouts.get(key);
+              clearTimeout(timeoutId);
+              this.pendingTimeouts.delete(key);
               pending.reject(new Error(error.message || 'Worker error'));
               this.pendingPromises.delete(key);
             }
@@ -104,6 +108,9 @@ export class SolverWorkerManager {
           // Handle message deserialization errors
           this.pendingPromises.forEach((pending, key) => {
             if (key.startsWith(`${solverKey}-`)) {
+              const timeoutId = this.pendingTimeouts.get(key);
+              clearTimeout(timeoutId);
+              this.pendingTimeouts.delete(key);
               pending.reject(new Error('Worker message error: ' + error.toString()));
               this.pendingPromises.delete(key);
             }
@@ -111,8 +118,17 @@ export class SolverWorkerManager {
         };
       }
 
-      // Create promise for this request
+      // Create promise for this request with timeout
+      const WORKER_TIMEOUT = 30000; // 30 seconds timeout
+
       const promise = new Promise<SolverWorkerResponse>((resolve, reject) => {
+        const timeoutId = setTimeout(() => {
+          this.pendingTimeouts.delete(requestId);
+          this.pendingPromises.delete(requestId);
+          reject(new Error(`Worker timeout after ${WORKER_TIMEOUT}ms for solver: ${solverKey}`));
+        }, WORKER_TIMEOUT);
+
+        this.pendingTimeouts.set(requestId, timeoutId);
         this.pendingPromises.set(requestId, { resolve, reject });
       });
 
@@ -129,7 +145,10 @@ export class SolverWorkerManager {
         throw new Error(response.error.message);
       }
     } catch (error) {
-      // Clean up pending promise on error
+      // Clean up pending promise and timeout on error
+      const timeoutId = this.pendingTimeouts.get(requestId);
+      clearTimeout(timeoutId);
+      this.pendingTimeouts.delete(requestId);
       this.pendingPromises.delete(requestId);
       // Clean up worker on error
       this.terminateWorker(solverKey);
@@ -154,6 +173,8 @@ export class SolverWorkerManager {
   terminateAll(): void {
     this.workers.forEach((worker) => worker.terminate());
     this.workers.clear();
+    this.pendingTimeouts.forEach((timeoutId) => clearTimeout(timeoutId));
+    this.pendingTimeouts.clear();
     this.pendingPromises.clear();
   }
 
