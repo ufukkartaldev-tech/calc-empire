@@ -12,6 +12,8 @@ import {
 
 type Operation = 'add' | 'subtract' | 'multiply' | 'determinant' | 'transpose';
 
+const MAX_MATRIX_SIZE = 6;
+
 interface MatrixViewProps {
   m: Matrix;
   title: string;
@@ -101,8 +103,8 @@ export function MatrixCalculator() {
 
   // Handle matrix A resize
   const handleResizeA = (rows: number, cols: number) => {
-    const newRows = Math.max(1, Math.min(6, rows));
-    const newCols = Math.max(1, Math.min(6, cols));
+    const newRows = Math.max(1, Math.min(MAX_MATRIX_SIZE, rows));
+    const newCols = Math.max(1, Math.min(MAX_MATRIX_SIZE, cols));
     setRowsA(newRows);
     setColsA(newCols);
 
@@ -119,8 +121,8 @@ export function MatrixCalculator() {
 
   // Handle matrix B resize
   const handleResizeB = (rows: number, cols: number) => {
-    const newRows = Math.max(1, Math.min(6, rows));
-    const newCols = Math.max(1, Math.min(6, cols));
+    const newRows = Math.max(1, Math.min(MAX_MATRIX_SIZE, rows));
+    const newCols = Math.max(1, Math.min(MAX_MATRIX_SIZE, cols));
     setRowsB(newRows);
     setColsB(newCols);
 
