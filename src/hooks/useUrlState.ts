@@ -88,6 +88,7 @@ export function useUrlState(options: UseUrlStateOptions = {}): UseUrlStateReturn
   const opts = { ...DEFAULT_OPTIONS, ...options };
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
   const lastEncodedRef = useRef<string>('');
+  const pendingQueryRef = useRef<string | null>(null);
 
   /**
    * Encode field values to URL search parameters
@@ -100,38 +101,50 @@ export function useUrlState(options: UseUrlStateOptions = {}): UseUrlStateReturn
         clearTimeout(debounceTimerRef.current);
       }
 
+      // Compute query string immediately to capture current state
+      const params = new URLSearchParams();
+
+      // Encode each field value and unit
+      for (const [key, fieldValue] of Object.entries(fields)) {
+        if (fieldValue.value !== null) {
+          // Format numeric value with precision limit
+          const formattedValue = Number(fieldValue.value.toFixed(opts.precision));
+          params.set(key, formattedValue.toString());
+        }
+
+        // Always encode unit selection
+        if (fieldValue.unit) {
+          params.set(`${key}_unit`, fieldValue.unit);
+        }
+      }
+
+      const queryString = params.toString();
+
+      // Check URL length constraint
+      const fullUrl = `${pathname}?${queryString}`;
+      if (fullUrl.length > opts.maxLength) {
+        pendingQueryRef.current = null;
+        return;
+      }
+
+      // Avoid redundant updates
+      if (queryString === lastEncodedRef.current) {
+        pendingQueryRef.current = null;
+        return;
+      }
+
+      // Track this as the pending update
+      pendingQueryRef.current = queryString;
+
       // Debounce URL updates
       debounceTimerRef.current = setTimeout(() => {
-        const params = new URLSearchParams();
-
-        // Encode each field value and unit
-        for (const [key, fieldValue] of Object.entries(fields)) {
-          if (fieldValue.value !== null) {
-            // Format numeric value with precision limit
-            const formattedValue = Number(fieldValue.value.toFixed(opts.precision));
-            params.set(key, formattedValue.toString());
-          }
-
-          // Always encode unit selection
-          if (fieldValue.unit) {
-            params.set(`${key}_unit`, fieldValue.unit);
-          }
-        }
-
-        const queryString = params.toString();
-
-        // Check URL length constraint
-        const fullUrl = `${pathname}?${queryString}`;
-        if (fullUrl.length > opts.maxLength) {
-          return;
-        }
-
-        // Avoid redundant updates
-        if (queryString === lastEncodedRef.current) {
+        // Race condition protection: verify this is still the most recent pending update
+        if (queryString !== pendingQueryRef.current) {
           return;
         }
 
         lastEncodedRef.current = queryString;
+        pendingQueryRef.current = null;
 
         // Update URL with shallow routing (preserves scroll position, no reload)
         router.replace(`${pathname}?${queryString}`, { scroll: false });
