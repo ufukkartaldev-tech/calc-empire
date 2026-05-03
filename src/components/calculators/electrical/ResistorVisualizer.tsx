@@ -169,7 +169,7 @@ export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) 
               <span className="text-sm text-emerald-700 dark:text-emerald-500 bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 rounded">
                 ±{result.tolerance}%
               </span>
-              {result.tempCoeff && (
+              {result?.tempCoeff !== undefined && result.tempCoeff !== null && (
                 <span className="text-sm text-emerald-700 dark:text-emerald-500 bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 rounded">
                   {result.tempCoeff} ppm/K
                 </span>
