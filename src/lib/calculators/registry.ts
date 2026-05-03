@@ -4,13 +4,13 @@ import { solverWorkerManager } from '@/lib/workers/solverWorkerManager';
 
 /**
  * Dynamic solver registry using barrel exports for centralized imports.
- * 
+ *
  * To add a new solver:
  * 1. Create the solver file in src/lib/calculators/ (e.g., 'newSolver.ts')
  * 2. Export the solve function: export const solve: SolveFn = ...
  * 3. Add it to src/lib/calculators/index.ts barrel export
  * 4. Add it to the SOLVER_MAP below with the corresponding key
- * 
+ *
  * This approach centralizes solver exports and reduces manual import duplication.
  * All solver errors are automatically converted to structured CalculatorError types.
  * Heavy solvers automatically use Web Workers for non-blocking execution.
@@ -18,6 +18,17 @@ import { solverWorkerManager } from '@/lib/workers/solverWorkerManager';
 
 // Import all solvers from barrel export
 import * as solvers from './index';
+
+/**
+ * Type-safe solver lookup to avoid implicit any from dynamic property access.
+ */
+function getSolver(solverName: keyof typeof solvers): SolveFn | undefined {
+  const solver = solvers[solverName];
+  if (typeof solver === 'function') {
+    return solver as SolveFn;
+  }
+  return undefined;
+}
 
 /**
  * Map of solver keys to their corresponding solver function names.
@@ -75,11 +86,9 @@ function wrapSolver(solver: SolveFn, solverKey: string): SolveFn {
  * All solvers are wrapped with error handling for consistent error types.
  * Heavy solvers automatically use Web Workers for non-blocking execution.
  */
-export const SOLVER_REGISTRY: Record<string, SolveFn> = Object.entries(
-  SOLVER_MAP
-).reduce(
+export const SOLVER_REGISTRY: Record<string, SolveFn> = Object.entries(SOLVER_MAP).reduce(
   (acc, [key, solverName]) => {
-    const solver = solvers[solverName] as SolveFn;
+    const solver = getSolver(solverName);
     if (solver) {
       // Wrap solver with error handling
       acc[key] = wrapSolver(solver, key);
@@ -97,7 +106,7 @@ export const ASYNC_SOLVER_REGISTRY: Record<string, AsyncSolveFn> = Object.entrie
   SOLVER_MAP
 ).reduce(
   (acc, [key, solverName]) => {
-    const solver = solvers[solverName] as SolveFn;
+    const solver = getSolver(solverName);
     if (solver) {
       // Create async wrapper that uses Web Worker for heavy solvers
       acc[key] = async (values) => {
