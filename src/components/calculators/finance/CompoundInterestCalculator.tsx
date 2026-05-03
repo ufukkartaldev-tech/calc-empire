@@ -170,11 +170,11 @@ export function CompoundInterestCalculator() {
             <div className="absolute top-4 right-5 flex items-center gap-4 text-xs font-semibold">
               <div className="flex items-center gap-1.5">
                 <div className="w-3 h-3 bg-blue-500 rounded-sm"></div>{' '}
-                <span className="text-slate-600 dark:text-slate-300">Nominal</span>
+                <span className="text-slate-600 dark:text-slate-300">{t('nominalLabel')}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="w-3 h-3 bg-red-500 rounded-sm"></div>{' '}
-                <span className="text-slate-600 dark:text-slate-300">Real</span>
+                <span className="text-slate-600 dark:text-slate-300">{t('realLabel')}</span>
               </div>
             </div>
 

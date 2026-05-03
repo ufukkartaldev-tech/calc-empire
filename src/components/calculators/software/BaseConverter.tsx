@@ -141,7 +141,7 @@ export function BaseConverter() {
         {/* Converter Section */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm">
           <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-5 pb-3 border-b border-slate-100 dark:border-slate-800">
-            Base Converter
+            {t('baseConverterTitle')}
           </h3>
 
           <div className="flex flex-col gap-4 mb-6">
@@ -282,7 +282,7 @@ export function BaseConverter() {
             {operator !== 'NOT' && (
               <div className="flex-1">
                 <label className="block text-xs font-medium text-slate-500 mb-1">
-                  {operator === 'LSHIFT' || operator === 'RSHIFT' ? 'Shift Amount' : t('operandB')}
+                  {operator === 'LSHIFT' || operator === 'RSHIFT' ? t('shiftAmount') : t('operandB')}
                 </label>
                 <input
                   type="number"
@@ -354,7 +354,7 @@ export function BaseConverter() {
 
             {!bitwiseData && (
               <div className="flex h-32 items-center justify-center text-slate-600 text-sm font-medium">
-                Sayı bekleniyor... (Awaiting input)
+                {t('awaitingInput')}
               </div>
             )}
           </div>

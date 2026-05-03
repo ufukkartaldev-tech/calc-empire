@@ -125,6 +125,8 @@ export interface ToolConfig {
   id: Exclude<ToolId, null>;
   titleKey: string;
   descKey: string;
+  ceoTitleKey?: string;  // CEO title key (optional)
+  ceoDescKey?: string;  // CEO description key (optional)
   catKey: CategoryKey;
   icon: string;
   features?: {
@@ -139,6 +141,13 @@ export interface SearchableTool extends ToolConfig {
   translatedDesc: string;
   translatedCat: string;
 }
+
+/**
+ * Enhanced ToolConfig with CEO descriptions and computed properties
+ */
+export type EnhancedToolConfig = ToolConfig & {
+  hasCeoDescriptions: boolean; // Computed property
+};
 
 // ─────────────────────────────────────────────────────────────────────────────
 // UI Component Types

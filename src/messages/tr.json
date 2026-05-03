@@ -3,6 +3,134 @@
     "title": "CalcEmpire",
     "description": "Profesyonel mühendislik hesaplayıcıları — hassas, hızlı, çok dilli."
   },
+  "About": {
+    "pageTitle": "Hakkımızda | CalcEmpire",
+    "pageDescription": "Profesyonel mühendislik hesaplama araçları hakkında bilgi edinin.",
+    "title": "CalcEmpire Hakkında",
+    "subtitle": "Mühendisler, geliştiriciler ve profesyoneller için tasarlanmış modern hesaplama araçları.",
+    "mission": {
+      "title": "Misyonumuz",
+      "text1": "CalcEmpire, karmaşık mühendislik hesaplamalarını herkes için erişilebilir ve anlaşılır hale getirmeyi amaçlar. Hassas sonuçlar, sezgisel arayüz ve çok dilli destek sunuyoruz.",
+      "text2": "Elektrikten mekaniğe, finanstan yazılıma kadar geniş bir yelpazede araçlarla, projelerinizde güvenilir bir ortak olmayı hedefliyoruz."
+    },
+    "features": {
+      "title": "Özelliklerimiz",
+      "calculators": {
+        "title": "100+ Hesaplayıcı",
+        "desc": "Geniş mühendislik araç yelpazesi"
+      },
+      "multilingual": {
+        "title": "17 Dil Desteği",
+        "desc": "Küresel erişilebilirlik"
+      },
+      "security": {
+        "title": "Güvenli Hesaplama",
+        "desc": "Verileriniz cihazınızda kalır"
+      },
+      "responsive": {
+        "title": "Mobil Uyumlu",
+        "desc": "Her cihazda çalışır"
+      },
+      "fast": {
+        "title": "Hızlı Sonuçlar",
+        "desc": "Gerçek zamanlı hesaplama"
+      },
+      "export": {
+        "title": "PDF/JSON Aktarım",
+        "desc": "Sonuçları paylaşın ve kaydedin"
+      }
+    },
+    "categories": {
+      "title": "Kategorilerimiz",
+      "electrical": "Elektrik Mühendisliği",
+      "mechanical": "Makine Mühendisliği",
+      "software": "Yazılım Mühendisliği",
+      "finance": "Finans",
+      "civil": "İnşaat Mühendisliği",
+      "chemistry": "Kimya"
+    },
+    "cta": {
+      "title": "Hemen Başlayın",
+      "text": "Binlerce mühendis ve profesyonel CalcEmpire'ı kullanıyor. Siz de aramıza katılın.",
+      "button": "Araçları Keşfet"
+    },
+    "footer": {
+      "version": "Sürüm {version}",
+      "copyright": "© {year} CalcEmpire. Tüm hakları saklıdır."
+    }
+  },
+  "Guides": {
+    "pageTitle": "Kullanım Kılavuzları | CalcEmpire",
+    "pageDescription": "Hesaplama araçlarımızın detaylı kullanım rehberleri.",
+    "title": "Kullanım Kılavuzları",
+    "subtitle": "Araçlarımızın özelliklerini ve kullanımını öğrenin.",
+    "electrical": {
+      "ohmTitle": "Ohm Yasası Hesaplayıcı",
+      "ohmDesc": "Voltaj, akım ve direnç arasındaki ilişkiyi hesaplayın.",
+      "kirchhoffTitle": "Kirchhoff Yasaları",
+      "kirchhoffDesc": "KCL ve KVL ile karmaşık devre analizi yapın.",
+      "powerTitle": "AC Güç Hesaplayıcı",
+      "powerDesc": "Görünür, aktif ve reaktif güç hesaplamaları."
+    },
+    "software": {
+      "baseConverterTitle": "Taban Dönüştürücü",
+      "baseConverterDesc": "İkili, onlu ve onaltılı tabanlar arası dönüşüm.",
+      "cronParserTitle": "Cron Ayrıştırıcı",
+      "cronParserDesc": "Cron ifadelerini okunabilir formata çevirin.",
+      "jsonFormatterTitle": "JSON Biçimlendirici",
+      "jsonFormatterDesc": "JSON verilerini formatlayın ve doğrulayın."
+    },
+    "finance": {
+      "compoundInterestTitle": "Bileşik Faiz Hesaplayıcı",
+      "compoundInterestDesc": "Yatırım büyümesini enflasyon dahil hesaplayın.",
+      "cryptoPnlTitle": "Kripto Kar/Zarar",
+      "cryptoPnlDesc": "Kripto işlemlerinizin P&L analizini yapın."
+    },
+    "needHelp": "Yardıma mı ihtiyacınız var?",
+    "helpText": "Sorularınız için destek ekibimizle iletişime geçin veya",
+    "contactLink": "Hakkımızda sayfasını ziyaret edin."
+  },
+  "BaseConverter": {
+    "title": "Taban Dönüştürücü",
+    "description": "İkili, onlu, onaltılı ve diğer sayı tabanları arasında dönüşüm yapın.",
+    "baseConverterTitle": "Taban Dönüştürücü",
+    "fromBase": "Kaynak Taban",
+    "inputLabel": "Giriş Değeri",
+    "inputPlaceholder": "Sayı girin...",
+    "invalidInput": "Geçersiz giriş! Lütfen seçili tabana uygun bir değer girin.",
+    "binary": "İkili (Binary)",
+    "octal": "Sekizlik (Octal)",
+    "decimal": "Onlu (Decimal)",
+    "hex": "Onaltılı (Hexadecimal)",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı!",
+    "bitwiseOperations": "Bitwise İşlemler",
+    "operandA": "İşlenen A",
+    "operandB": "İşlenen B",
+    "operator": "Operatör",
+    "shiftAmount": "Kaydırma Miktarı",
+    "bitwiseExplanation": "Bit düzeyinde mantıksal işlemler",
+    "awaitingInput": "Giriş bekleniyor..."
+  },
+  "CompoundInterest": {
+    "title": "Bileşik Faiz Hesaplayıcı",
+    "description": "Anapara, faiz oranı ve zaman ile yatırım büyümesini hesaplayın.",
+    "principal": "Anapara",
+    "interestRate": "Faiz Oranı (%)",
+    "inflationRate": "Enflasyon Oranı (%)",
+    "years": "Yıl Sayısı",
+    "compounding": "Bileşik Sıklığı",
+    "yearly": "Yıllık",
+    "monthly": "Aylık",
+    "daily": "Günlük",
+    "chartTitle": "Büyüme Grafiği",
+    "nominalLabel": "Nominal",
+    "realLabel": "Gerçek",
+    "nominalValue": "Nominal Değer",
+    "realValue": "Gerçek Değer",
+    "totalInterest": "Toplam Faiz",
+    "inflationLoss": "Enflasyon Kaybı"
+  },
   "CalculatorTemplate": {
     "fieldsLabel": "Hesaplayıcı girişleri",
     "leaveBlankHint": "Çözüm için boş bırakın",
