@@ -5,6 +5,12 @@ import { useTranslations } from 'next-intl';
 import { acPower } from '@/lib/formulas/electrical';
 import { ReferenceCard } from '../../ui/ReferenceCard';
 
+function parseSafeNumber(value: string, fallback: number): number {
+  const num = Number(value);
+  if (Number.isNaN(num) || !Number.isFinite(num)) return fallback;
+  return num;
+}
+
 export function PowerCalculator() {
   const t = useTranslations('PowerCalculator');
 
@@ -73,7 +79,7 @@ export function PowerCalculator() {
                 <input
                   type="number"
                   value={voltage}
-                  onChange={(e) => setVoltage(Number(e.target.value))}
+                  onChange={(e) => setVoltage(parseSafeNumber(e.target.value, voltage))}
                   className="w-full bg-transparent font-mono font-bold text-xl text-slate-900 dark:text-white outline-none"
                 />
                 <span className="text-slate-400 font-bold">V</span>
@@ -87,7 +93,7 @@ export function PowerCalculator() {
                 <input
                   type="number"
                   value={current}
-                  onChange={(e) => setCurrent(Number(e.target.value))}
+                  onChange={(e) => setCurrent(parseSafeNumber(e.target.value, current))}
                   className="w-full bg-transparent font-mono font-bold text-xl text-slate-900 dark:text-white outline-none"
                 />
                 <span className="text-slate-400 font-bold">A</span>
@@ -103,14 +109,14 @@ export function PowerCalculator() {
                   min="-90"
                   max="90"
                   value={phiDeg}
-                  onChange={(e) => setPhiDeg(Number(e.target.value))}
+                  onChange={(e) => setPhiDeg(parseSafeNumber(e.target.value, phiDeg))}
                   className="flex-1 h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-yellow-500"
                 />
                 <div className="flex items-center gap-2 min-w-[80px]">
                   <input
                     type="number"
                     value={phiDeg}
-                    onChange={(e) => setPhiDeg(Number(e.target.value))}
+                    onChange={(e) => setPhiDeg(parseSafeNumber(e.target.value, phiDeg))}
                     className="w-full bg-transparent font-mono font-bold text-lg text-slate-900 dark:text-white outline-none text-right"
                   />
                   <span className="text-slate-400 font-bold">°</span>
