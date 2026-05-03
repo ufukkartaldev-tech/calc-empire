@@ -26,6 +26,7 @@ export type ResultState = Record<string, unknown> | null;
 export interface CalculatorData {
   fields: FormState;
   result: ResultState;
+  lastAccessed: number;
 }
 
 export interface CalculatorStoreState {
@@ -62,6 +63,8 @@ export type CalculatorStore = CalculatorStoreState & CalculatorStoreActions;
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers
 // ─────────────────────────────────────────────────────────────────────────────
+
+const MAX_CALCULATORS = 10;
 
 function buildInitialFormState(config: CalculatorConfig): FormState {
   const fields: FormState = {};
@@ -132,6 +135,7 @@ export const useCalculatorStore = create<CalculatorStore>()(
                   [fieldKey]: { ...calcData.fields[fieldKey], raw },
                 },
                 result: null, // Clear result when input changes
+                lastAccessed: Date.now(),
               });
 
               return { calculators: newCalculators };
@@ -156,6 +160,7 @@ export const useCalculatorStore = create<CalculatorStore>()(
                   [fieldKey]: { ...calcData.fields[fieldKey], unit },
                 },
                 result: null, // Clear result when unit changes
+                lastAccessed: Date.now(),
               });
 
               return { calculators: newCalculators };
@@ -176,6 +181,7 @@ export const useCalculatorStore = create<CalculatorStore>()(
               newCalculators.set(calculatorKey, {
                 ...calcData,
                 result,
+                lastAccessed: Date.now(),
               });
 
               return { calculators: newCalculators };
@@ -196,6 +202,7 @@ export const useCalculatorStore = create<CalculatorStore>()(
               newCalculators.set(calculatorKey, {
                 ...calcData,
                 result: null,
+                lastAccessed: Date.now(),
               });
 
               return { calculators: newCalculators };
@@ -209,15 +216,38 @@ export const useCalculatorStore = create<CalculatorStore>()(
         initializeCalculator: (calculatorKey, config) => {
           set(
             (state) => {
-              // Skip if already initialized
+              // Skip if already initialized, just update lastAccessed
               if (state.calculators.has(calculatorKey)) {
-                return state;
+                const newCalculators = new Map(state.calculators);
+                const existing = newCalculators.get(calculatorKey)!;
+                newCalculators.set(calculatorKey, {
+                  ...existing,
+                  lastAccessed: Date.now(),
+                });
+                return { calculators: newCalculators };
               }
 
               const newCalculators = new Map(state.calculators);
+
+              // LRU eviction: remove oldest calculator if at limit
+              if (newCalculators.size >= MAX_CALCULATORS) {
+                let oldestKey: string | null = null;
+                let oldestTime = Infinity;
+                for (const [key, data] of newCalculators) {
+                  if (data.lastAccessed < oldestTime) {
+                    oldestTime = data.lastAccessed;
+                    oldestKey = key;
+                  }
+                }
+                if (oldestKey) {
+                  newCalculators.delete(oldestKey);
+                }
+              }
+
               newCalculators.set(calculatorKey, {
                 fields: buildInitialFormState(config),
                 result: null,
+                lastAccessed: Date.now(),
               });
 
               return { calculators: newCalculators };
@@ -235,6 +265,7 @@ export const useCalculatorStore = create<CalculatorStore>()(
               newCalculators.set(calculatorKey, {
                 fields: buildInitialFormState(config),
                 result: null,
+                lastAccessed: Date.now(),
               });
 
               return { calculators: newCalculators };
@@ -270,7 +301,16 @@ export const useCalculatorStore = create<CalculatorStore>()(
         onRehydrateStorage: () => (state) => {
           // Restore Map from plain object after rehydration
           if (state && state.calculators) {
-            state.calculators = new Map(Object.entries(state.calculators));
+            const entries = Object.entries(state.calculators) as [string, CalculatorData][];
+            // Migration: add lastAccessed for old data without it
+            const migratedEntries: [string, CalculatorData][] = entries.map(([key, data]) => [
+              key,
+              {
+                ...data,
+                lastAccessed: data.lastAccessed || Date.now(),
+              },
+            ]);
+            state.calculators = new Map(migratedEntries);
           }
           // Set hydrated flag after rehydration completes
           if (state) {
