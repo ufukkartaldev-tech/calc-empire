@@ -91,6 +91,8 @@
     "finance": {
       "compoundInterestTitle": "Bileşik Faiz Hesaplayıcı",
       "compoundInterestDesc": "Yatırım büyümesini enflasyon dahil hesaplayın.",
+      "compoundInterestCeoTitle": "Bileşik Faiz Hesaplayıcı - Yatırım Getirisi",
+      "compoundInterestCeoDesc": "Bileşik faiz hesaplayıcı ile yatırımınızın gelecekteki değerini hesaplayın. Enflasyon etkisi, aylık/ yıllık katkı ve sermaye büyümesi analizi. Bireysel emeklilik ve uzun vadeli yatırım planlama aracı.",
       "cryptoPnlTitle": "Kripto Kar/Zarar",
       "cryptoPnlDesc": "Kripto işlemlerinizin P&L analizini yapın."
     },

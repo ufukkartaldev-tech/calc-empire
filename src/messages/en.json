@@ -66,6 +66,8 @@
     "jsonFormatterDesc": "Format and validate JSON data.",
     "compoundInterestTitle": "Compound Interest",
     "compoundInterestDesc": "Calculate investment growth over time.",
+    "compoundInterestCeoTitle": "Compound Interest Calculator - Investment Growth Calculator",
+    "compoundInterestCeoDesc": "Calculate the future value of your investments with compound interest. Includes inflation impact, monthly/yearly contributions, and capital growth analysis. Retirement and long-term investment planning tool.",
     "cryptoPnlTitle": "Crypto P&L Calculator",
     "cryptoPnlDesc": "Track cryptocurrency profit and loss.",
     "concreteSectionTitle": "Concrete Section Design",
