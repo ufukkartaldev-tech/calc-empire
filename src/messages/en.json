@@ -42,6 +42,8 @@
     "backButton": "Go Back",
     "ohmTitle": "Ohm's Law Calculator",
     "ohmDesc": "Standard calculations for V = I × R.",
+    "ohmCeoTitle": "Ohm's Law Calculator - Free V=IR Calculator Online",
+    "ohmCeoDesc": "Free Ohm's Law calculator to instantly calculate voltage, current, and resistance. Essential tool for electrical circuits, electronics projects, and educational purposes.",
     "kirchhoffTitle": "Kirchhoff's Laws",
     "kirchhoffDesc": "Circuit analysis with KCL and KVL.",
     "powerTitle": "Power Calculator",

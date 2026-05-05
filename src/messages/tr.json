@@ -67,6 +67,8 @@
     "electrical": {
       "ohmTitle": "Ohm Yasası Hesaplayıcı",
       "ohmDesc": "Voltaj, akım ve direnç arasındaki ilişkiyi hesaplayın.",
+      "ohmCeoTitle": "Ohm Yasası Hesaplayıcı - V=IR Elektrik Hesaplayıcı",
+      "ohmCeoDesc": "Ücretsiz Ohm Yasası hesaplayıcı ile voltaj, akım ve direnç değerlerini anında hesaplayın. Elektrik devreleri, elektronik projeler ve eğitim için ideal araç.",
       "kirchhoffTitle": "Kirchhoff Yasaları",
       "kirchhoffDesc": "KCL ve KVL ile karmaşık devre analizi yapın.",
       "powerTitle": "AC Güç Hesaplayıcı",
