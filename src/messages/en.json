@@ -108,6 +108,8 @@
     "calculusDesc": "Derivative and integral visualizer.",
     "matrixTitle": "Matrix Master",
     "matrixDesc": "Matrix operations and determinants.",
+    "matrixCeoTitle": "Matrix Calculator - Determinant & Inverse Matrix Solver",
+    "matrixCeoDesc": "Perform matrix addition, multiplication, determinant, and inverse matrix calculations. Professional calculator for 2x2, 3x3, and larger matrices. Ideal tool for linear algebra students and engineers.",
     "geometryTitle": "Smart Geometry",
     "geometryDesc": "Area, perimeter, and volume visualizer.",
     "functionPlotTitle": "Graph Lab",
