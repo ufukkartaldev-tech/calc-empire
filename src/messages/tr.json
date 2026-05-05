@@ -98,7 +98,9 @@
       "compoundInterestCeoTitle": "Bileşik Faiz Hesaplayıcı - Yatırım Getirisi",
       "compoundInterestCeoDesc": "Bileşik faiz hesaplayıcı ile yatırımınızın gelecekteki değerini hesaplayın. Enflasyon etkisi, aylık/ yıllık katkı ve sermaye büyümesi analizi. Bireysel emeklilik ve uzun vadeli yatırım planlama aracı.",
       "cryptoPnlTitle": "Kripto Kar/Zarar",
-      "cryptoPnlDesc": "Kripto işlemlerinizin P&L analizini yapın."
+      "cryptoPnlDesc": "Kripto işlemlerinizin P&L analizini yapın.",
+      "cryptoPnlCeoTitle": "Kripto Kar Zarar Hesaplayıcı - Crypto P&L Tracker",
+      "cryptoPnlCeoDesc": "Bitcoin, Ethereum ve altcoin işlemlerinizin kar/zarar analizini anında yapın. Ortalama maliyet, ROI hesaplama ve portföy takibi. Kripto para yatırımcıları için profesyonel P&L aracı."
     },
     "needHelp": "Yardıma mı ihtiyacınız var?",
     "helpText": "Sorularınız için destek ekibimizle iletişime geçin veya",

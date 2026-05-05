@@ -76,6 +76,8 @@
     "compoundInterestCeoDesc": "Calculate the future value of your investments with compound interest. Includes inflation impact, monthly/yearly contributions, and capital growth analysis. Retirement and long-term investment planning tool.",
     "cryptoPnlTitle": "Crypto P&L Calculator",
     "cryptoPnlDesc": "Track cryptocurrency profit and loss.",
+    "cryptoPnlCeoTitle": "Crypto P&L Calculator - Bitcoin Profit Loss Tracker",
+    "cryptoPnlCeoDesc": "Calculate profit and loss for Bitcoin, Ethereum, and altcoin trades instantly. Average cost basis, ROI calculator, and portfolio tracking. Professional P&L tool for crypto investors and traders.",
     "concreteSectionTitle": "Concrete Section Design",
     "concreteSectionDesc": "Reinforced concrete beam analysis.",
     "soilMechanicsTitle": "Soil Mechanics",
