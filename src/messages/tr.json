@@ -85,6 +85,8 @@
       "baseConverterCeoDesc": "İkili (binary), onluk (decimal), onaltılık (hexadecimal) ve sekizlik (octal) sayı sistemleri arasında anında dönüşüm yapın. Programlama, bilgisayar bilimi ve dijital elektronik için ücretsiz çevrim aracı.",
       "cronParserTitle": "Cron Ayrıştırıcı",
       "cronParserDesc": "Cron ifadelerini okunabilir formata çevirin.",
+      "cronParserCeoTitle": "Cron Ayrıştırıcı - Cron Expression Decoder",
+      "cronParserCeoDesc": "Cron ifadelerini anlaşılır Türkçe metne çevirin. Linux cron job zamanlamalarını görselleştirin. Dakika, saat, gün, ay ve haftanın günü değerlerini kolayca yorumlayın. Sistem yöneticileri ve developerlar için pratik araç.",
       "jsonFormatterTitle": "JSON Biçimlendirici",
       "jsonFormatterDesc": "JSON verilerini formatlayın ve doğrulayın."
     },

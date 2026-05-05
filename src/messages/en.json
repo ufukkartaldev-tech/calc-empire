@@ -64,6 +64,8 @@
     "baseConverterCeoDesc": "Instantly convert between binary, decimal, hexadecimal, and octal number systems. Free conversion tool for programming, computer science, and digital electronics.",
     "cronParserTitle": "Cron Expression Parser",
     "cronParserDesc": "Parse and visualize cron schedules.",
+    "cronParserCeoTitle": "Cron Parser - Cron Expression Decoder & Visualizer",
+    "cronParserCeoDesc": "Decode and visualize cron expressions into readable English. Parse Linux cron job schedules with minute, hour, day, month, and weekday values. Essential tool for system administrators, developers, and DevOps engineers.",
     "jsonFormatterTitle": "JSON Formatter",
     "jsonFormatterDesc": "Format and validate JSON data.",
     "compoundInterestTitle": "Compound Interest",
