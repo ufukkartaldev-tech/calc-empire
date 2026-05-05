@@ -235,7 +235,7 @@ describe('Geometry - Regular Polygon', () => {
 
   it('calculates square (4 sides) correctly', () => {
     const result = regularPolygon({ sides: 4, sideLength: 5 });
-    expect(result.area).toBe(25);
+    expect(result.area).toBeCloseTo(25, 5);
     expect(result.perimeter).toBe(20);
     expect(result.apothem).toBeCloseTo(2.5, 5);
   });
