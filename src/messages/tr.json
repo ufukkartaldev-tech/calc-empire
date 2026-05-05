@@ -186,6 +186,8 @@
     "powerDesc": "Elektrik gücü hesaplama P = V × I.",
     "resistorTitle": "Direnç Renk Kodları",
     "resistorDesc": "4, 5 ve 6 bant renk kodu okuyucusu.",
+    "resistorCeoTitle": "Direnç Renk Kodu Hesaplayıcı - 4 5 6 Bant Okuyucu",
+    "resistorCeoDesc": "Direnç renk kodlarını anında çözümleyin. 4 bant, 5 bant ve 6 bant direnç hesaplayıcı. Ohm değeri, tolerans ve sıcaklık katsayısı okuma. Elektronikçiler ve hobi elektroniği için pratik araç.",
     "bodeTitle": "Bode Grafiği",
     "bodeDesc": "Frekans tepkisi görselleştirme.",
     "baseConverterTitle": "Taban Dönüştürücü",

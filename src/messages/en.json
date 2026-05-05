@@ -54,6 +54,8 @@
     "powerCeoDesc": "Calculate active power (kW), reactive power (kVAR), and apparent power (kVA) for AC electrical circuits. Power factor and phase angle calculator. Professional tool for electrical engineering and energy systems.",
     "resistorTitle": "Resistor Color Codes",
     "resistorDesc": "4, 5, and 6 band color code reader.",
+    "resistorCeoTitle": "Resistor Color Code Calculator - 4 5 6 Band Decoder",
+    "resistorCeoDesc": "Instantly decode resistor color bands. Calculate resistance value, tolerance, and temperature coefficient for 4-band, 5-band, and 6-band resistors. Essential tool for electronics hobbyists, engineers, and students.",
     "bodeTitle": "Bode Plot",
     "bodeDesc": "Frequency response visualization.",
     "baseConverterTitle": "Base Converter",
