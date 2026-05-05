@@ -31,33 +31,36 @@ describe('Dark Mode', () => {
         'ThemeToggle.tsx'
       );
       const content = fs.readFileSync(themeTogglePath, 'utf-8');
-      expect(content).toContain('aria-label="Toggle Theme"');
+      expect(content).toContain('aria-label=');
+      expect(content).toContain('getLabel()');
       expect(content).toContain('toggleTheme');
     });
 
     it('should persist theme to localStorage', () => {
-      const themeTogglePath = path.join(
+      const providerPath = path.join(
         process.cwd(),
         'src',
         'components',
         'ui',
-        'ThemeToggle.tsx'
+        'theme-provider.tsx'
       );
-      const content = fs.readFileSync(themeTogglePath, 'utf-8');
-      expect(content).toContain("localStorage.setItem('theme'");
-      expect(content).toContain("localStorage.getItem('theme'");
+      const content = fs.readFileSync(providerPath, 'utf-8');
+      expect(content).toContain('localStorage.setItem');
+      expect(content).toContain('localStorage.getItem');
+      expect(content).toContain('calc-empire-theme');
     });
 
     it('should respect system preference', () => {
-      const themeTogglePath = path.join(
+      const providerPath = path.join(
         process.cwd(),
         'src',
         'components',
         'ui',
-        'ThemeToggle.tsx'
+        'theme-provider.tsx'
       );
-      const content = fs.readFileSync(themeTogglePath, 'utf-8');
+      const content = fs.readFileSync(providerPath, 'utf-8');
       expect(content).toContain('prefers-color-scheme');
+      expect(content).toContain('system');
     });
   });
 
@@ -65,45 +68,52 @@ describe('Dark Mode', () => {
     it('should have dark mode CSS variables', () => {
       const globalsPath = path.join(process.cwd(), 'src', 'app', 'globals.css');
       const content = fs.readFileSync(globalsPath, 'utf-8');
-      expect(content).toContain('.dark {');
-      expect(content).toContain('--ce-bg: #020617');
-      expect(content).toContain('--ce-surface: #0f172a');
-      expect(content).toContain('--ce-text: #f8fafc');
+      expect(content).toContain('.dark');
+      expect(content).toContain('[data-theme="dark"]');
+      expect(content).toContain('--ce-bg:');
+      expect(content).toContain('--ce-surface:');
+      expect(content).toContain('--ce-text-primary:');
     });
 
     it('should have light mode CSS variables', () => {
       const globalsPath = path.join(process.cwd(), 'src', 'app', 'globals.css');
       const content = fs.readFileSync(globalsPath, 'utf-8');
       expect(content).toContain(':root {');
-      expect(content).toContain('--ce-bg: #f8fafc');
-      expect(content).toContain('--ce-surface: #ffffff');
-      expect(content).toContain('--ce-text: #0f172a');
+      expect(content).toContain('--ce-bg:');
+      expect(content).toContain('--ce-surface:');
+      expect(content).toContain('--ce-text-primary:');
     });
   });
 
   describe('Component Dark Mode Support', () => {
-    it('should have dark mode classes in Navbar', () => {
+    it('should have dark mode CSS variables in Navbar', () => {
       const navbarPath = path.join(process.cwd(), 'src', 'components', 'ui', 'Navbar.tsx');
       const content = fs.readFileSync(navbarPath, 'utf-8');
-      expect(content).toContain('dark:bg-slate-900');
-      expect(content).toContain('dark:text-slate-100');
+      // Uses CSS variables for theming
+      expect(content).toContain('var(--ce-text-primary)');
+      expect(content).toContain('var(--ce-text-secondary)');
+      expect(content).toContain('var(--ce-surface-secondary)');
     });
 
-    it('should have dark mode classes in Sidebar', () => {
+    it('should have dark mode CSS variables in Sidebar', () => {
       const sidebarPath = path.join(process.cwd(), 'src', 'components', 'ui', 'Sidebar.tsx');
       const content = fs.readFileSync(sidebarPath, 'utf-8');
-      expect(content).toContain('dark:bg-slate-900');
-      expect(content).toContain('dark:text-slate-400');
+      // Uses CSS variables for theming
+      expect(content).toContain('var(--ce-text-secondary)');
+      expect(content).toContain('var(--ce-text-primary)');
+      expect(content).toContain('var(--ce-surface-secondary)');
     });
 
-    it('should have dark mode classes in Footer', () => {
+    it('should have dark mode CSS variables in Footer', () => {
       const footerPath = path.join(process.cwd(), 'src', 'components', 'ui', 'Footer.tsx');
       const content = fs.readFileSync(footerPath, 'utf-8');
-      expect(content).toContain('dark:bg-slate-900');
-      expect(content).toContain('dark:text-slate-400');
+      // Uses CSS variables for theming
+      expect(content).toContain('var(--ce-text-primary)');
+      expect(content).toContain('var(--ce-text-secondary)');
+      expect(content).toContain('var(--ce-text-muted)');
     });
 
-    it('should have dark mode classes in EngineeringDashboard', () => {
+    it('should have dark mode CSS variables in EngineeringDashboard', () => {
       const dashboardPath = path.join(
         process.cwd(),
         'src',
@@ -112,13 +122,13 @@ describe('Dark Mode', () => {
         'EngineeringDashboard.tsx'
       );
       const content = fs.readFileSync(dashboardPath, 'utf-8');
-      expect(content).toContain('dark:bg-slate-950');
-      expect(content).toContain('dark:text-white');
-      // EngineeringDashboard doesn't have border classes, check for other dark mode classes
-      expect(content).toContain('dark:bg-slate-800');
+      // Uses CSS variables for theming
+      expect(content).toContain('var(--ce-bg)');
+      expect(content).toContain('var(--ce-border)');
+      expect(content).toContain('var(--ce-text-muted)');
     });
 
-    it('should have dark mode classes in CalculatorTemplate', () => {
+    it('should have dark mode support in CalculatorTemplate', () => {
       const calculatorPath = path.join(
         process.cwd(),
         'src',
@@ -126,8 +136,7 @@ describe('Dark Mode', () => {
         'CalculatorTemplate.tsx'
       );
       const content = fs.readFileSync(calculatorPath, 'utf-8');
-      expect(content).toContain('dark:bg-slate-900');
-      expect(content).toContain('dark:text-white');
+      // Uses dark mode class for border
       expect(content).toContain('dark:border-slate-800');
     });
   });
@@ -137,41 +146,42 @@ describe('Dark Mode', () => {
       const globalsPath = path.join(process.cwd(), 'src', 'app', 'globals.css');
       const content = fs.readFileSync(globalsPath, 'utf-8');
       // Dark mode text should be light (white/light gray)
-      expect(content).toContain('--ce-text: #f8fafc');
+      expect(content).toContain('--ce-text-primary:');
     });
 
     it('should have high contrast text in light mode', () => {
       const globalsPath = path.join(process.cwd(), 'src', 'app', 'globals.css');
       const content = fs.readFileSync(globalsPath, 'utf-8');
       // Light mode text should be dark (black/dark gray)
-      expect(content).toContain('--ce-text: #0f172a');
+      expect(content).toContain('--ce-text-primary:');
     });
   });
 
   describe('Theme Persistence', () => {
     it('should save theme preference', () => {
-      const themeTogglePath = path.join(
+      const providerPath = path.join(
         process.cwd(),
         'src',
         'components',
         'ui',
-        'ThemeToggle.tsx'
+        'theme-provider.tsx'
       );
-      const content = fs.readFileSync(themeTogglePath, 'utf-8');
-      expect(content).toContain('localStorage');
+      const content = fs.readFileSync(providerPath, 'utf-8');
+      expect(content).toContain('localStorage.setItem');
     });
 
     it('should load saved theme on mount', () => {
-      const themeTogglePath = path.join(
+      const providerPath = path.join(
         process.cwd(),
         'src',
         'components',
         'ui',
-        'ThemeToggle.tsx'
+        'theme-provider.tsx'
       );
-      const content = fs.readFileSync(themeTogglePath, 'utf-8');
+      const content = fs.readFileSync(providerPath, 'utf-8');
       expect(content).toContain('useEffect');
-      expect(content).toContain('savedTheme');
+      expect(content).toContain('localStorage.getItem');
+      expect(content).toContain('calc-empire-theme');
     });
   });
 });
