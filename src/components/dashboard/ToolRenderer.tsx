@@ -124,6 +124,28 @@ export const ToolRenderer: React.FC<ToolRendererProps> = ({ activeTool }) => {
       return <UnitConverter />;
 
     default:
-      return null;
+      // This should never happen if ToolId type is properly maintained
+      return (
+        <div className="w-full max-w-2xl mx-auto p-8">
+          <div className="bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800 rounded-2xl p-6 text-center">
+            <div className="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <span className="text-3xl">🔧</span>
+            </div>
+            <h2 className="text-xl font-bold text-amber-800 dark:text-amber-400 mb-2">
+              Calculator Not Available
+            </h2>
+            <p className="text-amber-700 dark:text-amber-500 mb-4">
+              The calculator &quot;{activeTool}&quot; is not implemented yet or is temporarily
+              unavailable.
+            </p>
+            <button
+              onClick={() => (window.location.href = '/')}
+              className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-lg transition-colors"
+            >
+              Return to Dashboard
+            </button>
+          </div>
+        </div>
+      );
   }
 };
