@@ -79,6 +79,8 @@
     "software": {
       "baseConverterTitle": "Taban Dönüştürücü",
       "baseConverterDesc": "İkili, onlu ve onaltılı tabanlar arası dönüşüm.",
+      "baseConverterCeoTitle": "Taban Dönüştürücü - Binary Hex Decimal Çevrim",
+      "baseConverterCeoDesc": "İkili (binary), onluk (decimal), onaltılık (hexadecimal) ve sekizlik (octal) sayı sistemleri arasında anında dönüşüm yapın. Programlama, bilgisayar bilimi ve dijital elektronik için ücretsiz çevrim aracı.",
       "cronParserTitle": "Cron Ayrıştırıcı",
       "cronParserDesc": "Cron ifadelerini okunabilir formata çevirin.",
       "jsonFormatterTitle": "JSON Biçimlendirici",

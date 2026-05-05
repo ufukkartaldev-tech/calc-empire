@@ -56,6 +56,8 @@
     "bodeDesc": "Frequency response visualization.",
     "baseConverterTitle": "Base Converter",
     "baseConverterDesc": "Convert between binary, decimal, hex.",
+    "baseConverterCeoTitle": "Base Converter - Binary to Hex to Decimal Converter",
+    "baseConverterCeoDesc": "Instantly convert between binary, decimal, hexadecimal, and octal number systems. Free conversion tool for programming, computer science, and digital electronics.",
     "cronParserTitle": "Cron Expression Parser",
     "cronParserDesc": "Parse and visualize cron schedules.",
     "jsonFormatterTitle": "JSON Formatter",
