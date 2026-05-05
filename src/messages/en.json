@@ -46,6 +46,8 @@
     "ohmCeoDesc": "Free Ohm's Law calculator to instantly calculate voltage, current, and resistance. Essential tool for electrical circuits, electronics projects, and educational purposes.",
     "kirchhoffTitle": "Kirchhoff's Laws",
     "kirchhoffDesc": "Circuit analysis with KCL and KVL.",
+    "kirchhoffCeoTitle": "Kirchhoff's Laws Calculator - KCL & KVL Circuit Analysis",
+    "kirchhoffCeoDesc": "Analyze complex electrical circuits using Kirchhoff's Current Law (KCL) and Voltage Law (KVL). Calculate node voltages and mesh currents. Professional tool for electrical engineering and circuit design.",
     "powerTitle": "Power Calculator",
     "powerDesc": "Calculate electrical power P = V × I.",
     "resistorTitle": "Resistor Color Codes",

@@ -71,6 +71,8 @@
       "ohmCeoDesc": "Ücretsiz Ohm Yasası hesaplayıcı ile voltaj, akım ve direnç değerlerini anında hesaplayın. Elektrik devreleri, elektronik projeler ve eğitim için ideal araç.",
       "kirchhoffTitle": "Kirchhoff Yasaları",
       "kirchhoffDesc": "KCL ve KVL ile karmaşık devre analizi yapın.",
+      "kirchhoffCeoTitle": "Kirchhoff Yasaları Hesaplayıcı - KCL ve KVL Devre Analizi",
+      "kirchhoffCeoDesc": "Kirchhoff'un Akım ve Gerilim Yasaları ile karmaşık elektrik devrelerini analiz edin. Düğüm noktaları ve çevrimler için hesaplamalar. Elektrik mühendisliği ve devre tasarımı için profesyonel araç.",
       "powerTitle": "AC Güç Hesaplayıcı",
       "powerDesc": "Görünür, aktif ve reaktif güç hesaplamaları."
     },
