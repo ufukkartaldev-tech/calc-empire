@@ -74,7 +74,9 @@
       "kirchhoffCeoTitle": "Kirchhoff Yasaları Hesaplayıcı - KCL ve KVL Devre Analizi",
       "kirchhoffCeoDesc": "Kirchhoff'un Akım ve Gerilim Yasaları ile karmaşık elektrik devrelerini analiz edin. Düğüm noktaları ve çevrimler için hesaplamalar. Elektrik mühendisliği ve devre tasarımı için profesyonel araç.",
       "powerTitle": "AC Güç Hesaplayıcı",
-      "powerDesc": "Görünür, aktif ve reaktif güç hesaplamaları."
+      "powerDesc": "Görünür, aktif ve reaktif güç hesaplamaları.",
+      "powerCeoTitle": "AC Güç Hesaplayıcı - Aktif Reaktif Görünür Güç",
+      "powerCeoDesc": "AC elektrik devreleri için aktif güç (kW), reaktif güç (kVAR) ve görünür güç (kVA) hesaplamaları. Güç faktörü ve faz açısı hesaplayıcı. Elektrik mühendisliği ve enerji sistemleri için profesyonel araç."
     },
     "software": {
       "baseConverterTitle": "Taban Dönüştürücü",

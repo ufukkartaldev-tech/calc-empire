@@ -50,6 +50,8 @@
     "kirchhoffCeoDesc": "Analyze complex electrical circuits using Kirchhoff's Current Law (KCL) and Voltage Law (KVL). Calculate node voltages and mesh currents. Professional tool for electrical engineering and circuit design.",
     "powerTitle": "Power Calculator",
     "powerDesc": "Calculate electrical power P = V × I.",
+    "powerCeoTitle": "AC Power Calculator - Active Reactive Apparent Power",
+    "powerCeoDesc": "Calculate active power (kW), reactive power (kVAR), and apparent power (kVA) for AC electrical circuits. Power factor and phase angle calculator. Professional tool for electrical engineering and energy systems.",
     "resistorTitle": "Resistor Color Codes",
     "resistorDesc": "4, 5, and 6 band color code reader.",
     "bodeTitle": "Bode Plot",
