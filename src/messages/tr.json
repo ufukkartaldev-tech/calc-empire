@@ -242,6 +242,8 @@
     "matrixCeoDesc": "Matris toplama, çarpma, determinant ve ters matris hesaplamaları yapın. 2x2, 3x3 ve büyük matrisler için profesyonel hesaplayıcı. Lineer cebir öğrencileri ve mühendisler için ideal araç.",
     "geometryTitle": "Akıllı Geometri",
     "geometryDesc": "Alan, çevre ve hacim görselleştirici.",
+    "geometryCeoTitle": "Geometri Hesaplayıcı - Alan Çevre Hacim",
+    "geometryCeoDesc": "Kare, dikdörtgen, daire, üçgen, prizma, silindir ve küre gibi geometrik şekillerin alan, çevre ve hacim hesaplamalarını yapın. Geometri dersi öğrencileri ve mühendisler için kapsamlı araç.",
     "functionPlotTitle": "Graph Lab",
     "functionPlotDesc": "İnteraktif fonksiyon çizici.",
     "unitConverterTitle": "Birim Dönüştürücü",

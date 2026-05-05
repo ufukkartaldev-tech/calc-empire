@@ -114,6 +114,8 @@
     "matrixCeoDesc": "Perform matrix addition, multiplication, determinant, and inverse matrix calculations. Professional calculator for 2x2, 3x3, and larger matrices. Ideal tool for linear algebra students and engineers.",
     "geometryTitle": "Smart Geometry",
     "geometryDesc": "Area, perimeter, and volume visualizer.",
+    "geometryCeoTitle": "Geometry Calculator - Area Perimeter Volume",
+    "geometryCeoDesc": "Calculate area, perimeter, and volume for geometric shapes including squares, rectangles, circles, triangles, prisms, cylinders, and spheres. Comprehensive tool for geometry students and engineers.",
     "functionPlotTitle": "Graph Lab",
     "functionPlotDesc": "Interactive function plotter.",
     "unitConverterTitle": "Unit Converter",
