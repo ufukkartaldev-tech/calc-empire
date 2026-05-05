@@ -68,6 +68,8 @@
     "cronParserCeoDesc": "Decode and visualize cron expressions into readable English. Parse Linux cron job schedules with minute, hour, day, month, and weekday values. Essential tool for system administrators, developers, and DevOps engineers.",
     "jsonFormatterTitle": "JSON Formatter",
     "jsonFormatterDesc": "Format and validate JSON data.",
+    "jsonFormatterCeoTitle": "JSON Formatter - Online JSON Validator & Prettifier",
+    "jsonFormatterCeoDesc": "Format, validate, and visualize your JSON data instantly. Detect syntax errors, minify and prettify JSON. Essential tool for API development, web programming, and data analysis. Free online JSON beautifier.",
     "compoundInterestTitle": "Compound Interest",
     "compoundInterestDesc": "Calculate investment growth over time.",
     "compoundInterestCeoTitle": "Compound Interest Calculator - Investment Growth Calculator",

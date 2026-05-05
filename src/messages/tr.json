@@ -88,7 +88,9 @@
       "cronParserCeoTitle": "Cron Ayrıştırıcı - Cron Expression Decoder",
       "cronParserCeoDesc": "Cron ifadelerini anlaşılır Türkçe metne çevirin. Linux cron job zamanlamalarını görselleştirin. Dakika, saat, gün, ay ve haftanın günü değerlerini kolayca yorumlayın. Sistem yöneticileri ve developerlar için pratik araç.",
       "jsonFormatterTitle": "JSON Biçimlendirici",
-      "jsonFormatterDesc": "JSON verilerini formatlayın ve doğrulayın."
+      "jsonFormatterDesc": "JSON verilerini formatlayın ve doğrulayın.",
+      "jsonFormatterCeoTitle": "JSON Biçimlendirici - JSON Validator ve Formatter",
+      "jsonFormatterCeoDesc": "JSON verilerinizi güzel formatlayın, doğrulayın ve görselleştirin. Syntax hatalarını tespit edin, minify ve prettify işlemleri yapın. API geliştirme, web programlama ve veri analizi için vazgeçilmez araç."
     },
     "finance": {
       "compoundInterestTitle": "Bileşik Faiz Hesaplayıcı",
