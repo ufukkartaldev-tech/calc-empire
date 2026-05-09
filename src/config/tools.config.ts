@@ -47,14 +47,15 @@ export const TOOLS_CONFIG: ToolConfig[] = [
     catKey: 'electrical',
     icon: '🎨',
   },
-  { 
-    id: 'bode', 
-    titleKey: 'bodeTitle', 
+  {
+    id: 'bode',
+    titleKey: 'bodeTitle',
     descKey: 'bodeDesc',
     ceoTitleKey: 'bodeCeoTitle',
     ceoDescKey: 'bodeCeoDesc',
-    catKey: 'electrical', 
-    icon: '📈' 
+    catKey: 'electrical',
+    icon: '📈',
+    features: { shareableUrl: true, pdfExport: true },
   },
 
   // Software
@@ -308,4 +309,5 @@ export function createEnhancedToolConfig(tool: ToolConfig): EnhancedToolConfig {
 /**
  * Enhanced tool configurations with computed properties
  */
-export const ENHANCED_TOOLS_CONFIG: EnhancedToolConfig[] = TOOLS_CONFIG.map(createEnhancedToolConfig);
+export const ENHANCED_TOOLS_CONFIG: EnhancedToolConfig[] =
+  TOOLS_CONFIG.map(createEnhancedToolConfig);

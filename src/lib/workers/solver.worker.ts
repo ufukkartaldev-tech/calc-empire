@@ -19,13 +19,16 @@ export type SolverWorkerOutput = {
 
 export type SolverWorkerResponse =
   | { success: true; data: SolverWorkerOutput; requestId: string }
-  | { success: false; error: { message: string; code: string; context?: Record<string, unknown> }; requestId: string };
+  | {
+      success: false;
+      error: { message: string; code: string; context?: Record<string, unknown> };
+      requestId: string;
+    };
 
 self.onmessage = (e: MessageEvent<SolverWorkerInput>) => {
   const { solverKey, values, requestId } = e.data;
 
   try {
-
     // Get the solver function from the barrel export
     const solverName = `${solverKey}Solve` as keyof typeof solvers;
     const solver = solvers[solverName];
@@ -41,7 +44,7 @@ self.onmessage = (e: MessageEvent<SolverWorkerInput>) => {
   } catch (error) {
     // Convert error to CalculatorError for consistent error handling
     const calculatorError = toCalculatorError(error);
-    
+
     self.postMessage({
       success: false,
       error: {

@@ -56,14 +56,14 @@ export class MissingTranslationError extends DescriptionSelectorError {
 export class DescriptionSelector {
   /**
    * Selects appropriate description based on mode and availability
-   * 
+   *
    * @param tool - The tool configuration
    * @param mode - Description mode ('ceo' or 'technical')
    * @param t - Translation function for i18n
    * @returns Description result with title, description, mode, and fallback indicator
-   * 
+   *
    * @throws {MissingTranslationError} When required translation keys are missing
-   * 
+   *
    * **Validates: Requirements 2.1, 2.2, 2.4**
    * - Requirement 2.1: WHEN viewing the dashboard in CEO mode, THE ToolGrid SHALL display CEO titles and descriptions
    * - Requirement 2.2: WHEN viewing the dashboard in technical mode, THE ToolGrid SHALL display technical titles and descriptions
@@ -86,9 +86,10 @@ export class DescriptionSelector {
 
       // CEO mode logic with fallback
       if (mode === 'ceo') {
-        const hasCeoDescriptions = 'hasCeoDescriptions' in tool 
-          ? tool.hasCeoDescriptions 
-          : !!(tool.ceoTitleKey && tool.ceoDescKey);
+        const hasCeoDescriptions =
+          'hasCeoDescriptions' in tool
+            ? tool.hasCeoDescriptions
+            : !!(tool.ceoTitleKey && tool.ceoDescKey);
 
         if (hasCeoDescriptions && tool.ceoTitleKey && tool.ceoDescKey) {
           // Try to get CEO descriptions
@@ -108,7 +109,7 @@ export class DescriptionSelector {
             title: ceoTitle,
             description: ceoDesc,
             mode,
-            usedFallback: false
+            usedFallback: false,
           };
         }
 
@@ -133,12 +134,12 @@ export class DescriptionSelector {
 
   /**
    * Gets technical description for a tool
-   * 
+   *
    * @param tool - The tool configuration
    * @param t - Translation function
    * @param usedFallback - Whether this is a fallback from CEO mode
    * @returns Technical description result
-   * 
+   *
    * @throws {MissingTranslationError} When required technical translation keys are missing
    */
   private static getTechnicalDescription(
@@ -171,13 +172,13 @@ export class DescriptionSelector {
       title: technicalTitle,
       description: technicalDesc,
       mode: 'technical',
-      usedFallback
+      usedFallback,
     };
   }
 
   /**
    * Checks if a tool has CEO descriptions available
-   * 
+   *
    * @param tool - The tool configuration
    * @returns True if tool has both CEO title and description keys
    */
@@ -190,7 +191,7 @@ export class DescriptionSelector {
 
   /**
    * Gets the appropriate mode for a tool based on availability
-   * 
+   *
    * @param preferredMode - User's preferred mode
    * @param tool - The tool configuration
    * @returns The mode to use (may differ from preferred if CEO descriptions unavailable)
@@ -207,7 +208,7 @@ export class DescriptionSelector {
 
   /**
    * Gets description for multiple tools efficiently
-   * 
+   *
    * @param tools - Array of tool configurations
    * @param mode - Description mode
    * @param t - Translation function
@@ -218,12 +219,12 @@ export class DescriptionSelector {
     mode: DescriptionMode,
     t: TranslationFunction
   ): DescriptionResult[] {
-    return tools.map(tool => this.getDescription(tool, mode, t));
+    return tools.map((tool) => this.getDescription(tool, mode, t));
   }
 
   /**
    * Gets statistics about description usage
-   * 
+   *
    * @param tools - Array of tool configurations
    * @param mode - Description mode
    * @param t - Translation function
@@ -240,10 +241,10 @@ export class DescriptionSelector {
     missingTranslations: number;
   } {
     const results = this.getDescriptions(tools, mode, t);
-    
-    const ceoDescriptionsAvailable = tools.filter(tool => this.hasCeoDescriptions(tool)).length;
-    const fallbacksUsed = results.filter(result => result.usedFallback).length;
-    
+
+    const ceoDescriptionsAvailable = tools.filter((tool) => this.hasCeoDescriptions(tool)).length;
+    const fallbacksUsed = results.filter((result) => result.usedFallback).length;
+
     // Count missing translations (tools that caused errors)
     const missingTranslations = tools.reduce((count, tool) => {
       try {
@@ -261,7 +262,7 @@ export class DescriptionSelector {
       totalTools: tools.length,
       ceoDescriptionsAvailable,
       fallbacksUsed,
-      missingTranslations
+      missingTranslations,
     };
   }
 }

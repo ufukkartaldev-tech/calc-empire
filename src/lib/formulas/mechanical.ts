@@ -126,4 +126,3 @@ export function thermalExpansion({ L0, alpha, deltaT }: ThermalExpansionParams) 
 
   return { deltaL: deltaL.toNumber(), Lfinal: Lfinal.toNumber() };
 }
-

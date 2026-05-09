@@ -12,6 +12,11 @@ vi.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }));
 
+// Mock next-auth
+vi.mock('next-auth/react', () => ({
+  useSession: vi.fn(() => ({ data: null, status: 'unauthenticated' })),
+}));
+
 // Mock routing
 vi.mock('@/i18n/routing', () => ({
   Link: ({ children, href, ...props }: React.ComponentProps<'a'>) => (
@@ -33,14 +38,13 @@ vi.mock('@/components/ui/ThemeToggle', () => ({
 describe('Navbar', () => {
   it('renders the logo and brand name', () => {
     render(<Navbar />);
-    
+
     expect(screen.getByText('CalcEmpire')).toBeInTheDocument();
-    expect(screen.getByText('Engineering Tools')).toBeInTheDocument();
   });
 
   it('renders desktop navigation links', () => {
     render(<Navbar />);
-    
+
     expect(screen.getByText('Calculators')).toBeInTheDocument();
     expect(screen.getByText('Guides')).toBeInTheDocument();
     expect(screen.getByText('About')).toBeInTheDocument();
@@ -48,24 +52,25 @@ describe('Navbar', () => {
 
   it('renders theme toggle and language switcher', () => {
     render(<Navbar />);
-    
-    expect(screen.getByTestId('theme-toggle')).toBeInTheDocument();
+
+    // There might be multiple toggles (mobile/desktop)
+    expect(screen.getAllByTestId('theme-toggle')[0]).toBeInTheDocument();
     expect(screen.getByTestId('language-switcher')).toBeInTheDocument();
   });
 
   it('has correct accessibility attributes', () => {
     render(<Navbar />);
-    
+
     const nav = screen.getByRole('navigation');
     expect(nav).toBeInTheDocument();
-    
-    const logoLink = screen.getByRole('link', { name: /CalcEmpire Engineering Tools/i });
+
+    const logoLink = screen.getByRole('link', { name: /CE CalcEmpire/i });
     expect(logoLink).toHaveAttribute('href', '/');
   });
 
   it('applies correct CSS classes for styling', () => {
     render(<Navbar />);
-    
+
     const nav = screen.getByRole('navigation');
     expect(nav).toHaveClass('nav-professional');
   });

@@ -16,7 +16,9 @@ export function LoadingSpinner({ size = 'md', className = '' }: LoadingSpinnerPr
   };
 
   return (
-    <Loader2 
+    <Loader2
+      role="img"
+      aria-hidden="true"
       className={`animate-spin ${sizeClasses[size]} ${className}`}
       style={{ color: 'var(--ce-text-primary)' }}
     />
@@ -30,17 +32,14 @@ interface LoadingStateProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export function LoadingState({ 
-  isLoading, 
-  children, 
-  fallback, 
-  size = 'md' 
-}: LoadingStateProps) {
+export function LoadingState({ isLoading, children, fallback, size = 'md' }: LoadingStateProps) {
   if (isLoading) {
-    return fallback || (
-      <div className="flex items-center justify-center p-4">
-        <LoadingSpinner size={size} />
-      </div>
+    return (
+      fallback || (
+        <div className="flex items-center justify-center p-4">
+          <LoadingSpinner size={size} />
+        </div>
+      )
     );
   }
 
@@ -54,16 +53,13 @@ interface LoadingCardProps {
 
 export function LoadingCard({ title = 'Loading...', className = '' }: LoadingCardProps) {
   return (
-    <div 
+    <div
       className={`professional-card p-6 ${className}`}
       style={{ backgroundColor: 'var(--ce-surface)' }}
     >
       <div className="flex items-center space-x-3">
         <LoadingSpinner size="sm" />
-        <span 
-          className="body-regular"
-          style={{ color: 'var(--ce-text-secondary)' }}
-        >
+        <span className="body-regular" style={{ color: 'var(--ce-text-secondary)' }}>
           {title}
         </span>
       </div>
@@ -71,31 +67,30 @@ export function LoadingCard({ title = 'Loading...', className = '' }: LoadingCar
   );
 }
 
-interface LoadingButtonProps {
+interface LoadingButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading: boolean;
   children: React.ReactNode;
-  disabled?: boolean;
-  className?: string;
-  onClick?: () => void;
-  type?: 'button' | 'submit' | 'reset';
 }
 
-export function LoadingButton({ 
-  isLoading, 
-  children, 
-  disabled = false, 
-  className = '', 
+export function LoadingButton({
+  isLoading,
+  children,
+  disabled = false,
+  className = '',
   onClick,
-  type = 'button'
+  type = 'button',
+  ...props
 }: LoadingButtonProps) {
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled || isLoading}
+      aria-busy={isLoading}
       className={`btn-primary flex items-center space-x-2 ${className} ${
         disabled || isLoading ? 'opacity-50 cursor-not-allowed' : ''
       }`}
+      {...props}
     >
       {isLoading && <LoadingSpinner size="sm" />}
       <span>{children}</span>

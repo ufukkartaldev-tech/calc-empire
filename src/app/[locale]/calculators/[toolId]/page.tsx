@@ -17,20 +17,20 @@ interface PageProps {
 
 export async function generateStaticParams() {
   const paths: { locale: string; toolId: string }[] = [];
-  
+
   for (const locale of routing.locales) {
     for (const tool of TOOLS_CONFIG) {
       paths.push({ locale, toolId: tool.id });
     }
   }
-  
+
   return paths;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale, toolId } = await params;
   const tool = TOOLS_CONFIG.find((t) => t.id === toolId);
-  
+
   if (!tool) return {};
 
   const t = await getTranslations({ locale, namespace: 'Dashboard' });
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function CalculatorPage({ params }: PageProps) {
   const { toolId } = await params;
-  
+
   // Validate toolId
   const tool = TOOLS_CONFIG.find((t) => t.id === toolId);
   if (!tool) {

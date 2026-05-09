@@ -60,7 +60,7 @@ describe('Kirchhoff Circuit Analysis (2-Loop)', () => {
 
   it('throws if determinant is zero (e.g. all resistors zero)', () => {
     expect(() => solveKirchhoff2Loop({ V1: 10, V2: 10, R1: 0, R2: 0, R3: 0 })).toThrow(
-      'Circuit has no unique valid solution (determinant is zero)'
+      'Circuit has no unique valid solution (determinant is zero or near zero)'
     );
   });
 });

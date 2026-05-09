@@ -12,13 +12,13 @@ export function IdealGasCalculator() {
     P: '101325',
     V: '0.0224',
     n: '1',
-    T: '' // Solve for T by default if blank
+    T: '', // Solve for T by default if blank
   });
 
   const [error, setError] = useState<string | null>(null);
 
   const updateParam = (key: string, val: string) => {
-    setParams(prev => ({ ...prev, [key]: val }));
+    setParams((prev) => ({ ...prev, [key]: val }));
     setError(null);
   };
 
@@ -62,10 +62,12 @@ export function IdealGasCalculator() {
     }
   }, [params, t]);
 
-  const InputField = ({ label, id, unit }: { label: string, id: string, unit: string }) => (
+  const InputField = ({ label, id, unit }: { label: string; id: string; unit: string }) => (
     <div className="space-y-1">
       <div className="flex justify-between items-center px-1">
-        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</label>
+        <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+          {label}
+        </label>
         <span className="text-[9px] text-slate-300 dark:text-slate-600 font-bold">{unit}</span>
       </div>
       <div className="relative group">
@@ -74,11 +76,12 @@ export function IdealGasCalculator() {
           step="any"
           value={params[id]}
           placeholder={t('solveFor')}
-          onChange={e => updateParam(id, e.target.value)}
-          className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border-2 rounded-2xl font-mono text-sm transition-all focus:outline-none ${params[id] === ''
-            ? 'border-dashed border-blue-200 dark:border-blue-900/50 bg-blue-50/10'
-            : 'border-slate-100 dark:border-slate-800 focus:border-blue-500 dark:focus:border-blue-400'
-            }`}
+          onChange={(e) => updateParam(id, e.target.value)}
+          className={`w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border-2 rounded-2xl font-mono text-sm transition-all focus:outline-none ${
+            params[id] === ''
+              ? 'border-dashed border-blue-200 dark:border-blue-900/50 bg-blue-50/10'
+              : 'border-slate-100 dark:border-slate-800 focus:border-blue-500 dark:focus:border-blue-400'
+          }`}
         />
         {params[id] === '' && (
           <div className="absolute right-4 top-1/2 -translate-y-1/2 flex gap-1 pointer-events-none">
@@ -100,8 +103,12 @@ export function IdealGasCalculator() {
             💨
           </div>
           <div>
-            <h2 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight">{t('title')}</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium italic">{t('subtitle')}</p>
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+              {t('title')}
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium italic">
+              {t('subtitle')}
+            </p>
           </div>
         </div>
 
@@ -124,10 +131,15 @@ export function IdealGasCalculator() {
             )}
 
             <div className="p-6 bg-indigo-50/50 dark:bg-indigo-900/10 border border-indigo-100 dark:border-indigo-900/30 rounded-3xl">
-              <p className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-[0.2em] mb-2">Scientific Basis</p>
+              <p className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-[0.2em] mb-2">
+                Scientific Basis
+              </p>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
-                The ideal gas law is the equation of state of a hypothetical ideal gas. It is a good approximation of the behavior of many gases under many conditions.
-                <code className="block mt-2 font-mono text-indigo-600 dark:text-indigo-400 bg-white dark:bg-slate-900 p-2 rounded-lg border border-indigo-100 dark:border-indigo-900">PV = nRT</code>
+                The ideal gas law is the equation of state of a hypothetical ideal gas. It is a good
+                approximation of the behavior of many gases under many conditions.
+                <code className="block mt-2 font-mono text-indigo-600 dark:text-indigo-400 bg-white dark:bg-slate-900 p-2 rounded-lg border border-indigo-100 dark:border-indigo-900">
+                  PV = nRT
+                </code>
               </p>
             </div>
           </div>
@@ -140,7 +152,9 @@ export function IdealGasCalculator() {
                 className="w-full h-full max-w-[280px] max-h-[280px] border-4 border-slate-200 dark:border-slate-800 rounded-3xl relative transition-all duration-500 overflow-hidden bg-white dark:bg-slate-900 shadow-2xl"
                 style={{
                   transform: `scale(${Math.min(1.2, 0.5 + (parseFloat(params.V) || 0.02) * 20)})`,
-                  opacity: params.P ? Math.min(1, 0.3 + (parseFloat(params.P) || 100000) / 200000) : 0.5
+                  opacity: params.P
+                    ? Math.min(1, 0.3 + (parseFloat(params.P) || 100000) / 200000)
+                    : 0.5,
                 }}
               >
                 {/* Particles Animation */}
@@ -151,7 +165,7 @@ export function IdealGasCalculator() {
                     style={{
                       left: `${Math.random() * 90}%`,
                       top: `${Math.random() * 90}%`,
-                      animation: `float ${2 / (Math.sqrt(parseFloat(params.T) || 300) / 10)}s infinite alternate ease-in-out ${Math.random() * 2}s`
+                      animation: `float ${2 / (Math.sqrt(parseFloat(params.T) || 300) / 10)}s infinite alternate ease-in-out ${Math.random() * 2}s`,
                     }}
                   />
                 ))}
@@ -163,14 +177,25 @@ export function IdealGasCalculator() {
               </div>
 
               <div className="absolute bottom-6 text-center">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Kinetic Molecular Theory</p>
-                <p className="text-[8px] font-mono text-slate-300 dark:text-slate-600">Dynamic particle visualization</p>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
+                  Kinetic Molecular Theory
+                </p>
+                <p className="text-[8px] font-mono text-slate-300 dark:text-slate-600">
+                  Dynamic particle visualization
+                </p>
               </div>
 
               <style jsx>{`
                 @keyframes float {
-                  from { transform: translate(0, 0); }
-                  to { transform: translate(${Math.random() * 50 - 25}px, ${Math.random() * 50 - 25}px); }
+                  from {
+                    transform: translate(0, 0);
+                  }
+                  to {
+                    transform: translate(
+                      ${Math.random() * 50 - 25}px,
+                      ${Math.random() * 50 - 25}px
+                    );
+                  }
                 }
               `}</style>
             </div>
@@ -183,7 +208,9 @@ export function IdealGasCalculator() {
 
               {result ? (
                 <div className="relative z-10 space-y-2">
-                  <p className="text-xs font-black uppercase tracking-[0.2em] opacity-80">{t('result')}</p>
+                  <p className="text-xs font-black uppercase tracking-[0.2em] opacity-80">
+                    {t('result')}
+                  </p>
                   <div className="flex items-baseline gap-2">
                     <span className="text-5xl font-mono font-black tracking-tighter">
                       {result.value.toLocaleString(undefined, { maximumFractionDigits: 4 })}
@@ -193,7 +220,15 @@ export function IdealGasCalculator() {
                     </span>
                   </div>
                   <p className="text-[10px] font-bold opacity-50 tracking-wider">
-                    {t(result.key === 'P' ? 'pressure' : result.key === 'V' ? 'volume' : result.key === 'n' ? 'amount' : 'temperature')}
+                    {t(
+                      result.key === 'P'
+                        ? 'pressure'
+                        : result.key === 'V'
+                          ? 'volume'
+                          : result.key === 'n'
+                            ? 'amount'
+                            : 'temperature'
+                    )}
                   </p>
                 </div>
               ) : (
@@ -203,7 +238,9 @@ export function IdealGasCalculator() {
                     <span className="w-2 h-2 rounded-full bg-white animate-bounce delay-100"></span>
                     <span className="w-2 h-2 rounded-full bg-white animate-bounce delay-200"></span>
                   </div>
-                  <p className="text-xs font-black uppercase tracking-widest opacity-80">{t('solveFor')}</p>
+                  <p className="text-xs font-black uppercase tracking-widest opacity-80">
+                    {t('solveFor')}
+                  </p>
                 </div>
               )}
             </div>

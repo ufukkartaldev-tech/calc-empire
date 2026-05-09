@@ -76,7 +76,11 @@
       "powerTitle": "AC Güç Hesaplayıcı",
       "powerDesc": "Görünür, aktif ve reaktif güç hesaplamaları.",
       "powerCeoTitle": "AC Güç Hesaplayıcı - Aktif Reaktif Görünür Güç",
-      "powerCeoDesc": "AC elektrik devreleri için aktif güç (kW), reaktif güç (kVAR) ve görünür güç (kVA) hesaplamaları. Güç faktörü ve faz açısı hesaplayıcı. Elektrik mühendisliği ve enerji sistemleri için profesyonel araç."
+      "powerCeoDesc": "AC elektrik devreleri için aktif güç (kW), reaktif güç (kVAR) ve görünür güç (kVA) hesaplamaları. Güç faktörü ve faz açısı hesaplayıcı. Elektrik mühendisliği ve enerji sistemleri için profesyonel araç.",
+      "resistorCeoTitle": "Direnç Renk Kodu Hesaplayıcı - 4 5 6 Bant Okuyucu",
+      "resistorCeoDesc": "Direnç renk kodlarını anında çözümleyin. 4 bant, 5 bant ve 6 bant direnç hesaplayıcı. Ohm değeri, tolerans ve sıcaklık katsayısı okuma. Elektronikçiler ve hobi elektroniği için pratik araç.",
+      "bodeCeoTitle": "Bode Grafiği Hesaplayıcı - Frekans Tepkisi Analizi",
+      "bodeCeoDesc": "Alçak geçiren ve yüksek geçiren filtreler için Bode genlik ve faz grafiklerini oluşturun. Kesim frekansı ve dB kazancı hesaplayın. Kontrol sistemleri ve elektronik devre tasarımı için profesyonel görselleştirme aracı."
     },
     "software": {
       "baseConverterTitle": "Taban Dönüştürücü",
@@ -101,6 +105,58 @@
       "cryptoPnlDesc": "Kripto işlemlerinizin P&L analizini yapın.",
       "cryptoPnlCeoTitle": "Kripto Kar Zarar Hesaplayıcı - Crypto P&L Tracker",
       "cryptoPnlCeoDesc": "Bitcoin, Ethereum ve altcoin işlemlerinizin kar/zarar analizini anında yapın. Ortalama maliyet, ROI hesaplama ve portföy takibi. Kripto para yatırımcıları için profesyonel P&L aracı."
+    },
+    "civil": {
+      "concreteSectionCeoTitle": "Beton Kesit Tasarımı - Betonarme Kiriş Analizi",
+      "concreteSectionCeoDesc": "Betonarme kirişlerin kesit tasarımı ve dayanım analizini yapın. Donatı miktarı, beton sınıfı ve moment kapasitesi hesaplamaları. İnşaat mühendisleri ve yapı tasarımcıları için profesyonel araç.",
+      "soilMechanicsCeoTitle": "Zemin Mekaniği Hesaplayıcı - Taşıma Kapasitesi",
+      "soilMechanicsCeoDesc": "Mohr-Coulomb kriteri ile zemin kayma mukavemetini hesaplayın. Kohezyon, içsel sürtünme açısı ve normal gerilme analizi. Geoteknik mühendisliği ve temel tasarımı için ücretsiz araç."
+    },
+    "mechanical": {
+      "beamCeoTitle": "Kiriş Sehim Analizi - Mukavemet Hesaplayıcı",
+      "beamCeoDesc": "Basit mesnetli ve konsol kirişler için maksimum sehim ve eğilme hesaplamaları. Elastisite modülü ve atalet momenti analizi. Makine ve inşaat mühendisliği mukavemet hesapları için profesyonel araç.",
+      "stressStrainCeoTitle": "Gerilme Şekil Değiştirme - Young Modülü Hesaplayıcı",
+      "stressStrainCeoDesc": "Malzemelerin gerilme (stress), şekil değiştirme (strain) ve Young modülünü hesaplayın. Kuvvet, alan ve uzama miktarı analizi. Malzeme bilimi ve mukavemet dersleri için ideal araç.",
+      "shearMomentCeoTitle": "Kesme Moment Diyagramı Çizici - BMD ve SFD",
+      "shearMomentCeoDesc": "Kirişler üzerindeki kesme kuvveti (SFD) ve eğilme momenti (BMD) diyagramlarını görselleştirin. Mesnet tepkileri ve maksimum moment noktalarını anında hesaplayın."
+    },
+    "chemistry": {
+      "periodicTableTitle": "Periyodik Tablo",
+      "periodicTableDesc": "İnteraktif element özellikleri görüntüleyici.",
+      "periodicTableCeoTitle": "Etkileşimli Periyodik Tablo - 118 Element",
+      "periodicTableCeoDesc": "Atomik kütle, elektron konfigürasyonu, erime noktası ve keşif bilgileriyle tüm 118 kimyasal elementi keşfedin. Öğrenciler ve kimyagerler için ideal.",
+      "idealGasCeoTitle": "İdeal Gas Yasası Hesaplayıcı - PV=nRT Çözücü",
+      "idealGasCeoDesc": "Basınç, hacim, madde miktarı ve sıcaklık arasındaki ilişkiyi İdeal Gaz Denklemi ile hesaplayın. Kimya ve termodinamik problemleri için hızlı ve hassas gaz yasası çözücü."
+    },
+    "fluid": {
+      "bernoulliCeoTitle": "Bernoulli Denklemi Hesaplayıcı - Akışkanlar Mekaniği",
+      "bernoulliCeoDesc": "İdeal akışkanlarda enerji korunumunu Bernoulli denklemi ile analiz edin. Basınç, hız ve yükseklik değerleri arası geçişler. Akışkanlar mekaniği dersleri ve hidrolik hesaplamalar için araç.",
+      "pressureLossCeoTitle": "Basınç Kaybı Hesaplayıcı - Darcy-Weisbach Denklemi",
+      "pressureLossCeoDesc": "Boru hatlarındaki sürtünme kaynaklı basınç kaybını ve yük kaybını hesaplayın. Sürtünme katsayısı, boru çapı ve akış hızı analizi. Tesisat ve hidrolik sistem tasarımı için profesyonel araç."
+    },
+    "statistics": {
+      "normalCeoTitle": "Normal Dağılım Hesaplayıcı - Gauss Eğrisi",
+      "normalCeoDesc": "Ortalama ve standart sapma değerleri ile normal dağılım (çan eğrisi) grafiklerini oluşturun. Olasılık yoğunluk fonksiyonu ve ampirik kural analizi. İstatistik ve veri analizi için görselleştirme aracı.",
+      "basicStatsCeoTitle": "Temel İstatistik Hesaplayıcı - Ortalama Medyan Mod",
+      "basicStatsCeoDesc": "Veri setleriniz için ortalama, medyan, mod, standart sapma ve varyans değerlerini anında hesaplayın. Örneklem ve popülasyon analizi. Veri bilimi ve istatistik öğrencileri için kapsamlı araç.",
+      "discreteDistCeoTitle": "Kesikli Dağılım Hesaplayıcı - Binom ve Poisson",
+      "discreteDistCeoDesc": "Binom ve Poisson dağılımlarını hesaplayın ve görselleştirin. Beklenen değer ve varyans analizi. Olasılık hesaplamaları ve istatistiksel modelleme için profesyonel araç.",
+      "dataVizCeoTitle": "Veri Görselleştirme Aracı - Histogram Çizici",
+      "dataVizCeoDesc": "Ham verilerinizi histogram grafiklerine dönüştürün ve dağılım özetlerini inceleyin. Veri setlerini gruplandırın ve frekans dağılımlarını görselleştirin. Veri analizi için pratik araç."
+    },
+    "mathematics": {
+      "calculusCeoTitle": "Türev İntegral Hesaplayıcı - Online Kalkülüs",
+      "calculusCeoDesc": "Fonksiyonların türevini ve integralini anında hesaplayın. Limit, kritik noktalar ve alan hesaplamaları. Mühendislik ve matematik öğrencileri için online kalkülüs aracı.",
+      "matrixCeoTitle": "Matris Hesaplayıcı - Determinant ve Ters Matris",
+      "matrixCeoDesc": "Matris toplama, çarpma, determinant ve ters matris hesaplamaları yapın. 2x2, 3x3 ve büyük matrisler için profesyonel hesaplayıcı. Lineer cebir öğrencileri ve mühendisler için ideal araç.",
+      "geometryCeoTitle": "Geometri Hesaplayıcı - Alan Çevre Hacim",
+      "geometryCeoDesc": "Kare, dikdörtgen, daire, üçgen, prizma, silindir ve küre gibi geometrik şekillerin alan, çevre ve hacim hesaplamalarını yapın. Geometri dersi öğrencileri ve mühendisler için kapsamlı araç.",
+      "functionPlotCeoTitle": "Fonksiyon Çizici - İnteraktif Grafik Lab",
+      "functionPlotCeoDesc": "Matematiksel fonksiyonları koordinat sisteminde çizdirin ve analiz edin. Kökler, kesim noktaları ve değişimleri görselleştirin. Matematik eğitimi ve analiz için etkileşimli grafik aracı."
+    },
+    "converters": {
+      "unitConverterCeoTitle": "Birim Dönüştürücü - Mühendislik Birim Çeviri",
+      "unitConverterCeoDesc": "Uzunluk, kütle, sıcaklık, basınç ve enerji gibi 12+ kategoride birim dönüşümü yapın. Mühendislik ve bilimsel hesaplamalar için hassas ve kapsamlı birim çevirici."
     },
     "needHelp": "Yardıma mı ihtiyacınız var?",
     "helpText": "Sorularınız için destek ekibimizle iletişime geçin veya",

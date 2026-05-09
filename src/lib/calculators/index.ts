@@ -1,7 +1,7 @@
 /**
  * @file index.ts
  * @description Barrel export for all calculator solvers
- * 
+ *
  * To add a new solver:
  * 1. Create the solver file in this directory
  * 2. Export the solve function from this file

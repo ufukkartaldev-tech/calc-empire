@@ -71,4 +71,3 @@ export function concreteSectionCapacity({ bw, d, fck, fyk, As }: ConcreteSection
     isOverReinforced,
   };
 }
-

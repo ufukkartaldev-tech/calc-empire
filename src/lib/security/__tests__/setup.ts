@@ -279,7 +279,7 @@ export function runPropertyTest<T>(
   predicate: (value: T) => Promise<boolean | void>,
   options: Partial<fc.Parameters<T>> = {}
 ) {
-  // @ts-expect-error
+  // @ts-expect-error: Incompatible property types between fast-check versions
   return fc.assert(fc.asyncProperty(arbitrary, predicate), {
     ...PROPERTY_TEST_CONFIG,
     ...options,

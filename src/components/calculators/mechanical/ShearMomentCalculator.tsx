@@ -14,17 +14,28 @@ const shearMomentConfig: CalculatorConfig = {
     {
       key: 'load',
       labelKey: 'ShearMoment.load',
-      units: [{ label: 'N', symbol: '' }, { label: 'kN', symbol: 'k' }],
+      units: [
+        { label: 'N', symbol: '' },
+        { label: 'kN', symbol: 'k' },
+      ],
     },
     {
       key: 'length',
       labelKey: 'ShearMoment.length',
-      units: [{ label: 'm', symbol: '' }, { label: 'cm', symbol: 'c' }, { label: 'mm', symbol: 'm' }],
+      units: [
+        { label: 'm', symbol: '' },
+        { label: 'cm', symbol: 'c' },
+        { label: 'mm', symbol: 'm' },
+      ],
     },
     {
       key: 'position',
       labelKey: 'ShearMoment.position',
-      units: [{ label: 'm', symbol: '' }, { label: 'cm', symbol: 'c' }, { label: 'mm', symbol: 'm' }],
+      units: [
+        { label: 'm', symbol: '' },
+        { label: 'cm', symbol: 'c' },
+        { label: 'mm', symbol: 'm' },
+      ],
     },
   ],
   solverKey: 'shearMoment',

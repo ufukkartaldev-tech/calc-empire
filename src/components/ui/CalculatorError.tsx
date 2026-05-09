@@ -14,7 +14,10 @@ interface CalculatorErrorProps {
   onDismiss?: () => void;
 }
 
-const severityStyles: Record<ErrorSeverity, { bg: string; border: string; text: string; icon: React.ReactNode }> = {
+const severityStyles: Record<
+  ErrorSeverity,
+  { bg: string; border: string; text: string; icon: React.ReactNode }
+> = {
   low: {
     bg: 'bg-amber-950/20',
     border: 'border-amber-900/50',
@@ -41,7 +44,9 @@ export function CalculatorError({ errorInfo, onDismiss }: CalculatorErrorProps) 
   const style = severityStyles[errorInfo.severity];
 
   return (
-    <div className={`mb-6 p-4 ${style.bg} border ${style.border} rounded-lg ${style.text} text-xs font-bold flex items-start gap-3 animate-in slide-in-from-top-2 duration-300`}>
+    <div
+      className={`mb-6 p-4 ${style.bg} border ${style.border} rounded-lg ${style.text} text-xs font-bold flex items-start gap-3 animate-in slide-in-from-top-2 duration-300`}
+    >
       <span className="flex-shrink-0 mt-0.5">{style.icon}</span>
       <div className="flex-1">
         <p className="font-semibold">{errorInfo.message}</p>

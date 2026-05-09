@@ -8,6 +8,11 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
     globals: true,
+    server: {
+      deps: {
+        inline: ['next-intl'],
+      },
+    },
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
@@ -44,6 +49,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      'next/navigation': path.resolve(__dirname, './src/test/__mocks__/next-navigation.ts'),
     },
   },
 });

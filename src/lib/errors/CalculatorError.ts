@@ -78,27 +78,33 @@ export function toCalculatorError(error: unknown): CalculatorError {
   if (error instanceof Error) {
     // Try to categorize based on error message patterns
     const message = error.message.toLowerCase();
-    
-    if (message.includes('cannot be zero') || 
-        message.includes('must be positive') || 
-        message.includes('must be >') ||
-        message.includes('empty array') ||
-        message.includes('invalid')) {
+
+    if (
+      message.includes('cannot be zero') ||
+      message.includes('must be positive') ||
+      message.includes('must be >') ||
+      message.includes('empty array') ||
+      message.includes('invalid')
+    ) {
       return new ValidationError(error.message);
     }
-    
-    if (message.includes('division by zero') || 
-        message.includes('square root') ||
-        message.includes('imaginary')) {
+
+    if (
+      message.includes('division by zero') ||
+      message.includes('square root') ||
+      message.includes('imaginary')
+    ) {
       return new CalculationError(error.message);
     }
-    
-    if (message.includes('not found') || 
-        message.includes('unknown') ||
-        message.includes('invalid parameter')) {
+
+    if (
+      message.includes('not found') ||
+      message.includes('unknown') ||
+      message.includes('invalid parameter')
+    ) {
       return new ConfigurationError(error.message);
     }
-    
+
     // Default to CalculationError for unknown errors
     return new CalculationError(error.message);
   }

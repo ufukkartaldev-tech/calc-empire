@@ -46,31 +46,56 @@ interface CalculationHistoryProps {
 // Simple SVG icons
 const ClockIcon = () => (
   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
   </svg>
 );
 
 const CalculatorIcon = () => (
   <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+    />
   </svg>
 );
 
 const TrashIcon = () => (
   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+    />
   </svg>
 );
 
 const ExternalLinkIcon = () => (
   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+    />
   </svg>
 );
 
 const DownloadIcon = () => (
   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+    />
   </svg>
 );
 
@@ -88,25 +113,45 @@ const ChevronUpIcon = () => (
 
 const SearchIcon = () => (
   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+    />
   </svg>
 );
 
 const FilterIcon = () => (
   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+    />
   </svg>
 );
 
 const CalendarIcon = () => (
   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+    />
   </svg>
 );
 
 const TagIcon = () => (
   <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+    />
   </svg>
 );
 
@@ -230,7 +275,11 @@ export function CalculationHistory({ user, locale }: CalculationHistoryProps) {
         </div>
 
         {calculations.length > 0 && (
-          <Button variant="outline" onClick={clearAllHistory} className="text-red-600 border-red-300 hover:bg-red-50">
+          <Button
+            variant="outline"
+            onClick={clearAllHistory}
+            className="text-red-600 border-red-300 hover:bg-red-50"
+          >
             <TrashIcon />
             <span className="ml-2">{t('clearAll')}</span>
           </Button>
@@ -341,14 +390,16 @@ export function CalculationHistory({ user, locale }: CalculationHistoryProps) {
               <CardContent className="pt-0">
                 {/* Quick Results Preview */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  {Object.entries(calc.results).slice(0, 4).map(([key, value]) => (
-                    <div key={key} className="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg">
-                      <p className="text-xs text-gray-500 uppercase">{key}</p>
-                      <p className="font-semibold text-blue-600 dark:text-blue-400">
-                        {typeof value === 'number' ? value.toFixed(4) : value}
-                      </p>
-                    </div>
-                  ))}
+                  {Object.entries(calc.results)
+                    .slice(0, 4)
+                    .map(([key, value]) => (
+                      <div key={key} className="bg-gray-50 dark:bg-gray-900 p-3 rounded-lg">
+                        <p className="text-xs text-gray-500 uppercase">{key}</p>
+                        <p className="font-semibold text-blue-600 dark:text-blue-400">
+                          {typeof value === 'number' ? value.toFixed(4) : value}
+                        </p>
+                      </div>
+                    ))}
                 </div>
 
                 {/* Expandable Details */}
@@ -458,18 +509,28 @@ export function CalculationHistory({ user, locale }: CalculationHistoryProps) {
                 <p className="text-sm text-gray-600">{t('stats.total')}</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-blue-600">{new Set(calculations.map((c) => c.category)).size}</p>
+                <p className="text-2xl font-bold text-blue-600">
+                  {new Set(calculations.map((c) => c.category)).size}
+                </p>
                 <p className="text-sm text-gray-600">{t('stats.categories')}</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl font-bold text-blue-600">
-                  {calculations.filter((c) => new Date(c.timestamp) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)).length}
+                  {
+                    calculations.filter(
+                      (c) => new Date(c.timestamp) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+                    ).length
+                  }
                 </p>
                 <p className="text-sm text-gray-600">{t('stats.thisWeek')}</p>
               </div>
               <div className="text-center">
                 <p className="text-2xl font-bold text-blue-600">
-                  {calculations.filter((c) => new Date(c.timestamp).toDateString() === new Date().toDateString()).length}
+                  {
+                    calculations.filter(
+                      (c) => new Date(c.timestamp).toDateString() === new Date().toDateString()
+                    ).length
+                  }
                 </p>
                 <p className="text-sm text-gray-600">{t('stats.today')}</p>
               </div>

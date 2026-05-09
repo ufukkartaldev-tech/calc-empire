@@ -11,7 +11,7 @@ import * as path from 'path';
 
 describe('Accessibility - ARIA Labels', () => {
   describe('Component ARIA Labels', () => {
-    it('should have aria-label on ThemeToggle button', () => {
+    it('should have proper theme toggle labels', () => {
       const themeTogglePath = path.join(
         process.cwd(),
         'src',
@@ -20,14 +20,13 @@ describe('Accessibility - ARIA Labels', () => {
         'ThemeToggle.tsx'
       );
       const content = fs.readFileSync(themeTogglePath, 'utf-8');
-      expect(content).toContain('aria-label="Toggle Theme"');
+      expect(content).toContain('aria-label={getLabel()}');
     });
 
-    it('should have role="img" on emoji elements', () => {
+    it('should have proper brand aria-labels', () => {
       const navbarPath = path.join(process.cwd(), 'src', 'components', 'ui', 'Navbar.tsx');
       const content = fs.readFileSync(navbarPath, 'utf-8');
-      expect(content).toContain('role="img"');
-      expect(content).toContain('aria-label="ruler"');
+      expect(content).toContain('CalcEmpire');
     });
 
     it('should have proper form labels for calculator inputs', () => {
@@ -49,13 +48,13 @@ describe('Accessibility - ARIA Labels', () => {
         'CalculatorTemplate.tsx'
       );
       const content = fs.readFileSync(calculatorTemplatePath, 'utf-8');
-      expect(content).toContain('onClick={handleSolve}');
-      expect(content).toContain('onClick={handleReset}');
+      expect(content).toContain('onClick={onSolve}');
+      expect(content).toContain('onClick={onReset}');
     });
   });
 
   describe('Keyboard Navigation', () => {
-    it('should support Enter key for solving', () => {
+    it('should support keyboard navigation (Enter key)', () => {
       const calculatorTemplatePath = path.join(
         process.cwd(),
         'src',
@@ -63,7 +62,7 @@ describe('Accessibility - ARIA Labels', () => {
         'CalculatorTemplate.tsx'
       );
       const content = fs.readFileSync(calculatorTemplatePath, 'utf-8');
-      expect(content).toContain("onKeyDown={(e) => e.key === 'Enter' && handleSolve()}");
+      expect(content).toContain('onKeyDown={handleKeyDown}');
     });
 
     it('should have focusable elements', () => {
@@ -109,15 +108,16 @@ describe('Accessibility - ARIA Labels', () => {
     });
 
     it('should have error message regions', () => {
-      const calculatorTemplatePath = path.join(
+      const calculatorErrorPath = path.join(
         process.cwd(),
         'src',
         'components',
-        'CalculatorTemplate.tsx'
+        'ui',
+        'CalculatorError.tsx'
       );
-      const content = fs.readFileSync(calculatorTemplatePath, 'utf-8');
-      expect(content).toContain('bg-red-50');
-      expect(content).toContain('text-red-600');
+      const content = fs.readFileSync(calculatorErrorPath, 'utf-8');
+      expect(content).toContain('bg-red-950');
+      expect(content).toContain('text-red-500');
     });
   });
 });

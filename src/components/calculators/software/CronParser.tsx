@@ -16,7 +16,7 @@ export function CronParser() {
       hour: p[1],
       dom: p[2],
       month: p[3],
-      dow: p[4]
+      dow: p[4],
     };
   }, [expression]);
 
@@ -46,8 +46,12 @@ export function CronParser() {
     type: 'minute' | 'hour' | 'dom' | 'month' | 'dow';
   }) => (
     <div className="bg-slate-50 dark:bg-slate-950 p-6 rounded-[32px] border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center space-y-3 transition-all hover:scale-105 group">
-      <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{label}</span>
-      <div className="text-2xl font-mono font-black text-blue-600 dark:text-blue-400 group-hover:animate-pulse">{value}</div>
+      <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+        {label}
+      </span>
+      <div className="text-2xl font-mono font-black text-blue-600 dark:text-blue-400 group-hover:animate-pulse">
+        {value}
+      </div>
       <p className="text-[10px] font-bold text-slate-500 dark:text-slate-400 text-center leading-tight">
         {getDescription(value, type)}
       </p>
@@ -63,8 +67,12 @@ export function CronParser() {
             ⏱️
           </div>
           <div>
-            <h2 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight">{t('title')}</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium italic">{t('subtitle')}</p>
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+              {t('title')}
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium italic">
+              {t('subtitle')}
+            </p>
           </div>
         </div>
 
@@ -96,41 +104,53 @@ export function CronParser() {
           </div>
         ) : (
           <div className="h-48 flex items-center justify-center text-slate-300 dark:text-slate-700">
-             <span className="text-6xl font-black select-none opacity-20 uppercase tracking-[0.5em]">CLI WAIT</span>
+            <span className="text-6xl font-black select-none opacity-20 uppercase tracking-[0.5em]">
+              CLI WAIT
+            </span>
           </div>
         )}
 
         {/* Legend / Info */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-           <div className="p-8 bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-[36px] space-y-4">
-              <h3 className="text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.2em]">{t('result')}</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
-                Your cron schedule is configured to trigger based on the five components above. 
-                Commonly used in Unix-like operating systems for task scheduling.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                 {['*', '*/', '-', ','].map(op => (
-                   <span key={op} className="px-3 py-1 bg-white dark:bg-slate-900 rounded-full border border-blue-100 dark:border-blue-900/50 text-[10px] font-mono font-bold text-blue-500">
-                     {op}
-                   </span>
-                 ))}
-              </div>
-           </div>
+          <div className="p-8 bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-[36px] space-y-4">
+            <h3 className="text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.2em]">
+              {t('result')}
+            </h3>
+            <p className="text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+              Your cron schedule is configured to trigger based on the five components above.
+              Commonly used in Unix-like operating systems for task scheduling.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {['*', '*/', '-', ','].map((op) => (
+                <span
+                  key={op}
+                  className="px-3 py-1 bg-white dark:bg-slate-900 rounded-full border border-blue-100 dark:border-blue-900/50 text-[10px] font-mono font-bold text-blue-500"
+                >
+                  {op}
+                </span>
+              ))}
+            </div>
+          </div>
 
-           <div className="p-8 bg-slate-900 rounded-[36px] shadow-2xl relative overflow-hidden flex flex-col justify-center">
-              <div className="absolute top-0 right-0 p-8 opacity-5 text-8xl font-black text-white select-none">NEXT</div>
-              <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.2em] mb-4">{t('nextRun')}</h3>
-              <div className="space-y-3 relative z-10">
-                 {[1, 2, 3].map(i => (
-                    <div key={i} className="flex items-center gap-4 text-white opacity-80 group">
-                       <span className="w-1.5 h-1.5 rounded-full bg-blue-400 group-hover:scale-150 transition-transform"></span>
-                       <span className="font-mono text-xs italic">
-                         Simulation @ T+{i*15}m - {new Date(Date.now() + i * 15 * 60000).toLocaleTimeString()}
-                       </span>
-                    </div>
-                 ))}
-              </div>
-           </div>
+          <div className="p-8 bg-slate-900 rounded-[36px] shadow-2xl relative overflow-hidden flex flex-col justify-center">
+            <div className="absolute top-0 right-0 p-8 opacity-5 text-8xl font-black text-white select-none">
+              NEXT
+            </div>
+            <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.2em] mb-4">
+              {t('nextRun')}
+            </h3>
+            <div className="space-y-3 relative z-10">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center gap-4 text-white opacity-80 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 group-hover:scale-150 transition-transform"></span>
+                  <span className="font-mono text-xs italic">
+                    Simulation @ T+{i * 15}m -{' '}
+                    {new Date(Date.now() + i * 15 * 60000).toLocaleTimeString()}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       <ReferenceCard referenceKey="ToolReference.cronParser" />

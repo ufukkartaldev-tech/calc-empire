@@ -4,7 +4,11 @@
  */
 
 export * from './DescriptionSelector';
-export type { DescriptionMode, DescriptionResult, TranslationFunction } from './DescriptionSelector';
+export type {
+  DescriptionMode,
+  DescriptionResult,
+  TranslationFunction,
+} from './DescriptionSelector';
 export { DescriptionSelectorError, MissingTranslationError } from './DescriptionSelector';
 
 export * from './UserPreference';

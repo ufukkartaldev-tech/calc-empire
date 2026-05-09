@@ -14,14 +14,12 @@ export function debounce<T extends (...args: Parameters<T>) => ReturnType<T>>(
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
-    const context = this;
-
     if (timeoutId !== null) {
       clearTimeout(timeoutId);
     }
 
     timeoutId = setTimeout(() => {
-      func.apply(context, args);
+      func.apply(this, args);
       timeoutId = null;
     }, wait);
   };
@@ -38,22 +36,24 @@ export function throttle<T extends (...args: Parameters<T>) => ReturnType<T>>(
   let lastRan: number = 0;
 
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
-    const context = this;
     const now = Date.now();
 
     if (now - lastRan >= wait) {
-      func.apply(context, args);
+      func.apply(this, args);
       lastRan = now;
     } else {
       if (timeoutId !== null) {
         clearTimeout(timeoutId);
       }
 
-      timeoutId = setTimeout(() => {
-        func.apply(context, args);
-        lastRan = Date.now();
-        timeoutId = null;
-      }, wait - (now - lastRan));
+      timeoutId = setTimeout(
+        () => {
+          func.apply(this, args);
+          lastRan = Date.now();
+          timeoutId = null;
+        },
+        wait - (now - lastRan)
+      );
     }
   };
 }

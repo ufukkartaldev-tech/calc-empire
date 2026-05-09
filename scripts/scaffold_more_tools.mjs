@@ -8,22 +8,22 @@ const __dirname = path.dirname(__filename);
 const basePath = path.resolve(__dirname, '../src/components/calculators');
 
 const files = {
-    // Civil
-    'civil/ConcreteSectionCalculator.tsx': 'ConcreteSectionCalculator',
-    'civil/SoilMechanicsCalculator.tsx': 'SoilMechanicsCalculator',
+  // Civil
+  'civil/ConcreteSectionCalculator.tsx': 'ConcreteSectionCalculator',
+  'civil/SoilMechanicsCalculator.tsx': 'SoilMechanicsCalculator',
 
-    // Software
-    'software/BaseConverter.tsx': 'BaseConverter',
-    'software/CronParser.tsx': 'CronParser',
-    'software/JsonFormatter.tsx': 'JsonFormatter',
+  // Software
+  'software/BaseConverter.tsx': 'BaseConverter',
+  'software/CronParser.tsx': 'CronParser',
+  'software/JsonFormatter.tsx': 'JsonFormatter',
 
-    // Chemistry
-    'chemistry/PeriodicTableVisualizer.tsx': 'PeriodicTableVisualizer',
-    'chemistry/IdealGasCalculator.tsx': 'IdealGasCalculator',
+  // Chemistry
+  'chemistry/PeriodicTableVisualizer.tsx': 'PeriodicTableVisualizer',
+  'chemistry/IdealGasCalculator.tsx': 'IdealGasCalculator',
 
-    // Finance
-    'finance/CompoundInterestCalculator.tsx': 'CompoundInterestCalculator',
-    'finance/CryptoPnlCalculator.tsx': 'CryptoPnlCalculator',
+  // Finance
+  'finance/CompoundInterestCalculator.tsx': 'CompoundInterestCalculator',
+  'finance/CryptoPnlCalculator.tsx': 'CryptoPnlCalculator',
 };
 
 const template = (name) => `'use client';
@@ -44,12 +44,12 @@ export function ${name}() {
 `;
 
 Object.entries(files).forEach(([filepath, name]) => {
-    const fullPath = path.join(basePath, filepath);
-    const dir = path.dirname(fullPath);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    if (!fs.existsSync(fullPath)) {
-        fs.writeFileSync(fullPath, template(name));
-    }
+  const fullPath = path.join(basePath, filepath);
+  const dir = path.dirname(fullPath);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  if (!fs.existsSync(fullPath)) {
+    fs.writeFileSync(fullPath, template(name));
+  }
 });
 
 console.log('Created placeholder components for new categories.');
@@ -76,6 +76,6 @@ export * from './finance/CryptoPnlCalculator';
 `;
 
 if (!exportsContent.includes('ConcreteSectionCalculator')) {
-    fs.appendFileSync(path.join(basePath, 'index.ts'), newExports);
-    console.log('Updated index.ts with new exports.');
+  fs.appendFileSync(path.join(basePath, 'index.ts'), newExports);
+  console.log('Updated index.ts with new exports.');
 }

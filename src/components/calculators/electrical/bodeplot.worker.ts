@@ -15,7 +15,7 @@ export type BodeWorkerOutput = {
   phases: number[];
 };
 
-export type BodeWorkerResponse = 
+export type BodeWorkerResponse =
   | { success: true; data: BodeWorkerOutput }
   | { success: false; error: string };
 
@@ -24,6 +24,9 @@ self.onmessage = (e: MessageEvent<BodeWorkerInput>) => {
     const result = calculateBodePlot(e.data);
     self.postMessage({ success: true, data: result } as BodeWorkerResponse);
   } catch (error: any) {
-    self.postMessage({ success: false, error: error.message || 'Worker error occurred' } as BodeWorkerResponse);
+    self.postMessage({
+      success: false,
+      error: error.message || 'Worker error occurred',
+    } as BodeWorkerResponse);
   }
 };

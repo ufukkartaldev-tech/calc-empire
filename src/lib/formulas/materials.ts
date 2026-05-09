@@ -129,7 +129,8 @@ export function stressStrain({
   if (deltaL !== undefined && L0 !== undefined) st = new Big(deltaL).div(L0);
 
   if (stress !== undefined && st !== undefined && E === undefined) E = stress.div(st);
-  else if (stress !== undefined && E !== undefined && !E.eq(0) && st === undefined) st = stress.div(E);
+  else if (stress !== undefined && E !== undefined && !E.eq(0) && st === undefined)
+    st = stress.div(E);
   else if (st !== undefined && E !== undefined && stress === undefined) stress = E.times(st);
 
   if ([stress, st, E].filter((v) => v !== undefined).length === 0) {
@@ -142,4 +143,3 @@ export function stressStrain({
     youngsModulusPa: E?.toNumber(),
   };
 }
-

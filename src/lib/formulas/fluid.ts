@@ -65,7 +65,9 @@ export function darcyWeisbach({ f, L, D, rho, v }: DarcyWhiesbachParams) {
   const rhoBig = new Big(rho);
   const vBig = new Big(v);
 
-  const pressureDropPa = fBig.times(lBig.div(dBig)).times(new Big(0.5).times(rhoBig).times(vBig.pow(2)));
+  const pressureDropPa = fBig
+    .times(lBig.div(dBig))
+    .times(new Big(0.5).times(rhoBig).times(vBig.pow(2)));
   const headLossM = pressureDropPa.div(rhoBig.times(GRAVITY));
 
   return {
@@ -107,32 +109,53 @@ export function calculateBernoulli(params: BernoulliParams) {
   const target = missing[0];
 
   if (target === 'p2') {
-    const res = new Big(p1!).plus(new Big(0.5).times(rhoBig).times(new Big(v1!).pow(2).minus(new Big(v2!).pow(2)))).plus(rhoBig.times(gBig).times(new Big(h1!).minus(h2!)));
+    const res = new Big(p1!)
+      .plus(new Big(0.5).times(rhoBig).times(new Big(v1!).pow(2).minus(new Big(v2!).pow(2))))
+      .plus(rhoBig.times(gBig).times(new Big(h1!).minus(h2!)));
     return res.toNumber();
   }
   if (target === 'p1') {
-    const res = new Big(p2!).plus(new Big(0.5).times(rhoBig).times(new Big(v2!).pow(2).minus(new Big(v1!).pow(2)))).plus(rhoBig.times(gBig).times(new Big(h2!).minus(h1!)));
+    const res = new Big(p2!)
+      .plus(new Big(0.5).times(rhoBig).times(new Big(v2!).pow(2).minus(new Big(v1!).pow(2))))
+      .plus(rhoBig.times(gBig).times(new Big(h2!).minus(h1!)));
     return res.toNumber();
   }
   if (target === 'v2') {
-    const term = new Big(p1!).minus(p2!).div(new Big(0.5).times(rhoBig)).plus(new Big(v1!).pow(2)).plus(new Big(2).times(gBig).times(new Big(h1!).minus(h2!)));
-    if (term.lt(0)) throw new Error('Equation results in imaginary velocity (square root of negative)');
+    const term = new Big(p1!)
+      .minus(p2!)
+      .div(new Big(0.5).times(rhoBig))
+      .plus(new Big(v1!).pow(2))
+      .plus(new Big(2).times(gBig).times(new Big(h1!).minus(h2!)));
+    if (term.lt(0))
+      throw new Error('Equation results in imaginary velocity (square root of negative)');
     return term.sqrt().toNumber();
   }
   if (target === 'v1') {
-    const term = new Big(p2!).minus(p1!).div(new Big(0.5).times(rhoBig)).plus(new Big(v2!).pow(2)).plus(new Big(2).times(gBig).times(new Big(h2!).minus(h1!)));
-    if (term.lt(0)) throw new Error('Equation results in imaginary velocity (square root of negative)');
+    const term = new Big(p2!)
+      .minus(p1!)
+      .div(new Big(0.5).times(rhoBig))
+      .plus(new Big(v2!).pow(2))
+      .plus(new Big(2).times(gBig).times(new Big(h2!).minus(h1!)));
+    if (term.lt(0))
+      throw new Error('Equation results in imaginary velocity (square root of negative)');
     return term.sqrt().toNumber();
   }
   if (target === 'h2') {
-    const res = new Big(p1!).minus(p2!).div(rhoBig.times(gBig)).plus(new Big(v1!).pow(2).minus(new Big(v2!).pow(2)).div(new Big(2).times(gBig))).plus(h1!);
+    const res = new Big(p1!)
+      .minus(p2!)
+      .div(rhoBig.times(gBig))
+      .plus(new Big(v1!).pow(2).minus(new Big(v2!).pow(2)).div(new Big(2).times(gBig)))
+      .plus(h1!);
     return res.toNumber();
   }
   if (target === 'h1') {
-    const res = new Big(p2!).minus(p1!).div(rhoBig.times(gBig)).plus(new Big(v2!).pow(2).minus(new Big(v1!).pow(2)).div(new Big(2).times(gBig))).plus(h2!);
+    const res = new Big(p2!)
+      .minus(p1!)
+      .div(rhoBig.times(gBig))
+      .plus(new Big(v2!).pow(2).minus(new Big(v1!).pow(2)).div(new Big(2).times(gBig)))
+      .plus(h2!);
     return res.toNumber();
   }
 
   return 0;
 }
-

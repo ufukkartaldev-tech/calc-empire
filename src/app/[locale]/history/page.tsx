@@ -4,11 +4,7 @@ import { authOptions } from '@/lib/auth/auth-config';
 import { CalculationHistory } from '@/components/history/CalculationHistory';
 import { getTranslations } from 'next-intl/server';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string };
-}) {
+export async function generateMetadata({ params }: { params: { locale: string } }) {
   const t = await getTranslations({ locale: params.locale, namespace: 'History' });
   return {
     title: t('pageTitle'),
@@ -16,11 +12,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function HistoryPage({
-  params,
-}: {
-  params: { locale: string };
-}) {
+export default async function HistoryPage({ params }: { params: { locale: string } }) {
   const session = await getServerSession(authOptions);
 
   if (!session?.user) {

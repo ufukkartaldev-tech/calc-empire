@@ -3,15 +3,20 @@
  * @description Tests for Task 1: Extend TypeScript interfaces and update tool configuration
  */
 
-import { TOOLS_CONFIG, createEnhancedToolConfig, ENHANCED_TOOLS_CONFIG } from '@/config/tools.config';
-import type { ToolConfig, EnhancedToolConfig } from '@/types';
+import { describe, it, expect } from 'vitest';
+import {
+  TOOLS_CONFIG,
+  createEnhancedToolConfig,
+  ENHANCED_TOOLS_CONFIG,
+} from '@/config/tools.config';
+import type { ToolConfig, EnhancedToolConfig, ToolId } from '@/types';
 
 describe('Task 1: Extend TypeScript interfaces and update tool configuration', () => {
   describe('ToolConfig interface extension', () => {
     it('should have optional ceoTitleKey and ceoDescKey fields', () => {
       // Test that ToolConfig interface accepts CEO fields
       const toolWithCeo: ToolConfig = {
-        id: 'test',
+        id: 'ohm' as ToolId,
         titleKey: 'testTitle',
         descKey: 'testDesc',
         ceoTitleKey: 'testCeoTitle',
@@ -26,7 +31,7 @@ describe('Task 1: Extend TypeScript interfaces and update tool configuration', (
 
     it('should allow tools without CEO fields (backward compatibility)', () => {
       const toolWithoutCeo: ToolConfig = {
-        id: 'test',
+        id: 'ohm' as ToolId,
         titleKey: 'testTitle',
         descKey: 'testDesc',
         catKey: 'electrical',
@@ -40,10 +45,10 @@ describe('Task 1: Extend TypeScript interfaces and update tool configuration', (
 
   describe('TOOLS_CONFIG updates', () => {
     it('should have CEO description keys for all tools', () => {
-      TOOLS_CONFIG.forEach(tool => {
+      TOOLS_CONFIG.forEach((tool) => {
         expect(tool.ceoTitleKey).toBeDefined();
         expect(tool.ceoDescKey).toBeDefined();
-        
+
         // CEO keys should follow naming convention: toolId + CeoTitle/CeoDesc
         expect(tool.ceoTitleKey).toContain('CeoTitle');
         expect(tool.ceoDescKey).toContain('CeoDesc');
@@ -51,7 +56,7 @@ describe('Task 1: Extend TypeScript interfaces and update tool configuration', (
     });
 
     it('should maintain all existing tool properties', () => {
-      const ohmTool = TOOLS_CONFIG.find(tool => tool.id === 'ohm');
+      const ohmTool = TOOLS_CONFIG.find((tool) => tool.id === 'ohm');
       expect(ohmTool).toBeDefined();
       expect(ohmTool?.titleKey).toBe('ohmTitle');
       expect(ohmTool?.descKey).toBe('ohmDesc');
@@ -68,7 +73,7 @@ describe('Task 1: Extend TypeScript interfaces and update tool configuration', (
   describe('EnhancedToolConfig type', () => {
     it('should have computed hasCeoDescriptions property', () => {
       const toolWithCeo: ToolConfig = {
-        id: 'test',
+        id: 'ohm' as ToolId,
         titleKey: 'testTitle',
         descKey: 'testDesc',
         ceoTitleKey: 'testCeoTitle',
@@ -83,7 +88,7 @@ describe('Task 1: Extend TypeScript interfaces and update tool configuration', (
 
     it('should have hasCeoDescriptions false when CEO fields missing', () => {
       const toolWithoutCeo: ToolConfig = {
-        id: 'test',
+        id: 'ohm' as ToolId,
         titleKey: 'testTitle',
         descKey: 'testDesc',
         catKey: 'electrical',
@@ -96,7 +101,7 @@ describe('Task 1: Extend TypeScript interfaces and update tool configuration', (
 
     it('should have hasCeoDescriptions false when only one CEO field present', () => {
       const toolPartialCeo: ToolConfig = {
-        id: 'test',
+        id: 'ohm' as ToolId,
         titleKey: 'testTitle',
         descKey: 'testDesc',
         ceoTitleKey: 'testCeoTitle', // Missing ceoDescKey
@@ -115,13 +120,13 @@ describe('Task 1: Extend TypeScript interfaces and update tool configuration', (
     });
 
     it('should have hasCeoDescriptions true for all tools (since we added CEO keys to all)', () => {
-      ENHANCED_TOOLS_CONFIG.forEach(tool => {
+      ENHANCED_TOOLS_CONFIG.forEach((tool) => {
         expect(tool.hasCeoDescriptions).toBe(true);
       });
     });
 
     it('should maintain all original tool properties', () => {
-      const enhancedOhmTool = ENHANCED_TOOLS_CONFIG.find(tool => tool.id === 'ohm');
+      const enhancedOhmTool = ENHANCED_TOOLS_CONFIG.find((tool) => tool.id === 'ohm');
       expect(enhancedOhmTool).toBeDefined();
       expect(enhancedOhmTool?.titleKey).toBe('ohmTitle');
       expect(enhancedOhmTool?.descKey).toBe('ohmDesc');

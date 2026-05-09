@@ -4,11 +4,7 @@ import { authOptions } from '@/lib/auth/auth-config';
 import { FavoritesManager } from '@/components/favorites/FavoritesManager';
 import { getTranslations } from 'next-intl/server';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string };
-}) {
+export async function generateMetadata({ params }: { params: { locale: string } }) {
   const t = await getTranslations({ locale: params.locale, namespace: 'Favorites' });
   return {
     title: t('pageTitle'),
@@ -16,11 +12,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function FavoritesPage({
-  params,
-}: {
-  params: { locale: string };
-}) {
+export default async function FavoritesPage({ params }: { params: { locale: string } }) {
   const session = await getServerSession(authOptions);
 
   if (!session?.user) {

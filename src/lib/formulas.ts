@@ -72,4 +72,3 @@ export function ohm({ voltage, current, resistance }: OhmParams): OhmResult {
 
   throw new Error('Missing value');
 }
-

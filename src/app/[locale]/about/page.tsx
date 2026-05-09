@@ -1,11 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string };
-}) {
+export async function generateMetadata({ params }: { params: { locale: string } }) {
   const t = await getTranslations({ locale: params.locale, namespace: 'About' });
   return {
     title: t('pageTitle'),
@@ -13,11 +9,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function AboutPage({
-  params,
-}: {
-  params: { locale: string };
-}) {
+export default async function AboutPage({ params }: { params: { locale: string } }) {
   const t = await getTranslations({ locale: params.locale, namespace: 'About' });
 
   const features = [
@@ -48,9 +40,7 @@ export default async function AboutPage({
         <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
           {t('mission.text1')}
         </p>
-        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-          {t('mission.text2')}
-        </p>
+        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{t('mission.text2')}</p>
       </section>
 
       {/* Features Grid */}
@@ -81,7 +71,17 @@ export default async function AboutPage({
               className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             >
               <span className="text-2xl">
-                {cat === 'electrical' ? '⚡' : cat === 'mechanical' ? '⚙️' : cat === 'software' ? '💻' : cat === 'finance' ? '💰' : cat === 'civil' ? '🏗️' : '🧪'}
+                {cat === 'electrical'
+                  ? '⚡'
+                  : cat === 'mechanical'
+                    ? '⚙️'
+                    : cat === 'software'
+                      ? '💻'
+                      : cat === 'finance'
+                        ? '💰'
+                        : cat === 'civil'
+                          ? '🏗️'
+                          : '🧪'}
               </span>
               <span className="font-medium">{t(`categories.${cat}`)}</span>
             </Link>
@@ -92,9 +92,7 @@ export default async function AboutPage({
       {/* Contact / Get Started */}
       <section className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-8 text-center">
         <h2 className="text-2xl font-semibold mb-4">{t('cta.title')}</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">
-          {t('cta.text')}
-        </p>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">{t('cta.text')}</p>
         <Link
           href="/calculators"
           className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"

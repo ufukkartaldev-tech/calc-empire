@@ -309,16 +309,17 @@ export class UserPreferenceService {
       }
 
       // Validate the parsed object
+      const p = parsed as any;
       if (
-        parsed &&
-        typeof parsed === 'object' &&
-        (parsed.mode === 'ceo' || parsed.mode === 'technical') &&
-        parsed.timestamp &&
-        parsed.source
+        p &&
+        typeof p === 'object' &&
+        (p.mode === 'ceo' || p.mode === 'technical') &&
+        p.timestamp &&
+        p.source
       ) {
         return {
-          ...parsed,
-          timestamp: new Date(parsed.timestamp),
+          ...p,
+          timestamp: new Date(p.timestamp),
         };
       }
 
@@ -431,7 +432,7 @@ export class UserPreferenceService {
 
       if (!sessionId) {
         // Generate a new session ID
-        sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        sessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
         window.localStorage.setItem(sessionKey, sessionId);
       }
 

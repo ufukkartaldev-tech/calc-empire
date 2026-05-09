@@ -24,7 +24,8 @@ export function DisclaimerView({ activeTool, onBack, onAcknowledge }: Disclaimer
         onClick={onBack}
         className="mb-12 px-6 py-3 flex items-center gap-3 text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/50 hover:bg-white dark:hover:bg-slate-900 hover:text-blue-600 dark:hover:text-blue-400 rounded-2xl transition-all shadow-xl shadow-blue-500/5 group"
       >
-        <span className="group-hover:-translate-x-1 transition-transform">←</span> {tDash('backButton')}
+        <span className="group-hover:-translate-x-1 transition-transform">←</span>{' '}
+        {tDash('backButton')}
       </button>
 
       <div className="p-10 bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl border border-slate-200/50 dark:border-slate-800/50 rounded-[40px] shadow-2xl shadow-blue-500/5">

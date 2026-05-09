@@ -30,14 +30,14 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
     }
     return false;
   });
-  
+
   const [highContrast, setHighContrast] = useState(() => {
     if (typeof window !== 'undefined') {
       return window.matchMedia('(prefers-contrast: high)').matches;
     }
     return false;
   });
-  
+
   const [fontSize, setFontSize] = useState<'small' | 'medium' | 'large'>(() => {
     if (typeof window !== 'undefined') {
       const savedFontSize = localStorage.getItem('ce-font-size') as 'small' | 'medium' | 'large';
@@ -48,25 +48,25 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     // Check for reduced motion preference
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    
+
     const handleChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
     mediaQuery.addEventListener('change', handleChange);
-    
+
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    
+
     // Check for high contrast preference
     const mediaQuery = window.matchMedia('(prefers-contrast: high)');
-    
+
     const handleChange = (e: MediaQueryListEvent) => setHighContrast(e.matches);
     mediaQuery.addEventListener('change', handleChange);
-    
+
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
@@ -76,7 +76,7 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
     if (reducedMotion) classes.push('reduce-motion');
     if (highContrast) classes.push('high-contrast');
     classes.push(`font-size-${fontSize}`);
-    
+
     document.documentElement.className = classes.join(' ');
   }, [reducedMotion, highContrast, fontSize]);
 
@@ -86,9 +86,9 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
     announcement.setAttribute('aria-atomic', 'true');
     announcement.className = 'sr-only';
     announcement.textContent = message;
-    
+
     document.body.appendChild(announcement);
-    
+
     setTimeout(() => {
       document.body.removeChild(announcement);
     }, 1000);
@@ -101,11 +101,7 @@ export function AccessibilityProvider({ children }: AccessibilityProviderProps) 
     announceMessage,
   };
 
-  return (
-    <AccessibilityContext.Provider value={value}>
-      {children}
-    </AccessibilityContext.Provider>
-  );
+  return <AccessibilityContext.Provider value={value}>{children}</AccessibilityContext.Provider>;
 }
 
 // Accessibility utility components
@@ -140,7 +136,7 @@ export function useFocusManagement() {
     const focusableElements = container.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
-    
+
     const firstElement = focusableElements[0] as HTMLElement;
     const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 

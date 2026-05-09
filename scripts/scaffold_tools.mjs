@@ -8,21 +8,21 @@ const __dirname = path.dirname(__filename);
 const basePath = path.resolve(__dirname, '../src/components/calculators');
 
 const files = {
-    'electrical/KirchhoffCalculator.tsx': 'KirchhoffCalculator',
-    'electrical/PowerCalculator.tsx': 'PowerCalculator',
-    'electrical/BodePlotVisualizer.tsx': 'BodePlotVisualizer',
-    'mechanical/StressStrainCalculator.tsx': 'StressStrainCalculator',
-    'mechanical/ShearMomentVisualizer.tsx': 'ShearMomentVisualizer',
-    'fluid/BernoulliCalculator.tsx': 'BernoulliCalculator',
-    'fluid/PressureLossCalculator.tsx': 'PressureLossCalculator',
-    'statistics/BasicStatisticsCalculator.tsx': 'BasicStatisticsCalculator',
-    'statistics/DiscreteDistributionVisualizer.tsx': 'DiscreteDistributionVisualizer',
-    'statistics/DataVisualizer.tsx': 'DataVisualizer',
-    'mathematics/CalculusCalculator.tsx': 'CalculusCalculator',
-    'mathematics/MatrixCalculator.tsx': 'MatrixCalculator',
-    'mathematics/GeometryCalculator.tsx': 'GeometryCalculator',
-    'mathematics/FunctionPlotVisualizer.tsx': 'FunctionPlotVisualizer',
-    'converters/UnitConverter.tsx': 'UnitConverter'
+  'electrical/KirchhoffCalculator.tsx': 'KirchhoffCalculator',
+  'electrical/PowerCalculator.tsx': 'PowerCalculator',
+  'electrical/BodePlotVisualizer.tsx': 'BodePlotVisualizer',
+  'mechanical/StressStrainCalculator.tsx': 'StressStrainCalculator',
+  'mechanical/ShearMomentVisualizer.tsx': 'ShearMomentVisualizer',
+  'fluid/BernoulliCalculator.tsx': 'BernoulliCalculator',
+  'fluid/PressureLossCalculator.tsx': 'PressureLossCalculator',
+  'statistics/BasicStatisticsCalculator.tsx': 'BasicStatisticsCalculator',
+  'statistics/DiscreteDistributionVisualizer.tsx': 'DiscreteDistributionVisualizer',
+  'statistics/DataVisualizer.tsx': 'DataVisualizer',
+  'mathematics/CalculusCalculator.tsx': 'CalculusCalculator',
+  'mathematics/MatrixCalculator.tsx': 'MatrixCalculator',
+  'mathematics/GeometryCalculator.tsx': 'GeometryCalculator',
+  'mathematics/FunctionPlotVisualizer.tsx': 'FunctionPlotVisualizer',
+  'converters/UnitConverter.tsx': 'UnitConverter',
 };
 
 const template = (name) => `'use client';
@@ -43,10 +43,10 @@ export function ${name}() {
 `;
 
 Object.entries(files).forEach(([filepath, name]) => {
-    const fullPath = path.join(basePath, filepath);
-    const dir = path.dirname(fullPath);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(fullPath, template(name));
+  const fullPath = path.join(basePath, filepath);
+  const dir = path.dirname(fullPath);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(fullPath, template(name));
 });
 
 console.log('Created placeholder components.');

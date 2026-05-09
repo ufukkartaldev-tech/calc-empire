@@ -37,6 +37,8 @@ export interface FieldConfig {
   key: string;
   labelKey: string;
   placeholderKey?: string;
+  type?: 'number' | 'select';
+  options?: { label: string; value: number }[];
   units: UnitOption[];
   constraints?: {
     min?: number;
@@ -125,8 +127,8 @@ export interface ToolConfig {
   id: Exclude<ToolId, null>;
   titleKey: string;
   descKey: string;
-  ceoTitleKey?: string;  // CEO title key (optional)
-  ceoDescKey?: string;  // CEO description key (optional)
+  ceoTitleKey?: string; // CEO title key (optional)
+  ceoDescKey?: string; // CEO description key (optional)
   catKey: CategoryKey;
   icon: string;
   features?: {

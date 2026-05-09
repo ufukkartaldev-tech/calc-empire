@@ -6,7 +6,7 @@
     --ce-primary: #1f2937;
     --ce-primary-light: #374151;
     --ce-primary-dark: #111827;
-    
+
     --ce-neutral-50: #f9fafb;
     --ce-neutral-100: #f3f4f6;
     --ce-neutral-200: #e5e7eb;
@@ -17,11 +17,11 @@
     --ce-neutral-700: #374151;
     --ce-neutral-800: #1f2937;
     --ce-neutral-900: #111827;
-    
+
     --ce-success: #059669;
     --ce-warning: #d97706;
     --ce-error: #dc2626;
-    
+
     /* Light Theme (Default) */
     --ce-bg: #ffffff;
     --ce-surface: #ffffff;
@@ -34,7 +34,7 @@
 
   /* Dark Theme */
   .dark,
-  [data-theme="dark"] {
+  [data-theme='dark'] {
     --ce-bg: var(--ce-neutral-900);
     --ce-surface: var(--ce-neutral-800);
     --ce-surface-secondary: var(--ce-neutral-700);
@@ -205,7 +205,8 @@
     font-size: 14px;
     color: var(--ce-text-primary);
     transition: border-color 0.2s ease;
-    font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+    font-family:
+      ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
   }
 
   .eng-input:focus {
@@ -302,8 +303,8 @@
     --ce-text-primary: #000000;
     --ce-primary: #0000ff;
   }
-  
-  [data-theme="dark"] {
+
+  [data-theme='dark'] {
     --ce-border: #ffffff;
     --ce-text-primary: #ffffff;
     --ce-primary: #00ffff;

@@ -130,4 +130,3 @@ export function convertEnergy(value: number, from: string, to: string): number {
   if (!energyToJoules[from] || !energyToJoules[to]) throw new Error('Unknown unit');
   return new Big(value).times(energyToJoules[from]).div(energyToJoules[to]).toNumber();
 }
-

@@ -26,8 +26,11 @@ describe('useUrlState', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     // Reset window.location.search
-    delete (window as any).location;
-    (window as any).location = { search: '' };
+    Object.defineProperty(window, 'location', {
+      value: { search: '' },
+      configurable: true,
+      writable: true,
+    });
   });
 
   describe('encodeToUrl', () => {
@@ -144,7 +147,7 @@ describe('useUrlState', () => {
 
   describe('decodeFromUrl', () => {
     it('should decode URL parameters to field values', () => {
-      (window as any).location.search = '?voltage=12&voltage_unit=V&current=2.5&current_unit=A';
+      window.location.search = '?voltage=12&voltage_unit=V&current=2.5&current_unit=A';
 
       const { result } = renderHook(() => useUrlState());
 
@@ -157,7 +160,7 @@ describe('useUrlState', () => {
     });
 
     it('should handle missing unit parameters', () => {
-      (window as any).location.search = '?voltage=12';
+      window.location.search = '?voltage=12';
 
       const { result } = renderHook(() => useUrlState());
 
@@ -169,7 +172,7 @@ describe('useUrlState', () => {
     });
 
     it('should return null for empty URL', () => {
-      (window as any).location.search = '';
+      window.location.search = '';
 
       const { result } = renderHook(() => useUrlState());
 
@@ -179,7 +182,7 @@ describe('useUrlState', () => {
     });
 
     it('should skip invalid numeric values', () => {
-      (window as any).location.search = '?voltage=invalid&current=2.5&current_unit=A';
+      window.location.search = '?voltage=invalid&current=2.5&current_unit=A';
 
       const { result } = renderHook(() => useUrlState());
 
@@ -191,7 +194,7 @@ describe('useUrlState', () => {
     });
 
     it('should skip non-finite values', () => {
-      (window as any).location.search = '?voltage=Infinity&current=2.5&current_unit=A';
+      window.location.search = '?voltage=Infinity&current=2.5&current_unit=A';
 
       const { result } = renderHook(() => useUrlState());
 
@@ -264,7 +267,7 @@ describe('useUrlState', () => {
       // Extract the query string from the mock call
       const encodedUrl = mockReplace.mock.calls[0][0];
       const queryString = encodedUrl.split('?')[1];
-      (window as any).location.search = `?${queryString}`;
+      window.location.search = `?${queryString}`;
 
       // Decode from URL
       const decoded = result.current.decodeFromUrl();
@@ -309,7 +312,7 @@ describe('constraint validation', () => {
   ];
 
   it('should reject values below minimum constraint', () => {
-    (window as any).location.search = '?voltage=-5&voltage_unit=V';
+    window.location.search = '?voltage=-5&voltage_unit=V';
 
     const { result } = renderHook(() => useUrlState({ fieldConfigs }));
 
@@ -320,7 +323,7 @@ describe('constraint validation', () => {
   });
 
   it('should reject values above maximum constraint', () => {
-    (window as any).location.search = '?voltage=2000&voltage_unit=V';
+    window.location.search = '?voltage=2000&voltage_unit=V';
 
     const { result } = renderHook(() => useUrlState({ fieldConfigs }));
 
@@ -331,7 +334,7 @@ describe('constraint validation', () => {
   });
 
   it('should reject zero when allowZero is false', () => {
-    (window as any).location.search = '?current=0&current_unit=A';
+    window.location.search = '?current=0&current_unit=A';
 
     const { result } = renderHook(() => useUrlState({ fieldConfigs }));
 
@@ -342,7 +345,7 @@ describe('constraint validation', () => {
   });
 
   it('should accept valid values within constraints', () => {
-    (window as any).location.search = '?voltage=12&voltage_unit=V&current=2.5&current_unit=A';
+    window.location.search = '?voltage=12&voltage_unit=V&current=2.5&current_unit=A';
 
     const { result } = renderHook(() => useUrlState({ fieldConfigs }));
 

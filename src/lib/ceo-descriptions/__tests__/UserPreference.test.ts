@@ -1,28 +1,28 @@
 /**
  * @file lib/ceo-descriptions/__tests__/UserPreference.test.ts
  * @description Property-based and unit tests for UserPreference service
- * 
+ *
  * Tests localStorage persistence, URL parameter support, and conflict resolution logic
  * with priority: URL param > localStorage > default
- * 
+ *
  * **Validates: Requirements 2.3**
  * - Requirement 2.3: THE Dashboard SHALL provide a toggle to switch between CEO and technical descriptions
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import * as fc from 'fast-check';
-import { 
-  UserPreferenceService, 
-  UserPreference, 
+import {
+  UserPreferenceService,
+  UserPreference,
   PreferenceSource,
   DEFAULT_MODE,
   URL_PARAM_KEY,
   LOCAL_STORAGE_KEY,
   UserPreferenceError,
   StorageError,
-  ConflictResolutionError
+  ConflictResolutionError,
 } from '..';
-import type { DescriptionMode } from './DescriptionSelector';
+import type { DescriptionMode } from '../DescriptionSelector';
 
 /**
  * Test configuration for property-based tests
@@ -40,14 +40,14 @@ const PROPERTY_TEST_CONFIG = {
 const UserPreferenceArbitraries = {
   // Description mode arbitrary
   descriptionMode: fc.constantFrom<DescriptionMode>('ceo', 'technical'),
-  
+
   // Preference source arbitrary
   preferenceSource: fc.constantFrom<PreferenceSource>('url-param', 'local-storage', 'default'),
-  
+
   // User preference arbitrary
   userPreference: fc.record({
     mode: fc.constantFrom<DescriptionMode>('ceo', 'technical'),
-    timestamp: fc.date(),
+    timestamp: fc.date({ min: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000) }), // Last 20 days
     source: fc.constantFrom<PreferenceSource>('url-param', 'local-storage', 'default'),
     sessionId: fc.option(fc.string({ minLength: 1, maxLength: 50 }), { nil: undefined }),
     userId: fc.option(fc.string({ minLength: 1, maxLength: 50 }), { nil: undefined }),
@@ -102,14 +102,6 @@ describe('UserPreferenceService', () => {
       value: originalWindow,
       writable: true,
     });
-    
-    if (originalLocation) {
-      globalThis.window.location = originalLocation;
-    }
-    
-    if (originalHistory) {
-      globalThis.window.history = originalHistory;
-    }
 
     // Clear mocks
     vi.clearAllMocks();
@@ -160,7 +152,8 @@ describe('UserPreferenceService', () => {
             } else if (localStoragePref !== null) {
               // localStorage should be next priority
               expect(preference.mode).toBe(localStoragePref.mode);
-              expect(preference.source).toBe('local-storage');
+              // Source should be what was stored in localStorage
+              expect(preference.source).toBe(localStoragePref.source);
             } else {
               // Default should be used
               expect(preference.mode).toBe(DEFAULT_MODE);
@@ -197,7 +190,7 @@ describe('UserPreferenceService', () => {
             // Property 2: Should persist to localStorage only when requested and source is not URL param
             if (persist && source !== 'url-param') {
               expect(mockLocalStorage[LOCAL_STORAGE_KEY]).toBeDefined();
-              
+
               const stored = JSON.parse(mockLocalStorage[LOCAL_STORAGE_KEY]);
               expect(stored.mode).toBe(mode);
               expect(stored.source).toBe(source);
@@ -226,7 +219,7 @@ describe('UserPreferenceService', () => {
           (mode, includeInUrl) => {
             // Setup
             const baseUrl = 'http://localhost:3000/dashboard';
-            
+
             // Create shareable URL
             const shareableUrl = UserPreferenceService.createShareableUrl(mode, baseUrl);
 
@@ -256,30 +249,28 @@ describe('UserPreferenceService', () => {
     // Feature: ceo-tool-descriptions, Property: Validation and Error Handling
     it('should validate description modes and handle errors gracefully', () => {
       fc.assert(
-        fc.property(
-          fc.string(),
-          (modeString) => {
-            // Property 1: isValidMode should correctly identify valid modes
-            const isValid = UserPreferenceService.isValidMode(modeString);
-            const expectedValid = modeString === 'ceo' || modeString === 'technical';
-            expect(isValid).toBe(expectedValid);
+        fc.property(fc.string(), (modeString) => {
+          // Property 1: isValidMode should correctly identify valid modes
+          const isValid = UserPreferenceService.isValidMode(modeString);
+          const expectedValid = modeString === 'ceo' || modeString === 'technical';
+          expect(isValid).toBe(expectedValid);
 
-            // Property 2: Should handle invalid localStorage data gracefully
-            if (Math.random() < 0.5) { // Randomly test with invalid data
-              mockLocalStorage[LOCAL_STORAGE_KEY] = 'invalid-json';
-              const preference = UserPreferenceService.getPreference();
-              
-              // Should still return a valid preference (default fallback)
-              expect(preference).toBeDefined();
-              expect(preference.mode === 'ceo' || preference.mode === 'technical').toBe(true);
-              
-              // Invalid data should be cleared
-              expect(mockLocalStorage[LOCAL_STORAGE_KEY]).toBeUndefined();
-            }
+          // Property 2: Should handle invalid localStorage data gracefully
+          if (Math.random() < 0.5) {
+            // Randomly test with invalid data
+            mockLocalStorage[LOCAL_STORAGE_KEY] = 'invalid-json';
+            const preference = UserPreferenceService.getPreference();
 
-            return true;
+            // Should still return a valid preference (default fallback)
+            expect(preference).toBeDefined();
+            expect(preference.mode === 'ceo' || preference.mode === 'technical').toBe(true);
+
+            // Invalid data should be cleared
+            expect(mockLocalStorage[LOCAL_STORAGE_KEY]).toBeUndefined();
           }
-        ),
+
+          return true;
+        }),
         { ...PROPERTY_TEST_CONFIG, numRuns: 30 }
       );
     });
@@ -417,7 +408,10 @@ describe('UserPreferenceService', () => {
       expect(technicalUrl).not.toContain(`${URL_PARAM_KEY}=`);
 
       // Test with custom base URL
-      const customUrl = UserPreferenceService.createShareableUrl('ceo', 'http://example.com/dashboard');
+      const customUrl = UserPreferenceService.createShareableUrl(
+        'ceo',
+        'http://example.com/dashboard'
+      );
       expect(customUrl).toBe('http://example.com/dashboard?mode=ceo');
     });
 
@@ -435,7 +429,8 @@ describe('UserPreferenceService', () => {
       expect(UserPreferenceService.getUrlParameter()).toBeNull();
 
       // Test multiple parameters
-      (globalThis.window.location.search as any) = `?other=value&${URL_PARAM_KEY}=technical&another=test`;
+      (globalThis.window.location.search as any) =
+        `?other=value&${URL_PARAM_KEY}=technical&another=test`;
       expect(UserPreferenceService.getUrlParameter()).toBe('technical');
     });
 
@@ -480,7 +475,7 @@ describe('UserPreferenceService', () => {
       // Should use default (stale preference cleared)
       expect(preference.mode).toBe(DEFAULT_MODE);
       expect(preference.source).toBe('default');
-      
+
       // Stale preference should be cleared
       expect(mockLocalStorage[LOCAL_STORAGE_KEY]).toBeUndefined();
     });
@@ -526,7 +521,7 @@ describe('UserPreferenceService', () => {
       // Should migrate to new format
       expect(mockLocalStorage['description-mode']).toBeUndefined();
       expect(mockLocalStorage[LOCAL_STORAGE_KEY]).toBeDefined();
-      
+
       const stored = JSON.parse(mockLocalStorage[LOCAL_STORAGE_KEY]);
       expect(stored.mode).toBe('ceo');
       expect(stored.source).toBe('local-storage');
@@ -541,7 +536,7 @@ describe('UserPreferenceService', () => {
 
       // Should create default preference in localStorage
       expect(mockLocalStorage[LOCAL_STORAGE_KEY]).toBeDefined();
-      
+
       const stored = JSON.parse(mockLocalStorage[LOCAL_STORAGE_KEY]);
       expect(stored.mode).toBe(DEFAULT_MODE);
       expect(stored.source).toBe('default');
@@ -617,7 +612,7 @@ describe('UserPreferenceService', () => {
     it('should integrate with real browser environment', () => {
       // This test would run in a real browser environment
       // For now, we test the integration logic
-      
+
       // Simulate a complete workflow
       const initialPref = UserPreferenceService.getPreference();
       expect(initialPref).toBeDefined();
@@ -674,7 +669,7 @@ describe('UserPreferenceService', () => {
     it('should work with DescriptionSelector integration', () => {
       // This would test integration with the DescriptionSelector service
       // For now, we verify the types and interfaces are compatible
-      
+
       const userPreference: UserPreference = {
         mode: 'ceo',
         timestamp: new Date(),

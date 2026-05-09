@@ -16,13 +16,12 @@ interface DashboardLayoutProps {
   activeTool?: NullableToolId;
 }
 
-export function DashboardLayout({ children, activeTool: initialActiveTool = null }: DashboardLayoutProps) {
-  const {
-    activeCategory,
-    searchQuery,
-    setSearchQuery,
-    scrollToCategory,
-  } = useDashboard(initialActiveTool);
+export function DashboardLayout({
+  children,
+  activeTool: initialActiveTool = null,
+}: DashboardLayoutProps) {
+  const { activeCategory, searchQuery, setSearchQuery, scrollToCategory } =
+    useDashboard(initialActiveTool);
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950">
@@ -34,9 +33,7 @@ export function DashboardLayout({ children, activeTool: initialActiveTool = null
           onSearchChange={setSearchQuery}
         />
 
-        <main className="flex-1 min-w-0">
-          {children}
-        </main>
+        <main className="flex-1 min-w-0">{children}</main>
       </div>
       <Footer />
     </div>

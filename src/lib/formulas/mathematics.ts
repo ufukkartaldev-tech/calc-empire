@@ -16,15 +16,9 @@ export function evaluateFunction(expr: string, x: number): number {
       .toLowerCase()
       .replace(/\s+/g, '')
       .replace(/\^/g, '**')
-      .replace(/sin/g, 'Math.sin')
-      .replace(/cos/g, 'Math.cos')
-      .replace(/tan/g, 'Math.tan')
-      .replace(/exp/g, 'Math.exp')
-      .replace(/log/g, 'Math.log')
-      .replace(/sqrt/g, 'Math.sqrt')
-      .replace(/pi/g, 'Math.PI')
-      .replace(/e/g, 'Math.E')
-      .replace(/abs/g, 'Math.abs');
+      .replace(/\b(sin|cos|tan|exp|log|sqrt|abs)\b(?=\()/g, 'Math.$1')
+      .replace(/\bpi\b/g, 'Math.PI')
+      .replace(/\be\b/g, 'Math.E');
 
     // Basic x replacement
     // This is a simple regex that replaces 'x' not preceded or followed by other letters
@@ -42,28 +36,40 @@ export function evaluateFunction(expr: string, x: number): number {
  * Numerical differentiation at point x
  */
 export function calculateDerivative(expr: string, x: number, h: number = 1e-7): number {
-  const f_plus = new Big(evaluateFunction(expr, x + h));
-  const f_minus = new Big(evaluateFunction(expr, x - h));
-  return f_plus.minus(f_minus).div(2 * h).toNumber();
+  const y1 = evaluateFunction(expr, x + h);
+  const y2 = evaluateFunction(expr, x - h);
+
+  if (isNaN(y1) || isNaN(y2)) return NaN;
+
+  const f_plus = new Big(y1);
+  const f_minus = new Big(y2);
+  return f_plus
+    .minus(f_minus)
+    .div(2 * h)
+    .toNumber();
 }
 
 /**
  * Numerical integration using Simpson's Rule
  */
-export function calculateIntegral(
-  expr: string,
-  a: number,
-  b: number,
-  n: number = 100
-): number {
+export function calculateIntegral(expr: string, a: number, b: number, n: number = 100): number {
   if (n % 2 !== 0) n++; // Simpson's rule requires even number of intervals
   const h = (b - a) / n;
   const hBig = new Big(h);
-  let sum = new Big(evaluateFunction(expr, a)).plus(evaluateFunction(expr, b));
+
+  const fa = evaluateFunction(expr, a);
+  const fb = evaluateFunction(expr, b);
+
+  if (isNaN(fa) || isNaN(fb)) return NaN;
+
+  let sum = new Big(fa).plus(fb);
 
   for (let i = 1; i < n; i++) {
     const x = a + i * h;
-    const fx = new Big(evaluateFunction(expr, x));
+    const fxVal = evaluateFunction(expr, x);
+    if (isNaN(fxVal)) return NaN;
+
+    const fx = new Big(fxVal);
     sum = sum.plus(i % 2 === 0 ? fx.times(2) : fx.times(4));
   }
 
@@ -148,10 +154,7 @@ export function calculateDeterminant(a: Matrix): number {
   if (n !== a[0].length) return NaN;
   if (n === 1) return a[0][0];
   if (n === 2) {
-    return new Big(a[0][0])
-      .times(a[1][1])
-      .minus(new Big(a[0][1]).times(a[1][0]))
-      .toNumber();
+    return new Big(a[0][0]).times(a[1][1]).minus(new Big(a[0][1]).times(a[1][0])).toNumber();
   }
 
   let det = new Big(0);
@@ -162,4 +165,3 @@ export function calculateDeterminant(a: Matrix): number {
   }
   return det.toNumber();
 }
-

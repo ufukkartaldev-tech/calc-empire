@@ -309,6 +309,13 @@ function CalculatorField({ calculatorKey, field, t, onSolve }: CalculatorFieldPr
     [calculatorKey, field.key]
   );
 
+  const handleSelectChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      useCalculatorStore.getState().setFieldValue(calculatorKey, field.key, e.target.value);
+    },
+    [calculatorKey, field.key]
+  );
+
   const handleUnitChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       useCalculatorStore.getState().setFieldUnit(calculatorKey, field.key, e.target.value);
@@ -322,6 +329,8 @@ function CalculatorField({ calculatorKey, field, t, onSolve }: CalculatorFieldPr
     },
     [onSolve]
   );
+
+  const isSelect = field.type === 'select';
 
   return (
     <div className="space-y-2">
@@ -337,37 +346,56 @@ function CalculatorField({ calculatorKey, field, t, onSolve }: CalculatorFieldPr
       </div>
 
       <div className="relative flex items-center">
-        <input
-          type="number"
-          step="any"
-          value={isResult ? formatResult(result![field.key]) : fs.raw}
-          onChange={handleValueChange}
-          onKeyDown={handleKeyDown}
-          placeholder={
-            isResult
-              ? ''
-              : field.placeholderKey
-                ? t(field.placeholderKey as TranslationKey)
-                : t('CalculatorTemplate.leaveBlankHint')
-          }
-          className={`eng-input !font-geist-mono ${
-            isResult ? 'border-blue-600 bg-blue-600/5 text-blue-400 font-bold' : ''
-          }`}
-          readOnly={isResult}
-        />
-        <div className="absolute right-0 flex items-center h-full">
+        {isSelect ? (
           <select
-            value={fs.unit}
-            onChange={handleUnitChange}
-            className="eng-select h-full rounded-r-lg pr-4 pl-3"
+            value={fs.raw}
+            onChange={handleSelectChange}
+            className={`eng-input !font-geist-mono w-full ${
+              isResult ? 'border-blue-600 bg-blue-600/5 text-blue-400 font-bold' : ''
+            }`}
+            disabled={isResult}
           >
-            {field.units.map((u) => (
-              <option key={u.symbol} value={u.symbol} className="bg-slate-900">
-                {u.label}
+            {field.options?.map((opt) => (
+              <option key={opt.value} value={opt.value} className="bg-slate-900">
+                {opt.label}
               </option>
             ))}
           </select>
-        </div>
+        ) : (
+          <input
+            type="number"
+            step="any"
+            value={isResult ? formatResult(result![field.key]) : fs.raw}
+            onChange={handleValueChange}
+            onKeyDown={handleKeyDown}
+            placeholder={
+              isResult
+                ? ''
+                : field.placeholderKey
+                  ? t(field.placeholderKey as TranslationKey)
+                  : t('CalculatorTemplate.leaveBlankHint')
+            }
+            className={`eng-input !font-geist-mono ${
+              isResult ? 'border-blue-600 bg-blue-600/5 text-blue-400 font-bold' : ''
+            }`}
+            readOnly={isResult}
+          />
+        )}
+        {field.units.length > 0 && (
+          <div className="absolute right-0 flex items-center h-full">
+            <select
+              value={fs.unit}
+              onChange={handleUnitChange}
+              className="eng-select h-full rounded-r-lg pr-4 pl-3"
+            >
+              {field.units.map((u) => (
+                <option key={u.symbol} value={u.symbol} className="bg-slate-900">
+                  {u.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -26,20 +26,20 @@ graph TB
     B --> C{Mode Selection}
     C -->|CEO Mode| D[CEO Description System]
     C -->|Technical Mode| E[Technical Description System]
-    
+
     D --> F[CEO i18n Keys]
     E --> G[Technical i18n Keys]
-    
+
     F --> H[ToolGrid Component]
     G --> H
-    
+
     H --> I[Display Tool Cards]
-    
+
     subgraph "Data Layer"
         J[ToolConfig Objects]
         K[i18n Message Files]
     end
-    
+
     D --> J
     E --> J
     F --> K
@@ -79,11 +79,12 @@ graph TB
 ### 1. ToolConfig Interface Extension
 
 **Current Interface:**
+
 ```typescript
 interface ToolConfig {
   id: ToolId;
-  titleKey: string;      // Technical title key
-  descKey: string;       // Technical description key
+  titleKey: string; // Technical title key
+  descKey: string; // Technical description key
   catKey: CategoryKey;
   icon: string;
   features?: {
@@ -95,13 +96,14 @@ interface ToolConfig {
 ```
 
 **Extended Interface:**
+
 ```typescript
 interface ToolConfig {
   id: ToolId;
-  titleKey: string;      // Technical title key
-  descKey: string;       // Technical description key
-  ceoTitleKey?: string;  // CEO title key (optional)
-  ceoDescKey?: string;  // CEO description key (optional)
+  titleKey: string; // Technical title key
+  descKey: string; // Technical description key
+  ceoTitleKey?: string; // CEO title key (optional)
+  ceoDescKey?: string; // CEO description key (optional)
   catKey: CategoryKey;
   icon: string;
   features?: {
@@ -115,6 +117,7 @@ interface ToolConfig {
 ### 2. Description Mode State Management
 
 **User Preference Interface:**
+
 ```typescript
 interface DescriptionPreference {
   mode: 'ceo' | 'technical';
@@ -124,6 +127,7 @@ interface DescriptionPreference {
 ```
 
 **Description Selector Service:**
+
 ```typescript
 class DescriptionSelector {
   // Select appropriate description based on mode and availability
@@ -135,14 +139,14 @@ class DescriptionSelector {
     if (mode === 'ceo' && tool.ceoTitleKey && tool.ceoDescKey) {
       return {
         title: t(tool.ceoTitleKey),
-        description: t(tool.ceoDescKey)
+        description: t(tool.ceoDescKey),
       };
     }
-    
+
     // Fallback to technical descriptions
     return {
       title: t(tool.titleKey),
-      description: t(tool.descKey)
+      description: t(tool.descKey),
     };
   }
 }
@@ -151,6 +155,7 @@ class DescriptionSelector {
 ### 3. Dashboard Components
 
 **Description Toggle Component:**
+
 ```typescript
 interface DescriptionToggleProps {
   currentMode: 'ceo' | 'technical';
@@ -161,23 +166,21 @@ interface DescriptionToggleProps {
 function DescriptionToggle({
   currentMode,
   onModeChange,
-  disabled = false
+  disabled = false,
 }: DescriptionToggleProps) {
   // Renders a toggle switch between CEO and Technical modes
 }
 ```
 
 **Enhanced ToolGrid Component:**
+
 ```typescript
 interface EnhancedToolGridProps {
   toolsByCategory: Record<string, SearchableTool[]>;
   descriptionMode: 'ceo' | 'technical';
 }
 
-function EnhancedToolGrid({
-  toolsByCategory,
-  descriptionMode
-}: EnhancedToolGridProps) {
+function EnhancedToolGrid({ toolsByCategory, descriptionMode }: EnhancedToolGridProps) {
   // Uses DescriptionSelector to get appropriate descriptions
   // Displays fallback indicator when CEO descriptions unavailable
 }
@@ -186,13 +189,14 @@ function EnhancedToolGrid({
 ### 4. i18n Message Structure
 
 **CEO Description Keys Format:**
+
 ```json
 {
   "Dashboard": {
     "ohmTitle": "Ohm's Law Calculator",
     "ohmDesc": "Standard calculations for V = I × R.",
     "ohmCeoTitle": "Circuit Analysis Efficiency Tool",
-    "ohmCeoDesc": "Reduce electrical troubleshooting time by 70% with instant circuit analysis. Save engineering hours on complex system diagnostics.",
+    "ohmCeoDesc": "Reduce electrical troubleshooting time by 70% with instant circuit analysis. Save engineering hours on complex system diagnostics."
     // ... other tools
   }
 }
@@ -222,7 +226,7 @@ const ENHANCED_TOOLS_CONFIG: EnhancedToolConfig[] = [
     icon: 'Ω',
     features: { shareableUrl: true, pdfExport: true },
     isPopular: true,
-    hasCeoDescriptions: true
+    hasCeoDescriptions: true,
   },
   // ... other tools
 ];
@@ -289,90 +293,89 @@ interface ContentValidationRules {
 
 ## Correctness Properties
 
-*A property is a characteristic or behavior that should hold true across all valid executions of a system-essentially, a formal statement about what the system should do. Properties serve as the bridge between human-readable specifications and machine-verifiable correctness guarantees.*
-
+_A property is a characteristic or behavior that should hold true across all valid executions of a system-essentially, a formal statement about what the system should do. Properties serve as the bridge between human-readable specifications and machine-verifiable correctness guarantees._
 
 ### Property 1: Tool Configuration Structure
 
-*For any* tool configuration in the system, if it includes CEO descriptions, it must contain both `ceoTitleKey` and `ceoDescKey` fields with valid translation key strings.
+_For any_ tool configuration in the system, if it includes CEO descriptions, it must contain both `ceoTitleKey` and `ceoDescKey` fields with valid translation key strings.
 
 **Validates: Requirements 1.1, 1.2**
 
 ### Property 2: Description Mode Display
 
-*For any* description mode ('ceo' or 'technical') and any tool configuration, the displayed title and description must come from the translation keys appropriate to that mode, falling back to technical descriptions when CEO descriptions are unavailable in CEO mode.
+_For any_ description mode ('ceo' or 'technical') and any tool configuration, the displayed title and description must come from the translation keys appropriate to that mode, falling back to technical descriptions when CEO descriptions are unavailable in CEO mode.
 
 **Validates: Requirements 2.1, 2.2, 2.4**
 
 ### Property 3: Internationalization Coverage
 
-*For each* tool that has CEO descriptions, translation keys must exist in all 17 supported languages, with the system falling back to English translations when a specific language translation is missing.
+_For each_ tool that has CEO descriptions, translation keys must exist in all 17 supported languages, with the system falling back to English translations when a specific language translation is missing.
 
 **Validates: Requirements 3.1, 3.4**
 
 ### Property 4: Content Quality Standards
 
-*For all* CEO descriptions, the text must emphasize business outcomes over technical details, include quantifiable benefits, avoid unexplained engineering jargon, and answer "Why should a business care about this tool?"
+_For all_ CEO descriptions, the text must emphasize business outcomes over technical details, include quantifiable benefits, avoid unexplained engineering jargon, and answer "Why should a business care about this tool?"
 
 **Validates: Requirements 4.1, 4.2, 4.3, 4.4**
 
 ### Property 5: Tool-Specific Business Value
 
-*For each* tool category (electrical, mechanical, civil, software, finance), the CEO description must emphasize the specific business value outlined in the requirements, such as "rapid circuit analysis saving engineering hours" for Ohm's Law Calculator.
+_For each_ tool category (electrical, mechanical, civil, software, finance), the CEO description must emphasize the specific business value outlined in the requirements, such as "rapid circuit analysis saving engineering hours" for Ohm's Law Calculator.
 
 **Validates: Requirements 6.1-6.11**
 
 ### Property 6: SEO and Structured Data Integration
 
-*For all* CEO descriptions, the system must include relevant keywords for business and engineering search terms and generate appropriate structured data for search engines from the CEO description content.
+_For all_ CEO descriptions, the system must include relevant keywords for business and engineering search terms and generate appropriate structured data for search engines from the CEO description content.
 
 **Validates: Requirements 5.1, 5.2**
 
 ### Property 7: Performance Impact
 
-*For any* page load operation, adding CEO descriptions must increase load time by less than 100ms, and the system must maintain sub-200ms response times when serving 10,000+ concurrent users.
+_For any_ page load operation, adding CEO descriptions must increase load time by less than 100ms, and the system must maintain sub-200ms response times when serving 10,000+ concurrent users.
 
 **Validates: Requirements 8.1, 8.2**
 
 ### Property 8: Caching Behavior
 
-*For all* CEO description requests, the system must cache responses with appropriate TTL settings to ensure fast delivery and reduce server load.
+_For all_ CEO description requests, the system must cache responses with appropriate TTL settings to ensure fast delivery and reduce server load.
 
 **Validates: Requirements 8.3**
 
 ### Property 9: Analytics Tracking
 
-*For every* user interaction with CEO descriptions (views, clicks, mode switches), the system must track engagement metrics and log preference data for analysis and optimization.
+_For every_ user interaction with CEO descriptions (views, clicks, mode switches), the system must track engagement metrics and log preference data for analysis and optimization.
 
 **Validates: Requirements 9.1, 9.2**
 
 ### Property 10: Feature Integration
 
-*For all* integrated features (shareable URLs, PDF exports, search, favorites, history), the CEO description system must work seamlessly, including CEO descriptions in shareable URLs, PDF executive summaries, search indexes, user preferences, and history views when in CEO mode.
+_For all_ integrated features (shareable URLs, PDF exports, search, favorites, history), the CEO description system must work seamlessly, including CEO descriptions in shareable URLs, PDF executive summaries, search indexes, user preferences, and history views when in CEO mode.
 
 **Validates: Requirements 10.1, 10.2, 10.3, 10.4, 10.5**
 
 ### Property 11: Backward Compatibility
 
-*For all* existing tool configurations, the enhanced system must maintain full backward compatibility, ensuring that all current functionality continues to work without modification.
+_For all_ existing tool configurations, the enhanced system must maintain full backward compatibility, ensuring that all current functionality continues to work without modification.
 
 **Validates: Requirements 1.4**
 
 ### Property 12: Content Management Validation
 
-*For any* CEO description edit operation, the system must validate content against business-focused writing guidelines and track changes with audit history.
+_For any_ CEO description edit operation, the system must validate content against business-focused writing guidelines and track changes with audit history.
 
 **Validates: Requirements 7.2, 7.3**
 
 ### Property 13: A/B Testing Capability
 
-*For any* CEO description variation, the A/B testing system must allow testing different descriptions and measure conversion rates to optimize business value communication.
+_For any_ CEO description variation, the A/B testing system must allow testing different descriptions and measure conversion rates to optimize business value communication.
 
 **Validates: Requirements 7.5, 9.4**
 
 ### Property 14: ROI Calculation
 
-*For any* set of CEO description performance metrics, the ROI calculator must estimate business value generated by description improvements based on engagement and conversion data.
+_For any_ set of CEO description performance metrics, the ROI calculator must estimate business value generated by description improvements based on engagement and conversion data.
 
 **Validates: Requirements 9.5**
 
@@ -425,16 +428,19 @@ The testing strategy employs both unit tests and property-based tests to ensure 
 ### Unit Testing Focus Areas
 
 **Component Tests**:
+
 - DescriptionToggle component renders correctly in both states
 - ToolGrid displays appropriate descriptions based on mode
 - Fallback indicators show when CEO descriptions unavailable
 
 **Integration Tests**:
+
 - CEO mode persists in shareable URLs
 - PDF exports include CEO descriptions in executive summaries
 - Search indexes CEO descriptions for business-term queries
 
 **Edge Case Tests**:
+
 - Tools without CEO descriptions in CEO mode
 - Missing translation keys in non-English languages
 - Performance under high concurrent load
@@ -446,6 +452,7 @@ The testing strategy employs both unit tests and property-based tests to ensure 
 **Tagging Format**: `Feature: ceo-tool-descriptions, Property {number}: {property_text}`
 
 **Example Property Test**:
+
 ```typescript
 import { fc } from 'fast-check';
 
@@ -459,17 +466,20 @@ describe('Property 2: Description Mode Display', () => {
           titleKey: fc.string(),
           descKey: fc.string(),
           ceoTitleKey: fc.option(fc.string(), { nil: undefined }),
-          ceoDescKey: fc.option(fc.string(), { nil: undefined })
+          ceoDescKey: fc.option(fc.string(), { nil: undefined }),
         }),
         (mode, tool) => {
           const result = DescriptionSelector.getDescription(tool, mode, mockT);
           // Verify appropriate description source used
           if (mode === 'ceo' && tool.ceoTitleKey && tool.ceoDescKey) {
-            return result.title === mockT(tool.ceoTitleKey) &&
-                   result.description === mockT(tool.ceoDescKey);
+            return (
+              result.title === mockT(tool.ceoTitleKey) &&
+              result.description === mockT(tool.ceoDescKey)
+            );
           } else {
-            return result.title === mockT(tool.titleKey) &&
-                   result.description === mockT(tool.descKey);
+            return (
+              result.title === mockT(tool.titleKey) && result.description === mockT(tool.descKey)
+            );
           }
         }
       ),

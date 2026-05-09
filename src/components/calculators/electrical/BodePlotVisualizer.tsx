@@ -62,16 +62,16 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
   const [plotData, setPlotData] = useState<BodeWorkerOutput | null>(null);
   const [isComputing, setIsComputing] = useState(false);
   const [workerError, setWorkerError] = useState<string | null>(null);
-  
+
   const workerRef = useRef<Worker | null>(null);
 
   useEffect(() => {
     if (!isHydrated) return;
-    
+
     // Initialize worker only on the client
     try {
       workerRef.current = new Worker(new URL('./bodeplot.worker.ts', import.meta.url));
-      
+
       workerRef.current.onmessage = (e: MessageEvent<BodeWorkerResponse>) => {
         const response = e.data;
         if (response.success) {
@@ -93,7 +93,7 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
       setWorkerError('Web Worker not supported or failed to load: ' + e.message);
       setIsComputing(false);
     }
-    
+
     return () => {
       workerRef.current?.terminate();
       workerRef.current = null;
@@ -124,7 +124,9 @@ export function BodePlotVisualizer({ className = '' }: BodePlotVisualizerProps) 
 
   if (!isHydrated) {
     return (
-      <div className={`w-full max-w-4xl mx-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm flex justify-center items-center h-64 ${className}`}>
+      <div
+        className={`w-full max-w-4xl mx-auto bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm flex justify-center items-center h-64 ${className}`}
+      >
         <Loader2 className="animate-spin text-blue-500" size={32} />
       </div>
     );

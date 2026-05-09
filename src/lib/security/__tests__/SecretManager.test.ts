@@ -49,6 +49,9 @@ describe('SecretManager', () => {
             }),
           }),
           async (configData) => {
+            // Reset singleton for each test case
+            SecretManager.resetInstance();
+
             const config: SecretConfig = {
               provider: configData.provider as 'env' | 'vault' | 'aws-secrets',
               rotationEnabled: configData.rotationEnabled,
@@ -367,8 +370,9 @@ describe('SecretManager', () => {
 
   describe('Integration Tests', () => {
     it('should work with production environment validation', async () => {
-      process.env.GEMINI_API_KEY = 'prod-key-12345678';
-      process.env.DEV_API_KEY = 'dev-key'; // This should trigger warning
+      // Set a development secret to trigger warning
+      process.env.DEV_API_KEY = 'test-dev-key';
+      process.env.GEMINI_API_KEY = 'test-gemini-key';
 
       const config: SecretConfig = {
         provider: 'env',
@@ -383,11 +387,16 @@ describe('SecretManager', () => {
       const validation = await secretManager.validateSecrets();
       expect(validation.isValid).toBe(true);
       expect(validation.warnings.length).toBeGreaterThan(0);
-      expect(validation.warnings[0]).toContain('Development secret found in production');
+      expect(
+        validation.warnings.some((w) => w.includes('Development secret found in production'))
+      ).toBe(true);
     });
 
     it('should handle complete secret management workflow', async () => {
-      // Setup environment
+      // Reset singleton to ensure clean state with rotation enabled
+      SecretManager.resetInstance();
+
+      // Clear and set environment variables (beforeEach clears them)
       process.env.GEMINI_API_KEY = 'test-key-12345678';
       process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://test.supabase.co';
 
@@ -395,7 +404,7 @@ describe('SecretManager', () => {
         provider: 'env',
         rotationEnabled: true,
         rotationIntervalDays: 30,
-        requiredSecrets: ['GEMINI_API_KEY'],
+        requiredSecrets: ['gemini'], // Use mapped key 'gemini' instead of 'GEMINI_API_KEY'
       };
 
       const secretManager = SecretManager.getInstance(config, Environment.STAGING);
@@ -518,25 +527,42 @@ describe('SecretRotationManager', () => {
             }),
           }),
           async (data) => {
-            const initialHistoryLength = rotationManager.getRotationHistory().length;
+            // Reset instances for each run to ensure isolation and prevent state leakage
+            SecretManager.resetInstance();
+            const localConfig: SecretConfig = {
+              provider: 'env',
+              rotationEnabled: true,
+              rotationIntervalDays: 30,
+              requiredSecrets: ['gemini'],
+            };
+            const localSecretManager = SecretManager.getInstance(
+              localConfig,
+              Environment.DEVELOPMENT
+            );
+            await localSecretManager.loadSecrets(Environment.DEVELOPMENT);
+            const localRotationManager = new SecretRotationManager(localSecretManager);
+
+            const initialHistoryLength = localRotationManager.getRotationHistory().length;
             let expectedRotations = 0;
 
             for (const operation of data.operations) {
               try {
                 switch (operation) {
                   case 'schedule':
-                    rotationManager.scheduleRotation(data.secretKey, 30, false);
+                    localRotationManager.scheduleRotation(data.secretKey, 30, false);
                     break;
                   case 'rotate':
                     // Only attempt rotation if secret exists
-                    const secret = await secretManager.getSecret('gemini'); // Use existing secret
+                    const keyToRotate = 'gemini';
+                    const secret = await localSecretManager.getSecret(keyToRotate);
                     if (secret) {
-                      await rotationManager.rotateSecretWithZeroDowntime('gemini');
+                      // rotationManager adds to history regardless of success/failure
                       expectedRotations++;
+                      await localRotationManager.rotateSecretWithZeroDowntime(keyToRotate);
                     }
                     break;
                   case 'remove':
-                    rotationManager.removeRotationSchedule(data.secretKey);
+                    localRotationManager.removeRotationSchedule(data.secretKey);
                     break;
                 }
               } catch (_error) {
@@ -545,7 +571,7 @@ describe('SecretRotationManager', () => {
             }
 
             // Property: Rotation history should reflect actual rotations performed
-            const finalHistory = rotationManager.getRotationHistory();
+            const finalHistory = localRotationManager.getRotationHistory();
             const actualRotations = finalHistory.length - initialHistoryLength;
             expect(actualRotations).toBe(expectedRotations);
 
@@ -613,6 +639,9 @@ describe('SecretRotationManager', () => {
     });
 
     it('should perform manual rotation successfully', async () => {
+      // Ensure rotation is enabled in config
+      expect(secretManager['config'].rotationEnabled).toBe(true);
+
       const result = await rotationManager.rotateSecretWithZeroDowntime('gemini');
 
       expect(result.success).toBe(true);

@@ -1,7 +1,7 @@
 /**
  * @file responsive-design.test.ts
  * @description Responsive design tests for Calc Empire
- * 
+ *
  * Tests: Mobile, tablet, desktop layouts, breakpoints, touch interactions
  */
 
@@ -33,12 +33,8 @@ test.describe('Responsive Design', () => {
         for (const element of textElements.slice(0, 10)) {
           const isVisible = await element.isVisible();
           if (isVisible) {
-            const fontSize = await element.evaluate(el => 
-              window.getComputedStyle(el).fontSize
-            );
-            expect(parseInt(fontSize)).toBeGreaterThanOrEqual(
-              deviceName === 'mobile' ? 12 : 14
-            );
+            const fontSize = await element.evaluate((el) => window.getComputedStyle(el).fontSize);
+            expect(parseInt(fontSize)).toBeGreaterThanOrEqual(deviceName === 'mobile' ? 12 : 14);
           }
         }
       });
@@ -62,7 +58,7 @@ test.describe('Responsive Design', () => {
       test(`should handle horizontal scroll properly on ${deviceName}`, async ({ page }) => {
         const bodyWidth = await page.evaluate(() => document.body.scrollWidth);
         const viewportWidth = await page.evaluate(() => window.innerWidth);
-        
+
         // No horizontal overflow
         expect(bodyWidth).toBeLessThanOrEqual(viewportWidth + 1);
       });
@@ -82,10 +78,12 @@ test.describe('Responsive Design', () => {
   test.describe('Navigation Responsiveness', () => {
     test('mobile should have hamburger menu', async ({ page }) => {
       await page.setViewportSize(breakpoints.mobile);
-      
+
       // Check if there's a mobile menu button
-      const menuButton = page.locator('button[aria-label*="menu"], button[aria-label*="Menu"], .menu-button');
-      
+      const menuButton = page.locator(
+        'button[aria-label*="menu"], button[aria-label*="Menu"], .menu-button'
+      );
+
       if (await menuButton.isVisible()) {
         await menuButton.click();
         const mobileNav = page.locator('.mobile-nav, .sidebar-mobile, [role="navigation"].mobile');
@@ -95,11 +93,11 @@ test.describe('Responsive Design', () => {
 
     test('desktop should show full navigation', async ({ page }) => {
       await page.setViewportSize(breakpoints.desktop);
-      
+
       // Check for desktop navigation elements
       const nav = page.locator('nav');
       await expect(nav).toBeVisible();
-      
+
       // Should have multiple navigation items visible
       const navItems = nav.locator('a, button').filter({ hasNotText: '' });
       const itemCount = await navItems.count();
@@ -110,17 +108,17 @@ test.describe('Responsive Design', () => {
   test.describe('Calculator Responsiveness', () => {
     test('calculators should work on mobile', async ({ page }) => {
       await page.setViewportSize(breakpoints.mobile);
-      
+
       // Navigate to a calculator
       const calculatorLink = page.locator('a[href*="calculators"]').first();
       if (await calculatorLink.isVisible()) {
         await calculatorLink.click();
-        
+
         // Check if calculator is usable
         const inputs = page.locator('input[type="number"], input[type="text"]');
-        if (await inputs.count() > 0) {
+        if ((await inputs.count()) > 0) {
           await expect(inputs.first()).toBeVisible();
-          
+
           // Test input focus on mobile
           await inputs.first().tap();
           await expect(inputs.first()).toBeFocused();
@@ -130,10 +128,10 @@ test.describe('Responsive Design', () => {
 
     test('calculator layouts should adapt to screen size', async ({ page }) => {
       const sizes = [breakpoints.mobile, breakpoints.tablet, breakpoints.desktop];
-      
+
       for (const size of sizes) {
         await page.setViewportSize(size);
-        
+
         const calculatorSection = page.locator('.calculator, .tool-section, main').first();
         if (await calculatorSection.isVisible()) {
           const boundingBox = await calculatorSection.boundingBox();
@@ -148,22 +146,22 @@ test.describe('Responsive Design', () => {
   test.describe('Form Responsiveness', () => {
     test('forms should be usable on mobile', async ({ page }) => {
       await page.setViewportSize(breakpoints.mobile);
-      
+
       // Find any form
       const form = page.locator('form').first();
       if (await form.isVisible()) {
         const inputs = form.locator('input, select, textarea');
         const inputCount = await inputs.count();
-        
+
         if (inputCount > 0) {
           // Check first input
           const firstInput = inputs.first();
           await expect(firstInput).toBeVisible();
-          
+
           // Test touch interaction
           await firstInput.tap();
           await expect(firstInput).toBeFocused();
-          
+
           // Check if keyboard would appear (input type)
           const inputType = await firstInput.getAttribute('type');
           expect(['text', 'number', 'email', 'tel', 'search']).toContain(inputType || 'text');
@@ -173,9 +171,9 @@ test.describe('Responsive Design', () => {
 
     test('form buttons should be accessible on mobile', async ({ page }) => {
       await page.setViewportSize(breakpoints.mobile);
-      
+
       const submitButtons = page.locator('button[type="submit"], .btn-primary, .btn-secondary');
-      
+
       for (let i = 0; i < Math.min(3, await submitButtons.count()); i++) {
         const button = submitButtons.nth(i);
         if (await button.isVisible()) {
@@ -193,19 +191,20 @@ test.describe('Responsive Design', () => {
     test('images should be responsive', async ({ page }) => {
       const images = page.locator('img');
       const imageCount = await images.count();
-      
+
       for (let i = 0; i < Math.min(5, imageCount); i++) {
         const image = images.nth(i);
         const isVisible = await image.isVisible();
-        
+
         if (isVisible) {
           // Check if image has responsive attributes
-          await image.evaluate(el => 
-            el.classList.contains('responsive') || 
-            el.classList.contains('img-fluid') ||
-            getComputedStyle(el).maxWidth === '100%'
+          await image.evaluate(
+            (el) =>
+              el.classList.contains('responsive') ||
+              el.classList.contains('img-fluid') ||
+              getComputedStyle(el).maxWidth === '100%'
           );
-          
+
           // Check if image fits within viewport
           const boundingBox = await image.boundingBox();
           if (boundingBox) {
@@ -220,9 +219,9 @@ test.describe('Responsive Design', () => {
     test('should load quickly on mobile', async ({ page }) => {
       await page.setViewportSize(breakpoints.mobile);
       const startTime = Date.now();
-      
+
       await page.goto('/', { waitUntil: 'networkidle' });
-      
+
       const loadTime = Date.now() - startTime;
       // Should load within 3 seconds on mobile
       expect(loadTime).toBeLessThan(3000);
@@ -231,14 +230,16 @@ test.describe('Responsive Design', () => {
     test('should be interactive on mobile', async ({ page }) => {
       await page.setViewportSize(breakpoints.mobile);
       await page.goto('/');
-      
+
       // Test basic interactions
       const clickableElement = page.locator('button, a').first();
       if (await clickableElement.isVisible()) {
         await clickableElement.click();
-        
+
         // Should not block UI
-        const isNotBlocked = await page.evaluate(() => !document.body.classList.contains('loading'));
+        const isNotBlocked = await page.evaluate(
+          () => !document.body.classList.contains('loading')
+        );
         expect(isNotBlocked).toBeTruthy();
       }
     });
@@ -247,11 +248,13 @@ test.describe('Responsive Design', () => {
   test.describe('Accessibility Across Devices', () => {
     test('should maintain accessibility on mobile', async ({ page }) => {
       await page.setViewportSize(breakpoints.mobile);
-      
+
       // Check for proper focus management
-      const focusableElements = page.locator('button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const focusableElements = page.locator(
+        'button, a, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
       const count = await focusableElements.count();
-      
+
       if (count > 0) {
         // Test tab navigation
         await page.keyboard.press('Tab');
@@ -262,24 +265,24 @@ test.describe('Responsive Design', () => {
 
     test('should have readable contrast on all devices', async ({ page }) => {
       const devices = [breakpoints.mobile, breakpoints.tablet, breakpoints.desktop];
-      
+
       for (const device of devices) {
         await page.setViewportSize(device);
-        
+
         // Check if text is readable (basic contrast check)
         const textElements = page.locator('h1, h2, h3, p, span').filter({ hasText: /^\S+$/ });
-        
+
         for (let i = 0; i < Math.min(3, await textElements.count()); i++) {
           const element = textElements.nth(i);
           const isVisible = await element.isVisible();
-          
+
           if (isVisible) {
-            const styles = await element.evaluate(el => ({
+            const styles = await element.evaluate((el) => ({
               color: getComputedStyle(el).color,
               backgroundColor: getComputedStyle(el).backgroundColor,
-              fontSize: getComputedStyle(el).fontSize
+              fontSize: getComputedStyle(el).fontSize,
             }));
-            
+
             // Basic check - should have defined colors
             expect(styles.color).toBeTruthy();
             expect(styles.fontSize).toBeTruthy();

@@ -187,4 +187,3 @@ export function triangle(base: number, height: number, a: number, b: number) {
     perimeter: bBig.plus(a).plus(b).toNumber(),
   };
 }
-

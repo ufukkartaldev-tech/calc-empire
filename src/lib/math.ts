@@ -87,4 +87,3 @@ export const nPr = (n: number, r: number): number => {
   }
   return res.toNumber();
 };
-

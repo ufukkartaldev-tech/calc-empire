@@ -126,27 +126,27 @@ interface ConfidenceIntervalParams {
 
 function probit(p: number): number {
   // Inverse normal approximation (Beasley-Springer-Moro)
-  let a1 = 2.50662823884,
+  const a1 = 2.50662823884,
     a2 = -18.61500062529,
     a3 = 41.39119773534,
     a4 = -25.44106049637;
-  let b1 = -8.4735109309,
+  const b1 = -8.4735109309,
     b2 = 23.08336743743,
     b3 = -21.06224101826,
     b4 = 3.13082909833;
-  let c1 = 0.3374754822726147,
+  const c1 = 0.3374754822726147,
     c2 = 0.9761690190917186,
     c3 = 0.1607979714918209;
-  let c4 = 0.0276438810333863,
+  const c4 = 0.0276438810333863,
     c5 = 0.0038405729373609,
     c6 = 0.0003951896511919;
-  let c7 = 0.0000321767881768,
+  const c7 = 0.0000321767881768,
     c8 = 0.0000002888167364,
     c9 = 0.0000003960315187;
 
   let y = p - 0.5;
   if (Math.abs(y) < 0.42) {
-    let r = y * y;
+    const r = y * y;
     return (
       (y * (((a4 * r + a3) * r + a2) * r + a1)) / ((((b4 * r + b3) * r + b2) * r + b1) * r + 1)
     );
@@ -245,4 +245,3 @@ export function generateHistogram(
     };
   });
 }
-

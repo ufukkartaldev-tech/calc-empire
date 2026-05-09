@@ -52,7 +52,7 @@ export function subnetMask(cidr: number) {
   const maskStr = `${m1}.${m2}.${m3}.${m4}`;
 
   // Wildcard Mask
-  let wcMaskNum = ~fullMask;
+  const wcMaskNum = ~fullMask;
   const w1 = (wcMaskNum >>> 24) & 0xff;
   const w2 = (wcMaskNum >>> 16) & 0xff;
   const w3 = (wcMaskNum >>> 8) & 0xff;
@@ -60,7 +60,7 @@ export function subnetMask(cidr: number) {
   const wildcardMaskStr = `${w1}.${w2}.${w3}.${w4}`;
 
   const hostBits = 32 - cidr;
-  let totalHosts = hostBits === 0 ? 1 : Math.pow(2, hostBits);
+  const totalHosts = hostBits === 0 ? 1 : Math.pow(2, hostBits);
   let usableHosts = totalHosts - 2;
   if (cidr === 32) usableHosts = 0;
   if (cidr === 31) usableHosts = 2; // point-to-point uses 2
@@ -158,4 +158,3 @@ export function parseCron(expression: string) {
     fields: { minute, hour, dom, month, dow },
   };
 }
-

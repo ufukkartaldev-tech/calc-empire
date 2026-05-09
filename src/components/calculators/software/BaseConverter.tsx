@@ -282,7 +282,9 @@ export function BaseConverter() {
             {operator !== 'NOT' && (
               <div className="flex-1">
                 <label className="block text-xs font-medium text-slate-500 mb-1">
-                  {operator === 'LSHIFT' || operator === 'RSHIFT' ? t('shiftAmount') : t('operandB')}
+                  {operator === 'LSHIFT' || operator === 'RSHIFT'
+                    ? t('shiftAmount')
+                    : t('operandB')}
                 </label>
                 <input
                   type="number"
