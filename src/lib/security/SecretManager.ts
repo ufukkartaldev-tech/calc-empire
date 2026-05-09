@@ -224,8 +224,26 @@ export class SecretManager implements ISecretManager {
 
       if (!secret) {
         errors.push(`Required secret missing: ${requiredSecret}`);
-      } else if (secret.length < 8) {
-        warnings.push(`Secret '${requiredSecret}' appears to be too short`);
+      } else {
+        // Mantık Kontrolü: Boşluk, özel karakter ve zayıf pattern kontrolleri
+        const trimmed = secret.trim();
+
+        if (trimmed.length === 0) {
+          errors.push(`Secret '${requiredSecret}' is empty or contains only whitespace`);
+        } else if (trimmed.length < 8) {
+          warnings.push(`Secret '${requiredSecret}' appears to be too short (min 8 chars)`);
+        }
+
+        // Özel karakter yoğunluğu kontrolü (örnek: sadece boşluk veya kontrol karakterleri)
+        if (/^[\s\x00-\x1F\x7F]+$/.test(secret)) {
+          errors.push(`Secret '${requiredSecret}' contains only whitespace or control characters`);
+        }
+
+        // Zayıf pattern kontrolü (örnek: "password", "123456")
+        const weakPatterns = ['password', '123456', 'qwerty', 'admin'];
+        if (weakPatterns.includes(trimmed.toLowerCase())) {
+          warnings.push(`Secret '${requiredSecret}' uses a very weak common pattern`);
+        }
       }
     }
 
@@ -319,6 +337,9 @@ export class SecretManager implements ISecretManager {
       GEMINI_API_KEY: 'gemini',
       OPENAI_API_KEY: 'openai',
       ANTHROPIC_API_KEY: 'anthropic',
+      DEV_API_KEY: 'DEV_API_KEY', // For production validation
+      TEST_SECRET: 'TEST_SECRET', // For production validation
+      DEBUG_TOKEN: 'DEBUG_TOKEN', // For production validation
     };
 
     Object.entries(apiKeyMappings).forEach(([envVar, key]) => {

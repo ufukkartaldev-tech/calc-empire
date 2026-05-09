@@ -8,10 +8,67 @@
  * Validates: Requirements 1.1, 1.2, 1.3
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render } from '@testing-library/react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { Navbar } from '@/components/ui/Navbar';
+
+// Mock next/navigation
+vi.mock('next/navigation', () => ({
+  notFound: vi.fn(),
+  redirect: vi.fn(),
+  permanentRedirect: vi.fn(),
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+    refresh: vi.fn(),
+    prefetch: vi.fn(),
+  })),
+  usePathname: vi.fn(() => '/'),
+  useSearchParams: vi.fn(() => new URLSearchParams()),
+}));
+
+// Mock next-intl
+vi.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+  useLocale: () => 'en',
+}));
+
+// Mock routing
+vi.mock('@/i18n/routing', () => ({
+  Link: ({ children, href, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+    refresh: vi.fn(),
+  }),
+  usePathname: () => '/',
+}));
+
+// Mock next-auth
+vi.mock('next-auth/react', () => ({
+  useSession: vi.fn(() => ({ data: null, status: 'unauthenticated' })),
+}));
+
+// Mock lucide-react icons
+vi.mock('lucide-react', () => ({
+  Sun: () => <div data-testid="sun-icon">Sun</div>,
+  Moon: () => <div data-testid="moon-icon">Moon</div>,
+  Monitor: () => <div data-testid="monitor-icon">Monitor</div>,
+  Menu: () => <div data-testid="menu-icon">Menu</div>,
+  X: () => <div data-testid="x-icon">X</div>,
+  User: () => <div data-testid="user-icon">User</div>,
+  History: () => <div data-testid="history-icon">History</div>,
+  Star: () => <div data-testid="star-icon">Star</div>,
+}));
 
 describe('Bug Condition Exploration - ThemeProvider Context Missing', () => {
   /**

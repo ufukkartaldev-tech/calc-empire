@@ -181,6 +181,9 @@ export class UserPreferenceService {
     }
 
     try {
+      if (!window.location || typeof window.location.search !== 'string') {
+        return null;
+      }
       const params = new URLSearchParams(window.location.search);
       const modeParam = params.get(URL_PARAM_KEY);
 
@@ -189,8 +192,8 @@ export class UserPreferenceService {
       }
 
       return null;
-    } catch (error) {
-      console.error('Error reading URL parameter:', error);
+    } catch {
+      // Invalid URLs are expected during testing or with corrupted data
       return null;
     }
   }
@@ -207,22 +210,25 @@ export class UserPreferenceService {
     }
 
     try {
+      if (!window.location || !window.location.href) {
+        return;
+      }
       const url = new URL(window.location.href);
-      const params = new URLSearchParams(url.search);
 
       if (mode === DEFAULT_MODE) {
         // Remove parameter if it's the default
-        params.delete(URL_PARAM_KEY);
+        url.searchParams.delete(URL_PARAM_KEY);
       } else {
-        params.set(URL_PARAM_KEY, mode);
+        url.searchParams.set(URL_PARAM_KEY, mode);
       }
 
-      // Update URL without reloading page
-      const newUrl = `${url.pathname}${params.toString() ? `?${params.toString()}` : ''}`;
-      window.history.replaceState({}, '', newUrl);
-    } catch (error) {
-      console.error('Error updating URL parameter:', error);
-      // Don't throw - URL updates are best effort
+      // Update URL without reloading page, preserving hash
+      const newUrl = url.pathname + url.search + url.hash;
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, '', newUrl);
+      }
+    } catch {
+      // Best effort - fail silently if URL update fails
     }
   }
 
@@ -235,21 +241,24 @@ export class UserPreferenceService {
    */
   static createShareableUrl(mode: DescriptionMode, baseUrl?: string): string {
     try {
-      const url = new URL(baseUrl || window.location.href);
-      const params = new URLSearchParams(url.search);
+      const currentUrl =
+        typeof window !== 'undefined' && window.location
+          ? window.location.href
+          : 'http://localhost';
+      const url = new URL(baseUrl || currentUrl);
 
       if (mode === DEFAULT_MODE) {
-        params.delete(URL_PARAM_KEY);
+        url.searchParams.delete(URL_PARAM_KEY);
       } else {
-        params.set(URL_PARAM_KEY, mode);
+        url.searchParams.set(URL_PARAM_KEY, mode);
       }
 
-      url.search = params.toString();
       return url.toString();
-    } catch (error) {
-      console.error('Error creating shareable URL:', error);
-      // Fallback to current URL
-      return window.location.href;
+    } catch {
+      // Fallback to safe return
+      return (
+        baseUrl || (typeof window !== 'undefined' && window.location ? window.location.href : '/')
+      );
     }
   }
 
@@ -272,7 +281,7 @@ export class UserPreferenceService {
    * @returns User preference from localStorage, or null if not present/invalid
    */
   private static getLocalStoragePreference(): UserPreference | null {
-    if (typeof window === 'undefined') {
+    if (typeof window === 'undefined' || !window.localStorage) {
       return null;
     }
 
@@ -282,7 +291,22 @@ export class UserPreferenceService {
         return null;
       }
 
-      const parsed = JSON.parse(stored);
+      // JSON Safety check
+      const trimmed = stored.trim();
+      if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) {
+        console.warn('Invalid JSON format in localStorage');
+        window.localStorage.removeItem(LOCAL_STORAGE_KEY);
+        return null;
+      }
+
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(trimmed);
+      } catch (e) {
+        console.error('Failed to parse preference JSON:', e);
+        window.localStorage.removeItem(LOCAL_STORAGE_KEY);
+        return null;
+      }
 
       // Validate the parsed object
       if (

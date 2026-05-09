@@ -17,18 +17,38 @@ vi.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }));
 
-// Mock next/navigation
-vi.mock('next/navigation', () => ({
-  notFound: () => {},
+// Mock routing
+vi.mock('@/i18n/routing', () => ({
+  Link: ({ children, href, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
   useRouter: () => ({
-    push: () => {},
-    replace: () => {},
-    back: () => {},
-    forward: () => {},
-    refresh: () => {},
+    push: vi.fn(),
+    replace: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+    refresh: vi.fn(),
   }),
   usePathname: () => '/',
-  useSearchParams: () => new URLSearchParams(),
+}));
+
+// Mock next/navigation
+vi.mock('next/navigation', () => ({
+  notFound: vi.fn(),
+  redirect: vi.fn(),
+  permanentRedirect: vi.fn(),
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+    refresh: vi.fn(),
+    prefetch: vi.fn(),
+  })),
+  usePathname: vi.fn(() => '/'),
+  useSearchParams: vi.fn(() => new URLSearchParams()),
 }));
 
 // Mock lucide-react icons
@@ -36,6 +56,16 @@ vi.mock('lucide-react', () => ({
   Sun: () => <div data-testid="sun-icon">Sun</div>,
   Moon: () => <div data-testid="moon-icon">Moon</div>,
   Monitor: () => <div data-testid="monitor-icon">Monitor</div>,
+  Menu: () => <div data-testid="menu-icon">Menu</div>,
+  X: () => <div data-testid="x-icon">X</div>,
+  User: () => <div data-testid="user-icon">User</div>,
+  History: () => <div data-testid="history-icon">History</div>,
+  Star: () => <div data-testid="star-icon">Star</div>,
+}));
+
+// Mock next-auth
+vi.mock('next-auth/react', () => ({
+  useSession: vi.fn(() => ({ data: null, status: 'unauthenticated' })),
 }));
 
 // Mock useState
