@@ -1,100 +1,107 @@
-# CalcEmpire
+# 🏛️ CalcEmpire
 
-An advanced, multilingual, clean, and lightning-fast engineering calculators platform. Built with TypeScript on the skeleton of React 19, Next.js, and Tailwind CSS v4.
+[![Code Quality](https://github.com/your-username/calc-empire/actions/workflows/code-quality.yml/badge.svg)](https://github.com/your-username/calc-empire/actions/workflows/code-quality.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-blue)](https://react.dev/)
 
-This documentation (Developer Guide) is prepared for developers who want to create new tools on the platform and contribute to the codebase. If you are a user, check out the User Guide page, or if you are looking for proofs with formulas, check out the API/Formulas page.
+**CalcEmpire** is an advanced, multilingual, and ultra-fast engineering calculators platform designed for engineers and students. It is built upon a modern software architecture and high-precision mathematical models.
 
-## Project Setup
-1. Clone the repository to your computer and navigate into the folder.
-2. Install NPM packages:
-   ```bash
-   npm install
-   ```
-3. Boot up the development server and frontend engine (works without .env):
-   ```bash
-   npm run dev
-   ```
-4. Join the empire by visiting `http://localhost:3000` from your browser.
+---
 
-## How to Add a New Calculator (Tool)?
-The project has a highly modular structure. It is very easy to code a machine and plug it into the system:
+## 🚀 Key Features
 
-1. **Create a Component:** Navigate to an appropriate directory like `src/components/calculators/mechanical/` and create your own `MyGeniusTool.tsx` file. Build your calculation there.
+- **🌍 Multilingual Infrastructure:** 16+ languages supported (static type safety with next-intl).
+- **🧪 TDD (Test-Driven Development):** 300+ test cases written with a 100% accuracy target.
+- **🔗 Shareable State (URL State):** Instant sharing of calculation parameters via URL.
+- **⚡ Modern Architecture:** Lightning-fast performance with React 19, Next.js 15, and Tailwind CSS v4.
+- **📊 Visualization:** Interactive visualizers for Bode plots, beam deflection graphs, and resistor color codes.
+- **🔍 Smart Search:** Advanced category-based tool search system powered by Fuse.js.
 
-2. **Create a Config File:** Create `src/lib/calculators/myGeniusTool.tsx` with your calculator configuration:
-   ```ts
-   import type { CalculatorConfig } from '@/types';
-   
-   export const myGeniusToolConfig: CalculatorConfig = {
-     id: 'my-genius-tool',
-     titleKey: 'MyGeniusTool.title',
-     descriptionKey: 'MyGeniusTool.description',
-     visual: <svg>...</svg>,
-     fields: [
-       { key: 'input1', labelKey: 'MyGeniusTool.input1', units: [...] },
-       // ... more fields
-     ],
-     solverKey: 'myGeniusTool',
-   };
-   ```
+---
 
-3. **Create a Solver:** Create `src/lib/calculators/myGeniusTool.ts` with your calculation logic:
-   ```ts
-   import type { SolveFn, FieldValues, SolveResult } from '@/types';
-   
-   export const solve: SolveFn = (values: FieldValues): SolveResult => {
-     // Your calculation logic here
-     return { output1: result };
-   };
-   ```
+## 🛠️ Technology Stack
 
-4. **Register in Config:** Add your tool to `src/config/tools.config.ts`:
-   ```ts
-   { id: 'myGeniusTool', titleKey: 'myGeniusToolTitle', descKey: 'myGeniusToolDesc', catKey: 'mechanical', icon: 'M' }
-   ```
+- **Frontend:** React 19, Next.js 15 (App Router), Tailwind CSS v4
+- **Language:** TypeScript (Strict Type Safety)
+- **State Management:** Zustand, URL State Sync
+- **Testing:** Vitest, Playwright (E2E), Testing Library
+- **Internationalization:** next-intl
+- **Mathematics:** Big.js (High Precision), KaTeX (Formula Rendering)
+- **Quality & Automation:** Husky, lint-staged, ESLint, Prettier
 
-5. **Register Solver:** Add your solver to `src/lib/calculators/registry.ts`:
-   ```ts
-   import { solve as myGeniusToolSolve } from './myGeniusTool';
-   
-   export const SOLVER_REGISTRY: Record<string, SolveFn> = {
-     'myGeniusTool': myGeniusToolSolve,
-   };
-   ```
+---
 
-6. **Enter Multilingual (i18n) Codes:** Add your `myGeniusToolTitle` and `myGeniusToolDesc` texts into the `Dashboard` object in `src/messages/en.json` and other language files.
+## 🏗️ Architectural Structure
 
-That's it! The smart search algorithm (Fuse.js) will automatically find your calculator in every corner of the system.
+The project is built on a **Modular Registry Pattern**. This makes adding a new calculation tool possible in just a few minutes:
 
-## Tests
-Since this application is for engineers, there are extensive validation documents. You can run the Vitest infrastructure to confirm the accuracy of the calculators in the project locally:
+1.  **UI Component:** `src/components/calculators/`
+2.  **Configuration:** `src/lib/calculators/`
+3.  **Solver:** `src/lib/calculators/` (Pure functions, 100% testable)
+4.  **Registration:** `src/lib/calculators/registry.ts`
+
+---
+
+## 💻 Installation and Usage
+
+### Prerequisites
+- Node.js 18.x or higher
+- npm or pnpm
+
+### Quick Start
 ```bash
-npm run test
+# Clone the repository
+git clone https://github.com/your-username/calc-empire.git
+
+# Navigate to the folder
+cd calc-empire
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
 ```
-Vitest will output successful/unsuccessful (Pass/Fail) test reports for you via the console. The error tolerance is kept below `0.0001%`.
+Access the application at `http://localhost:3000`.
 
-## Translation System (next-intl)
-Translations throughout the application return via JSONs with static type support (`next-intl`). If you want to add new languages or change the texts of the application, all you have to do is update the text from `src/messages/en.json` or other language folders.
+---
 
-## Monitoring and Analytics Documentation
+## 🧪 Testing and Quality
 
-For detailed information about error tracking, performance monitoring, and analytics, see [MONITORING.md](./MONITORING.md).
+In engineering calculations, the margin of error is unacceptable. Therefore, the project follows strict testing rules:
 
-### Quick Setup
+```bash
+# Run unit tests (Vitest)
+npm run test
 
-1. Copy environment variables:
-   ```bash
-   cp .env.example .env.local
-   ```
+# Run E2E tests (Playwright)
+npm run test:e2e
 
-2. Add your Sentry DSN to `.env.local`:
-   ```env
-   NEXT_PUBLIC_SENTRY_DSN=your_sentry_dsn_here
-   ```
+# Check formatting
+npm run format:check
+```
 
-3. Analytics and Speed Insights are automatically enabled on Vercel deployments.
+For error margins and validation details, please review the [VALIDATION_REPORT.md](./docs/VALIDATION_REPORT.md) file.
 
-***
+---
 
-## DISCLAIMER
-**These tools are for educational purposes.** Please be sure to consult licensed simulation software in situations requiring serious structural formulas and decisions. Otherwise, crashes/liability cannot be accepted.
+## 🤝 Contributing
+
+Looking to add a new tool or fix a bug?
+1. Open a `feature` branch.
+2. Write your tests first (TDD).
+3. Develop your code.
+4. Ensure `npm run lint` and `npm run test` commands pass.
+5. Submit a Pull Request!
+
+---
+
+## 📜 License and Disclaimer
+
+This project is licensed under the **MIT License**.
+
+**⚠️ WARNING:** These tools are for educational purposes. For critical engineering decisions and official designs, please use licensed simulation software and obtain authorized engineering approval. No liability is accepted for any errors that may occur.
+
+---
+*Digitalizing engineering with CalcEmpire.*
