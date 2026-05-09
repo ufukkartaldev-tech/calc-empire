@@ -69,7 +69,7 @@ describe('Dark Mode', () => {
       const globalsPath = path.join(process.cwd(), 'src', 'app', 'globals.css');
       const content = fs.readFileSync(globalsPath, 'utf-8');
       expect(content).toContain('.dark');
-      expect(content).toContain('[data-theme="dark"]');
+      expect(content).toMatch(/\[data-theme=['"]dark['"]\]/);
       expect(content).toContain('--ce-bg:');
       expect(content).toContain('--ce-surface:');
       expect(content).toContain('--ce-text-primary:');
