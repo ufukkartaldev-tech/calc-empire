@@ -80,7 +80,11 @@
       "resistorCeoTitle": "Direnç Renk Kodu Hesaplayıcı - 4 5 6 Bant Okuyucu",
       "resistorCeoDesc": "Direnç renk kodlarını anında çözümleyin. 4 bant, 5 bant ve 6 bant direnç hesaplayıcı. Ohm değeri, tolerans ve sıcaklık katsayısı okuma. Elektronikçiler ve hobi elektroniği için pratik araç.",
       "bodeCeoTitle": "Bode Grafiği Hesaplayıcı - Frekans Tepkisi Analizi",
-      "bodeCeoDesc": "Alçak geçiren ve yüksek geçiren filtreler için Bode genlik ve faz grafiklerini oluşturun. Kesim frekansı ve dB kazancı hesaplayın. Kontrol sistemleri ve elektronik devre tasarımı için profesyonel görselleştirme aracı."
+      "bodeCeoDesc": "Alçak geçiren ve yüksek geçiren filtreler için Bode genlik ve faz grafiklerini oluşturun. Kesim frekansı ve dB kazancı hesaplayın. Kontrol sistemleri ve elektronik devre tasarımı için profesyonel görselleştirme aracı.",
+      "capacitorChargeTitle": "Kapasitör Şarj/Deşarj",
+      "capacitorChargeDesc": "Kapasitör geçici rejim analizi.",
+      "capacitorChargeCeoTitle": "Kapasitör Şarj Hesaplayıcı - RC Zaman Sabiti",
+      "capacitorChargeCeoDesc": "RC devrelerinde kapasitörün şarj ve deşarj voltajını zaman içinde hesaplayın. Zaman sabiti (tau) ve anlık voltaj değerleri analizi. Elektronik devre tasarımı için pratik araç."
     },
     "software": {
       "baseConverterTitle": "Taban Dönüştürücü",
@@ -118,7 +122,11 @@
       "stressStrainCeoTitle": "Gerilme Şekil Değiştirme - Young Modülü Hesaplayıcı",
       "stressStrainCeoDesc": "Malzemelerin gerilme (stress), şekil değiştirme (strain) ve Young modülünü hesaplayın. Kuvvet, alan ve uzama miktarı analizi. Malzeme bilimi ve mukavemet dersleri için ideal araç.",
       "shearMomentCeoTitle": "Kesme Moment Diyagramı Çizici - BMD ve SFD",
-      "shearMomentCeoDesc": "Kirişler üzerindeki kesme kuvveti (SFD) ve eğilme momenti (BMD) diyagramlarını görselleştirin. Mesnet tepkileri ve maksimum moment noktalarını anında hesaplayın."
+      "shearMomentCeoDesc": "Kirişler üzerindeki kesme kuvveti (SFD) ve eğilme momenti (BMD) diyagramlarını görselleştirin. Mesnet tepkileri ve maksimum moment noktalarını anında hesaplayın.",
+      "springConstantTitle": "Yay Sabiti Hesaplayıcı",
+      "springConstantDesc": "Hooke Yasası (F = kx) hesaplamaları.",
+      "springConstantCeoTitle": "Yay Sabiti Hesaplayıcı - Hooke Yasası Çözücü",
+      "springConstantCeoDesc": "Kuvvet, yay sabiti ve sıkışma/uzama miktarı arasındaki ilişkiyi Hooke Yasası ile hesaplayın. Mekanik tasarım ve fizik problemleri için pratik yay hesaplayıcı."
     },
     "chemistry": {
       "periodicTableTitle": "Periyodik Tablo",
@@ -126,7 +134,11 @@
       "periodicTableCeoTitle": "Etkileşimli Periyodik Tablo - 118 Element",
       "periodicTableCeoDesc": "Atomik kütle, elektron konfigürasyonu, erime noktası ve keşif bilgileriyle tüm 118 kimyasal elementi keşfedin. Öğrenciler ve kimyagerler için ideal.",
       "idealGasCeoTitle": "İdeal Gas Yasası Hesaplayıcı - PV=nRT Çözücü",
-      "idealGasCeoDesc": "Basınç, hacim, madde miktarı ve sıcaklık arasındaki ilişkiyi İdeal Gaz Denklemi ile hesaplayın. Kimya ve termodinamik problemleri için hızlı ve hassas gaz yasası çözücü."
+      "idealGasCeoDesc": "Basınç, hacim, madde miktarı ve sıcaklık arasındaki ilişkiyi İdeal Gaz Denklemi ile hesaplayın. Kimya ve termodinamik problemleri için hızlı ve hassas gaz yasası çözücü.",
+      "molarityTitle": "Molarite Hesaplayıcı",
+      "molarityDesc": "Çözelti derişimi hesaplamaları.",
+      "molarityCeoTitle": "Molarite Hesaplayıcı - Çözelti Konsantrasyonu",
+      "molarityCeoDesc": "Molarite, mol sayısı ve çözelti hacmi hesaplamalarını anında yapın. Kimya laboratuvarı ve akademik çalışmalar için hassas konsantrasyon çözücü."
     },
     "fluid": {
       "bernoulliCeoTitle": "Bernoulli Denklemi Hesaplayıcı - Akışkanlar Mekaniği",
@@ -152,7 +164,11 @@
       "geometryCeoTitle": "Geometri Hesaplayıcı - Alan Çevre Hacim",
       "geometryCeoDesc": "Kare, dikdörtgen, daire, üçgen, prizma, silindir ve küre gibi geometrik şekillerin alan, çevre ve hacim hesaplamalarını yapın. Geometri dersi öğrencileri ve mühendisler için kapsamlı araç.",
       "functionPlotCeoTitle": "Fonksiyon Çizici - İnteraktif Grafik Lab",
-      "functionPlotCeoDesc": "Matematiksel fonksiyonları koordinat sisteminde çizdirin ve analiz edin. Kökler, kesim noktaları ve değişimleri görselleştirin. Matematik eğitimi ve analiz için etkileşimli grafik aracı."
+      "functionPlotCeoDesc": "Matematiksel fonksiyonları koordinat sisteminde çizdirin ve analiz edin. Kökler, kesim noktaları ve değişimleri görselleştirin. Matematik eğitimi ve analiz için etkileşimli grafik aracı.",
+      "quadraticSolverTitle": "İkinci Derece Denklem",
+      "quadraticSolverDesc": "ax² + bx + c = 0 çözücü.",
+      "quadraticSolverCeoTitle": "İkinci Dereceden Denklem Çözücü - Kök Bulma",
+      "quadraticSolverCeoDesc": "İkinci dereceden denklemlerin köklerini (x1, x2) ve diskriminantını anında hesaplayın. Matematik ve mühendislik problemleri için hızlı çözüm aracı."
     },
     "converters": {
       "unitConverterCeoTitle": "Birim Dönüştürücü - Mühendislik Birim Çeviri",
@@ -604,6 +620,36 @@
     "at": "Saatinde",
     "on": "Gününde",
     "between": "Arasında"
+  },
+  "QuadraticSolver": {
+    "title": "İkinci Derece Denklem",
+    "description": "ax² + bx + c = 0",
+    "a": "Katsayı a",
+    "b": "Katsayı b",
+    "c": "Katsayı c"
+  },
+  "Molarity": {
+    "title": "Molarite Hesaplayıcı",
+    "description": "M = n / V",
+    "molarity": "Molarite (M)",
+    "moles": "Mol Sayısı (n)",
+    "volume": "Çözelti Hacmi (V)"
+  },
+  "CapacitorTransient": {
+    "title": "Kapasitör Şarj/Deşarj",
+    "description": "Zamana bağlı voltaj analizi",
+    "v0": "Kaynak Gerilimi (V₀)",
+    "r": "Direnç (R)",
+    "c": "Kapasitans (C)",
+    "t": "Zaman (t)",
+    "mode": "Çalışma Modu"
+  },
+  "SpringConstant": {
+    "title": "Yay Sabiti (Hooke)",
+    "description": "F = k × x",
+    "force": "Kuvvet (F)",
+    "k": "Yay Sabiti (k)",
+    "displacement": "Sıkışma/Uzama (x)"
   },
   "JsonFormatter": {
     "title": "JSON Formatlayıcı",

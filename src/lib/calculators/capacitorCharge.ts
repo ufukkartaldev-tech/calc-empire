@@ -30,18 +30,39 @@ export const capacitorChargeConfig: CalculatorConfig = {
   descriptionKey: 'CapacitorTransient.description',
   fields: [
     { key: 'v0', labelKey: 'CapacitorTransient.v0', units: [{ label: 'V', symbol: '' }] },
-    { key: 'r', labelKey: 'CapacitorTransient.r', units: [{ label: 'Ω', symbol: '' }, { label: 'kΩ', symbol: 'k' }] },
-    { key: 'c', labelKey: 'CapacitorTransient.c', units: [{ label: 'F', symbol: '' }, { label: 'μF', symbol: 'u' }] },
-    { key: 't', labelKey: 'CapacitorTransient.t', units: [{ label: 's', symbol: '' }, { label: 'ms', symbol: 'm' }] },
-    { 
-      key: 'mode', 
-      labelKey: 'CapacitorTransient.mode', 
-      type: 'select', 
+    {
+      key: 'r',
+      labelKey: 'CapacitorTransient.r',
+      units: [
+        { label: 'Ω', symbol: '' },
+        { label: 'kΩ', symbol: 'k' },
+      ],
+    },
+    {
+      key: 'c',
+      labelKey: 'CapacitorTransient.c',
+      units: [
+        { label: 'F', symbol: '' },
+        { label: 'μF', symbol: 'u' },
+      ],
+    },
+    {
+      key: 't',
+      labelKey: 'CapacitorTransient.t',
+      units: [
+        { label: 's', symbol: '' },
+        { label: 'ms', symbol: 'm' },
+      ],
+    },
+    {
+      key: 'mode',
+      labelKey: 'CapacitorTransient.mode',
+      type: 'select',
       options: [
         { label: 'Charging', value: 1 },
-        { label: 'Discharging', value: 0 }
+        { label: 'Discharging', value: 0 },
       ],
-      units: []
+      units: [],
     },
   ],
   solverKey: 'capacitorCharge',

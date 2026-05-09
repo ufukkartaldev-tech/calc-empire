@@ -133,7 +133,8 @@
     "quadraticSolverCeoTitle": "Quadratic Equation Solver - Root Finder",
     "quadraticSolverCeoDesc": "Calculate roots (x1, x2) and discriminant of quadratic equations instantly. Fast solving tool for mathematics and engineering problems."
   },
-  "converters": { "unitConverterCeoTitle": "Unit Converter - Engineering Unit Conversion",
+  "converters": {
+    "unitConverterCeoTitle": "Unit Converter - Engineering Unit Conversion",
     "unitConverterCeoDesc": "Convert units across 12+ categories including length, mass, temperature, pressure, and energy. Precise and comprehensive unit converter for engineering and scientific calculations."
   },
   "ResistorVisualizer": {

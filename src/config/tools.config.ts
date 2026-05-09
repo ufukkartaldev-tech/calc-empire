@@ -57,6 +57,15 @@ export const TOOLS_CONFIG: ToolConfig[] = [
     icon: '📈',
     features: { shareableUrl: true, pdfExport: true },
   },
+  {
+    id: 'capacitorCharge',
+    titleKey: 'capacitorChargeTitle',
+    descKey: 'capacitorChargeDesc',
+    ceoTitleKey: 'capacitorChargeCeoTitle',
+    ceoDescKey: 'capacitorChargeCeoDesc',
+    catKey: 'electrical',
+    icon: '🔋',
+  },
 
   // Software
   {
@@ -157,6 +166,15 @@ export const TOOLS_CONFIG: ToolConfig[] = [
     catKey: 'mechanical',
     icon: '✂️',
   },
+  {
+    id: 'springConstant',
+    titleKey: 'springConstantTitle',
+    descKey: 'springConstantDesc',
+    ceoTitleKey: 'springConstantCeoTitle',
+    ceoDescKey: 'springConstantCeoDesc',
+    catKey: 'mechanical',
+    icon: '➰',
+  },
 
   // Chemistry
   {
@@ -176,6 +194,15 @@ export const TOOLS_CONFIG: ToolConfig[] = [
     ceoDescKey: 'idealGasCeoDesc',
     catKey: 'chemistry',
     icon: '💨',
+  },
+  {
+    id: 'molarity',
+    titleKey: 'molarityTitle',
+    descKey: 'molarityDesc',
+    ceoTitleKey: 'molarityCeoTitle',
+    ceoDescKey: 'molarityCeoDesc',
+    catKey: 'chemistry',
+    icon: '⚗️',
   },
 
   // Fluid
@@ -272,6 +299,15 @@ export const TOOLS_CONFIG: ToolConfig[] = [
     ceoDescKey: 'functionPlotCeoDesc',
     catKey: 'mathematics',
     icon: '📈',
+  },
+  {
+    id: 'quadraticSolver',
+    titleKey: 'quadraticSolverTitle',
+    descKey: 'quadraticSolverDesc',
+    ceoTitleKey: 'quadraticSolverCeoTitle',
+    ceoDescKey: 'quadraticSolverCeoDesc',
+    catKey: 'mathematics',
+    icon: '²',
   },
 
   // Converters

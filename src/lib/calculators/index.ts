@@ -36,3 +36,7 @@ export { solve as functionPlotSolve } from './functionPlot';
 export { solve as compoundInterestSolve } from './compoundInterest';
 export { solve as cryptoPnlSolve } from './cryptoPnl';
 export { solve as unitConverterSolve } from './unitConverter';
+export { solve as quadraticSolverSolve } from './quadraticSolver';
+export { solve as molaritySolve } from './molarity';
+export { solve as capacitorChargeSolve } from './capacitorCharge';
+export { solve as springConstantSolve } from './springConstant';

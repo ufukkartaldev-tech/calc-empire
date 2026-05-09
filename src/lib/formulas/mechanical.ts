@@ -126,3 +126,25 @@ export function thermalExpansion({ L0, alpha, deltaT }: ThermalExpansionParams) 
 
   return { deltaL: deltaL.toNumber(), Lfinal: Lfinal.toNumber() };
 }
+
+/**
+ * Calculates Hooke's Law (F = k * x)
+ */
+export function hookesLaw(params: { force?: number; k?: number; displacement?: number }): {
+  force?: number;
+  k?: number;
+  displacement?: number;
+} {
+  const { force, k, displacement } = params;
+
+  if (force === undefined && k !== undefined && displacement !== undefined) {
+    return { force: k * displacement };
+  }
+  if (k === undefined && force !== undefined && displacement !== undefined && displacement !== 0) {
+    return { k: force / displacement };
+  }
+  if (displacement === undefined && force !== undefined && k !== undefined && k !== 0) {
+    return { displacement: force / k };
+  }
+  return {};
+}

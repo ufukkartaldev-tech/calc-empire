@@ -376,6 +376,28 @@ function gaussianElimination(matrix: Big[][], constants: Big[]): Big[] {
   return result;
 }
 
+/**
+ * Calculates capacitor charge/discharge voltage
+ * V(t) = V0 * (1 - e^(-t/RC)) for charging
+ * V(t) = V0 * e^(-t/RC) for discharging
+ */
+export function capacitorTransient(params: {
+  v0: number;
+  r: number;
+  c: number;
+  t: number;
+  mode: 'charging' | 'discharging';
+}): number {
+  const rc = params.r * params.c;
+  if (rc === 0) return params.mode === 'charging' ? params.v0 : 0;
+
+  if (params.mode === 'charging') {
+    return params.v0 * (1 - Math.exp(-params.t / rc));
+  } else {
+    return params.v0 * Math.exp(-params.t / rc);
+  }
+}
+
 interface Kirchhoff2LoopParams {
   V1: number;
   V2: number;

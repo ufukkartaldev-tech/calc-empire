@@ -63,6 +63,10 @@ const SOLVER_MAP: Record<string, keyof typeof solvers> = {
   compoundInterest: 'compoundInterestSolve',
   cryptoPnl: 'cryptoPnlSolve',
   unitConverter: 'unitConverterSolve',
+  quadraticSolver: 'quadraticSolverSolve',
+  molarity: 'molaritySolve',
+  capacitorCharge: 'capacitorChargeSolve',
+  springConstant: 'springConstantSolve',
 };
 
 /**

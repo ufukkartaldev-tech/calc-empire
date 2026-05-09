@@ -29,9 +29,24 @@ export const quadraticSolverConfig: CalculatorConfig = {
   titleKey: 'Dashboard.quadraticSolverTitle',
   descriptionKey: 'Dashboard.quadraticSolverDesc',
   fields: [
-    { key: 'a', labelKey: 'QuadraticSolver.a', placeholderKey: 'QuadraticSolver.aPlaceholder', units: [{ label: '', symbol: '' }] },
-    { key: 'b', labelKey: 'QuadraticSolver.b', placeholderKey: 'QuadraticSolver.bPlaceholder', units: [{ label: '', symbol: '' }] },
-    { key: 'c', labelKey: 'QuadraticSolver.c', placeholderKey: 'QuadraticSolver.cPlaceholder', units: [{ label: '', symbol: '' }] },
+    {
+      key: 'a',
+      labelKey: 'QuadraticSolver.a',
+      placeholderKey: 'QuadraticSolver.aPlaceholder',
+      units: [{ label: '', symbol: '' }],
+    },
+    {
+      key: 'b',
+      labelKey: 'QuadraticSolver.b',
+      placeholderKey: 'QuadraticSolver.bPlaceholder',
+      units: [{ label: '', symbol: '' }],
+    },
+    {
+      key: 'c',
+      labelKey: 'QuadraticSolver.c',
+      placeholderKey: 'QuadraticSolver.cPlaceholder',
+      units: [{ label: '', symbol: '' }],
+    },
   ],
   solverKey: 'quadraticSolver',
 };

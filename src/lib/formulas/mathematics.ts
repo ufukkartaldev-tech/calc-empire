@@ -24,7 +24,6 @@ export function evaluateFunction(expr: string, x: number): number {
     // This is a simple regex that replaces 'x' not preceded or followed by other letters
     safeExpr = safeExpr.replace(/(?<![a-z])x(?![a-z])/g, `(${x})`);
 
-    // eslint-disable-next-line no-new-func
     const result = new Function(`return ${safeExpr}`)();
     return typeof result === 'number' ? result : NaN;
   } catch {
@@ -97,6 +96,23 @@ export function generatePlotPoints(
   }
 
   return points;
+}
+
+/**
+ * Solves a quadratic equation ax^2 + bx + c = 0
+ */
+export function solveQuadratic(
+  a: number,
+  b: number,
+  c: number
+): { x1: number | null; x2: number | null; discriminant: number } {
+  const disc = b * b - 4 * a * c;
+  if (disc < 0) {
+    return { x1: null, x2: null, discriminant: disc };
+  }
+  const x1 = (-b + Math.sqrt(disc)) / (2 * a);
+  const x2 = (-b - Math.sqrt(disc)) / (2 * a);
+  return { x1, x2, discriminant: disc };
 }
 
 /**
