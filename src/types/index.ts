@@ -72,6 +72,12 @@ export interface CalculatorConfig {
   guideKey?: string;
   /** Optional i18n key for reference links / external sources. */
   referenceKey?: string;
+  /**
+   * Calculation mode:
+   * - 'solveUnknown': (Default) Exactly one field must be blank to solve for it.
+   * - 'calculateAll': All fields are treated as inputs; results are displayed separately.
+   */
+  calculationMode?: 'solveUnknown' | 'calculateAll';
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -106,7 +112,11 @@ export type ToolId =
   | 'functionPlot'
   | 'compoundInterest'
   | 'cryptoPnl'
-  | 'unitConverter';
+  | 'unitConverter'
+  | 'capacitorCharge'
+  | 'molarity'
+  | 'springConstant'
+  | 'quadraticSolver';
 
 /** Nullable variant for state management (avoids null in ToolId union) */
 export type NullableToolId = ToolId | null;

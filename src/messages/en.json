@@ -11,8 +11,10 @@
     "resetButton": "Reset",
     "calculatedBadge": "Calculated",
     "errorAllFilled": "Leave exactly one field blank to solve for the unknown.",
-    "errorTooManyUnknowns": "Please fill in all but one field."
+    "errorTooManyUnknowns": "Please fill in all but one field.",
+    "errorMissingInputs": "Please fill in all input fields."
   },
+
   "OhmCalculator": {
     "title": "Ohm's Law",
     "description": "V = I × R",
@@ -182,8 +184,14 @@
     "mesh2": "Loop 2 Current (I₂)",
     "middle": "Branch Current (I₃)",
     "errorInvalid": "Could not solve \u2014 check your values.",
-    "errorZero": "Resistor values must be greater than zero."
+    "errorZero": "Resistor values must be greater than zero.",
+    "kirchhoff-laws": {
+      "I1": "Loop 1 Current (I₁)",
+      "I2": "Loop 2 Current (I₂)",
+      "I3": "Branch Current (I₃)"
+    }
   },
+
   "PowerCalculator": {
     "title": "AC Power Calculator",
     "description": "Calculate apparent, active, and reactive power from voltage, current, and phase angle.",

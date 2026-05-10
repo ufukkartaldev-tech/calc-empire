@@ -227,8 +227,10 @@
     "resetButton": "Sıfırla",
     "calculatedBadge": "Hesaplandı",
     "errorAllFilled": "Bilinmeyeni çözmek için tam olarak bir alanı boş bırakın.",
-    "errorTooManyUnknowns": "Lütfen bir alan dışında hepsini doldurun."
+    "errorTooManyUnknowns": "Lütfen bir alan dışında hepsini doldurun.",
+    "errorMissingInputs": "Lütfen tüm giriş alanlarını doldurun."
   },
+
   "OhmCalculator": {
     "title": "Ohm Yasası",
     "description": "V = I × R",
@@ -376,8 +378,14 @@
     "mesh2": "Döngü 2 Akımı (I₂)",
     "middle": "Dal Akımı (I₃)",
     "errorInvalid": "Çözülemedi \u2014 değerleri kontrol edin.",
-    "errorZero": "Direnç değerleri sıfırdan büyük olmalıdır."
+    "errorZero": "Direnç değerleri sıfırdan büyük olmalıdır.",
+    "kirchhoff-laws": {
+      "I1": "Döngü 1 Akımı (I₁)",
+      "I2": "Döngü 2 Akımı (I₂)",
+      "I3": "Dal Akımı (I₃)"
+    }
   },
+
   "PowerCalculator": {
     "title": "AC Güç Hesaplayıcı",
     "description": "Gerilim, akım ve faz açısından görünür, aktif ve reaktif gücü hesaplayın.",

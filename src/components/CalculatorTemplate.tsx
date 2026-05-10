@@ -92,17 +92,29 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
 
     const values: FieldValues = parseFieldValues(calculatorData.fields, config);
 
+    const calculationMode = config.calculationMode || 'solveUnknown';
     const filledCount = Object.values(values).filter((v) => v.value !== null).length;
     const totalFields = config.fields.length;
     const unknownCount = totalFields - filledCount;
 
-    if (unknownCount !== 1) {
+    if (calculationMode === 'solveUnknown' && unknownCount !== 1) {
       const msg =
         unknownCount === 0
           ? t('CalculatorTemplate.errorAllFilled')
           : t('CalculatorTemplate.errorTooManyUnknowns');
       const errorInfo: ErrorDisplayInfo = {
         message: msg,
+        severity: ErrorSeverity.LOW,
+        isUserError: true,
+      };
+      setError(errorInfo);
+      useCalculatorStore.getState().clearResult(calculatorKey);
+      return;
+    }
+
+    if (calculationMode === 'calculateAll' && unknownCount > 0) {
+      const errorInfo: ErrorDisplayInfo = {
+        message: t('CalculatorTemplate.errorMissingInputs'),
         severity: ErrorSeverity.LOW,
         isUserError: true,
       };
@@ -249,6 +261,27 @@ function CalculatorTemplateContent({
               />
             ))}
           </div>
+
+          {/* Separate Results Display (for calculateAll mode or non-field results) */}
+          {state.result && (
+            <div className="mb-8 space-y-4">
+              {Object.entries(state.result)
+                .filter(([key]) => !config.fields.some((f) => f.key === key))
+                .map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="p-4 bg-blue-600/5 border border-blue-600/20 rounded-lg flex justify-between items-center"
+                  >
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                      {t(`${config.id}.${key}` as TranslationKey) || key}
+                    </span>
+                    <span className="font-geist-mono font-bold text-blue-500">
+                      {formatResult(value)}
+                    </span>
+                  </div>
+                ))}
+            </div>
+          )}
 
           <CalculatorError errorInfo={error} onDismiss={onDismissError} />
 
