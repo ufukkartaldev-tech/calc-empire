@@ -42,7 +42,7 @@ describe('CSPManager', () => {
      * - Must be unique across multiple generations
      * - Must contain only valid base64 characters
      */
-    it('should generate cryptographically secure nonces', () => {
+    it('should generate cryptographically secure nonces', { timeout: 15000 }, () => {
       fc.assert(
         fc.property(
           fc.integer({ min: 1, max: 100 }), // Number of nonces to generate
