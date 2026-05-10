@@ -5,7 +5,7 @@
 
 import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
-import { calculateBernoulli } from '@/lib/formulas/fluid';
+import { calculateBernoulli, type BernoulliParams } from '@/lib/formulas/fluid';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function
@@ -15,12 +15,14 @@ export const solve = (values: FieldValues): SolveResult => {
   const rho = values.rho?.value ?? 1000;
   const g = values.g?.value ?? 9.80665;
 
-  const params: Record<string, number> = { rho, g };
-  const keys = ['p1', 'v1', 'h1', 'p2', 'v2', 'h2'];
+  const params: BernoulliParams = { rho, g };
+  const keys = ['p1', 'v1', 'h1', 'p2', 'v2', 'h2'] as const;
 
   keys.forEach((k) => {
     const val = values[k]?.value;
-    if (val !== null) params[k] = val;
+    if (val !== null) {
+      params[k] = val;
+    }
   });
 
   const result = calculateBernoulli(params);
