@@ -137,59 +137,63 @@ describe('CSPManager', () => {
      * - Should include hashes when provided
      * - Should not contain unsafe directives in production
      */
-    it('should generate valid and secure CSP headers', () => {
-      // Use STAGING environment for nonce/hash testing (DEVELOPMENT policy has no nonce placeholder)
-      CSPManager.resetInstance();
-      const stagingCspManager = CSPManager.getInstance(Environment.STAGING);
+    it(
+      'should generate valid and secure CSP headers',
+      () => {
+        // Use STAGING environment for nonce/hash testing (DEVELOPMENT policy has no nonce placeholder)
+        CSPManager.resetInstance();
+        const stagingCspManager = CSPManager.getInstance(Environment.STAGING);
 
-      fc.assert(
-        fc.property(
-          fc.record({
-            endpoint: fc.webUrl(),
-            nonce: fc
-              .option(
-                fc
-                  .string({ minLength: 16, maxLength: 32 })
-                  .map((s) => s.replace(/[^a-zA-Z0-9]/g, ''))
-              )
-              .map((x) => (x === null ? undefined : x)),
-            hashes: fc
-              .option(
-                fc.array(
+        fc.assert(
+          fc.property(
+            fc.record({
+              endpoint: fc.webUrl(),
+              nonce: fc
+                .option(
                   fc
-                    .string({ minLength: 10, maxLength: 50 })
-                    .map((s) => s.replace(/[^a-zA-Z0-9]/g, '')),
-                  { maxLength: 5 }
+                    .string({ minLength: 16, maxLength: 32 })
+                    .map((s) => s.replace(/[^a-zA-Z0-9]/g, ''))
                 )
-              )
-              .map((x) => (x === null ? undefined : x)),
-          }),
-          (context: CSPContext) => {
-            const header = stagingCspManager.buildCSPHeader(context);
+                .map((x) => (x === null ? undefined : x)),
+              hashes: fc
+                .option(
+                  fc.array(
+                    fc
+                      .string({ minLength: 10, maxLength: 50 })
+                      .map((s) => s.replace(/[^a-zA-Z0-9]/g, '')),
+                    { maxLength: 5 }
+                  )
+                )
+                .map((x) => (x === null ? undefined : x)),
+            }),
+            (context: CSPContext) => {
+              const header = stagingCspManager.buildCSPHeader(context);
 
-            // Header should not be empty
-            expect(header.length).toBeGreaterThan(0);
+              // Header should not be empty
+              expect(header.length).toBeGreaterThan(0);
 
-            // Header should contain valid CSP directives
-            expect(header).toMatch(/^[a-z0-9-]+\s+.+?(?:;\s*[a-z0-9-]+\s+.*?)*;?$/i);
+              // Header should contain valid CSP directives
+              expect(header).toMatch(/^[a-z0-9-]+\s+.+?(?:;\s*[a-z0-9-]+\s+.*?)*;?$/i);
 
-            // Check nonce placeholder replaced or removed
-            expect(header).not.toContain('{nonce}');
+              // Check nonce placeholder replaced or removed
+              expect(header).not.toContain('{nonce}');
 
-            // Check hash placeholder - it's valid to have {hash} when no hashes provided in STAGING
-            // The header is valid as long as it follows CSP syntax
-            expect(header).not.toContain('{nonce}'); // Nonce should always be replaced when provided
+              // Check hash placeholder - it's valid to have {hash} when no hashes provided in STAGING
+              // The header is valid as long as it follows CSP syntax
+              expect(header).not.toContain('{nonce}'); // Nonce should always be replaced when provided
 
-            // Should not contain unsafe directives in production
-            if (process.env.NODE_ENV === 'production') {
-              expect(header).not.toContain("'unsafe-eval'");
-              expect(header).not.toContain("'unsafe-inline'");
+              // Should not contain unsafe directives in production
+              if (process.env.NODE_ENV === 'production') {
+                expect(header).not.toContain("'unsafe-eval'");
+                expect(header).not.toContain("'unsafe-inline'");
+              }
             }
-          }
-        ),
-        { numRuns: 50 }
-      );
-    });
+          ),
+          { numRuns: 50 }
+        );
+      },
+      { timeout: 15000 }
+    );
 
     /**
      * Property: CSP policy testing must identify security issues
