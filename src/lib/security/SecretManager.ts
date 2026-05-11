@@ -1,10 +1,6 @@
 /**
  * @file lib/security/SecretManager.ts
- * @description Secret management service with environment-specific loading and rotation
- *
- * This service provides secure secret management with support for different
- * secret sources (environment variables, vault, AWS Secrets Manager) and
- * automatic rotation capabilities.
+ * @description Simplified secret management service focusing on environment variables
  */
 
 import {
@@ -16,12 +12,6 @@ import {
   SecurityError,
   SecuritySeverity,
 } from './types';
-import { createSecurityEvent } from './utils/monitoring';
-import { SecurityEventType } from './types';
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Secret Manager Implementation
-// ─────────────────────────────────────────────────────────────────────────────
 
 export class SecretManager implements ISecretManager {
   private static instance: SecretManager | null = null;
@@ -53,29 +43,14 @@ export class SecretManager implements ISecretManager {
   }
 
   /**
-   * Load secrets from the configured source based on environment
+   * Load secrets from environment variables
    */
   public async loadSecrets(environment: Environment): Promise<SecretStore> {
     try {
       this.environment = environment;
 
-      switch (this.config.provider) {
-        case 'env':
-          this.secretStore = await this.loadFromEnvironment();
-          break;
-        case 'vault':
-          this.secretStore = await this.loadFromVault();
-          break;
-        case 'aws-secrets':
-          this.secretStore = await this.loadFromAWSSecrets();
-          break;
-        default:
-          throw new SecurityError(
-            `Unsupported secret provider: ${this.config.provider}`,
-            'UNSUPPORTED_SECRET_PROVIDER',
-            SecuritySeverity.HIGH
-          );
-      }
+      // Load secrets from environment
+      this.secretStore = await this.loadFromEnvironment();
 
       // Validate that all required secrets are present
       const validation = await this.validateSecrets();
@@ -87,27 +62,9 @@ export class SecretManager implements ISecretManager {
         );
       }
 
-      // Log successful secret loading
-      this.auditSecretAccess('SECRET_STORE_LOADED', 'SecretManager');
-
       return this.secretStore;
     } catch (error) {
-      // Log security event for failed secret loading
-      const securityEvent = createSecurityEvent(
-        SecurityEventType.SECRET_ACCESS,
-        SecuritySeverity.HIGH,
-        'SecretManager',
-        {
-          action: 'load_secrets',
-          environment,
-          provider: this.config.provider,
-          error: error instanceof Error ? error.message : 'Unknown error',
-        }
-      );
-
-      // In a real implementation, this would be sent to the audit logger
-      console.error('Secret loading failed:', securityEvent);
-
+      console.error('Secret loading failed:', error);
       throw error;
     }
   }
@@ -124,9 +81,6 @@ export class SecretManager implements ISecretManager {
       );
     }
 
-    // Log secret access for audit purposes
-    this.auditSecretAccess(key, 'getSecret');
-
     // Check all secret categories
     const allSecrets = {
       ...this.secretStore.apiKeys,
@@ -135,72 +89,20 @@ export class SecretManager implements ISecretManager {
       ...this.secretStore.encryptionKeys,
     };
 
-    return allSecrets[key] || null;
+    const value = allSecrets[key] || null;
+    if (value) {
+      this.auditSecretAccess(key, 'getSecret');
+    }
+
+    return value;
   }
 
   /**
-   * Rotate a specific secret (placeholder implementation)
+   * Reload secrets from environment
    */
-  public async rotateSecret(key: string): Promise<void> {
-    if (!this.config.rotationEnabled) {
-      throw new SecurityError(
-        'Secret rotation is not enabled in configuration',
-        'SECRET_ROTATION_DISABLED',
-        SecuritySeverity.MEDIUM
-      );
-    }
-
-    if (!this.secretStore) {
-      throw new SecurityError(
-        'Secret store not loaded. Call loadSecrets() first.',
-        'SECRET_STORE_NOT_LOADED',
-        SecuritySeverity.HIGH
-      );
-    }
-
-    try {
-      // Log rotation attempt
-      this.auditSecretAccess(key, 'rotateSecret');
-
-      // In a real implementation, this would:
-      // 1. Generate new secret value
-      // 2. Update the secret in the provider (vault, AWS, etc.)
-      // 3. Update local cache
-      // 4. Notify dependent services
-      // 5. Schedule old secret deprecation
-
-      // For now, we'll simulate the rotation
-      await this.simulateSecretRotation(key);
-
-      // Log successful rotation
-      const securityEvent = createSecurityEvent(
-        SecurityEventType.SECRET_ACCESS,
-        SecuritySeverity.MEDIUM,
-        'SecretManager',
-        {
-          action: 'rotate_secret',
-          key,
-          environment: this.environment,
-          timestamp: new Date().toISOString(),
-        }
-      );
-
-      console.info('Secret rotated successfully:', securityEvent);
-    } catch (error) {
-      const securityEvent = createSecurityEvent(
-        SecurityEventType.SECRET_ACCESS,
-        SecuritySeverity.HIGH,
-        'SecretManager',
-        {
-          action: 'rotate_secret_failed',
-          key,
-          error: error instanceof Error ? error.message : 'Unknown error',
-        }
-      );
-
-      console.error('Secret rotation failed:', securityEvent);
-      throw error;
-    }
+  public async rotateSecret(_key: string): Promise<void> {
+    // For environment variables, "rotation" just means reloading
+    await this.loadSecrets(this.environment);
   }
 
   /**
@@ -225,36 +127,11 @@ export class SecretManager implements ISecretManager {
       if (!secret) {
         errors.push(`Required secret missing: ${requiredSecret}`);
       } else {
-        // Mantık Kontrolü: Boşluk, özel karakter ve zayıf pattern kontrolleri
         const trimmed = secret.trim();
-
         if (trimmed.length === 0) {
-          errors.push(`Secret '${requiredSecret}' is empty or contains only whitespace`);
+          errors.push(`Secret '${requiredSecret}' is empty`);
         } else if (trimmed.length < 8) {
-          warnings.push(`Secret '${requiredSecret}' appears to be too short (min 8 chars)`);
-        }
-
-        // Özel karakter yoğunluğu kontrolü (örnek: sadece boşluk veya kontrol karakterleri)
-        if (/^[\s\x00-\x1F\x7F]+$/.test(secret)) {
-          errors.push(`Secret '${requiredSecret}' contains only whitespace or control characters`);
-        }
-
-        // Zayıf pattern kontrolü (örnek: "password", "123456")
-        const weakPatterns = ['password', '123456', 'qwerty', 'admin'];
-        if (weakPatterns.includes(trimmed.toLowerCase())) {
-          warnings.push(`Secret '${requiredSecret}' uses a very weak common pattern`);
-        }
-      }
-    }
-
-    // Environment-specific validations
-    if (this.environment === Environment.PRODUCTION) {
-      // In production, ensure no development secrets are present
-      const devSecrets = ['DEV_API_KEY', 'TEST_SECRET', 'DEBUG_TOKEN'];
-      for (const devSecret of devSecrets) {
-        const secret = await this.getSecret(devSecret);
-        if (secret) {
-          warnings.push(`Development secret found in production: ${devSecret}`);
+          warnings.push(`Secret '${requiredSecret}' is very short`);
         }
       }
     }
@@ -267,63 +144,28 @@ export class SecretManager implements ISecretManager {
   }
 
   /**
-   * Audit secret access for security monitoring
+   * Simple audit logging
    */
   public auditSecretAccess(key: string, accessor: string): void {
-    const accessEntry = {
+    this.accessLog.push({
       key,
       accessor,
       timestamp: new Date(),
-    };
+    });
 
-    this.accessLog.push(accessEntry);
-
-    // Keep only last 1000 access entries
-    if (this.accessLog.length > 1000) {
+    if (this.accessLog.length > 100) {
       this.accessLog.shift();
-    }
-
-    // Create security event for monitoring
-    const securityEvent = createSecurityEvent(
-      SecurityEventType.SECRET_ACCESS,
-      SecuritySeverity.LOW,
-      'SecretManager',
-      {
-        key,
-        accessor,
-        environment: this.environment,
-        timestamp: accessEntry.timestamp.toISOString(),
-      }
-    );
-
-    // In a real implementation, this would be sent to the audit logger
-    // For now, we'll just log it for development
-    if (this.environment === Environment.DEVELOPMENT) {
-      console.debug('Secret access logged:', securityEvent);
     }
   }
 
-  /**
-   * Get access log for audit purposes
-   */
-  public getAccessLog(): Array<{ key: string; accessor: string; timestamp: Date }> {
+  public getAccessLog() {
     return [...this.accessLog];
   }
 
-  /**
-   * Clear access log (for testing purposes)
-   */
   public clearAccessLog(): void {
     this.accessLog = [];
   }
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // Private Methods - Secret Loading Implementations
-  // ─────────────────────────────────────────────────────────────────────────────
-
-  /**
-   * Load secrets from environment variables
-   */
   private async loadFromEnvironment(): Promise<SecretStore> {
     const secretStore: SecretStore = {
       apiKeys: {},
@@ -332,129 +174,45 @@ export class SecretManager implements ISecretManager {
       encryptionKeys: {},
     };
 
-    // Load API keys
-    const apiKeyMappings = {
-      GEMINI_API_KEY: 'gemini',
-      OPENAI_API_KEY: 'openai',
-      ANTHROPIC_API_KEY: 'anthropic',
-      DEV_API_KEY: 'DEV_API_KEY', // For production validation
-      TEST_SECRET: 'TEST_SECRET', // For production validation
-      DEBUG_TOKEN: 'DEBUG_TOKEN', // For production validation
+    const mappings = {
+      apiKeys: {
+        GEMINI_API_KEY: 'gemini',
+        OPENAI_API_KEY: 'openai',
+        ANTHROPIC_API_KEY: 'anthropic',
+      },
+      databaseUrls: {
+        NEXT_PUBLIC_SUPABASE_URL: 'supabase_url',
+        DATABASE_URL: 'primary_db',
+        REDIS_URL: 'redis',
+      },
+      authTokens: {
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: 'supabase_anon',
+        SUPABASE_SERVICE_ROLE_KEY: 'supabase_service',
+        NEXTAUTH_SECRET: 'nextauth',
+        CALCULATION_ADMIN_KEY: 'admin',
+      },
+      encryptionKeys: {
+        ENCRYPTION_KEY: 'primary',
+        JWT_SECRET: 'jwt',
+      },
     };
 
-    Object.entries(apiKeyMappings).forEach(([envVar, key]) => {
-      const value = process.env[envVar];
-      if (value) {
-        secretStore.apiKeys[key] = value;
-      }
-    });
-
-    // Load database URLs
-    const dbMappings = {
-      NEXT_PUBLIC_SUPABASE_URL: 'supabase_url',
-      DATABASE_URL: 'primary_db',
-      REDIS_URL: 'redis',
-    };
-
-    Object.entries(dbMappings).forEach(([envVar, key]) => {
-      const value = process.env[envVar];
-      if (value) {
-        secretStore.databaseUrls[key] = value;
-      }
-    });
-
-    // Load auth tokens
-    const authMappings = {
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: 'supabase_anon',
-      SUPABASE_SERVICE_ROLE_KEY: 'supabase_service',
-      NEXTAUTH_SECRET: 'nextauth',
-      CALCULATION_ADMIN_KEY: 'admin',
-    };
-
-    Object.entries(authMappings).forEach(([envVar, key]) => {
-      const value = process.env[envVar];
-      if (value) {
-        secretStore.authTokens[key] = value;
-      }
-    });
-
-    // Load encryption keys
-    const encryptionMappings = {
-      ENCRYPTION_KEY: 'primary',
-      JWT_SECRET: 'jwt',
-    };
-
-    Object.entries(encryptionMappings).forEach(([envVar, key]) => {
-      const value = process.env[envVar];
-      if (value) {
-        secretStore.encryptionKeys[key] = value;
-      }
+    Object.entries(mappings).forEach(([category, map]) => {
+      Object.entries(map).forEach(([envVar, key]) => {
+        const value = process.env[envVar];
+        if (value) {
+          (secretStore[category as keyof SecretStore] as Record<string, string>)[key] = value;
+        }
+      });
     });
 
     return secretStore;
   }
 
-  /**
-   * Load secrets from HashiCorp Vault (placeholder implementation)
-   */
-  private async loadFromVault(): Promise<SecretStore> {
-    // In a real implementation, this would:
-    // 1. Authenticate with Vault using token or other method
-    // 2. Fetch secrets from appropriate paths
-    // 3. Handle Vault-specific errors and retries
-
-    throw new SecurityError(
-      'Vault integration not yet implemented',
-      'VAULT_NOT_IMPLEMENTED',
-      SecuritySeverity.HIGH
-    );
-  }
-
-  /**
-   * Load secrets from AWS Secrets Manager (placeholder implementation)
-   */
-  private async loadFromAWSSecrets(): Promise<SecretStore> {
-    // In a real implementation, this would:
-    // 1. Use AWS SDK to connect to Secrets Manager
-    // 2. Fetch secrets by name or ARN
-    // 3. Handle AWS-specific errors and retries
-    // 4. Parse JSON secrets appropriately
-
-    throw new SecurityError(
-      'AWS Secrets Manager integration not yet implemented',
-      'AWS_SECRETS_NOT_IMPLEMENTED',
-      SecuritySeverity.HIGH
-    );
-  }
-
-  /**
-   * Simulate secret rotation (placeholder implementation)
-   */
-  private async simulateSecretRotation(key: string): Promise<void> {
-    // Simulate rotation delay
-    await new Promise((resolve) => setTimeout(resolve, 100));
-
-    // In a real implementation, this would generate a new secret value
-    // and update it in the appropriate secret store
-
-    // For simulation, we'll just log the rotation
-    console.info(`Secret '${key}' rotation simulated successfully`);
-  }
-
-  // ─────────────────────────────────────────────────────────────────────────────
-  // Static Utility Methods
-  // ─────────────────────────────────────────────────────────────────────────────
-
-  /**
-   * Reset singleton instance (for testing purposes)
-   */
   public static resetInstance(): void {
     SecretManager.instance = null;
   }
 
-  /**
-   * Check if instance is initialized
-   */
   public static isInitialized(): boolean {
     return SecretManager.instance !== null;
   }

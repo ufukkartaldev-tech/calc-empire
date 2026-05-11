@@ -45,7 +45,6 @@ export enum SecurityEventType {
 }
 
 export interface SecretConfig {
-  provider: 'env' | 'vault' | 'aws-secrets';
   rotationEnabled: boolean;
   rotationIntervalDays: number;
   requiredSecrets: string[];
@@ -126,9 +125,6 @@ export type SecurityErrorCode =
   | 'SECRET_VALIDATION_FAILED'
   | 'SECRET_STORE_NOT_LOADED'
   | 'SECRET_ROTATION_DISABLED'
-  | 'UNSUPPORTED_SECRET_PROVIDER'
-  | 'VAULT_NOT_IMPLEMENTED'
-  | 'AWS_SECRETS_NOT_IMPLEMENTED'
   | 'ROTATION_INTERVAL_TOO_SHORT'
   | 'ROTATION_INTERVAL_TOO_LONG'
   | 'SECRET_NOT_FOUND'

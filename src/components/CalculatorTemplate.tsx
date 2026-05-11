@@ -68,14 +68,10 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<ErrorDisplayInfo | null>(null);
 
-  // Initialize calculator in store on mount, cleanup on unmount
+  // Initialize calculator in store on mount
   useEffect(() => {
     const store = useCalculatorStore.getState();
     store.initializeCalculator(calculatorKey, config);
-
-    return () => {
-      store.cleanupCalculator(calculatorKey);
-    };
   }, [calculatorKey, config]);
 
   // Get state with fallback

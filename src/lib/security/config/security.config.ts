@@ -42,7 +42,6 @@ export function getCurrentEnvironment(): Environment {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const DEFAULT_SECRET_CONFIG: SecretConfig = {
-  provider: 'env',
   rotationEnabled: false,
   rotationIntervalDays: 90,
   requiredSecrets: [
@@ -124,7 +123,6 @@ const DEFAULT_VALIDATION_CONFIG: ValidationConfig = {
 const DEVELOPMENT_CONFIG: Partial<SecurityConfig> = {
   secrets: {
     ...DEFAULT_SECRET_CONFIG,
-    provider: 'env',
     rotationEnabled: false,
   },
   rateLimiting: {
@@ -158,7 +156,6 @@ const DEVELOPMENT_CONFIG: Partial<SecurityConfig> = {
 const STAGING_CONFIG: Partial<SecurityConfig> = {
   secrets: {
     ...DEFAULT_SECRET_CONFIG,
-    provider: 'env',
     rotationEnabled: true,
     rotationIntervalDays: 30,
   },
@@ -193,14 +190,12 @@ const STAGING_CONFIG: Partial<SecurityConfig> = {
 const PRODUCTION_CONFIG: Partial<SecurityConfig> = {
   secrets: {
     ...DEFAULT_SECRET_CONFIG,
-    provider: 'vault', // Use secure vault in production
     rotationEnabled: true,
     rotationIntervalDays: 90,
     requiredSecrets: [
       ...DEFAULT_SECRET_CONFIG.requiredSecrets,
       'CALCULATION_ADMIN_KEY',
       'REDIS_URL',
-      'VAULT_TOKEN',
     ],
   },
   rateLimiting: {
