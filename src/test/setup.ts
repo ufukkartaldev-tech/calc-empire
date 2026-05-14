@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
-import { vi } from 'vitest';
+import { vi, afterEach } from 'vitest';
+import { solverWorkerManager } from '@/lib/workers/solverWorkerManager';
 
 // Global mocks for Next.js
 vi.mock('next/navigation', () => ({
@@ -25,3 +26,65 @@ vi.mock('next-intl', () => ({
   useTimeZone: vi.fn(() => 'UTC'),
   useNow: vi.fn(() => new Date()),
 }));
+
+// Mock Web Worker
+class MockWorker {
+  url: string;
+  onmessage: (event: MessageEvent) => void = () => {};
+  onerror: (event: ErrorEvent) => void = () => {};
+  onmessageerror: (event: MessageEvent) => void = () => {};
+
+  constructor(url: string | URL, _options?: WorkerOptions) {
+    this.url = url.toString();
+  }
+
+  postMessage(_data: unknown, _transfer?: Transferable[] | StructuredSerializeOptions): void {
+    // Stub
+  }
+
+  terminate(): void {
+    // Stub
+  }
+
+  addEventListener(
+    _type: string,
+    _listener: EventListenerOrEventListenerObject,
+    _options?: boolean | AddEventListenerOptions
+  ): void {}
+  removeEventListener(
+    _type: string,
+    _listener: EventListenerOrEventListenerObject,
+    _options?: boolean | EventListenerOptions
+  ): void {}
+  dispatchEvent(_event: Event): boolean {
+    return true;
+  }
+}
+
+global.Worker = MockWorker as unknown as typeof Worker;
+
+// Mock IntersectionObserver
+global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
+
+// Mock ResizeObserver
+global.ResizeObserver = vi.fn().mockImplementation(() => ({
+  observe: vi.fn(),
+  unobserve: vi.fn(),
+  disconnect: vi.fn(),
+}));
+
+// Mock window.scrollTo
+global.scrollTo = vi.fn();
+
+// Global cleanup after each test
+afterEach(() => {
+  vi.clearAllMocks();
+  vi.resetModules();
+  localStorage.clear();
+  sessionStorage.clear();
+  solverWorkerManager.terminateAll();
+});
