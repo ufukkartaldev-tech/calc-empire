@@ -38,8 +38,22 @@ class MockWorker {
     this.url = url.toString();
   }
 
-  postMessage(_data: unknown, _transfer?: Transferable[] | StructuredSerializeOptions): void {
-    // Stub
+  postMessage(data: unknown): void {
+    // Simulate immediate success response to avoid 30s timeouts in tests
+    setTimeout(() => {
+      if (this.onmessage) {
+        const requestId =
+          data && typeof data === 'object' && 'requestId' in data ? data.requestId : undefined;
+
+        this.onmessage({
+          data: {
+            requestId,
+            success: true,
+            data: { result: {} },
+          },
+        } as MessageEvent);
+      }
+    }, 0);
   }
 
   terminate(): void {
