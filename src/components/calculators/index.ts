@@ -41,6 +41,7 @@ export * from './software/JsonFormatter';
 // Chemistry
 export * from './chemistry/PeriodicTableVisualizer';
 export * from './chemistry/IdealGasCalculator';
+export * from './chemistry/MolarityCalculator';
 
 // Finance
 export * from './finance/CompoundInterestCalculator';

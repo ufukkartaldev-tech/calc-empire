@@ -102,6 +102,11 @@ const TOOL_COMPONENTS: Partial<Record<ToolId, React.ComponentType>> = {
       import('../calculators/chemistry/IdealGasCalculator').then((mod) => mod.IdealGasCalculator),
     { loading: Loading }
   ),
+  molarity: dynamic(
+    () =>
+      import('../calculators/chemistry/MolarityCalculator').then((mod) => mod.MolarityCalculator),
+    { loading: Loading }
+  ),
 
   // Finance
   compoundInterest: dynamic(
