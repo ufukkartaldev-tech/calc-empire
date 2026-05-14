@@ -34,21 +34,6 @@ const securityHeaders = [
     value: 'max-age=63072000; includeSubDomains; preload',
   },
   {
-    key: 'Content-Security-Policy',
-    value: [
-      "default-src 'self'",
-      "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
-      "worker-src 'self' blob:",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' blob: data: https://flagcdn.com",
-      "font-src 'self'",
-      "connect-src 'self' https://*.sentry.io",
-      "frame-ancestors 'none'",
-      "base-uri 'self'",
-      "form-action 'self'",
-    ].join('; '),
-  },
-  {
     key: 'Cross-Origin-Opener-Policy',
     value: 'same-origin',
   },
