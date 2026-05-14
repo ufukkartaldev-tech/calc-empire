@@ -99,8 +99,15 @@ function maskSensitiveString(str: string): string {
     return maskIPAddress(str);
   }
 
-  // Check if string looks like a JWT token
-  if (str.split('.').length === 3) {
+  // Check if string looks like a JWT token (exactly 3 parts, no spaces, no slashes, only valid base64 chars)
+  const jwtParts = str.split('.');
+  if (
+    jwtParts.length === 3 &&
+    !str.includes(' ') &&
+    !str.includes('/') &&
+    !str.includes(':') &&
+    jwtParts.every((part) => /^[A-Za-z0-9_-]*$/.test(part))
+  ) {
     return 'jwt.***.***.***';
   }
 
