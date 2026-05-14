@@ -29,8 +29,8 @@ export type SolveFn = (values: FieldValues) => SolveResult;
 export type AsyncSolveFn = (values: FieldValues) => Promise<SolveResult>;
 
 export interface UnitOption {
-  label: string;
-  symbol: string;
+  readonly label: string;
+  readonly symbol: string;
 }
 
 export interface FieldConfig {
@@ -38,8 +38,8 @@ export interface FieldConfig {
   labelKey: string;
   placeholderKey?: string;
   type?: 'number' | 'select';
-  options?: { label: string; value: number }[];
-  units: UnitOption[];
+  readonly options?: readonly { readonly label: string; readonly value: number }[];
+  readonly units: readonly UnitOption[];
   constraints?: {
     min?: number;
     max?: number;
@@ -65,7 +65,7 @@ export interface CalculatorConfig {
   descriptionKey: string;
   visual?: React.ReactNode | React.ComponentType<CalculatorVisualProps>;
   /** Input fields the user must fill in the calculator form. */
-  fields: FieldConfig[];
+  readonly fields: readonly FieldConfig[];
   /** Key to look up the solver function in SOLVER_REGISTRY. */
   solverKey: string;
   /** Optional i18n key for a guide/how-to section. */

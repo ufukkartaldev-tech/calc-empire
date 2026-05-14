@@ -40,17 +40,17 @@ export const soilMechanicsConfig: CalculatorConfig = {
     {
       key: 'cohesion',
       labelKey: 'SoilMechanics.cohesion',
-      units: [...PRESSURE_UNITS],
+      units: PRESSURE_UNITS,
     },
     {
       key: 'frictionAngle',
       labelKey: 'SoilMechanics.frictionAngle',
-      units: [...ANGLE_UNITS],
+      units: ANGLE_UNITS,
     },
     {
       key: 'normalStress',
       labelKey: 'SoilMechanics.normalStress',
-      units: [...PRESSURE_UNITS],
+      units: PRESSURE_UNITS,
     },
   ],
   solverKey: 'soilMechanics',

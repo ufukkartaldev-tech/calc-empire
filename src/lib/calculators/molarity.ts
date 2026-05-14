@@ -30,12 +30,12 @@ export const molarityConfig: CalculatorConfig = {
   titleKey: 'Molarity.title',
   descriptionKey: 'Molarity.description',
   fields: [
-    { key: 'molarity', labelKey: 'Molarity.molarity', units: [...MOLARITY_UNITS] },
-    { key: 'moles', labelKey: 'Molarity.moles', units: [...MOLE_UNITS] },
+    { key: 'molarity', labelKey: 'Molarity.molarity', units: MOLARITY_UNITS },
+    { key: 'moles', labelKey: 'Molarity.moles', units: MOLE_UNITS },
     {
       key: 'volume',
       labelKey: 'Molarity.volume',
-      units: [...VOLUME_UNITS],
+      units: VOLUME_UNITS,
     },
   ],
   solverKey: 'molarity',

@@ -50,17 +50,17 @@ export const powerConfig: CalculatorConfig = {
     {
       key: 'voltage',
       labelKey: 'PowerCalculator.voltage',
-      units: [...VOLTAGE_UNITS],
+      units: VOLTAGE_UNITS,
     },
     {
       key: 'current',
       labelKey: 'PowerCalculator.current',
-      units: [...CURRENT_UNITS],
+      units: CURRENT_UNITS,
     },
     {
       key: 'phiDeg',
       labelKey: 'PowerCalculator.phaseAngle',
-      units: [...ANGLE_UNITS],
+      units: ANGLE_UNITS,
     },
   ],
   solverKey: 'power',

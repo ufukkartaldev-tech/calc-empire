@@ -48,27 +48,27 @@ export const stressStrainConfig: CalculatorConfig = {
     {
       key: 'force',
       labelKey: 'StressStrain.force',
-      units: [...FORCE_UNITS],
+      units: FORCE_UNITS,
     },
     {
       key: 'area',
       labelKey: 'StressStrain.area',
-      units: [...AREA_UNITS],
+      units: AREA_UNITS,
     },
     {
       key: 'deltaL',
       labelKey: 'StressStrain.deltaL',
-      units: [...LENGTH_UNITS],
+      units: LENGTH_UNITS,
     },
     {
       key: 'L0',
       labelKey: 'StressStrain.L0',
-      units: [...LENGTH_UNITS],
+      units: LENGTH_UNITS,
     },
     {
       key: 'E',
       labelKey: 'StressStrain.youngModulus',
-      units: [...PRESSURE_UNITS],
+      units: PRESSURE_UNITS,
     },
   ],
   solverKey: 'stressStrain',

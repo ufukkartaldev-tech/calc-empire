@@ -30,21 +30,21 @@ export const capacitorChargeConfig: CalculatorConfig = {
   titleKey: 'CapacitorTransient.title',
   descriptionKey: 'CapacitorTransient.description',
   fields: [
-    { key: 'v0', labelKey: 'CapacitorTransient.v0', units: [...VOLTAGE_UNITS] },
+    { key: 'v0', labelKey: 'CapacitorTransient.v0', units: VOLTAGE_UNITS },
     {
       key: 'r',
       labelKey: 'CapacitorTransient.r',
-      units: [...RESISTANCE_UNITS],
+      units: RESISTANCE_UNITS,
     },
     {
       key: 'c',
       labelKey: 'CapacitorTransient.c',
-      units: [...CAPACITANCE_UNITS],
+      units: CAPACITANCE_UNITS,
     },
     {
       key: 't',
       labelKey: 'CapacitorTransient.t',
-      units: [...TIME_UNITS],
+      units: TIME_UNITS,
     },
     {
       key: 'mode',

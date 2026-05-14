@@ -30,12 +30,12 @@ export const springConstantConfig: CalculatorConfig = {
   titleKey: 'SpringConstant.title',
   descriptionKey: 'SpringConstant.description',
   fields: [
-    { key: 'force', labelKey: 'SpringConstant.force', units: [...FORCE_UNITS] },
-    { key: 'k', labelKey: 'SpringConstant.k', units: [...SPRING_K_UNITS] },
+    { key: 'force', labelKey: 'SpringConstant.force', units: FORCE_UNITS },
+    { key: 'k', labelKey: 'SpringConstant.k', units: SPRING_K_UNITS },
     {
       key: 'displacement',
       labelKey: 'SpringConstant.displacement',
-      units: [...LENGTH_UNITS],
+      units: LENGTH_UNITS,
     },
   ],
   solverKey: 'springConstant',

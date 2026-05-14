@@ -46,27 +46,27 @@ export const kirchhoffConfig: CalculatorConfig = {
     {
       key: 'V1',
       labelKey: 'Kirchhoff.v1Label',
-      units: [...VOLTAGE_UNITS],
+      units: VOLTAGE_UNITS,
     },
     {
       key: 'V2',
       labelKey: 'Kirchhoff.v2Label',
-      units: [...VOLTAGE_UNITS],
+      units: VOLTAGE_UNITS,
     },
     {
       key: 'R1',
       labelKey: 'Kirchhoff.r1Label',
-      units: [...RESISTANCE_UNITS],
+      units: RESISTANCE_UNITS,
     },
     {
       key: 'R2',
       labelKey: 'Kirchhoff.r2Label',
-      units: [...RESISTANCE_UNITS],
+      units: RESISTANCE_UNITS,
     },
     {
       key: 'R3',
       labelKey: 'Kirchhoff.r3Label',
-      units: [...RESISTANCE_UNITS],
+      units: RESISTANCE_UNITS,
     },
     // We add I1, I2, I3 as "calculated-only" fields?
     // Wait, CalculatorTemplate doesn't show result fields unless they are in the fields list and the solver returns them.
