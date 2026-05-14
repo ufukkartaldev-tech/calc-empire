@@ -14,6 +14,7 @@
     "test:coverage": "vitest --coverage",
     "test:e2e": "playwright test",
     "translate": "node scripts/translate.mjs",
+    "generate:calculator": "node scripts/generate-calculator.mjs",
     "prepare": "husky"
   },
   "dependencies": {
