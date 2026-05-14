@@ -8,7 +8,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { devtools } from 'zustand/middleware';
-import type { CalculatorConfig, FieldValues } from '@/types';
+import type { CalculatorConfig, FieldValues, ToolId, NullableToolId } from '@/types';
 import Big from 'big.js';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -31,7 +31,7 @@ export interface CalculatorData {
 
 export interface CalculatorStoreState {
   // Map of calculatorKey -> calculator data
-  calculators: Map<string, CalculatorData>;
+  calculators: Map<ToolId, CalculatorData>;
 
   // Loading state for hydration
   isHydrated: boolean;
@@ -39,21 +39,21 @@ export interface CalculatorStoreState {
 
 export interface CalculatorStoreActions {
   // Field operations
-  setFieldValue: (calculatorKey: string, fieldKey: string, raw: string) => void;
-  setFieldUnit: (calculatorKey: string, fieldKey: string, unit: string) => void;
+  setFieldValue: (calculatorKey: ToolId, fieldKey: string, raw: string) => void;
+  setFieldUnit: (calculatorKey: ToolId, fieldKey: string, unit: string) => void;
 
   // Result operations
-  setResult: (calculatorKey: string, result: ResultState) => void;
-  clearResult: (calculatorKey: string) => void;
+  setResult: (calculatorKey: ToolId, result: ResultState) => void;
+  clearResult: (calculatorKey: ToolId) => void;
 
   // Calculator lifecycle
-  initializeCalculator: (calculatorKey: string, config: CalculatorConfig) => void;
-  resetCalculator: (calculatorKey: string, config: CalculatorConfig) => void;
-  cleanupCalculator: (calculatorKey: string) => void;
+  initializeCalculator: (calculatorKey: ToolId, config: CalculatorConfig) => void;
+  resetCalculator: (calculatorKey: ToolId, config: CalculatorConfig) => void;
+  cleanupCalculator: (calculatorKey: ToolId) => void;
 
   // Utility
-  getCalculatorData: (calculatorKey: string) => CalculatorData | undefined;
-  getFieldState: (calculatorKey: string, fieldKey: string) => FieldState | undefined;
+  getCalculatorData: (calculatorKey: ToolId) => CalculatorData | undefined;
+  getFieldState: (calculatorKey: ToolId, fieldKey: string) => FieldState | undefined;
 
   // Hydration
   setHydrated: (value: boolean) => void;
@@ -232,7 +232,7 @@ export const useCalculatorStore = create<CalculatorStore>()(
 
               // LRU eviction: remove oldest calculator if at limit
               if (newCalculators.size >= MAX_CALCULATORS) {
-                let oldestKey: string | null = null;
+                let oldestKey: ToolId | null = null;
                 let oldestTime = Infinity;
                 for (const [key, data] of newCalculators) {
                   if (data.lastAccessed < oldestTime) {
@@ -318,9 +318,9 @@ export const useCalculatorStore = create<CalculatorStore>()(
         onRehydrateStorage: () => (state) => {
           // Restore Map from plain object after rehydration
           if (state && state.calculators) {
-            const entries = Object.entries(state.calculators) as [string, CalculatorData][];
+            const entries = Object.entries(state.calculators) as [ToolId, CalculatorData][];
             // Migration: add lastAccessed for old data without it
-            const migratedEntries: [string, CalculatorData][] = entries.map(([key, data]) => [
+            const migratedEntries: [ToolId, CalculatorData][] = entries.map(([key, data]) => [
               key,
               {
                 ...data,
@@ -349,14 +349,14 @@ export const useCalculatorStore = create<CalculatorStore>()(
  * Hook to get calculator data
  * Use this for components that need the full calculator state
  */
-export function useCalculatorData(calculatorKey: string): CalculatorData | undefined {
+export function useCalculatorData(calculatorKey: ToolId): CalculatorData | undefined {
   return useCalculatorStore((state: CalculatorStore) => state.calculators.get(calculatorKey));
 }
 
 /**
  * Hook to get specific field state
  */
-export function useFieldState(calculatorKey: string, fieldKey: string): FieldState | undefined {
+export function useFieldState(calculatorKey: ToolId, fieldKey: string): FieldState | undefined {
   return useCalculatorStore(
     (state: CalculatorStore) => state.calculators.get(calculatorKey)?.fields[fieldKey]
   );
@@ -365,7 +365,7 @@ export function useFieldState(calculatorKey: string, fieldKey: string): FieldSta
 /**
  * Hook to get calculator result
  */
-export function useCalculatorResult(calculatorKey: string): ResultState {
+export function useCalculatorResult(calculatorKey: ToolId): ResultState {
   return useCalculatorStore(
     (state: CalculatorStore) => state.calculators.get(calculatorKey)?.result ?? null
   );

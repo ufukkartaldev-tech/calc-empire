@@ -38,7 +38,7 @@ export function solve(values: FieldValues): SolveResult {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const ohmConfig: CalculatorConfig = {
-  id: 'ohm-law',
+  id: 'ohm',
   titleKey: 'OhmCalculator.title',
   descriptionKey: 'OhmCalculator.description',
   visual: OhmVisualizer,

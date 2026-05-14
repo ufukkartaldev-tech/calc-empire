@@ -37,7 +37,7 @@ export const solve = (values: FieldValues): SolveResult => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const kirchhoffConfig: CalculatorConfig = {
-  id: 'kirchhoff-laws',
+  id: 'kirchhoff',
   titleKey: 'Kirchhoff.title',
   descriptionKey: 'Kirchhoff.description',
   visual: KirchhoffVisualizer,

@@ -32,7 +32,7 @@ export const solve = (values: FieldValues): SolveResult => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const soilMechanicsConfig: CalculatorConfig = {
-  id: 'SoilMechanics',
+  id: 'soilMechanics',
   titleKey: 'SoilMechanics.title',
   descriptionKey: 'SoilMechanics.subtitle',
   visual: SoilMechanicsVisualizer,

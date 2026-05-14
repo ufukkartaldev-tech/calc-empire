@@ -1,7 +1,4 @@
-/**
- * @file types/index.ts
- * @description Central type definitions for CalcEmpire
- */
+import type { ToolId, NullableToolId } from '@/constants/tools';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // i18n Types
@@ -60,14 +57,14 @@ export interface CalculatorVisualProps {
 export type CalculatorField = FieldConfig;
 
 export interface CalculatorConfig {
-  id: string;
+  id: ToolId;
   titleKey: string;
   descriptionKey: string;
   visual?: React.ReactNode | React.ComponentType<CalculatorVisualProps>;
   /** Input fields the user must fill in the calculator form. */
   readonly fields: readonly FieldConfig[];
   /** Key to look up the solver function in SOLVER_REGISTRY. */
-  solverKey: string;
+  solverKey: ToolId;
   /** Optional i18n key for a guide/how-to section. */
   guideKey?: string;
   /** Optional i18n key for reference links / external sources. */
@@ -84,42 +81,7 @@ export interface CalculatorConfig {
 // Tool Configuration Types
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type ToolId =
-  | 'ohm'
-  | 'resistor'
-  | 'kirchhoff'
-  | 'power'
-  | 'bode'
-  | 'beam'
-  | 'stressStrain'
-  | 'shearMoment'
-  | 'concreteSection'
-  | 'soilMechanics'
-  | 'baseConverter'
-  | 'cronParser'
-  | 'jsonFormatter'
-  | 'periodicTable'
-  | 'idealGas'
-  | 'bernoulli'
-  | 'pressureLoss'
-  | 'normal'
-  | 'basicStats'
-  | 'discreteDist'
-  | 'dataViz'
-  | 'calculus'
-  | 'matrix'
-  | 'geometry'
-  | 'functionPlot'
-  | 'compoundInterest'
-  | 'cryptoPnl'
-  | 'unitConverter'
-  | 'capacitorCharge'
-  | 'molarity'
-  | 'springConstant'
-  | 'quadraticSolver';
-
-/** Nullable variant for state management (avoids null in ToolId union) */
-export type NullableToolId = ToolId | null;
+export type { ToolId, NullableToolId };
 
 export type CategoryKey =
   | 'electrical'

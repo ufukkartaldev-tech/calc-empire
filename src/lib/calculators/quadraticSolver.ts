@@ -26,7 +26,7 @@ export function solve(values: FieldValues): SolveResult {
 }
 
 export const quadraticSolverConfig: CalculatorConfig = {
-  id: 'quadratic-solver',
+  id: 'quadraticSolver',
   titleKey: 'Dashboard.quadraticSolverTitle',
   descriptionKey: 'Dashboard.quadraticSolverDesc',
   fields: [

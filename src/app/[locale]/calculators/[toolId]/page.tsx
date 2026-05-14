@@ -9,10 +9,10 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
-import type { TranslationKey } from '@/types';
+import type { TranslationKey, ToolId } from '@/types';
 
 interface PageProps {
-  params: Promise<{ locale: string; toolId: string }>;
+  params: Promise<{ locale: string; toolId: ToolId }>;
 }
 
 export async function generateStaticParams() {

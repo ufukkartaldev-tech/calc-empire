@@ -6,7 +6,7 @@ import CalculatorTemplate from '@/components/CalculatorTemplate';
 import { ShearMomentVisual } from './ShearMomentVisual';
 
 const shearMomentConfig: CalculatorConfig = {
-  id: 'shear-moment',
+  id: 'shearMoment',
   titleKey: 'ShearMoment.title',
   descriptionKey: 'ShearMoment.subtitle',
   visual: ShearMomentVisual,

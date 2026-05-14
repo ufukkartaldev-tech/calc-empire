@@ -26,7 +26,7 @@ export function solve(values: FieldValues): SolveResult {
 }
 
 export const molarityConfig: CalculatorConfig = {
-  id: 'molarity-calc',
+  id: 'molarity',
   titleKey: 'Molarity.title',
   descriptionKey: 'Molarity.description',
   fields: [

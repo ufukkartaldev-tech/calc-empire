@@ -1,6 +1,7 @@
 import type { SolveFn, AsyncSolveFn } from '@/types';
 import { toCalculatorError } from '@/lib/errors/CalculatorError';
 import { solverWorkerManager } from '@/lib/workers/solverWorkerManager';
+import { SOLVER_MAP, type ToolId } from '@/constants/tools';
 
 /**
  * Dynamic solver registry using barrel exports for centralized imports.
@@ -31,43 +32,11 @@ function getSolver(solverName: keyof typeof solvers): SolveFn | undefined {
 }
 
 /**
- * Map of solver keys to their corresponding solver function names.
- * New solvers should be added here with their key and function name.
+ * Compile-time guard: Ensures every entry in the centralized SOLVER_MAP
+ * corresponds to a valid exported solver function in src/lib/calculators/index.ts.
+ * If you add a tool to SOLVER_MAP but forget to export its solver, this will error.
  */
-const SOLVER_MAP: Record<string, keyof typeof solvers> = {
-  ohm: 'ohmSolve',
-  kirchhoff: 'kirchhoffSolve',
-  power: 'powerSolve',
-  resistor: 'resistorSolve',
-  bode: 'bodeSolve',
-  beam: 'beamSolve',
-  stressStrain: 'stressStrainSolve',
-  shearMoment: 'shearMomentSolve',
-  concreteSection: 'concreteSectionSolve',
-  soilMechanics: 'soilMechanicsSolve',
-  baseConverter: 'baseConverterSolve',
-  cronParser: 'cronParserSolve',
-  jsonFormatter: 'jsonFormatterSolve',
-  periodicTable: 'periodicTableSolve',
-  idealGas: 'idealGasSolve',
-  bernoulli: 'bernoulliSolve',
-  pressureLoss: 'pressureLossSolve',
-  normal: 'normalSolve',
-  basicStats: 'basicStatsSolve',
-  discreteDist: 'discreteDistSolve',
-  dataViz: 'dataVizSolve',
-  calculus: 'calculusSolve',
-  matrix: 'matrixSolve',
-  geometry: 'geometrySolve',
-  functionPlot: 'functionPlotSolve',
-  compoundInterest: 'compoundInterestSolve',
-  cryptoPnl: 'cryptoPnlSolve',
-  unitConverter: 'unitConverterSolve',
-  quadraticSolver: 'quadraticSolverSolve',
-  molarity: 'molaritySolve',
-  capacitorCharge: 'capacitorChargeSolve',
-  springConstant: 'springConstantSolve',
-};
+const _SOLVER_GUARD: Record<ToolId, keyof typeof solvers> = SOLVER_MAP;
 
 /**
  * Wrap a solver function with error handling that converts errors to CalculatorError

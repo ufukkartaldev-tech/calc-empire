@@ -26,7 +26,7 @@
 import React, { useCallback, useId, useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Big from 'big.js';
-import type { CalculatorConfig, FieldValues, TranslationKey } from '@/types';
+import type { CalculatorConfig, FieldValues, TranslationKey, ToolId } from '@/types';
 import { SOLVER_REGISTRY, ASYNC_SOLVER_REGISTRY } from '@/lib/calculators/registry';
 import { solverWorkerManager } from '@/lib/workers/solverWorkerManager';
 import { ReferenceCard } from './ui/ReferenceCard';
@@ -60,7 +60,7 @@ interface CalculatorTemplateProps {
 export default function CalculatorTemplate({ config }: CalculatorTemplateProps) {
   const t = useTranslations();
   const uid = useId();
-  const calculatorKey = config.solverKey;
+  const calculatorKey = config.solverKey as ToolId;
 
   // Zustand store integration
   const isHydrated = useCalculatorHydrated();
@@ -192,7 +192,7 @@ export default function CalculatorTemplate({ config }: CalculatorTemplateProps) 
 
 interface CalculatorTemplateContentProps {
   config: CalculatorConfig;
-  calculatorKey: string;
+  calculatorKey: ToolId;
   state: CalculatorTemplateState;
   isLoading: boolean;
   error: ErrorDisplayInfo | null;
@@ -316,7 +316,7 @@ function CalculatorTemplateContent({
 
 // Individual field component - only re-renders when its own state changes
 interface CalculatorFieldProps {
-  calculatorKey: string;
+  calculatorKey: ToolId;
   field: CalculatorConfig['fields'][number];
   t: (key: string) => string;
   onSolve: () => void;

@@ -40,7 +40,7 @@ export const solve = (values: FieldValues): SolveResult => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const stressStrainConfig: CalculatorConfig = {
-  id: 'StressStrain',
+  id: 'stressStrain',
   titleKey: 'StressStrain.title',
   descriptionKey: 'StressStrain.subtitle',
   visual: StressStrainVisualizer,

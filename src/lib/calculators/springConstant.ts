@@ -26,7 +26,7 @@ export function solve(values: FieldValues): SolveResult {
 }
 
 export const springConstantConfig: CalculatorConfig = {
-  id: 'spring-constant',
+  id: 'springConstant',
   titleKey: 'SpringConstant.title',
   descriptionKey: 'SpringConstant.description',
   fields: [

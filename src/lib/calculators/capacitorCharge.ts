@@ -26,7 +26,7 @@ export function solve(values: FieldValues): SolveResult {
 }
 
 export const capacitorChargeConfig: CalculatorConfig = {
-  id: 'capacitor-transient',
+  id: 'capacitorCharge',
   titleKey: 'CapacitorTransient.title',
   descriptionKey: 'CapacitorTransient.description',
   fields: [

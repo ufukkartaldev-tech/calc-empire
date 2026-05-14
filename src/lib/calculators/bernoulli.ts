@@ -46,7 +46,7 @@ export const solve = (values: FieldValues): SolveResult => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const bernoulliConfig: CalculatorConfig = {
-  id: 'Bernoulli',
+  id: 'bernoulli',
   titleKey: 'Bernoulli.title',
   descriptionKey: 'Bernoulli.subtitle',
   visual: BernoulliVisualizer,

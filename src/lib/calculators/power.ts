@@ -36,7 +36,7 @@ export const solve = (values: FieldValues): SolveResult => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const powerConfig: CalculatorConfig = {
-  id: 'PowerCalculator',
+  id: 'power',
   titleKey: 'PowerCalculator.title',
   descriptionKey: 'PowerCalculator.description',
   visual: PowerVisualizer,
