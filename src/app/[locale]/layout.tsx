@@ -16,8 +16,7 @@ import { ThemeProvider } from '@/components/ui/theme-provider';
 import { AuthProvider } from '@/components/ui/AuthProvider';
 import '../globals.css';
 import type { Viewport } from 'next';
-
-const RTL_LOCALES = new Set(['ar']);
+import { RTL_LOCALES } from '@/constants';
 
 export const viewport: Viewport = {
   width: 'device-width',

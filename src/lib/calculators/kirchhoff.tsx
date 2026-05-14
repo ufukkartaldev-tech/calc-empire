@@ -7,6 +7,7 @@ import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { solveKirchhoff2Loop } from '@/lib/formulas/electrical';
 import { KirchhoffDiagram } from '@/components/calculators/electrical/KirchhoffDiagram';
+import { VOLTAGE_UNITS, RESISTANCE_UNITS } from '@/constants';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function
@@ -45,27 +46,27 @@ export const kirchhoffConfig: CalculatorConfig = {
     {
       key: 'V1',
       labelKey: 'Kirchhoff.v1Label',
-      units: [{ label: 'V', symbol: '' }],
+      units: [...VOLTAGE_UNITS],
     },
     {
       key: 'V2',
       labelKey: 'Kirchhoff.v2Label',
-      units: [{ label: 'V', symbol: '' }],
+      units: [...VOLTAGE_UNITS],
     },
     {
       key: 'R1',
       labelKey: 'Kirchhoff.r1Label',
-      units: [{ label: 'Ω', symbol: '' }],
+      units: [...RESISTANCE_UNITS],
     },
     {
       key: 'R2',
       labelKey: 'Kirchhoff.r2Label',
-      units: [{ label: 'Ω', symbol: '' }],
+      units: [...RESISTANCE_UNITS],
     },
     {
       key: 'R3',
       labelKey: 'Kirchhoff.r3Label',
-      units: [{ label: 'Ω', symbol: '' }],
+      units: [...RESISTANCE_UNITS],
     },
     // We add I1, I2, I3 as "calculated-only" fields?
     // Wait, CalculatorTemplate doesn't show result fields unless they are in the fields list and the solver returns them.

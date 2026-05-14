@@ -5,6 +5,7 @@
 
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { calculateMolarity } from '@/lib/formulas/chemistry';
+import { MOLARITY_UNITS, MOLE_UNITS, VOLUME_UNITS } from '@/constants';
 
 export function solve(values: FieldValues): SolveResult {
   const m = values['molarity']?.value;
@@ -29,15 +30,12 @@ export const molarityConfig: CalculatorConfig = {
   titleKey: 'Molarity.title',
   descriptionKey: 'Molarity.description',
   fields: [
-    { key: 'molarity', labelKey: 'Molarity.molarity', units: [{ label: 'M (mol/L)', symbol: '' }] },
-    { key: 'moles', labelKey: 'Molarity.moles', units: [{ label: 'mol', symbol: '' }] },
+    { key: 'molarity', labelKey: 'Molarity.molarity', units: [...MOLARITY_UNITS] },
+    { key: 'moles', labelKey: 'Molarity.moles', units: [...MOLE_UNITS] },
     {
       key: 'volume',
       labelKey: 'Molarity.volume',
-      units: [
-        { label: 'L', symbol: '' },
-        { label: 'mL', symbol: 'm' },
-      ],
+      units: [...VOLUME_UNITS],
     },
   ],
   solverKey: 'molarity',

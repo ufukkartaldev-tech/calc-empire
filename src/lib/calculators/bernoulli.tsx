@@ -6,6 +6,13 @@
 import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { calculateBernoulli, type BernoulliParams } from '@/lib/formulas/fluid';
+import {
+  DENSITY_UNITS,
+  ACCELERATION_UNITS,
+  PRESSURE_UNITS,
+  VELOCITY_UNITS,
+  LENGTH_UNITS,
+} from '@/constants';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function
@@ -47,42 +54,42 @@ export const bernoulliConfig: CalculatorConfig = {
     {
       key: 'rho',
       labelKey: 'Bernoulli.density',
-      units: [{ label: 'kg/m³', symbol: '' }],
+      units: [...DENSITY_UNITS],
     },
     {
       key: 'g',
       labelKey: 'Bernoulli.gravity',
-      units: [{ label: 'm/s²', symbol: '' }],
+      units: [...ACCELERATION_UNITS],
     },
     {
       key: 'p1',
       labelKey: 'Bernoulli.pressure',
-      units: [{ label: 'Pa (P1)', symbol: '' }],
+      units: [...PRESSURE_UNITS],
     },
     {
       key: 'v1',
       labelKey: 'Bernoulli.velocity',
-      units: [{ label: 'm/s (v1)', symbol: '' }],
+      units: [...VELOCITY_UNITS],
     },
     {
       key: 'h1',
       labelKey: 'Bernoulli.height',
-      units: [{ label: 'm (h1)', symbol: '' }],
+      units: [...LENGTH_UNITS],
     },
     {
       key: 'p2',
       labelKey: 'Bernoulli.pressure',
-      units: [{ label: 'Pa (P2)', symbol: '' }],
+      units: [...PRESSURE_UNITS],
     },
     {
       key: 'v2',
       labelKey: 'Bernoulli.velocity',
-      units: [{ label: 'm/s (v2)', symbol: '' }],
+      units: [...VELOCITY_UNITS],
     },
     {
       key: 'h2',
       labelKey: 'Bernoulli.height',
-      units: [{ label: 'm (h2)', symbol: '' }],
+      units: [...LENGTH_UNITS],
     },
   ],
   solverKey: 'bernoulli',

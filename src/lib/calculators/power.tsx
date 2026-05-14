@@ -6,6 +6,7 @@
 import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { acPower } from '@/lib/formulas/electrical';
+import { VOLTAGE_UNITS, CURRENT_UNITS, ANGLE_UNITS } from '@/constants';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function
@@ -49,17 +50,17 @@ export const powerConfig: CalculatorConfig = {
     {
       key: 'voltage',
       labelKey: 'PowerCalculator.voltage',
-      units: [{ label: 'V', symbol: '' }],
+      units: [...VOLTAGE_UNITS],
     },
     {
       key: 'current',
       labelKey: 'PowerCalculator.current',
-      units: [{ label: 'A', symbol: '' }],
+      units: [...CURRENT_UNITS],
     },
     {
       key: 'phiDeg',
       labelKey: 'PowerCalculator.phaseAngle',
-      units: [{ label: '°', symbol: '' }],
+      units: [...ANGLE_UNITS],
     },
   ],
   solverKey: 'power',

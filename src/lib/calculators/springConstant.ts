@@ -5,6 +5,7 @@
 
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { hookesLaw } from '@/lib/formulas/mechanical';
+import { FORCE_UNITS, SPRING_K_UNITS, LENGTH_UNITS } from '@/constants';
 
 export function solve(values: FieldValues): SolveResult {
   const f = values['force']?.value;
@@ -29,15 +30,12 @@ export const springConstantConfig: CalculatorConfig = {
   titleKey: 'SpringConstant.title',
   descriptionKey: 'SpringConstant.description',
   fields: [
-    { key: 'force', labelKey: 'SpringConstant.force', units: [{ label: 'N', symbol: '' }] },
-    { key: 'k', labelKey: 'SpringConstant.k', units: [{ label: 'N/m', symbol: '' }] },
+    { key: 'force', labelKey: 'SpringConstant.force', units: [...FORCE_UNITS] },
+    { key: 'k', labelKey: 'SpringConstant.k', units: [...SPRING_K_UNITS] },
     {
       key: 'displacement',
       labelKey: 'SpringConstant.displacement',
-      units: [
-        { label: 'm', symbol: '' },
-        { label: 'mm', symbol: 'm' },
-      ],
+      units: [...LENGTH_UNITS],
     },
   ],
   solverKey: 'springConstant',

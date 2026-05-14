@@ -5,6 +5,7 @@
 
 import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
+import { FORCE_UNITS, AREA_UNITS, LENGTH_UNITS, PRESSURE_UNITS } from '@/constants';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function
@@ -47,27 +48,27 @@ export const stressStrainConfig: CalculatorConfig = {
     {
       key: 'force',
       labelKey: 'StressStrain.force',
-      units: [{ label: 'N', symbol: '' }],
+      units: [...FORCE_UNITS],
     },
     {
       key: 'area',
       labelKey: 'StressStrain.area',
-      units: [{ label: 'm²', symbol: '' }],
+      units: [...AREA_UNITS],
     },
     {
       key: 'deltaL',
       labelKey: 'StressStrain.deltaL',
-      units: [{ label: 'm', symbol: '' }],
+      units: [...LENGTH_UNITS],
     },
     {
       key: 'L0',
       labelKey: 'StressStrain.L0',
-      units: [{ label: 'm', symbol: '' }],
+      units: [...LENGTH_UNITS],
     },
     {
       key: 'E',
       labelKey: 'StressStrain.youngModulus',
-      units: [{ label: 'Pa', symbol: '' }],
+      units: [...PRESSURE_UNITS],
     },
   ],
   solverKey: 'stressStrain',

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
+import { PRESSURE_UNITS, ANGLE_UNITS } from '@/constants';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function
@@ -39,17 +40,17 @@ export const soilMechanicsConfig: CalculatorConfig = {
     {
       key: 'cohesion',
       labelKey: 'SoilMechanics.cohesion',
-      units: [{ label: 'kPa', symbol: '' }],
+      units: [...PRESSURE_UNITS],
     },
     {
       key: 'frictionAngle',
       labelKey: 'SoilMechanics.frictionAngle',
-      units: [{ label: '°', symbol: '' }],
+      units: [...ANGLE_UNITS],
     },
     {
       key: 'normalStress',
       labelKey: 'SoilMechanics.normalStress',
-      units: [{ label: 'kPa', symbol: '' }],
+      units: [...PRESSURE_UNITS],
     },
   ],
   solverKey: 'soilMechanics',

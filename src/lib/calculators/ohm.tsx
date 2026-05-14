@@ -7,28 +7,7 @@
 import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { ohm as ohmFormula } from '@/lib/formulas';
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Unit Multipliers (shared across many electrical calculators)
-// ─────────────────────────────────────────────────────────────────────────────
-
-const VOLTAGE_UNITS = [
-  { label: 'V', symbol: '' },
-  { label: 'mV', symbol: 'm' },
-  { label: 'kV', symbol: 'k' },
-];
-
-const CURRENT_UNITS = [
-  { label: 'A', symbol: '' },
-  { label: 'mA', symbol: 'm' },
-  { label: 'μA', symbol: 'u' },
-];
-
-const RESISTANCE_UNITS = [
-  { label: 'Ω', symbol: '' },
-  { label: 'kΩ', symbol: 'k' },
-  { label: 'MΩ', symbol: 'M' },
-];
+import { VOLTAGE_UNITS, CURRENT_UNITS, RESISTANCE_UNITS } from '@/constants';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function

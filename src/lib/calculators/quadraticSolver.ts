@@ -5,6 +5,7 @@
 
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { solveQuadratic } from '@/lib/formulas/mathematics';
+import { NO_UNIT } from '@/constants';
 
 export function solve(values: FieldValues): SolveResult {
   const a = values['a']?.value;
@@ -33,19 +34,19 @@ export const quadraticSolverConfig: CalculatorConfig = {
       key: 'a',
       labelKey: 'QuadraticSolver.a',
       placeholderKey: 'QuadraticSolver.aPlaceholder',
-      units: [{ label: '', symbol: '' }],
+      units: [...NO_UNIT],
     },
     {
       key: 'b',
       labelKey: 'QuadraticSolver.b',
       placeholderKey: 'QuadraticSolver.bPlaceholder',
-      units: [{ label: '', symbol: '' }],
+      units: [...NO_UNIT],
     },
     {
       key: 'c',
       labelKey: 'QuadraticSolver.c',
       placeholderKey: 'QuadraticSolver.cPlaceholder',
-      units: [{ label: '', symbol: '' }],
+      units: [...NO_UNIT],
     },
   ],
   solverKey: 'quadraticSolver',

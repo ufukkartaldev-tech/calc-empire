@@ -5,6 +5,7 @@
 
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { capacitorTransient } from '@/lib/formulas/electrical';
+import { VOLTAGE_UNITS, RESISTANCE_UNITS, CAPACITANCE_UNITS, TIME_UNITS } from '@/constants';
 
 export function solve(values: FieldValues): SolveResult {
   const v0 = values['v0']?.value || 0;
@@ -29,30 +30,21 @@ export const capacitorChargeConfig: CalculatorConfig = {
   titleKey: 'CapacitorTransient.title',
   descriptionKey: 'CapacitorTransient.description',
   fields: [
-    { key: 'v0', labelKey: 'CapacitorTransient.v0', units: [{ label: 'V', symbol: '' }] },
+    { key: 'v0', labelKey: 'CapacitorTransient.v0', units: [...VOLTAGE_UNITS] },
     {
       key: 'r',
       labelKey: 'CapacitorTransient.r',
-      units: [
-        { label: 'Ω', symbol: '' },
-        { label: 'kΩ', symbol: 'k' },
-      ],
+      units: [...RESISTANCE_UNITS],
     },
     {
       key: 'c',
       labelKey: 'CapacitorTransient.c',
-      units: [
-        { label: 'F', symbol: '' },
-        { label: 'μF', symbol: 'u' },
-      ],
+      units: [...CAPACITANCE_UNITS],
     },
     {
       key: 't',
       labelKey: 'CapacitorTransient.t',
-      units: [
-        { label: 's', symbol: '' },
-        { label: 'ms', symbol: 'm' },
-      ],
+      units: [...TIME_UNITS],
     },
     {
       key: 'mode',

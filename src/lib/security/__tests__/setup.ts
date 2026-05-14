@@ -273,17 +273,22 @@ export { mockRedis, mockLogger, fc };
 // Property Test Helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function runPropertyTest<T>(
-  name: string,
+export async function runPropertyTest<T>(
+  _name: string,
   arbitrary: fc.Arbitrary<T>,
-  predicate: (value: T) => Promise<boolean | void>,
-  options: Partial<fc.Parameters<T>> = {}
+  predicate: (value: T) => boolean | void | Promise<boolean | void>,
+  options: fc.Parameters<[T]> = {}
 ) {
-  // @ts-expect-error: Incompatible property types between fast-check versions
-  return fc.assert(fc.asyncProperty(arbitrary, predicate), {
-    ...PROPERTY_TEST_CONFIG,
-    ...options,
-  });
+  return fc.assert(
+    fc.asyncProperty(arbitrary, async (value) => {
+      const result = await predicate(value);
+      return result === undefined ? true : result;
+    }),
+    {
+      ...PROPERTY_TEST_CONFIG,
+      ...options,
+    } as fc.Parameters<[T]>
+  );
 }
 
 export function createSecurityEventArbitrary() {
