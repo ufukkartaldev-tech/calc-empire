@@ -3,10 +3,10 @@
  * @description Config and Solver for AC Power Calculator
  */
 
-import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { acPower } from '@/lib/formulas/electrical';
 import { VOLTAGE_UNITS, CURRENT_UNITS, ANGLE_UNITS } from '@/constants';
+import { PowerVisualizer } from '@/components/visualizers/PowerVisualizer';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function
@@ -39,13 +39,7 @@ export const powerConfig: CalculatorConfig = {
   id: 'PowerCalculator',
   titleKey: 'PowerCalculator.title',
   descriptionKey: 'PowerCalculator.description',
-  visual: () => {
-    // If we want to keep the triangle visual, we might need to adapt it
-
-    // or just use a placeholder for now if it's too complex to move here.
-    // For now, let's use a simple SVG or a specialized component.
-    return <div className="text-6xl">⚡</div>;
-  },
+  visual: PowerVisualizer,
   fields: [
     {
       key: 'voltage',

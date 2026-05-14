@@ -3,11 +3,10 @@
  * @description Solver for Kirchhoff's Laws (2-Loop Mesh Analysis)
  */
 
-import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { solveKirchhoff2Loop } from '@/lib/formulas/electrical';
-import { KirchhoffDiagram } from '@/components/calculators/electrical/KirchhoffDiagram';
 import { VOLTAGE_UNITS, RESISTANCE_UNITS } from '@/constants';
+import { KirchhoffVisualizer } from '@/components/visualizers/KirchhoffVisualizer';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function
@@ -41,7 +40,7 @@ export const kirchhoffConfig: CalculatorConfig = {
   id: 'kirchhoff-laws',
   titleKey: 'Kirchhoff.title',
   descriptionKey: 'Kirchhoff.description',
-  visual: ({ result }) => <KirchhoffDiagram hasResults={!!result} />,
+  visual: KirchhoffVisualizer,
   fields: [
     {
       key: 'V1',
@@ -68,10 +67,6 @@ export const kirchhoffConfig: CalculatorConfig = {
       labelKey: 'Kirchhoff.r3Label',
       units: RESISTANCE_UNITS,
     },
-    // We add I1, I2, I3 as "calculated-only" fields?
-    // Wait, CalculatorTemplate doesn't show result fields unless they are in the fields list and the solver returns them.
-    // But Kirchhoff analysis is not "solve for one missing". It's "calculate all currents".
-    // If I put them in fields, CalculatorTemplate will try to render them as inputs.
   ],
   solverKey: 'kirchhoff',
   referenceKey: 'ToolReference.kirchhoff',

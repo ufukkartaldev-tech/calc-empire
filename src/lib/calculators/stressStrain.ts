@@ -3,9 +3,9 @@
  * @description Config and Solver for Stress-Strain Calculator
  */
 
-import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { FORCE_UNITS, AREA_UNITS, LENGTH_UNITS, PRESSURE_UNITS } from '@/constants';
+import { StressStrainVisualizer } from '@/components/visualizers/StressStrainVisualizer';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function
@@ -43,7 +43,7 @@ export const stressStrainConfig: CalculatorConfig = {
   id: 'StressStrain',
   titleKey: 'StressStrain.title',
   descriptionKey: 'StressStrain.subtitle',
-  visual: <div className="text-6xl">💥</div>,
+  visual: StressStrainVisualizer,
   fields: [
     {
       key: 'force',

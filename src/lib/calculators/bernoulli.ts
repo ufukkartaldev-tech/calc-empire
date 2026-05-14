@@ -3,7 +3,6 @@
  * @description Config and Solver for Bernoulli's Equation Calculator
  */
 
-import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { calculateBernoulli, type BernoulliParams } from '@/lib/formulas/fluid';
 import {
@@ -13,6 +12,7 @@ import {
   VELOCITY_UNITS,
   LENGTH_UNITS,
 } from '@/constants';
+import { BernoulliVisualizer } from '@/components/visualizers/BernoulliVisualizer';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function
@@ -49,7 +49,7 @@ export const bernoulliConfig: CalculatorConfig = {
   id: 'Bernoulli',
   titleKey: 'Bernoulli.title',
   descriptionKey: 'Bernoulli.subtitle',
-  visual: <div className="text-6xl">🌊</div>,
+  visual: BernoulliVisualizer,
   fields: [
     {
       key: 'rho',

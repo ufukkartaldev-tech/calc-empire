@@ -3,9 +3,9 @@
  * @description Config and Solver for Soil Mechanics Calculator
  */
 
-import React from 'react';
 import type { CalculatorConfig, FieldValues, SolveResult } from '@/types';
 import { PRESSURE_UNITS, ANGLE_UNITS } from '@/constants';
+import { SoilMechanicsVisualizer } from '@/components/visualizers/SoilMechanicsVisualizer';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Solve Function
@@ -35,7 +35,7 @@ export const soilMechanicsConfig: CalculatorConfig = {
   id: 'SoilMechanics',
   titleKey: 'SoilMechanics.title',
   descriptionKey: 'SoilMechanics.subtitle',
-  visual: <div className="text-6xl">🌱</div>,
+  visual: SoilMechanicsVisualizer,
   fields: [
     {
       key: 'cohesion',
