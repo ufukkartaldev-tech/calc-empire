@@ -20,12 +20,16 @@ vi.mock('next/navigation', () => ({
 }));
 
 // Global mocks for next-intl
-vi.mock('next-intl', () => ({
-  useTranslations: vi.fn(() => (key: string) => key),
-  useLocale: vi.fn(() => 'en'),
-  useTimeZone: vi.fn(() => 'UTC'),
-  useNow: vi.fn(() => new Date()),
-}));
+vi.mock('next-intl', () => {
+  const t = (_key: string) => _key;
+  t.raw = (_key: string) => [];
+  return {
+    useTranslations: vi.fn(() => t),
+    useLocale: vi.fn(() => 'en'),
+    useTimeZone: vi.fn(() => 'UTC'),
+    useNow: vi.fn(() => new Date()),
+  };
+});
 
 // Mock Web Worker
 class MockWorker {
