@@ -131,6 +131,7 @@ describe('Accessibility - ARIA Labels', () => {
       const errorInfo = {
         message: 'Test Error',
         severity: ErrorSeverity.HIGH,
+        isUserError: false,
       };
       render(<CalculatorError errorInfo={errorInfo} onDismiss={() => {}} />);
 
