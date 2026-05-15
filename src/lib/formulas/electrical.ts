@@ -436,3 +436,47 @@ export function solveKirchhoff2Loop({ V1, V2, R1, R2, R3 }: Kirchhoff2LoopParams
     I3: I3.toNumber(),
   };
 }
+
+// �����������������������������������������������������������������������������
+// Basic Ohm's Law (with unit support)
+// �����������������������������������������������������������������������������
+
+interface OhmParams {
+  voltage?: UnitValue;
+  current?: UnitValue;
+  resistance?: UnitValue;
+}
+
+interface OhmResult {
+  voltage?: number;
+  current?: number;
+  resistance?: number;
+}
+
+export function ohm({ voltage, current, resistance }: OhmParams): OhmResult {
+  const paramsCount = [voltage, current, resistance].filter((p) => p !== undefined).length;
+
+  if (paramsCount < 2) {
+    throw new Error('Missing value');
+  }
+
+  if (voltage !== undefined && current !== undefined) {
+    const V = validateAndNormalize(voltage);
+    const I = validateAndNormalize(current);
+    return { resistance: V.div(I).toNumber() };
+  }
+
+  if (current !== undefined && resistance !== undefined) {
+    const I = validateAndNormalize(current);
+    const R = validateAndNormalize(resistance);
+    return { voltage: I.times(R).toNumber() };
+  }
+
+  if (voltage !== undefined && resistance !== undefined) {
+    const V = validateAndNormalize(voltage);
+    const R = validateAndNormalize(resistance);
+    return { current: V.div(R).toNumber() };
+  }
+
+  throw new Error('Missing value');
+}

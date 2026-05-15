@@ -3,6 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import { resistorColorCode } from '@/lib/formulas/electrical';
 import { ColorPicker } from '../ui/ColorPicker';
+import { useCanvasTransform } from '@/lib/performance/useCanvasTransform';
+import { ResistorBand } from './VisualPrimitives';
 
 interface ResistorVisualizerProps {
   className?: string;
@@ -11,6 +13,7 @@ interface ResistorVisualizerProps {
 export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) {
   const [bandCount, setBandCount] = useState<4 | 5 | 6>(4);
   const [bands, setBands] = useState<string[]>(['brown', 'black', 'red', 'gold']);
+  const { viewBox } = useCanvasTransform({ viewBox: '0 0 100 120' });
 
   const result = useMemo(() => {
     try {
@@ -75,7 +78,6 @@ export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) 
     <div className={`bg-white rounded-lg shadow-lg p-6 ${className}`}>
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Resistor Color Code Calculator</h2>
 
-      {/* Band Count Selection */}
       <div className="mb-6">
         <label className="text-sm font-medium text-gray-700 mb-2 block">Number of Bands</label>
         <div className="flex space-x-2">
@@ -95,7 +97,6 @@ export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) 
         </div>
       </div>
 
-      {/* Color Pickers */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         {bands.map((band, index) => (
           <ColorPicker
@@ -107,10 +108,8 @@ export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) 
         ))}
       </div>
 
-      {/* SVG Resistor Visualization */}
       <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-        <svg width="100%" height="120" viewBox="0 0 100 120" className="w-full max-w-md mx-auto">
-          {/* Resistor Body */}
+        <svg width="100%" height="120" viewBox={viewBox} className="w-full max-w-md mx-auto">
           <rect
             x="10"
             y="40"
@@ -121,30 +120,15 @@ export function ResistorVisualizer({ className = '' }: ResistorVisualizerProps) 
             strokeWidth="2"
             rx="4"
           />
-
-          {/* Left Lead */}
           <line x1="0" y1="60" x2="10" y2="60" stroke="#666666" strokeWidth="3" />
-
-          {/* Right Lead */}
           <line x1="90" y1="60" x2="100" y2="60" stroke="#666666" strokeWidth="3" />
 
-          {/* Color Bands */}
           {getBandPositions().map((position, index) => (
-            <rect
-              key={index}
-              x={position}
-              y="42"
-              width="4"
-              height="36"
-              fill={getBandColor(bands[index] || 'black')}
-              stroke="#333"
-              strokeWidth="0.5"
-            />
+            <ResistorBand key={index} x={position} color={getBandColor(bands[index] || 'black')} />
           ))}
         </svg>
       </div>
 
-      {/* Result Display */}
       {result && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
           <h3 className="text-lg font-semibold text-blue-900 mb-2">Calculated Resistance</h3>
