@@ -21,10 +21,12 @@ vi.mock('next/navigation', () => ({
 
 // Global mocks for next-intl
 vi.mock('next-intl', () => {
-  const t = (_key: string) => _key;
-  t.raw = (_key: string) => [];
   return {
-    useTranslations: vi.fn(() => t),
+    useTranslations: vi.fn((namespace) => {
+      const t = (key: string) => (namespace ? `${namespace}.${key}` : key);
+      t.raw = (_key: string) => [];
+      return t;
+    }),
     useLocale: vi.fn(() => 'en'),
     useTimeZone: vi.fn(() => 'UTC'),
     useNow: vi.fn(() => new Date()),
