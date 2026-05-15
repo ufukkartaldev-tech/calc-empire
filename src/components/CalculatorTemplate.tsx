@@ -33,9 +33,9 @@ import { ReferenceCard } from './ui/ReferenceCard';
 import { CalculatorError } from './ui/CalculatorError';
 import { ErrorHandler, type ErrorDisplayInfo, ErrorSeverity } from '@/lib/errors/errorHandler';
 import { Zap, Loader2 } from 'lucide-react';
-import { CalculatorHeader } from './layout/CalculatorHeader';
-import { CalculatorActions } from './layout/CalculatorActions';
-import { CalculatorResults } from './layout/CalculatorResults';
+import { CalculatorHeader } from './calculators/layout/CalculatorHeader';
+import { CalculatorActions } from './calculators/layout/CalculatorActions';
+import { CalculatorResults } from './calculators/layout/CalculatorResults';
 import {
   useCalculatorStore,
   useCalculatorData,
