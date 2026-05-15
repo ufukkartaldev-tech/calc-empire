@@ -33,6 +33,9 @@ import { ReferenceCard } from './ui/ReferenceCard';
 import { CalculatorError } from './ui/CalculatorError';
 import { ErrorHandler, type ErrorDisplayInfo, ErrorSeverity } from '@/lib/errors/errorHandler';
 import { Zap, Loader2 } from 'lucide-react';
+import { CalculatorHeader } from './layout/CalculatorHeader';
+import { CalculatorActions } from './layout/CalculatorActions';
+import { CalculatorResults } from './layout/CalculatorResults';
 import {
   useCalculatorStore,
   useCalculatorData,
@@ -218,31 +221,7 @@ function CalculatorTemplateContent({
     <div className="w-full bento-card overflow-hidden">
       <div className="flex flex-col lg:flex-row">
         {/* Visual Section & Info */}
-        <div className="lg:w-1/3 bg-slate-900/50 p-8 border-b lg:border-b-0 lg:border-r border-slate-800 flex flex-col items-center justify-center gap-8">
-          <div className="text-center">
-            <h2 className="text-2xl font-semibold text-white mb-2 tracking-tight">
-              {t(config.titleKey as TranslationKey)}
-            </h2>
-            <div className="h-[1px] w-8 bg-blue-600 mx-auto mb-4"></div>
-            <p className="text-xs text-slate-400 leading-relaxed font-medium px-4">
-              {t(config.descriptionKey as TranslationKey)}
-            </p>
-          </div>
-
-          <div className="w-full max-w-[200px] aspect-square flex items-center justify-center p-4 bg-slate-950 rounded-xl border border-slate-800/50 relative overflow-hidden group">
-            {config.visual ? (
-              <div className="relative z-10 w-full h-full flex items-center justify-center">
-                {typeof config.visual === 'function' ? (
-                  <config.visual fields={state.fields} result={state.result} />
-                ) : (
-                  <div className="text-6xl">{config.visual}</div>
-                )}
-              </div>
-            ) : (
-              <div className="text-6xl">📐</div>
-            )}
-          </div>
-        </div>
+        <CalculatorHeader config={config} state={state} t={t} />
 
         {/* Form Section */}
         <div className="lg:w-2/3 p-8">
@@ -258,50 +237,12 @@ function CalculatorTemplateContent({
             ))}
           </div>
 
-          {/* Separate Results Display (for calculateAll mode or non-field results) */}
-          {state.result && (
-            <div className="mb-8 space-y-4">
-              {Object.entries(state.result)
-                .filter(([key]) => !config.fields.some((f) => f.key === key))
-                .map(([key, value]) => (
-                  <div
-                    key={key}
-                    className="p-4 bg-blue-600/5 border border-blue-600/20 rounded-lg flex justify-between items-center"
-                  >
-                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                      {t(`${config.id}.${key}` as TranslationKey) || key}
-                    </span>
-                    <span className="font-geist-mono font-bold text-blue-500">
-                      {formatResult(value)}
-                    </span>
-                  </div>
-                ))}
-            </div>
-          )}
+          {/* Separate Results Display */}
+          <CalculatorResults config={config} result={state.result} t={t} />
 
           <CalculatorError errorInfo={error} onDismiss={onDismissError} />
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <button
-              onClick={onSolve}
-              disabled={isLoading}
-              className="sm:col-span-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-bold py-3.5 rounded-md transition-all active:scale-[0.98] flex items-center justify-center gap-2 uppercase tracking-widest text-xs"
-            >
-              {isLoading ? (
-                <Loader2 size={14} strokeWidth={2.5} className="animate-spin" />
-              ) : (
-                <Zap size={14} strokeWidth={2.5} />
-              )}
-              {isLoading ? 'Calculating...' : t('CalculatorTemplate.solveButton')}
-            </button>
-            <button
-              onClick={onReset}
-              disabled={isLoading}
-              className="bg-slate-800 hover:bg-slate-700 disabled:bg-slate-900 disabled:cursor-not-allowed text-slate-300 font-bold py-3.5 rounded-md transition-all active:scale-[0.98] uppercase tracking-widest text-xs"
-            >
-              {t('CalculatorTemplate.resetButton')}
-            </button>
-          </div>
+          <CalculatorActions isLoading={isLoading} onSolve={onSolve} onReset={onReset} t={t} />
         </div>
       </div>
 

@@ -116,11 +116,6 @@ export function useVirtualScrolling<T>(items: T[], itemHeight: number, container
   };
 }
 
-// Memoized calculation hook
-export function useMemoizedCalculation<T, R>(calculation: (input: T) => R, input: T): R {
-  return useMemo(() => calculation(input), [calculation, input]);
-}
-
 // Web Worker hook for heavy calculations
 export function useWebWorker<T, R>(workerScript: string, onMessage?: (result: R) => void) {
   const workerRef = useRef<Worker | null>(null);
@@ -157,63 +152,4 @@ export function useWebWorker<T, R>(workerScript: string, onMessage?: (result: R)
   }, []);
 
   return { postMessage, isLoading, error };
-}
-
-// Image optimization utilities
-export function getOptimizedImageUrl(
-  src: string,
-  width: number,
-  height?: number,
-  quality = 75
-): string {
-  const params = new URLSearchParams({
-    url: src,
-    w: width.toString(),
-    q: quality.toString(),
-  });
-
-  if (height) {
-    params.set('h', height.toString());
-  }
-
-  return `/_next/image?${params.toString()}`;
-}
-
-// Bundle size analyzer
-export function analyzeBundleSize() {
-  if (typeof window !== 'undefined' && 'performance' in window) {
-    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-
-    return {
-      domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
-      loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
-      firstPaint: performance.getEntriesByName('first-paint')[0]?.startTime || 0,
-      firstContentfulPaint:
-        performance.getEntriesByName('first-contentful-paint')[0]?.startTime || 0,
-    };
-  }
-
-  return null;
-}
-
-// Resource preloading
-export function preloadResource(href: string, as: string, type?: string) {
-  if (typeof document !== 'undefined') {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.href = href;
-    link.as = as;
-    if (type) link.type = type;
-
-    document.head.appendChild(link);
-  }
-}
-
-// Critical CSS inlining
-export function inlineCriticalCSS(css: string) {
-  if (typeof document !== 'undefined') {
-    const style = document.createElement('style');
-    style.textContent = css;
-    document.head.appendChild(style);
-  }
 }

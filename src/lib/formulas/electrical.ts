@@ -1,4 +1,5 @@
 import Big from 'big.js';
+import { type UnitValue, validateAndNormalize } from './utils';
 
 interface OhmPowerParams {
   voltage?: number;

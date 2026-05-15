@@ -382,8 +382,13 @@ export function useCalculatorHydrated(): boolean {
 // Field Values Parser (for solver)
 // ─────────────────────────────────────────────────────────────────────────────
 
+import { z } from 'zod';
+
+// ... (rest of imports)
+
 export function parseFieldValues(fields: FormState, config: CalculatorConfig): FieldValues {
   const values: FieldValues = {};
+  const numberSchema = z.coerce.number();
 
   for (const field of config.fields) {
     const fs = fields[field.key];
@@ -392,12 +397,11 @@ export function parseFieldValues(fields: FormState, config: CalculatorConfig): F
     if (val === '') {
       values[field.key] = { value: null, unit: fs?.unit ?? field.units[0].symbol };
     } else {
-      try {
-        const parsed = new Big(val).toNumber();
-        values[field.key] = { value: parsed, unit: fs?.unit ?? field.units[0].symbol };
-      } catch {
-        values[field.key] = { value: null, unit: fs?.unit ?? field.units[0].symbol };
-      }
+      const result = numberSchema.safeParse(val);
+      values[field.key] = {
+        value: result.success ? result.data : null,
+        unit: fs?.unit ?? field.units[0].symbol,
+      };
     }
   }
 
