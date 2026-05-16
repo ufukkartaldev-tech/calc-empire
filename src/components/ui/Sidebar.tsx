@@ -62,9 +62,10 @@ export function Sidebar({
 
       {/* Categories Section */}
       <div className="flex-1 overflow-y-auto p-4">
-        <nav className="space-y-1">
+        <nav className="space-y-1" aria-label="Tool Categories">
           <button
             onClick={() => onCategorySelect(null)}
+            aria-pressed={activeCategory === null}
             className={`w-full flex items-center gap-2 px-3 py-2 rounded text-sm transition-colors ${
               activeCategory === null
                 ? 'bg-[var(--ce-primary)] text-white'
@@ -79,6 +80,7 @@ export function Sidebar({
             <button
               key={catKey}
               onClick={() => onCategorySelect(catKey)}
+              aria-pressed={activeCategory === catKey}
               className={`w-full flex items-center gap-2 px-3 py-2 rounded text-sm transition-colors ${
                 activeCategory === catKey
                   ? 'bg-[var(--ce-primary)] text-white'

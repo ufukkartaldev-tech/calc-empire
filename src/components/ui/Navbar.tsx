@@ -13,7 +13,13 @@ export function Navbar() {
   const { data: session } = useSession();
 
   return (
-    <nav className="nav-professional">
+    <nav className="nav-professional" aria-label="Main Navigation">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-white focus:text-blue-600 focus:p-4 focus:rounded-b-lg focus:shadow-lg focus:top-0 focus:left-1/2 focus:-translate-x-1/2"
+      >
+        Skip to content
+      </a>
       <div className="container-max">
         <div className="flex justify-between items-center h-14">
           {/* Logo */}
