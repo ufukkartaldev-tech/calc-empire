@@ -14,21 +14,45 @@ import { ohmConfig } from '@/lib/calculators/ohm';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 // Mock required hooks and components
+// Enhanced t mock to handle t.raw and other methods
+const tMock = Object.assign(
+  vi.fn((key: string) => key),
+  {
+    raw: vi.fn((_key: string) => []),
+    rich: vi.fn((key: string) => key),
+    markup: vi.fn((key: string) => key),
+  }
+);
+
 vi.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => key,
+  useTranslations: () => tMock,
   useLocale: () => 'en',
 }));
 
-vi.mock('@/stores/calculatorStore', () => ({
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  useCalculatorStore: (selector: (state: any) => any) =>
-    selector({
-      calculators: new Map(),
-      isHydrated: true,
-    }),
-  useCalculatorHydrated: () => true,
-  useCalculatorData: () => ({ fields: {}, result: null }),
-}));
+vi.mock('@/stores/calculatorStore', () => {
+  const store = {
+    getState: vi.fn(() => ({
+      initializeCalculator: vi.fn(),
+      setFieldValue: vi.fn(),
+      setResult: vi.fn(),
+    })),
+    subscribe: vi.fn(),
+  };
+
+  return {
+    useCalculatorStore: Object.assign(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (selector: (state: any) => any) =>
+        selector({
+          calculators: new Map(),
+          isHydrated: true,
+        }),
+      store
+    ),
+    useCalculatorHydrated: () => true,
+    useCalculatorData: () => ({ fields: {}, result: null }),
+  };
+});
 
 vi.mock('@/components/ui/theme-provider', () => ({
   useTheme: () => ({ theme: 'dark', setTheme: vi.fn() }),
