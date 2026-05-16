@@ -11,13 +11,14 @@ interface CalculatorHeaderProps {
     result: ResultState;
   };
   t: (key: string) => string;
+  id: string;
 }
 
-export function CalculatorHeader({ config, state, t }: CalculatorHeaderProps) {
+export function CalculatorHeader({ config, state, t, id }: CalculatorHeaderProps) {
   return (
     <div className="lg:w-1/3 bg-slate-900/50 p-8 border-b lg:border-b-0 lg:border-r border-slate-800 flex flex-col items-center justify-center gap-8">
       <div className="text-center">
-        <h2 className="text-2xl font-semibold text-white mb-2 tracking-tight">
+        <h2 id={id} className="text-2xl font-semibold text-white mb-2 tracking-tight">
           {t(config.titleKey as TranslationKey)}
         </h2>
         <div className="h-[1px] w-8 bg-blue-600 mx-auto mb-4"></div>

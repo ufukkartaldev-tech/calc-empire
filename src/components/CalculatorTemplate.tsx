@@ -212,16 +212,21 @@ function CalculatorTemplateContent({
   state,
   isLoading,
   error,
+  uid,
   t,
   onSolve,
   onReset,
   onDismissError,
 }: CalculatorTemplateContentProps) {
   return (
-    <div className="w-full bento-card overflow-hidden">
+    <section
+      className="w-full bento-card overflow-hidden"
+      role="region"
+      aria-labelledby={`${uid}-title`}
+    >
       <div className="flex flex-col lg:flex-row">
         {/* Visual Section & Info */}
-        <CalculatorHeader config={config} state={state} t={t} />
+        <CalculatorHeader id={`${uid}-title`} config={config} state={state} t={t} />
 
         {/* Form Section */}
         <div className="lg:w-2/3 p-8">
@@ -229,6 +234,7 @@ function CalculatorTemplateContent({
             {config.fields.map((field) => (
               <CalculatorField
                 key={field.key}
+                id={`${uid}-${field.key}`}
                 calculatorKey={calculatorKey}
                 field={field}
                 t={t}
@@ -251,19 +257,20 @@ function CalculatorTemplateContent({
           <ReferenceCard referenceKey={config.referenceKey} />
         </div>
       )}
-    </div>
+    </section>
   );
 }
 
 // Individual field component - only re-renders when its own state changes
 interface CalculatorFieldProps {
+  id: string;
   calculatorKey: ToolId;
   field: CalculatorConfig['fields'][number];
   t: (key: string) => string;
   onSolve: () => void;
 }
 
-function CalculatorField({ calculatorKey, field, t, onSolve }: CalculatorFieldProps) {
+function CalculatorField({ id, calculatorKey, field, t, onSolve }: CalculatorFieldProps) {
   const fieldState = useCalculatorStore(
     (state) => state.calculators.get(calculatorKey)?.fields[field.key]
   );
@@ -305,7 +312,10 @@ function CalculatorField({ calculatorKey, field, t, onSolve }: CalculatorFieldPr
   return (
     <div className="space-y-2">
       <div className="flex justify-between items-center px-1">
-        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+        <label
+          htmlFor={id}
+          className="text-[10px] font-bold text-slate-500 uppercase tracking-widest cursor-pointer"
+        >
           {t(field.labelKey as TranslationKey)}
         </label>
         {isResult && (
@@ -333,11 +343,13 @@ function CalculatorField({ calculatorKey, field, t, onSolve }: CalculatorFieldPr
           </select>
         ) : (
           <input
+            id={id}
             type="number"
             step="any"
             value={isResult ? formatResult(result![field.key]) : fs.raw}
             onChange={handleValueChange}
             onKeyDown={handleKeyDown}
+            aria-label={t(field.labelKey as TranslationKey)}
             placeholder={
               isResult
                 ? ''
